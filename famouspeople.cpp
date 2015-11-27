@@ -58,8 +58,17 @@ void FamousPeople::getInfo()
     {
         cout << "File did not open" << endl;
     }
+    else
+    {
+        cout << "Input name: ";
+        cout << "Input gender (F for female, M for male or ? for other): ";
+        cout << endl;
+        cout << "Input birthYear: ";
+        cout << endl;
+        cout << "Input deathYear: ";
+        cout << endl;
+    }
 
-    cout << "Insert name: ";
 }
 
 
