@@ -1,9 +1,8 @@
 #include "famouspeople.h"
 
 FamousPeople::FamousPeople()
-{
+{}
 
-}
 void FamousPeople::userMenu()
 {
     char choice;
@@ -35,6 +34,7 @@ void FamousPeople::userMenu()
                 break;
             case '2':
                 cout << "2" << endl;
+                viewInfo();
                 break;
             case '3':
                 cout << "3" << endl;
@@ -52,13 +52,51 @@ void FamousPeople::userMenu()
     }while(choice != '5');
 }
 
+void FamousPeople::displayPerson(InfoType p){
+    cout << "Name: " << p.name << endl;
+
+    cout << "Gender: ";
+    if(p.gender == 'f' || p.gender == 'F')
+        cout << "Female" << endl;
+    else if (p.gender == 'm' || p.gender == 'M')
+        cout << "Male" << endl;
+    else
+        cout << "Other" << endl;
+
+    cout << "Year of birth: " << p.birthYear << endl;
+
+    if(p.deathYear != 0)
+        cout << "Year of death: " << p.deathYear << endl;
+}
+
+void FamousPeople::viewInfo()
+{
+    ifstream getFile;
+    getFile.open("InfoFile.txt");
+    if(getFile.fail())
+    {
+        cout << "Could not open file." << endl;
+    }
+    else
+        while(!getFile.eof())
+        {
+            InfoType p;
+            getline(cin, p.name, '*');
+            cin >> p.gender;
+            cin >> p.birthYear;
+            cin >> p.deathYear;
+            displayPerson(p);
+        }
+    getFile.close();
+}
+
 void FamousPeople::getInfo()
 {
     ifstream getFile;
     getFile.open("InfoFile.txt");
     if(!getFile)
     {
-        cout << "File did not open" << endl;
+        cout << "Could not open file." << endl;
     }
     else
     {
@@ -79,5 +117,7 @@ void FamousPeople::getInfo()
     }
     getFile.close();
 }
+
+
 
 
