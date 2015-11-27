@@ -54,7 +54,7 @@ void FamousPeople::userMenu()
 
 void FamousPeople::getInfo()
 {
-    ofstream getFile;
+    ifstream getFile;
     getFile.open("InfoFile.txt");
     if(!getFile)
     {
