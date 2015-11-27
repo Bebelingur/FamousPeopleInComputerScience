@@ -8,7 +8,7 @@ int main()
     cout << "===========================================" << endl;
     cout << "What would you like to do?" << endl;
     cout << "1. Input information" << endl;
-    //Berglind
+    //Berglind, eftir getline þá stjarna
     cout << "2. View information" << endl;
     //Dagur
     cout << "3. Sort information" << endl;
