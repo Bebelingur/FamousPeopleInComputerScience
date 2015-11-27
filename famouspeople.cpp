@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "famouspeople.h"
 
 using namespace std;
@@ -86,14 +87,9 @@ void FamousPeople::getInfo()
 {
     ofstream getFile;
     getFile.open("InfoFile.txt");
-    if(!getFile)
-    {
-        cout << "Could not open file." << endl;
-    }
-    else
+    if(getFile.is_open())
     {
         char keepOn;
-        string bla;
         do{
             cout << "Input name: ";
             getFile << "writing this to file";
@@ -108,6 +104,10 @@ void FamousPeople::getInfo()
             cin >> keepOn;
             cout << endl;
         }while(keepOn == 'Y' || keepOn == 'y');
+    }
+    else
+    {
+        cout << "Could not open file." << endl;
     }
     getFile.close();
 }
