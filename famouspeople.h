@@ -23,6 +23,8 @@ public:
 
 
     void fillVector(vector <InfoType>& FP);
+    void searchVector(vector <InfoType>& FP);
+    void printVector(const InfoType& FP);
 
     void sortByNameDesc();
 
