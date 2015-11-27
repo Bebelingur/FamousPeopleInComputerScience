@@ -10,11 +10,6 @@ class FamousPeople
 {
 public:
     FamousPeople();
-    void getInfo();
-
-    InputInformation();
-
-private:
     struct InfoType
     {
         string name;
@@ -22,6 +17,11 @@ private:
         int birthYear;
         int deathYear;
     };
+    void viewInfo();
+    void displayPerson(InfoType p);
+
+
+private:
 
     vector<InfoType>FP;
 };

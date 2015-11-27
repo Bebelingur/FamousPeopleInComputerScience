@@ -1,4 +1,5 @@
 #include <iostream>
+#include "famouspeople.h"
 using namespace std;
 
 int main()
@@ -11,6 +12,8 @@ int main()
     //Berglind, eftir getline þá stjarna
     cout << "2. View information" << endl;
     //Dagur
+        FamousPeople p;
+        p.viewInfo();
     cout << "3. Sort information" << endl;
     //Hjálmar og Kristófer
     cout << "4. Search information" << endl;
