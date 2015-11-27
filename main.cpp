@@ -1,5 +1,8 @@
 #include <iostream>
-#include "famouspeople.h"
+
+#include <string>
+#include <iostream>
+#include <vector>
 using namespace std;
 #include "famouspeople.h"
 

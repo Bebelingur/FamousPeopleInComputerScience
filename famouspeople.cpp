@@ -1,4 +1,10 @@
+#include <string>
+#include <iostream>
+#include <vector>
 #include "famouspeople.h"
+
+using namespace std;
+
 
 FamousPeople::FamousPeople()
 {}
@@ -50,6 +56,31 @@ void FamousPeople::userMenu()
 }
 
 
+void FamousPeople::sortByNameDesc()
+{
+
+
+}
+
+
+void FamousPeople::sortByNameAsc()
+{
+
+
+}
+
+void FamousPeople::sortByYearDesc()
+{
+
+
+}
+
+void FamousPeople::sortByYearAsc()
+{
+
+
+}
+
 
 void FamousPeople::getInfo()
 {
@@ -80,7 +111,9 @@ void FamousPeople::getInfo()
     }
     getFile.close();
 }
-void FamousPeople::displayPerson(InfoType p){
+
+void FamousPeople::displayPerson(InfoType p)
+{
     cout << "Name: " << p.name << endl;
 
     cout << "Gender: ";
