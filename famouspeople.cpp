@@ -14,8 +14,6 @@ FamousPeople::FamousPeople()
 
 
 
-
-
 void FamousPeople::sortByNameDesc()
 {
 
@@ -40,3 +38,16 @@ void FamousPeople::sortByYearAsc()
 
 
 }
+
+void FamousPeople::getInfo()
+{
+    ifstream getFile;
+    getFile.open("InfoFile.txt");
+}
+
+FamousPeople::InputInformation()
+{
+    //opna loka skrá,
+    cout << "Insert name: ";
+}
+

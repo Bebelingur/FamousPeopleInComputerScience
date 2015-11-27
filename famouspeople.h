@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -13,10 +14,17 @@ public:
 
     FamousPeople();
 
+    void sortByNameDesc();
 
+    void sortByNameAsc();
 
+    void sortByYearDesc();
 
+    void sortByYearAsc();
 
+    void getInfo();
+
+    InputInformation();
 
 private:
 
