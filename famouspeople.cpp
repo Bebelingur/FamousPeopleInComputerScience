@@ -55,9 +55,6 @@ void FamousPeople::userMenu()
     }while(choice != '5');
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 
 void FamousPeople::sortByNameDesc()
 {
@@ -83,10 +80,6 @@ void FamousPeople::sortByYearAsc()
 
 
 }
-
-void FamousPeople::getInfo()
-=======
-=======
 
 
 void FamousPeople::getInfo()
@@ -116,8 +109,9 @@ void FamousPeople::getInfo()
     }
     getFile.close();
 }
->>>>>>> e0d49ae766e69b7fd0fb2efd09bbcbbb10f7193a
-void FamousPeople::displayPerson(InfoType p){
+
+void FamousPeople::displayPerson(InfoType p)
+{
     cout << "Name: " << p.name << endl;
 
     cout << "Gender: ";
@@ -135,7 +129,6 @@ void FamousPeople::displayPerson(InfoType p){
 }
 
 void FamousPeople::viewInfo()
->>>>>>> 616f4ca6e3b4a9e2add4d29c619034bb9eedb70c
 {
     ofstream getFile;
     getFile.open("InfoFile.txt");
