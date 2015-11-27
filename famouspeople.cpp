@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include "famouspeople.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -57,27 +58,28 @@ void FamousPeople::userMenu()
 }
 
 
+//Fall sem sortar nöfn eftir öfugri stafrófsröð
+void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
+{
 
-void FamousPeople::sortByNameDesc()
+}
+
+//Fall sem sortar nöfn eftir stafrófsröð
+void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
+{
+
+}
+
+//Fall sem sortar eftir ári, yngst fyrst
+void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
 {
 
 
 }
 
 
-void FamousPeople::sortByNameAsc()
-{
-
-
-}
-
-void FamousPeople::sortByYearDesc()
-{
-
-
-}
-
-void FamousPeople::sortByYearAsc()
+//Fall sem sortar eftir ári, elst fyrst
+void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 {
 
 
@@ -97,9 +99,9 @@ void FamousPeople::getInfo()
             cout << endl;
             cout << "Input gender (F for female, M for male or ? for other): ";
             cout << endl;
-            cout << "Input birthYear: ";
+            cout << "Input birth year: ";
             cout << endl;
-            cout << "Input deathYear: ";
+            cout << "Input death year: ";
             cout << endl;
             cout << "Input more information (Y for yes N for no): ";
             cin >> keepOn;
@@ -176,7 +178,6 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
             FP.push_back(p);
 
             counter++;
-
         }
 
     getFile.close();

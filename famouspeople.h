@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,13 +25,13 @@ public:
 
     void fillVector(vector <InfoType>& FP);
 
-    void sortByNameDesc();
+    void sortByNameDesc(vector <InfoType>& FP);
 
-    void sortByNameAsc();
+    void sortByNameAsc(vector <InfoType>& FP);
 
-    void sortByYearDesc();
+    void sortByYearDesc(vector <InfoType>& FP);
 
-    void sortByYearAsc();
+    void sortByYearAsc(vector <InfoType>& FP);
 
     void userMenu();
 
