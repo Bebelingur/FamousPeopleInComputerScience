@@ -4,10 +4,12 @@ FamousPeople::FamousPeople()
 {
 
 }
-
 void FamousPeople::userMenu()
 {
     char choice;
+    do{
+
+    cout << "===========================================" << endl;
     cout << "==== Famous People In Computer Science ====" << endl;
     cout << "===========================================" << endl;
     cout << "What would you like to do?" << endl;
@@ -21,9 +23,10 @@ void FamousPeople::userMenu()
     //Drífa
     cout << "5. Exit" << endl;
 
-    do{
+
     cout << "Please choose one of these numbers: ";
     cin >> choice;
+    cout << endl;
 
         switch(choice)
         {
@@ -32,7 +35,6 @@ void FamousPeople::userMenu()
                 break;
             case '2':
                 cout << "2" << endl;
-
                 break;
             case '3':
                 cout << "3" << endl;
@@ -52,7 +54,7 @@ void FamousPeople::userMenu()
 
 void FamousPeople::getInfo()
 {
-    ifstream getFile;
+    ofstream getFile;
     getFile.open("InfoFile.txt");
     if(!getFile)
     {
@@ -60,15 +62,22 @@ void FamousPeople::getInfo()
     }
     else
     {
-        cout << "Input name: ";
-        cout << "Input gender (F for female, M for male or ? for other): ";
-        cout << endl;
-        cout << "Input birthYear: ";
-        cout << endl;
-        cout << "Input deathYear: ";
-        cout << endl;
+        char keepOn;
+        do{
+            cout << "Input name: ";
+            cout << endl;
+            cout << "Input gender (F for female, M for male or ? for other): ";
+            cout << endl;
+            cout << "Input birthYear: ";
+            cout << endl;
+            cout << "Input deathYear: ";
+            cout << endl;
+            cout << "Input more information (Y for yes N for no): ";
+            cin >> keepOn;
+            cout << endl;
+        }while(keepOn == 'Y' || keepOn == 'y');
     }
-
+    getFile.close();
 }
 
 
