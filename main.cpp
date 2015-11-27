@@ -1,4 +1,9 @@
 #include <iostream>
+#include <string>
+#include <iostream>
+#include <vector>
+#include "famouspeople.h"
+
 using namespace std;
 
 int main()
@@ -13,6 +18,8 @@ int main()
     //Dagur
     cout << "3. Sort information" << endl;
     //Hjálmar og Kristófer
+    // Sort by last name(ascending and descending)
+    // Sort by birth year/death year
     cout << "4. Search information" << endl;
     //Drífa
     cout << "5. Exit" << endl;
@@ -36,7 +43,8 @@ int main()
                 cout << "4" << endl;
                 break;
             case '5':
-                cout << "5" << endl;
+                cout << "Thank you for using this program!" << endl;
+                return 0;
                 break;
             default:
                 cout << "Wrong input! Please try again" << endl;

@@ -3,13 +3,23 @@
 #include <string>
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 class FamousPeople
 {
 public:
+
+
     FamousPeople();
+
+
+
+
+
+
 private:
+
     struct InfoType
     {
         string name;
