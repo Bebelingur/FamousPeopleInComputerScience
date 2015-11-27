@@ -9,6 +9,7 @@ class FamousPeople
 {
 public:
     FamousPeople();
+    InputInformation();
 private:
     struct InfoType
     {
