@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "famouspeople.h"
 
 using namespace std;
@@ -85,17 +86,14 @@ void FamousPeople::sortByYearAsc()
 
 void FamousPeople::getInfo()
 {
-    ifstream getFile;
+    ofstream getFile;
     getFile.open("InfoFile.txt");
-    if(!getFile)
-    {
-        cout << "Could not open file." << endl;
-    }
-    else
+    if(getFile.is_open())
     {
         char keepOn;
         do{
             cout << "Input name: ";
+            getFile << "writing this to file";
             cout << endl;
             cout << "Input gender (F for female, M for male or ? for other): ";
             cout << endl;
@@ -108,10 +106,16 @@ void FamousPeople::getInfo()
             cout << endl;
         }while(keepOn == 'Y' || keepOn == 'y');
     }
+    else
+    {
+        cout << "Could not open file." << endl;
+    }
     getFile.close();
 }
 
-void FamousPeople::displayPerson(InfoType p){
+
+void FamousPeople::displayPerson(InfoType p)
+{
 
     cout << "Name: " << p.name << endl;
 
@@ -130,7 +134,6 @@ void FamousPeople::displayPerson(InfoType p){
 }
 
 void FamousPeople::viewInfo()
-
 {
     ofstream getFile;
     getFile.open("InfoFile.txt");
@@ -153,7 +156,6 @@ void FamousPeople::viewInfo()
 
 
 void FamousPeople::fillVector(vector <InfoType>& FP)
-
 {
     int counter = 0;
     ifstream getFile;

@@ -11,6 +11,8 @@ class FamousPeople
 {
 public:
 
+    FamousPeople();
+
     struct InfoType
     {
         string name;
@@ -20,8 +22,7 @@ public:
     };
 
 
-    FamousPeople();
-
+    void fillVector(vector <InfoType>& FP);
 
     void sortByNameDesc();
 
@@ -31,12 +32,9 @@ public:
 
     void sortByYearAsc();
 
-    void getInfo();
-
-    void fillVector(vector <InfoType>& FP);
-
-
     void userMenu();
+
+    void getInfo();
 
     void viewInfo();
     void displayPerson(InfoType p);
