@@ -10,9 +10,8 @@ class FamousPeople
 {
 public:
     FamousPeople();
+    void userMenu();
     void getInfo();
-
-    InputInformation();
 
 private:
     struct InfoType
