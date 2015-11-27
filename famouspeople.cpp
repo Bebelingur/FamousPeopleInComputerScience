@@ -53,7 +53,7 @@ void FamousPeople::userMenu()
 
 void FamousPeople::getInfo()
 {
-    ifstream getFile;
+    ofstream getFile;
     getFile.open("InfoFile.txt");
     if(!getFile)
     {
@@ -62,8 +62,10 @@ void FamousPeople::getInfo()
     else
     {
         char keepOn;
+        string bla;
         do{
             cout << "Input name: ";
+            getFile << "writing this to file";
             cout << endl;
             cout << "Input gender (F for female, M for male or ? for other): ";
             cout << endl;
