@@ -11,3 +11,9 @@ void FamousPeople::getInfo()
     getFile.open("InfoFile.txt");
 }
 
+FamousPeople::InputInformation()
+{
+    //opna loka skrá,
+    cout << "Insert name: ";
+}
+

@@ -12,6 +12,8 @@ public:
     FamousPeople();
     void getInfo();
 
+    InputInformation();
+
 private:
     struct InfoType
     {
