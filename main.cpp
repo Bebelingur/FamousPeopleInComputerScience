@@ -28,6 +28,7 @@ int main()
                 break;
             case '2':
                 cout << "2" << endl;
+
                 break;
             case '3':
                 cout << "3" << endl;
