@@ -13,7 +13,6 @@ void FamousPeople::userMenu()
 {
     char choice;
     do{
-
     cout << "===========================================" << endl;
     cout << "==== Famous People In Computer Science ====" << endl;
     cout << "===========================================" << endl;
@@ -27,11 +26,10 @@ void FamousPeople::userMenu()
     cout << "4. Search information" << endl;
     //Drífa
     cout << "5. Exit" << endl;
-
-
+    cout << "===========================================" << endl;
     cout << "Please choose one of these numbers: ";
     cin >> choice;
-    cout << endl;
+    cout << "===========================================" << endl;
 
         switch(choice)
         {
@@ -39,7 +37,6 @@ void FamousPeople::userMenu()
                 getInfo();
                 break;
             case '2':
-                cout << "2" << endl;
                 viewInfo();
                 break;
             case '3':
@@ -58,6 +55,7 @@ void FamousPeople::userMenu()
     }while(choice != '5');
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -88,44 +86,8 @@ void FamousPeople::sortByYearAsc()
 
 void FamousPeople::getInfo()
 =======
-void FamousPeople::displayPerson(InfoType p){
-    cout << "Name: " << p.name << endl;
+=======
 
-    cout << "Gender: ";
-    if(p.gender == 'f' || p.gender == 'F')
-        cout << "Female" << endl;
-    else if (p.gender == 'm' || p.gender == 'M')
-        cout << "Male" << endl;
-    else
-        cout << "Other" << endl;
-
-    cout << "Year of birth: " << p.birthYear << endl;
-
-    if(p.deathYear != 0)
-        cout << "Year of death: " << p.deathYear << endl;
-}
-
-void FamousPeople::viewInfo()
->>>>>>> 616f4ca6e3b4a9e2add4d29c619034bb9eedb70c
-{
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
-    if(getFile.fail())
-    {
-        cout << "Could not open file." << endl;
-    }
-    else
-        while(!getFile.eof())
-        {
-            InfoType p;
-            getline(cin, p.name, '*');
-            cin >> p.gender;
-            cin >> p.birthYear;
-            cin >> p.deathYear;
-            displayPerson(p);
-        }
-    getFile.close();
-}
 
 void FamousPeople::getInfo()
 {
@@ -154,7 +116,45 @@ void FamousPeople::getInfo()
     }
     getFile.close();
 }
+>>>>>>> e0d49ae766e69b7fd0fb2efd09bbcbbb10f7193a
+void FamousPeople::displayPerson(InfoType p){
+    cout << "Name: " << p.name << endl;
 
+    cout << "Gender: ";
+    if(p.gender == 'f' || p.gender == 'F')
+        cout << "Female" << endl;
+    else if (p.gender == 'm' || p.gender == 'M')
+        cout << "Male" << endl;
+    else
+        cout << "Other" << endl;
+
+    cout << "Year of birth: " << p.birthYear << endl;
+
+    if(p.deathYear != 0)
+        cout << "Year of death: " << p.deathYear << endl;
+}
+
+void FamousPeople::viewInfo()
+>>>>>>> 616f4ca6e3b4a9e2add4d29c619034bb9eedb70c
+{
+    ofstream getFile;
+    getFile.open("InfoFile.txt");
+    if(getFile.fail())
+    {
+        cout << "Could not open file." << endl;
+    }
+    else
+        while(!getFile.eof())
+        {
+            InfoType p;
+            getline(cin, p.name, '*');
+            cin >> p.gender;
+            cin >> p.birthYear;
+            cin >> p.deathYear;
+            displayPerson(p);
+        }
+    getFile.close();
+}
 
 
 
