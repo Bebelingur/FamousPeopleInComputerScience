@@ -1,13 +1,20 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <string>
 #include <iostream>
 #include <vector>
 #include "famouspeople.h"
 
+=======
+#include "famouspeople.h"
+>>>>>>> 616f4ca6e3b4a9e2add4d29c619034bb9eedb70c
 using namespace std;
+#include "famouspeople.h"
+
 
 int main()
 {
+<<<<<<< HEAD
     char choice;
     cout << "==== Famous People In Computer Science ====" << endl;
     cout << "===========================================" << endl;
@@ -52,6 +59,10 @@ int main()
                 break;
         }
     }while(choice != '5');
+=======
+    FamousPeople people;
+    people.userMenu();
+>>>>>>> 616f4ca6e3b4a9e2add4d29c619034bb9eedb70c
 
     return 0;
 }

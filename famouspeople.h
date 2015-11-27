@@ -13,6 +13,7 @@ public:
 
 
     FamousPeople();
+<<<<<<< HEAD
 
     void sortByNameDesc();
 
@@ -28,6 +29,9 @@ public:
 
 private:
 
+=======
+
+>>>>>>> 616f4ca6e3b4a9e2add4d29c619034bb9eedb70c
     struct InfoType
     {
         string name;
@@ -36,6 +40,13 @@ private:
         int deathYear;
     };
 
+    void userMenu();
+    void getInfo();
+    void viewInfo();
+    void displayPerson(InfoType p);
+
+
+private:
     vector<InfoType>FP;
 };
 
