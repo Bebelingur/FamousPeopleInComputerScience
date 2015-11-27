@@ -174,7 +174,6 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
             FP.push_back(p);
 
             counter++;
-
         }
 
     getFile.close();
