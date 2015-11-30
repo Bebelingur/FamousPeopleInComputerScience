@@ -42,7 +42,7 @@ public:
 
     void getInfo();
 
-    void viewInfo(vector<InfoType>& FP);
+    void viewInfo();
     void displayPerson(InfoType& p)const;
 
 

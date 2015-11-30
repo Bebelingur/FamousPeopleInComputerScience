@@ -41,7 +41,7 @@ void FamousPeople::userMenu()
                 getInfo();
                 break;
             case '2':
-                viewInfo(FP);
+                viewInfo();
                 break;
             case '3':
                 sortMenu();
@@ -310,7 +310,7 @@ void FamousPeople::displayPerson(InfoType& p)const
         cout << "Year of death: " << p.deathYear << endl;
 }
 
-void FamousPeople::viewInfo(vector<InfoType>& FP)
+void FamousPeople::viewInfo()
 {
     ifstream getFile;
     getFile.open("InfoFile.txt");
@@ -322,21 +322,13 @@ void FamousPeople::viewInfo(vector<InfoType>& FP)
         while(!getFile.eof())
         {
             InfoType p;
-            getline(cin, p.name, '*');
-            cin >> p.gender;
-            cin >> p.birthYear;
-            cin >> p.deathYear;
+            getline(getFile, p.name);
+            getFile >> p.gender;
+            getFile >> p.birthYear;
+            getFile >> p.deathYear;
             displayPerson(p);
         }
     getFile.close();
-
-    fillVector(FP);
-    for(unsigned int i = 0; i < FP.size(); i++)
-    {
-        displayPerson(FP[i]);
-    }
-
-    FP.clear();
 }
 
 
