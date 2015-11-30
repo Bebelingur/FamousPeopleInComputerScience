@@ -414,18 +414,23 @@ void FamousPeople::viewInfo()
         cout << "Could not open file." << endl;
         exit(1);
     }
-        while(!getFile.eof())
-        {
-            InfoType p;
+    cout << endl;
+    while(!getFile.eof())
+    {
+        InfoType p;
 
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-            displayPerson(p);
-        }
-
-        getFile.close();
+        getline(getFile, p.name, '*');
+        getFile >> p.gender;
+        getFile >> p.birthYear;
+        getFile >> p.deathYear;
+        displayPerson(p);
+    }
+    getFile.close();
+    char input;
+    cout << "Press any key to return to menu." << endl;
+    cin >> input;
+    if(input)
+        userMenu();
 }
 
 
