@@ -168,7 +168,11 @@ void FamousPeople::displayPerson(InfoType p)
 
 void FamousPeople::viewInfo(vector<InfoType>& FP)
 {
+<<<<<<< HEAD
     /*ofstream getFile;
+=======
+    ifstream getFile;
+>>>>>>> 4d9b136d91b94cea99129dbb7b69b44a14a0ae26
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
@@ -218,11 +222,11 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
 
             FP.push_back(p);
         }
-}
+        cout << "Press r to return to user menu. " << endl;
+
     getFile.close();
-
-
 }
+
 void FamousPeople::searchVector(vector<InfoType>& FP)
 {
     fillVector(FP);
