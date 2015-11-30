@@ -6,8 +6,7 @@
 #include <algorithm>
 #include <ctime>
 #include "famouspeople.h"
-#include <stdio.h>
-#include <ctype.h>
+#include "data.h"
 
 using namespace std;
 
@@ -17,7 +16,10 @@ const int CstartYear = 1791;
 //kannski finna fall með nákvæmri dagsetnintu/ári hvers dags fyrir sig
 
 FamousPeople::FamousPeople()
-{}
+{
+     data datalayer;
+     datalayer.loadData();
+}
 
 void FamousPeople::userMenu()
 {
@@ -114,7 +116,6 @@ void FamousPeople::sortMenu()
         }
     }while(choice != '5');
 }
-
 
 bool compareNameAsc(const InfoType& a, const InfoType& b);
 
@@ -388,7 +389,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     int birthYearSearch;
     int deathYearSearch;
 
-
     bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do
         {
@@ -416,7 +416,9 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 for(int j = 0; j < nameSize; j++)
                     tempName[j] = tolower(tempName[j]);
                 //setjum nafnið í skjalinu í lower case og berum svo saman
-                if(nameSearch == tempName)
+
+                int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+                if(found != std::string::npos)
                 {
                     displayPerson(FP[i]);
                     check = true;
@@ -428,8 +430,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
         }
         if(choise == 2)
-        {         
-
+        {
             cout<<"enter gender: ";
             cin>> genderSearch;
             char tempGender;
@@ -478,12 +479,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             {
                 if(deathYearSearch == FP[i].deathYear)
 
-                    displayPerson(FP[i]);
-                else
-                 cout << "Name was not in file" << endl;
-
-                 cout<<"deathYear was not in file"<<endl;
-
                 {
                     displayPerson(FP[i]);
                     check = true;
@@ -492,7 +487,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             if(check == false)
             {
                 cout<<"death year was not in file"<<endl;
-
             }
         }
         if(choise >5)
