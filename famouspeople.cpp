@@ -83,27 +83,27 @@ void FamousPeople::sortMenu()
         {
             case '1':
                 {
-                fillVector(FP);
-                sortByNameAsc(FP);
+                //fillVector(FP);
+                //sortByNameAsc(FP);
                 break;
                 }
             case '2':
                 {
-                fillVector(FP);
-                sortByNameDesc(FP);
+                //fillVector(FP);
+                //sortByNameDesc(FP);
                 break;
                 }
 
             case '3':
                 {
-                fillVector(FP);
-                sortByYearAsc(FP);
+                //fillVector(FP);
+                //sortByYearAsc(FP);
                 break;
                 }
             case '4':
                 {
-                fillVector(FP);
-                sortByYearDesc(FP);
+                //fillVector(FP);
+                //sortByYearDesc(FP);
                 break;
                 }
 
@@ -115,7 +115,6 @@ void FamousPeople::sortMenu()
         }
     }while(choice != '5');
 }
-
 
 
 bool compareNameAsc(const InfoType& a, const InfoType& b);
@@ -343,7 +342,6 @@ void FamousPeople::viewInfo()
             getFile >> p.deathYear;
             displayPerson(p);
         }
-
         getFile.close();
 }
 
