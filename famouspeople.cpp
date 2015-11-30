@@ -328,18 +328,6 @@ void FamousPeople::displayPerson(InfoType& p)const
 void FamousPeople::viewInfo()
 {
     ifstream getFile;
-<<<<<<< HEAD
-        getFile.open("InfoFile.txt");
-        if(getFile.fail())
-        {
-            cout << "Could not open file." << endl;
-            exit(1);
-        }
-        while(getFile.eof())
-        {
-            InfoType p;
-            getline(getFile , p.name);
-=======
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
@@ -350,18 +338,14 @@ void FamousPeople::viewInfo()
         {
             InfoType p;
             getline(getFile, p.name);
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
             displayPerson(p);
         }
-<<<<<<< HEAD
-        getFile.close();
-=======
     getFile.close();
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 }
+
 
 void FamousPeople::fillVector(vector<InfoType>& FP)
 {
@@ -385,13 +369,11 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
 
             FP.push_back(p);
         }
-<<<<<<< HEAD
+
         cout << "Press r to return to user menu. " << endl;
        }
-=======
-        //cout << "Press r to return to user menu. " << endl;
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 
+        //cout << "Press r to return to user menu. " << endl;
     getFile.close();
     }
 }
@@ -503,12 +485,12 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     userMenu();
 
 }
-<<<<<<< HEAD
+
 void FamousPeople::printVector(InfoType& FP) const
-=======
+
 
 void FamousPeople::printVector(InfoType& FP)const
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
+
 {
 
 
