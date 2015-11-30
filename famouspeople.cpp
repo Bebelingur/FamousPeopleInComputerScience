@@ -176,8 +176,9 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
             FP.push_back(p);
 
             counter++;
-
         }
+        cout << "Press r to return to user menu. " << endl;
+
 
     getFile.close();
 }
