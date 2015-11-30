@@ -147,9 +147,8 @@ void FamousPeople::getInfo()
 }
 
 
-void FamousPeople::displayPerson(InfoType p)
+void FamousPeople::displayPerson(InfoType& p)const
 {
-
     cout << "Name: " << p.name << endl;
 
     cout << "Gender: ";
@@ -190,7 +189,7 @@ void FamousPeople::viewInfo(vector<InfoType>& FP)
     fillVector(FP);
     for(unsigned int i = 0; i < FP.size(); i++)
     {
-        printVector(FP[i]);
+        displayPerson(FP[i]);
     }
 
     FP.clear();
@@ -201,7 +200,6 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
 {
     ifstream getFile;
     getFile.open("InfoFile.txt");
-    string word;
 
     if(getFile.fail())
     {
@@ -253,7 +251,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             {
                 if(nameSearch == FP[i].name)
                 {
-                    printVector(FP[i]);
+                    displayPerson(FP[i]);
                     check = true;
                 }
             }
@@ -270,7 +268,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             {
                 if(genderSearch == FP[i].gender)
                 {
-                    printVector(FP[i]);
+                    displayPerson(FP[i]);
                     check = true;
                 }
             }
@@ -287,7 +285,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             {
                 if(birthYearSearch == FP[i].birthYear)
                 {
-                    printVector(FP[i]);
+                    displayPerson(FP[i]);
                     check = true;
                 }
 
@@ -305,7 +303,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             {
                 if(deathYearSearch == FP[i].deathYear)
                 {
-                    printVector(FP[i]);
+                    displayPerson(FP[i]);
                     check = true;
                 }
             }
@@ -327,7 +325,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
 }
 
 
-void FamousPeople::printVector(InfoType& FP)const
+/*void FamousPeople::printVector(InfoType& FP)const
 {   cout <<endl;
     cout << "Name: " << FP.name << endl;
     cout << "Gender: " << FP.gender << endl;
@@ -335,3 +333,4 @@ void FamousPeople::printVector(InfoType& FP)const
     cout << "Death year: " << FP.deathYear << endl;
     cout << endl;
 }//hefðir getað notað fallið sem ég bjó til, displayperson í staðinn fyrir þetta fall.. kv daxi
+*/
