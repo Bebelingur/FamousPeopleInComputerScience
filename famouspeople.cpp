@@ -88,25 +88,39 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 
 void FamousPeople::getInfo()
 {
+
     ofstream getFile;
     getFile.open("InfoFile.txt");
+
     if(getFile.is_open())
     {
-        char keepOn;
+        string firstName = " ", lastName = " ";
+        int bYear = 0, dYear = 0;
+        char keepGoing = ' ', gender = ' ';
+
         do{
             cout << "Input name: ";
-            getFile << "writing this to file";
+            getFile << firstName << lastName << " * ";
             cout << endl;
             cout << "Input gender (F for female, M for male or ? for other): ";
+            getFile << gender << " * ";
             cout << endl;
+<<<<<<< HEAD
+            cout << "Input birthYear: ";
+            getFile << bYear << " * ";
+            cout << endl;
+            cout << "Input deathYear: ";
+            getFile << dYear << " * ";
+=======
             cout << "Input birth year: ";
             cout << endl;
             cout << "Input death year: ";
+>>>>>>> 75d4624f38e3fca409d02a9173b94a65d0861de9
             cout << endl;
             cout << "Input more information (Y for yes N for no): ";
-            cin >> keepOn;
+            cin >> keepGoing;
             cout << endl;
-        }while(keepOn == 'Y' || keepOn == 'y');
+        }while(keepGoing == 'Y' || keepGoing == 'y');
     }
     else
     {
