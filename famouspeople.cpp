@@ -334,4 +334,4 @@ void FamousPeople::printVector(InfoType& FP)const
     cout << "Birth Year: " << FP.birthYear << endl;
     cout << "Death year: " << FP.deathYear << endl;
     cout << endl;
-}
+}//hefðir getað notað fallið sem ég bjó til, displayperson í staðinn fyrir þetta fall.. kv daxi
