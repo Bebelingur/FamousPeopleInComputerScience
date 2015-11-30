@@ -4,13 +4,13 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
 class FamousPeople
 {
 public:
-
 
     FamousPeople();
 
@@ -22,16 +22,23 @@ public:
         int deathYear;
     };
 
-    void sortByNameDesc();
 
-    void sortByNameAsc();
+    void fillVector(vector <InfoType>& FP);
+    void searchVector(vector <InfoType>& FP);
+    void printVector(const InfoType& FP);
 
-    void sortByYearDesc();
+    void sortByNameDesc(vector <InfoType>& FP);
 
-    void sortByYearAsc();
+    void sortByNameAsc(vector <InfoType>& FP);
+
+    void sortByYearDesc(vector <InfoType>& FP);
+
+    void sortByYearAsc(vector <InfoType>& FP);
 
     void userMenu();
+
     void getInfo();
+
     void viewInfo();
     void displayPerson(InfoType p);
 

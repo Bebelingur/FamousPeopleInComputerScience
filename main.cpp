@@ -1,14 +1,18 @@
 #include <iostream>
-
 #include <string>
 #include <iostream>
 #include <vector>
-using namespace std;
+#include <algorithm>
 #include "famouspeople.h"
+
+
+using namespace std;
+
 
 
 int main()
 {
+
     FamousPeople people;
     people.userMenu();
 
