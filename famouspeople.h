@@ -8,24 +8,25 @@
 
 using namespace std;
 
+struct InfoType
+{
+    string name;
+    char gender;
+    int birthYear;
+    int deathYear;
+};
+
 class FamousPeople
 {
 public:
 
     FamousPeople();
 
-    struct InfoType
-    {
-        string name;
-        char gender;
-        int birthYear;
-        int deathYear;
-    };
-
 
     void fillVector(vector <InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
-    void printVector(const InfoType& FP);
+    void printVector(InfoType& FPP) const;
+
 
     void sortByNameDesc(vector <InfoType>& FP);
 
@@ -36,6 +37,8 @@ public:
     void sortByYearAsc(vector <InfoType>& FP);
 
     void userMenu();
+
+    void sortMenu();
 
     void getInfo();
 
