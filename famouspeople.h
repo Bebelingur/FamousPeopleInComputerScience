@@ -39,7 +39,7 @@ public:
 
     void getInfo();
 
-    void viewInfo();
+    void viewInfo(vector<InfoType>& FP);
     void displayPerson(InfoType p);
 
 
