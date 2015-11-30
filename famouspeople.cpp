@@ -83,27 +83,27 @@ void FamousPeople::sortMenu()
         {
             case '1':
                 {
-                fillVector(FP);
-                sortByNameAsc(FP);
+                //fillVector(FP);
+                //sortByNameAsc(FP);
                 break;
                 }
             case '2':
                 {
-                fillVector(FP);
-                sortByNameDesc(FP);
+                //fillVector(FP);
+                //sortByNameDesc(FP);
                 break;
                 }
 
             case '3':
                 {
-                fillVector(FP);
-                sortByYearAsc(FP);
+                //fillVector(FP);
+                //sortByYearAsc(FP);
                 break;
                 }
             case '4':
                 {
-                fillVector(FP);
-                sortByYearDesc(FP);
+                //fillVector(FP);
+                //sortByYearDesc(FP);
                 break;
                 }
 
@@ -302,7 +302,7 @@ void FamousPeople::getInfo()
 }
 
 
-void FamousPeople::displayPerson(InfoType& p)const
+void FamousPeople::displayPerson(InfoType p)
 {
     cout << "Name: " << p.name << endl;
     cout << "Gender: ";
@@ -328,39 +328,22 @@ void FamousPeople::displayPerson(InfoType& p)const
 void FamousPeople::viewInfo()
 {
     ifstream getFile;
-<<<<<<< HEAD
-        getFile.open("InfoFile.txt");
-        if(getFile.fail())
-        {
-            cout << "Could not open file." << endl;
-            exit(1);
-        }
-        while(getFile.eof())
-        {
-            InfoType p;
-            getline(getFile , p.name);
-=======
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
         cout << "Could not open file." << endl;
+        exit(1);
     }
-    else
         while(!getFile.eof())
         {
             InfoType p;
-            getline(getFile, p.name);
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
+            getline(getFile, p.name, '\n');
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
             displayPerson(p);
         }
-<<<<<<< HEAD
         getFile.close();
-=======
-    getFile.close();
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 }
 
 void FamousPeople::fillVector(vector<InfoType>& FP)
@@ -385,12 +368,6 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
 
             FP.push_back(p);
         }
-<<<<<<< HEAD
-        cout << "Press r to return to user menu. " << endl;
-       }
-=======
-        //cout << "Press r to return to user menu. " << endl;
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 
     getFile.close();
     }
@@ -503,22 +480,13 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     userMenu();
 
 }
-<<<<<<< HEAD
-void FamousPeople::printVector(InfoType& FP) const
-=======
 
 void FamousPeople::printVector(InfoType& FP)const
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
-{
-
-
-/*void FamousPeople::printVector(InfoType& FP)const
 {   cout <<endl;
->>>>>>> 3613765cbd2b8793f4df6a01e5a46510c65aeb8c
     cout << "Name: " << FP.name << endl;
     cout << "Gender: " << FP.gender << endl;
     cout << "Birth Year: " << FP.birthYear << endl;
     cout << "Death year: " << FP.deathYear << endl;
     cout << endl;
 }//hefðir getað notað fallið sem ég bjó til, displayperson í staðinn fyrir þetta fall.. kv daxi
-*/
+
