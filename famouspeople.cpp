@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
 #include "famouspeople.h"
 #include <algorithm>
 
@@ -88,31 +89,40 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 
 void FamousPeople::getInfo()
 {
+
     ofstream getFile;
-    getFile.open("InfoFile.txt");
-    if(getFile.is_open())
-    {
-        char keepOn;
-        do{
-            cout << "Input name: ";
-            getFile << "writing this to file";
-            cout << endl;
-            cout << "Input gender (F for female, M for male or ? for other): ";
-            cout << endl;
-            cout << "Input birth year: ";
-            cout << endl;
-            cout << "Input death year: ";
-            cout << endl;
-            cout << "Input more information (Y for yes N for no): ";
-            cin >> keepOn;
-            cout << endl;
-        }while(keepOn == 'Y' || keepOn == 'y');
-    }
-    else
+    getFile.open("InfoFile.txt", ios::app);
+    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn
+    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana
+
+    if(getFile.fail( ))
     {
         cout << "Could not open file." << endl;
+        exit(1);
     }
-    getFile.close();
+        string firstName = " ", lastName = " ";
+        int bYear = 0, dYear = 0;
+        char keepGoing = ' ', gender = ' ';
+
+        do{
+            cout << "Input name: ";
+            getFile << firstName << lastName << " * ";
+            cout << endl;
+            cout << "Input gender (F for female, M for male or ? for other): ";
+            getFile << gender << " * ";
+            cout << endl;
+            cout << "Input birthYear: ";
+            getFile << bYear << " * ";
+            cout << endl;
+            cout << "Input deathYear: ";
+            getFile << dYear << " * ";
+            cout << endl;
+            cout << "Input more information (Y for yes N for no): ";
+            cin >> keepGoing;
+            cout << endl;
+        }while(keepGoing == 'Y' || keepGoing == 'y');
+
+    getFile.close( );
 }
 
 
