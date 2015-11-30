@@ -44,6 +44,10 @@ public:
 
     void sortByYearAsc(vector <InfoType>& FP);
 
+    //void sortByGenderMale(vector <InfoType>& FP);
+
+   // void sortByGenderFemale(vector <InfoType>& FP);
+
 
 private:
     vector <InfoType> FP;
