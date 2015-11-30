@@ -48,6 +48,7 @@ void FamousPeople::userMenu()
                 viewInfo();
                 break;
             case '3':
+                fillVector(FP);
                 sortMenu();
                 break;
             case '4':
@@ -83,27 +84,23 @@ void FamousPeople::sortMenu()
         {
             case '1':
                 {
-                //fillVector(FP);
-                //sortByNameAsc(FP);
+                sortByNameAsc(FP);
                 break;
                 }
             case '2':
                 {
-                //fillVector(FP);
-                //sortByNameDesc(FP);
+                sortByNameDesc(FP);
                 break;
                 }
 
             case '3':
                 {
-                //fillVector(FP);
-                //sortByYearAsc(FP);
+                sortByYearAsc(FP);
                 break;
                 }
             case '4':
                 {
-                //fillVector(FP);
-                //sortByYearDesc(FP);
+                sortByYearDesc(FP);
                 break;
                 }
 
@@ -321,6 +318,7 @@ void FamousPeople::displayPerson(InfoType p)
     {
         cout << "Year of death: " << p.deathYear << endl;
     }
+    cout << endl;
 }
 
 void FamousPeople::viewInfo()
@@ -361,8 +359,7 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
         while(!getFile.eof())
         {
             InfoType p;
-            getline(getFile, p.name);
-            getFile >> p.name;
+            getline(getFile, p.name, '*');
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
