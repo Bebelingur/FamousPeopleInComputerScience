@@ -63,7 +63,6 @@ void FamousPeople::userMenu()
     }while(choice != '5');
 }
 
-
 void FamousPeople::sortMenu()
 {
     char choice;
@@ -304,8 +303,6 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     }
 }
 
-
-
 void FamousPeople::getInfo()
 {
     ofstream getFile;
@@ -380,7 +377,6 @@ void FamousPeople::getInfo()
     getFile.close( );
 }
 
-
 void FamousPeople::displayPerson(InfoType p)
 {
     cout << "Name: " << p.name << endl;
@@ -414,20 +410,24 @@ void FamousPeople::viewInfo()
         cout << "Could not open file." << endl;
         exit(1);
     }
-        while(!getFile.eof())
-        {
-            InfoType p;
+    cout << endl;
+    while(!getFile.eof())
+    {
+        InfoType p;
 
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-            displayPerson(p);
-        }
-
-        getFile.close();
+        getline(getFile, p.name, '*');
+        getFile >> p.gender;
+        getFile >> p.birthYear;
+        getFile >> p.deathYear;
+        displayPerson(p);
+    }
+    getFile.close();
+    char input;
+    cout << "Press any key to return to menu." << endl;
+    cin >> input;
+    if(input)
+        userMenu();
 }
-
 
 void FamousPeople::fillVector(vector<InfoType>& FP)
 {
@@ -565,5 +565,4 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     FP.clear();
 
     userMenu();
-
 }
