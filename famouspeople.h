@@ -45,7 +45,7 @@ public:
 
 
 private:
-    vector<InfoType>FP;
+    vector <InfoType> FP;
 };
 
 #endif // FAMOUSPEOPLE_H
