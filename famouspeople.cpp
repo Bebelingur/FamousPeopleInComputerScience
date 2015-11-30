@@ -168,11 +168,7 @@ void FamousPeople::displayPerson(InfoType p)
 
 void FamousPeople::viewInfo(vector<InfoType>& FP)
 {
-<<<<<<< HEAD
-    /*ofstream getFile;
-=======
     ifstream getFile;
->>>>>>> 4d9b136d91b94cea99129dbb7b69b44a14a0ae26
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
@@ -182,21 +178,13 @@ void FamousPeople::viewInfo(vector<InfoType>& FP)
         while(!getFile.eof())
         {
             InfoType p;
-            getline(cin, p.name, '*');
-            cin >> p.gender;
-            cin >> p.birthYear;
-            cin >> p.deathYear;
+            getline(getFile, p.name, '*');
+            getFile >> p.gender;
+            getFile >> p.birthYear;
+            getFile >> p.deathYear;
             displayPerson(p);
         }
-    getFile.close();*/
-
-    fillVector(FP);
-    for(unsigned int i = 0; i < FP.size(); i++)
-    {
-        printVector(FP[i]);
-    }
-
-    FP.clear();
+    getFile.close();
 }
 
 
