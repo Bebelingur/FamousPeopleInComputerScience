@@ -460,7 +460,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
 {
     fillVector(FP);
 
-    int choise;
+    int choice;
     string nameSearch;
     char genderSearch;
     int birthYearSearch;
@@ -474,11 +474,12 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
         cout << "3. Birth year" << endl;
         cout << "4. Death year" << endl;
         cout << "5. Return " << endl;
-        cin >> choise;
-        if(choise == 1)
+        cin >> choice;
+        if(choice == 1)
         {
-            cout<<"enter name: ";
-            cin>> nameSearch;
+            cout << "Enter name: ";
+            cin >> nameSearch;
+            cout << endl;
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(nameSearch == FP[i].name)
@@ -492,10 +493,11 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 cout << "Name was not in file" << endl;
             }
         }
-        if(choise == 2)
+        if(choice == 2)
         {
             cout << "Enter gender: ";
             cin >> genderSearch;
+            cout << endl;
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(genderSearch == FP[i].gender)
@@ -509,10 +511,11 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 cout << "Gender was not in file" << endl;
             }
         }
-        if(choise == 3)
+        if(choice == 3)
         {
-            cout << "Enter birthYear: ";
+            cout << "Enter year of birth: ";
             cin >> birthYearSearch;
+            cout << endl;
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(birthYearSearch == FP[i].birthYear)
@@ -527,10 +530,11 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 cout << "Birth year was not in file" << endl;
             }
         }
-        if(choise == 4)
+        if(choice == 4)
         {
-            cout << "Enter deathYear: ";
+            cout << "Enter year of death: ";
             cin >> deathYearSearch;
+            cout << endl;
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(deathYearSearch == FP[i].deathYear)
@@ -552,11 +556,11 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
 
             }
         }
-        if(choise >5)
+        if(choice > 5)
         {
             cout << "Wrong input" << endl;
         }
-    }while (choise != 5);
+    }while (choice != 5);
 
     FP.clear();
 
