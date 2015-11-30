@@ -59,7 +59,6 @@ void FamousPeople::userMenu()
                 searchVector(FP);
                 break;
             case '5':
-                cout << "5" << endl;
                 break;
             default:
                 cout << "Wrong input! Please try again" << endl;
@@ -67,7 +66,6 @@ void FamousPeople::userMenu()
         }
     }while(choice != '5');
 }
-
 
 void FamousPeople::sortMenu()
 {
@@ -78,7 +76,7 @@ void FamousPeople::sortMenu()
     cout << "2. Sort by name (Descending)" << endl;
     cout << "3. Sort by birth year (Ascending)" << endl;
     cout << "4. Sort by birth year (Descending)" << endl;
-    cout << "5. Exit" << endl;
+    cout << "5. Return" << endl;
     cout << "===========================================" << endl;
     cout << "Please choose one of these numbers: ";
     cin >> choice;
@@ -133,6 +131,22 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
 }
 
 
+bool compareYearAsc(const InfoType& a, const InfoType& b);
+
+bool compareYearAsc(const InfoType& a, const InfoType& b)
+{
+    return a.birthYear < b.birthYear;
+}
+
+
+bool compareYearDesc(const InfoType& a, const InfoType& b);
+
+bool compareYearDesc(const InfoType& a, const InfoType& b)
+{
+    return a.birthYear > b.birthYear;
+}
+
+
 void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 {
     cout << "--- Displaying people by name in asccending order ---" << endl;
@@ -144,11 +158,29 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name << endl;
 
-        cout << "Gender: " << FP.at(i).gender << endl;
+        if(FP.at(i).gender == 'F')
+        {
+        cout << "Gender: " << "Female" << endl;
+        }
+        else if(FP.at(i).gender == 'M')
+        {
+        cout << "Gender: " << "Male" << endl;
+        }
+        else
+        {
+         cout << "Unknown" << endl;
+        }
 
         cout << "Birth year: " << FP.at(i).birthYear << endl;
 
+        if(FP.at(i).deathYear == 0)
+        {
+            cout << endl;
+        }
+        else
+        {
         cout << "Death year: " << FP.at(i).deathYear << endl;
+        }
 
         cout << endl;
     }
@@ -166,30 +198,34 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name << endl;
 
-        cout << "Gender: " << FP.at(i).gender << endl;
+        if(FP.at(i).gender == 'F')
+        {
+        cout << "Gender: " << "Female" << endl;
+        }
+        else if(FP.at(i).gender == 'M')
+        {
+        cout << "Gender: " << "Male" << endl;
+        }
+        else
+        {
+         cout << "Unknown" << endl;
+        }
 
         cout << "Birth year: " << FP.at(i).birthYear << endl;
 
+        if(FP.at(i).deathYear == 0)
+        {
+            cout << endl;
+        }
+        else
+        {
         cout << "Death year: " << FP.at(i).deathYear << endl;
+        }
 
         cout << endl;
     }
 }
 
-bool compareYearAsc(const InfoType& a, const InfoType& b);
-
-bool compareYearAsc(const InfoType& a, const InfoType& b)
-{
-    return a.birthYear < b.birthYear;
-}
-
-
-bool compareYearDesc(const InfoType& a, const InfoType& b);
-
-bool compareYearDesc(const InfoType& a, const InfoType& b)
-{
-    return a.birthYear > b.birthYear;
-}
 
 void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 {
@@ -202,11 +238,30 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name << endl;
 
-        cout << "Gender: " << FP.at(i).gender << endl;
+
+        if(FP.at(i).gender == 'F')
+        {
+        cout << "Gender: " << "Female" << endl;
+        }
+        else if(FP.at(i).gender == 'M')
+        {
+        cout << "Gender: " << "Male" << endl;
+        }
+        else
+        {
+         cout << "Unknown" << endl;
+        }
 
         cout << "Birth year: " << FP.at(i).birthYear << endl;
 
+        if(FP.at(i).deathYear == 0)
+        {
+            cout << endl;
+        }
+        else
+        {
         cout << "Death year: " << FP.at(i).deathYear << endl;
+        }
 
         cout << endl;
     }
@@ -223,17 +278,33 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name << endl;
 
-        cout << "Gender: " << FP.at(i).gender << endl;
+        if(FP.at(i).gender == 'F')
+        {
+        cout << "Gender: " << "Female" << endl;
+        }
+        else if(FP.at(i).gender == 'M')
+        {
+        cout << "Gender: " << "Male" << endl;
+        }
+        else
+        {
+         cout << "Unknown" << endl;
+        }
 
         cout << "Birth year: " << FP.at(i).birthYear << endl;
 
+        if(FP.at(i).deathYear == 0)
+        {
+            cout << endl;
+        }
+        else
+        {
         cout << "Death year: " << FP.at(i).deathYear << endl;
+        }
 
         cout << endl;
     }
 }
-
-
 
 void FamousPeople::getInfo()
 {
@@ -283,9 +354,19 @@ void FamousPeople::getInfo()
                 cin >> personDead;
                 if(personDead == 'Y' || personDead == 'y')
                 {
+                    do
+                    {
                     cout << "Input year of death: ";
                     cin >> dYear;
-                    getFile << dYear;
+                    if(dYear < bYear)
+                    {
+                        cout << "Wrong input. Please try again." << endl;
+                    }
+                    else
+                    {
+                        getFile << dYear;
+                    }
+                    }while(dYear < bYear);
                 }
                 else
                 {
@@ -298,7 +379,6 @@ void FamousPeople::getInfo()
 
     getFile.close( );
 }
-
 
 void FamousPeople::displayPerson(InfoType p)
 {
@@ -337,20 +417,24 @@ void FamousPeople::viewInfo()
         cout << "Could not open file." << endl;
         exit(1);
     }
-        while(!getFile.eof())
-        {
-            InfoType p;
+    cout << endl;
+    while(!getFile.eof())
+    {
+        InfoType p;
 
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-            displayPerson(p);
-        }
-
-        getFile.close();
+        getline(getFile, p.name, '*');
+        getFile >> p.gender;
+        getFile >> p.birthYear;
+        getFile >> p.deathYear;
+        displayPerson(p);
+    }
+    getFile.close();
+    char input;
+    cout << "Press any key to return to menu." << endl;
+    cin >> input;
+    if(input)
+        userMenu();
 }
-
 
 void FamousPeople::fillVector(vector<InfoType>& FP)
 {
@@ -381,9 +465,15 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
 
 void FamousPeople::searchVector(vector <InfoType>& FP)
 {
+<<<<<<< HEAD
     fillVector(FP);//búum til vektorinn
     int choise;
    //gerum breytur fyrir hvert leitarskilyrði
+=======
+    fillVector(FP);
+
+    int choice;
+>>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
     string nameSearch;
     char genderSearch;
     int birthYearSearch;
@@ -392,6 +482,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do
         {
+<<<<<<< HEAD
         cout<<"do you want to search: "<<endl;
         cout<<"1 name"<<endl;
         cout<<"2 gender"<<endl;
@@ -408,6 +499,20 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             for(int i = 0; i < nameSize; i++)
                  nameSearch[i] = tolower(nameSearch[i]);
             //setjum innsláttinn í lower case
+=======
+        cout << "What do you want to search?: " << endl;
+        cout << "1. Name"<< endl;
+        cout << "2. Gender"<< endl;
+        cout << "3. Birth year" << endl;
+        cout << "4. Death year" << endl;
+        cout << "5. Return " << endl;
+        cin >> choice;
+        if(choice == 1)
+        {
+            cout << "Enter name: ";
+            cin >> nameSearch;
+            cout << endl;
+>>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 string tempName = FP[i].name;
@@ -426,16 +531,22 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(check == false)
             {
-                cout<<"name was not in file"<<endl;
+                cout << "Name was not in file" << endl;
             }
         }
-        if(choise == 2)
+        if(choice == 2)
         {
+<<<<<<< HEAD
             cout<<"enter gender: ";
             cin>> genderSearch;
             char tempGender;
 
             genderSearch = tolower(genderSearch);
+=======
+            cout << "Enter gender: ";
+            cin >> genderSearch;
+            cout << endl;
+>>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 tempGender = FP[i].gender;
@@ -451,13 +562,14 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
 
             if(check == false)
             {
-                cout<<"gender was not in file"<<endl;
+                cout << "Gender was not in file" << endl;
             }
         }
-        if(choise == 3)
+        if(choice == 3)
         {
-            cout<<"enter birthYear: ";
-            cin>> birthYearSearch;
+            cout << "Enter year of birth: ";
+            cin >> birthYearSearch;
+            cout << endl;
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(birthYearSearch == FP[i].birthYear)
@@ -468,17 +580,27 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(check == false)
             {
-                cout<<"birth year was not in file"<<endl;
+                cout << "Birth year was not in file" << endl;
             }
         }
-        if(choise == 4)
+        if(choice == 4)
         {
-            cout<<"Enter deathYear: ";
-            cin>> deathYearSearch;
+            cout << "Enter year of death: ";
+            cin >> deathYearSearch;
+            cout << endl;
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(deathYearSearch == FP[i].deathYear)
 
+<<<<<<< HEAD
+=======
+                    displayPerson(FP[i]);
+                else
+                 cout << "Name was not in file" << endl;
+
+                 cout << "DeathYear was not in file" << endl;
+
+>>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
                 {
                     displayPerson(FP[i]);
                     check = true;
@@ -486,15 +608,26 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(check == false)
             {
+<<<<<<< HEAD
                 cout<<"death year was not in file"<<endl;
+=======
+                cout << "Death year was not in file" << endl;
+
+>>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
             }
         }
-        if(choise >5)
+        if(choice > 5)
         {
-            cout<<"wrong input"<<endl;
+            cout << "Wrong input" << endl;
         }
-    }while (choise != 5);
+    }while (choice != 5);
 
+<<<<<<< HEAD
     FP.clear();//hreinsum vektorinn eftir notkun
 
+=======
+    FP.clear();
+
+    userMenu();
+>>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
 }
