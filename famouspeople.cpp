@@ -257,7 +257,7 @@ void FamousPeople::getInfo()
             cin.ignore();
             cout << "Input name (in the order first, middle and last name): ";
             getline(cin, name);
-            getFile << name << "\n";
+            getFile << name << "*";
 
             do{
                 cout << "Input gender (F for female, M for male or ? for other): ";
@@ -267,7 +267,7 @@ void FamousPeople::getInfo()
                         cout << "Wrong input. Please try again." << endl;
                     }
             }while(!(gender == 'F' || gender == 'M' || gender == '?'));
-            getFile << gender << "\n";
+            getFile << gender << " ";
 
             do{
                 cout << "Input year of birth: ";
@@ -277,7 +277,7 @@ void FamousPeople::getInfo()
                     cout << "Wrong input. Please try again." << endl;
                 }
             }while(!((bYear < yearNow) && (bYear >= CstartYear)));
-            getFile << bYear << "\n";
+            getFile << bYear << " ";
 
                 cout << "Is " << name << " deceased? (Y for yes N for no): ";
                 cin >> personDead;
@@ -285,12 +285,12 @@ void FamousPeople::getInfo()
                 {
                     cout << "Input year of death: ";
                     cin >> dYear;
-                    getFile << dYear << "\n";
+                    getFile << dYear;
                 }
                 else
                 {
                     int zero = 0;
-                    getFile << zero << "\n";
+                    getFile << zero;
                 }
             cout << "Input more information (Y for yes N for no): ";
             cin >> keepGoing;
@@ -336,7 +336,7 @@ void FamousPeople::viewInfo()
         {
             InfoType p;
 
-            getline(getFile, p.name, '\n');
+            getline(getFile, p.name, '*');
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
