@@ -56,7 +56,7 @@ void FamousPeople::userMenu()
         }
     }while(choice != '5');
 }
-
+/*
 
 //Fall sem sortar nöfn eftir öfugri stafrófsröð
 void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
@@ -83,7 +83,7 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 {
 
 
-}
+}*/
 
 
 void FamousPeople::getInfo()
@@ -162,25 +162,31 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
     int counter = 0;
     ifstream getFile;
     getFile.open("InfoFile.txt");
+    string word;
+
     if(getFile.fail())
     {
         cout << "Could not open file." << endl;
     }
-    else
+    else{
+
         while(!getFile.eof())
         {
             InfoType p;
-            getline(cin, p.name, '*');
-            cin >> p.gender;
-            cin >> p.birthYear;
-            cin >> p.deathYear;
+            //getline(cin, p.name, '*');
+            getFile >> p.name;
+            getFile >> p.gender;
+            getFile >> p.birthYear;
+            getFile >> p.deathYear;
 
             FP.push_back(p);
 
             counter++;
         }
-
+}
     getFile.close();
+
+
 }
 void FamousPeople::searchVector(vector<InfoType>& FP)
 {
@@ -221,7 +227,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
                 if(genderSearch == FP[i].gender)
                     printVector(FP[i]);
                 else
-                 cout<<"name was not in file"<<endl;
+                 cout<<"gender was not in file"<<endl;
             }
         }
         if(choise == 3)
@@ -233,7 +239,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
                 if(birthYearSearch == FP[i].birthYear)
                     printVector(FP[i]);
                 else
-                 cout<<"name was not in file"<<endl;
+                 cout<<"birthYear was not in file"<<endl;
             }
         }
         if(choise == 4)
@@ -245,7 +251,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
                 if(deathYearSearch == FP[i].deathYear)
                     printVector(FP[i]);
                 else
-                 cout<<"name was not in file"<<endl;
+                 cout<<"deathYear was not in file"<<endl;
             }
         }
         if(choise >5)
@@ -257,11 +263,11 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
     userMenu();
 
 }
-void FamousPeople::printVector(const InfoType& FP)
+void FamousPeople::printVector(InfoType& FP)const
 {
-    cout<<"Name: "<<FP.name<<endl;
-    cout<<"Gender: "<<FP.gender<<endl;
-    cout<<"Birth Year: "<<FP.birthYear<<endl;
-    cout<<"Death year: "<<FP.deathYear<<endl;
-    cout<<endl;
+    cout << "Name: " << FP.name << endl;
+    cout << "Gender: " << FP.gender << endl;
+    cout << "Birth Year: " << FP.birthYear << endl;
+    cout << "Death year: " << FP.deathYear << endl;
+    cout << endl;
 }
