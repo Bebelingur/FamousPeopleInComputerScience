@@ -3,11 +3,12 @@
 #include <vector>
 #include <fstream>
 #include <cstdlib>
-#include "famouspeople.h"
 #include <algorithm>
+#include "famouspeople.h"
 
 using namespace std;
 
+const int yearNow = 2015;
 
 FamousPeople::FamousPeople()
 {}
@@ -89,7 +90,6 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 
 void FamousPeople::getInfo()
 {
-
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
     //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn
@@ -99,27 +99,48 @@ void FamousPeople::getInfo()
     {
         cout << "Could not open file." << endl;
         exit(1);
+        //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið
     }
-        string firstName = " ", lastName = " ";
+        string name = " ";
         int bYear = 0, dYear = 0;
-        char keepGoing = ' ', gender = ' ';
+        char keepGoing = ' ', gender = ' ', personDead = ' ';
+        //færibreytur núllstilltar svo rusl fylgi ekki með
 
         do{
+            cin.ignore();
             cout << "Input name: ";
-            getFile << firstName << lastName << " * ";
-            cout << endl;
-            cout << "Input gender (F for female, M for male or ? for other): ";
+            getline(cin, name);
+            getFile << name << " * ";
+
+            do{
+                    cout << "Input gender (F for female, M for male or ? for other): ";
+                    cin >> gender;
+                        if(!(gender == 'F' || gender == 'M' || gender == '?'))
+                        {
+                            cout << "Wrong input. Please try again." << endl;
+                        }
+            }while(!(gender == 'F' || gender == 'M' || gender == '?'));
             getFile << gender << " * ";
-            cout << endl;
+
             cout << "Input birthYear: ";
+            cin >> bYear;
             getFile << bYear << " * ";
-            cout << endl;
-            cout << "Input deathYear: ";
-            getFile << dYear << " * ";
-            cout << endl;
+            cout << "Is this person deceased? (Y for yes N for no): ";
+            cin >> personDead;
+                if(personDead == 'Y' || personDead == 'y')
+                {
+                    cout << "Input deathYear: ";
+                    cin >> dYear;
+                    getFile << dYear << " * ";
+                }
+                else
+                {
+                    int zero = 0;
+                    getFile << zero << " * ";
+                }
+
             cout << "Input more information (Y for yes N for no): ";
             cin >> keepGoing;
-            cout << endl;
         }while(keepGoing == 'Y' || keepGoing == 'y');
 
     getFile.close( );
