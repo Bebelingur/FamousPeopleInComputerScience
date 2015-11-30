@@ -169,10 +169,8 @@ void FamousPeople::viewInfo()
 
 void FamousPeople::fillVector(vector <InfoType>& FP)
 {
-    int counter = 0;
     ifstream getFile;
     getFile.open("InfoFile.txt");
-    string word;
 
     if(getFile.fail())
     {
@@ -185,13 +183,11 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
             InfoType p;
             //getline(cin, p.name, '*');
             getFile >> p.name;
-            getFile >> p.gender;
+            /*getFile >> p.gender;
             getFile >> p.birthYear;
-            getFile >> p.deathYear;
+            getFile >> p.deathYear;*/
 
             FP.push_back(p);
-
-            counter++;
         }
 }
     getFile.close();
