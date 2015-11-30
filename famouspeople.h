@@ -28,13 +28,9 @@ public:
     void viewInfo();
     void displayPerson(InfoType p);
 
-<<<<<<< HEAD
     void fillVector(vector <InfoType>& FP);
     //tekur skjalið og setur inn í vektor
 
-=======
-    void fillVector(vector<InfoType>& FP);
->>>>>>> 3503e30733caf005fa1dacf950fe0186f3873094
     void searchVector(vector <InfoType>& FP);
     //leitar að skilirðum í vektornum úr skjalinu
 
