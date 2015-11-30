@@ -22,31 +22,18 @@ public:
 
     FamousPeople();
 
-<<<<<<< HEAD
-    struct InfoType
-    {
-        string name;
-        char gender;
-        int birthYear;
-        int deathYear;
-    };
-
     void userMenu();
     void getInfo();
-    void viewInfo(vector<InfoType>& FP);
+    void viewInfo();
     void displayPerson(InfoType p);
 
 
     void fillVector(vector<InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
     void printVector(InfoType& FP) const;
-=======
 
-    void fillVector(vector <InfoType>& FP);
 
-    void searchVector(vector <InfoType>& FP);
-
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
+    void sortMenu();
 
     void sortByNameDesc(vector <InfoType>& FP);
 
@@ -55,18 +42,6 @@ public:
     void sortByYearDesc(vector <InfoType>& FP);
 
     void sortByYearAsc(vector <InfoType>& FP);
-
-
-<<<<<<< HEAD
-
-=======
-    void sortMenu();
-
-    void getInfo();
-
-    void viewInfo();
-    void displayPerson(InfoType& p)const;
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 
 
 private:

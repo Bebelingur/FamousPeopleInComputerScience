@@ -48,7 +48,6 @@ void FamousPeople::userMenu()
                 viewInfo();
                 break;
             case '3':
-                fillVector(FP);
                 sortMenu();
                 break;
             case '4':
@@ -65,7 +64,6 @@ void FamousPeople::userMenu()
 }
 
 
-//menu valmynd fyrir sort föllin
 void FamousPeople::sortMenu()
 {
     char choice;
@@ -85,27 +83,27 @@ void FamousPeople::sortMenu()
         {
             case '1':
                 {
-                //fillVector(FP);
-                //sortByNameAsc(FP);
+                fillVector(FP);
+                sortByNameAsc(FP);
                 break;
                 }
             case '2':
                 {
-                //fillVector(FP);
-                //sortByNameDesc(FP);
+                fillVector(FP);
+                sortByNameDesc(FP);
                 break;
                 }
 
             case '3':
                 {
-                //fillVector(FP);
-                //sortByYearAsc(FP);
+                fillVector(FP);
+                sortByYearAsc(FP);
                 break;
                 }
             case '4':
                 {
-                //fillVector(FP);
-                //sortByYearDesc(FP);
+                fillVector(FP);
+                sortByYearDesc(FP);
                 break;
                 }
 
@@ -118,8 +116,7 @@ void FamousPeople::sortMenu()
     }while(choice != '5');
 }
 
-/*
-Föll hér fyrir neðan ekki tilbuin
+
 
 bool compareNameAsc(const InfoType& a, const InfoType& b);
 
@@ -236,7 +233,7 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
         cout << endl;
     }
 }
-*/
+
 
 
 void FamousPeople::getInfo()
@@ -304,7 +301,7 @@ void FamousPeople::getInfo()
 }
 
 
-void FamousPeople::displayPerson(InfoType& p)const
+void FamousPeople::displayPerson(InfoType p)
 {
     cout << "Name: " << p.name << endl;
     cout << "Gender: ";
@@ -330,40 +327,26 @@ void FamousPeople::displayPerson(InfoType& p)const
 void FamousPeople::viewInfo()
 {
     ifstream getFile;
-<<<<<<< HEAD
-        getFile.open("InfoFile.txt");
-        if(getFile.fail())
-        {
-            cout << "Could not open file." << endl;
-            exit(1);
-        }
-        while(getFile.eof())
-        {
-            InfoType p;
-            getline(getFile , p.name);
-=======
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
         cout << "Could not open file." << endl;
+        exit(1);
     }
-    else
         while(!getFile.eof())
         {
             InfoType p;
-            getline(getFile, p.name);
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
+
+            getline(getFile, p.name, '\n');
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
             displayPerson(p);
         }
-<<<<<<< HEAD
+
         getFile.close();
-=======
-    getFile.close();
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 }
+
 
 void FamousPeople::fillVector(vector<InfoType>& FP)
 {
@@ -387,13 +370,8 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
 
             FP.push_back(p);
         }
-<<<<<<< HEAD
-        cout << "Press r to return to user menu. " << endl;
-       }
-=======
-        //cout << "Press r to return to user menu. " << endl;
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
 
+        //cout << "Press r to return to user menu. " << endl;
     getFile.close();
     }
 }
@@ -476,18 +454,14 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(deathYearSearch == FP[i].deathYear)
-                {
-                    //printVector(FP[i]);
-                }
 
-
+                    displayPerson(FP[i]);
                 else
-                {
                  cout << "Name was not in file" << endl;
 
                  cout<<"deathYear was not in file"<<endl;
 
-
+                {
                     displayPerson(FP[i]);
                     check = true;
                 }
@@ -509,24 +483,3 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     userMenu();
 
 }
-<<<<<<< HEAD
-void FamousPeople::printVector(InfoType& FP) const
-=======
-
-/*
-
-void FamousPeople::printVector(InfoType& FP)const
->>>>>>> 3ce9c626beb90beb59876c85aa55e2b0c1f6c598
-{
-
-
-void FamousPeople::printVector(InfoType& FP)const
-{   cout <<endl;
->>>>>>> 3613765cbd2b8793f4df6a01e5a46510c65aeb8c
-    cout << "Name: " << FP.name << endl;
-    cout << "Gender: " << FP.gender << endl;
-    cout << "Birth Year: " << FP.birthYear << endl;
-    cout << "Death year: " << FP.deathYear << endl;
-    cout << endl;
-}//hefðir getað notað fallið sem ég bjó til, displayperson í staðinn fyrir þetta fall.. kv daxi
-*/
