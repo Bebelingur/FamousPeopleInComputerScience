@@ -27,11 +27,9 @@ public:
     void viewInfo();
     void displayPerson(InfoType p);
 
-
     void fillVector(vector<InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
     void printVector(InfoType& FP) const;
-
 
     void sortMenu();
 
