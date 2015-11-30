@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include "famouspeople.h"
+#include <stdio.h>
+#include <ctype.h>
 
 using namespace std;
 
@@ -149,6 +151,7 @@ void FamousPeople::getInfo()
 
 void FamousPeople::displayPerson(InfoType& p)const
 {
+    cout<<endl;
     cout << "Name: " << p.name << endl;
 
     cout << "Gender: ";
@@ -163,6 +166,7 @@ void FamousPeople::displayPerson(InfoType& p)const
 
     if(p.deathYear != 0)
         cout << "Year of death: " << p.deathYear << endl;
+    cout<<endl;
 }
 
 void FamousPeople::viewInfo(vector<InfoType>& FP)
@@ -226,14 +230,16 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
 
 void FamousPeople::searchVector(vector<InfoType>& FP)
 {
-    fillVector(FP);
-
+    fillVector(FP);//búum til vektorinn
     int choise;
+   //gerum breytur fyrir hvert leitarskilyrði
     string nameSearch;
     char genderSearch;
     int birthYearSearch;
     int deathYearSearch;
-    bool check = false;
+
+
+    bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do
         {
         cout<<"do you want to search: "<<endl;
@@ -247,9 +253,20 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
         {
             cout<<"enter name: ";
             cin>> nameSearch;
+
+            int nameSize = nameSearch.size();
+            for(int i = 0; i < nameSize; i++)
+                 nameSearch[i] = tolower(nameSearch[i]);
+            //setjum innsláttinn í lower case
             for(unsigned int i = 0; i < FP.size(); i++)
             {
-                if(nameSearch == FP[i].name)
+                string tempName = FP[i].name;
+                nameSize = tempName.size();
+
+                for(int j = 0; j < nameSize; j++)
+                    tempName[j] = tolower(tempName[j]);
+                //setjum nafnið í skjalinu í lower case og berum svo saman
+                if(nameSearch == tempName)
                 {
                     displayPerson(FP[i]);
                     check = true;
@@ -261,17 +278,26 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             }
         }
         if(choise == 2)
-        {
+        {         
+
             cout<<"enter gender: ";
             cin>> genderSearch;
+            char tempGender;
+
+            genderSearch = tolower(genderSearch);
             for(unsigned int i = 0; i < FP.size(); i++)
             {
-                if(genderSearch == FP[i].gender)
+                tempGender = FP[i].gender;
+                tempGender = tolower(tempGender);
+
+                if(genderSearch == tempGender)
                 {
                     displayPerson(FP[i]);
                     check = true;
                 }
             }
+
+
             if(check == false)
             {
                 cout<<"gender was not in file"<<endl;
@@ -288,7 +314,6 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
                     displayPerson(FP[i]);
                     check = true;
                 }
-
             }
             if(check == false)
             {
@@ -318,19 +343,7 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
         }
     }while (choise != 5);
 
-    FP.clear();
-
-    userMenu();
+    FP.clear();//hreinsum vektorinn eftir notkun
+    userMenu();//köllum í menu
 
 }
-
-
-/*void FamousPeople::printVector(InfoType& FP)const
-{   cout <<endl;
-    cout << "Name: " << FP.name << endl;
-    cout << "Gender: " << FP.gender << endl;
-    cout << "Birth Year: " << FP.birthYear << endl;
-    cout << "Death year: " << FP.deathYear << endl;
-    cout << endl;
-}//hefðir getað notað fallið sem ég bjó til, displayperson í staðinn fyrir þetta fall.. kv daxi
-*/

@@ -24,8 +24,10 @@ public:
 
 
     void fillVector(vector <InfoType>& FP);
+    //tekur skjalið og setur inn í vektor
 
     void searchVector(vector <InfoType>& FP);
+    //leitar að skilirðum í vektornum úr skjalinu
 
     void sortByNameDesc(vector <InfoType>& FP);
 
@@ -40,7 +42,9 @@ public:
     void getInfo();
 
     void viewInfo(vector<InfoType>& FP);
+
     void displayPerson(InfoType& p)const;
+    //fall sem skrifar bara út upplýsingar, hvort sem er úr skjalinu eða vektor
 
 
 private:
