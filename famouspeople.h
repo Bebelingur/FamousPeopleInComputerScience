@@ -22,10 +22,15 @@ public:
         int deathYear;
     };
 
+    void userMenu();
+    void getInfo();
+    void viewInfo(vector<InfoType>& FP);
+    void displayPerson(InfoType p);
 
-    void fillVector(vector <InfoType>& FP);
+
+    void fillVector(vector<InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
-    void printVector(InfoType& FPP) const;
+    void printVector(InfoType& FP) const;
 
     void sortByNameDesc(vector <InfoType>& FP);
 
@@ -35,12 +40,8 @@ public:
 
     void sortByYearAsc(vector <InfoType>& FP);
 
-    void userMenu();
 
-    void getInfo();
 
-    void viewInfo();
-    void displayPerson(InfoType p);
 
 
 private:

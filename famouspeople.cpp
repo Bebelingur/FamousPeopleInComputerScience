@@ -4,11 +4,15 @@
 #include <fstream>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 #include "famouspeople.h"
 
 using namespace std;
 
 const int yearNow = 2015;
+const int CstartYear = 1791;
+//birth year of Charles Babbage should do for beginning year of computer science
+//kannski finna fall með nákvæmri dagsetnintu/ári hvers dags fyrir sig
 
 FamousPeople::FamousPeople()
 {}
@@ -41,7 +45,7 @@ void FamousPeople::userMenu()
                 getInfo();
                 break;
             case '2':
-                viewInfo();
+                viewInfo(FP);
                 break;
             case '3':
                 cout << "3" << endl;
@@ -108,28 +112,35 @@ void FamousPeople::getInfo()
 
         do{
             cin.ignore();
-            cout << "Input name: ";
+            cout << "Input name (in the order first, middle and last name): ";
             getline(cin, name);
             getFile << name << "\n";
 
             do{
-                    cout << "Input gender (F for female, M for male or ? for other): ";
-                    cin >> gender;
-                        if(!(gender == 'F' || gender == 'M' || gender == '?'))
-                        {
-                            cout << "Wrong input. Please try again." << endl;
-                        }
+                cout << "Input gender (F for female, M for male or ? for other): ";
+                cin >> gender;
+                    if(!(gender == 'F' || gender == 'M' || gender == '?'))
+                    {
+                        cout << "Wrong input. Please try again." << endl;
+                    }
             }while(!(gender == 'F' || gender == 'M' || gender == '?'));
             getFile << gender << "\n";
 
-            cout << "Input birthYear: ";
-            cin >> bYear;
+            do{
+                cout << "Input year of birth: ";
+                cin >> bYear;
+                if(!((bYear < yearNow) && (bYear >= CstartYear)))
+                {
+                    cout << "Wrong input. Please try again." << endl;
+                }
+            }while(!((bYear < yearNow) && (bYear >= CstartYear)));
             getFile << bYear << "\n";
-            cout << "Is this person deceased? (Y for yes N for no): ";
-            cin >> personDead;
+
+                cout << "Is " << name << " deceased? (Y for yes N for no): ";
+                cin >> personDead;
                 if(personDead == 'Y' || personDead == 'y')
                 {
-                    cout << "Input deathYear: ";
+                    cout << "Input year of death: ";
                     cin >> dYear;
                     getFile << dYear << "\n";
                 }
@@ -138,7 +149,6 @@ void FamousPeople::getInfo()
                     int zero = 0;
                     getFile << zero << "\n";
                 }
-
             cout << "Input more information (Y for yes N for no): ";
             cin >> keepGoing;
         }while(keepGoing == 'Y' || keepGoing == 'y');
@@ -149,51 +159,52 @@ void FamousPeople::getInfo()
 
 void FamousPeople::displayPerson(InfoType p)
 {
-
     cout << "Name: " << p.name << endl;
-
     cout << "Gender: ";
-    if(p.gender == 'f' || p.gender == 'F')
-        cout << "Female" << endl;
-    else if (p.gender == 'm' || p.gender == 'M')
-        cout << "Male" << endl;
-    else
-        cout << "Other" << endl;
-
+        if(p.gender == 'f' || p.gender == 'F')
+        {
+            cout << "Female" << endl;
+        }
+        else if (p.gender == 'm' || p.gender == 'M')
+        {
+            cout << "Male" << endl;
+        }
+        else if (p.gender == '?')
+        {
+            cout << "Other" << endl;
+        }
     cout << "Year of birth: " << p.birthYear << endl;
-
     if(p.deathYear != 0)
+    {
         cout << "Year of death: " << p.deathYear << endl;
+    }
 }
 
-void FamousPeople::viewInfo()
+void FamousPeople::viewInfo(vector<InfoType>& FP)
 {
     ifstream getFile;
-    getFile.open("InfoFile.txt");
-    if(getFile.fail())
-    {
-        cout << "Could not open file." << endl;
-    }
-    else
-        while(!getFile.eof())
+        getFile.open("InfoFile.txt");
+        if(getFile.fail())
+        {
+            cout << "Could not open file." << endl;
+            exit(1);
+        }
+        while(getFile.eof())
         {
             InfoType p;
-            getline(getFile , p.name, '*');
-            cin >> p.gender;
-            cin >> p.birthYear;
-            cin >> p.deathYear;
+            getline(getFile , p.name);
+            getFile >> p.gender;
+            getFile >> p.birthYear;
+            getFile >> p.deathYear;
             displayPerson(p);
         }
-    getFile.close();
+        getFile.close();
 }
 
-
-void FamousPeople::fillVector(vector <InfoType>& FP)
+void FamousPeople::fillVector(vector<InfoType>& FP)
 {
-    int counter = 0;
     ifstream getFile;
     getFile.open("InfoFile.txt");
-    string word;
 
     if(getFile.fail())
     {
@@ -204,22 +215,21 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
         while(!getFile.eof())
         {
             InfoType p;
-            //getline(cin, p.name, '*');
+            getline(getFile, p.name);
             getFile >> p.name;
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
 
             FP.push_back(p);
-
-            counter++;
         }
-}
+        cout << "Press r to return to user menu. " << endl;
+       }
+
     getFile.close();
-
-
 }
-void FamousPeople::searchVector(vector<InfoType>& FP)
+
+void FamousPeople::searchVector(vector <InfoType>& FP)
 {
     fillVector(FP);
 
@@ -291,10 +301,12 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
         }
     }while (choise != 5);
 
+    FP.clear();
+
     userMenu();
 
 }
-void FamousPeople::printVector(InfoType& FP)const
+void FamousPeople::printVector(InfoType& FP) const
 {
     cout << "Name: " << FP.name << endl;
     cout << "Gender: " << FP.gender << endl;
