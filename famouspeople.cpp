@@ -482,8 +482,3 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     userMenu();
 
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7819f3d22739fd5c743cb046a3f0c15d9c783b60
