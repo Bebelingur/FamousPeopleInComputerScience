@@ -24,8 +24,8 @@ public:
 
 
     void fillVector(vector <InfoType>& FP);
+
     void searchVector(vector <InfoType>& FP);
-    void printVector(InfoType& FPP) const;
 
 
     void sortByNameDesc(vector <InfoType>& FP);
@@ -42,8 +42,8 @@ public:
 
     void getInfo();
 
-    void viewInfo();
-    void displayPerson(InfoType p);
+    void viewInfo(vector<InfoType>& FP);
+    void displayPerson(InfoType& p)const;
 
 
 private:
