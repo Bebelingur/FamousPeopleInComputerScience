@@ -101,6 +101,16 @@ void FamousPeople::sortMenu()
                 sortByYearDesc(FP);
                 break;
                 }
+            case '5':
+                {
+                //sortByGenderMale(FP);
+                break;
+                }
+            case '6':
+                {
+                //sortByGenderFemale(FP);
+                break;
+                }
 
             case '5':
                 break;
@@ -302,6 +312,24 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
         cout << endl;
     }
 }
+
+/*
+á eftir að útfæra þessi föll
+void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
+{
+
+
+}
+
+
+void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
+{
+
+
+
+}
+
+*/
 
 void FamousPeople::getInfo()
 {
