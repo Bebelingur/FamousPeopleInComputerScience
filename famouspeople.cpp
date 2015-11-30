@@ -63,7 +63,6 @@ void FamousPeople::userMenu()
     }while(choice != '5');
 }
 
-
 void FamousPeople::sortMenu()
 {
     char choice;
@@ -304,8 +303,6 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     }
 }
 
-
-
 void FamousPeople::getInfo()
 {
     ofstream getFile;
@@ -380,7 +377,6 @@ void FamousPeople::getInfo()
     getFile.close( );
 }
 
-
 void FamousPeople::displayPerson(InfoType p)
 {
     cout << "Name: " << p.name << endl;
@@ -432,7 +428,6 @@ void FamousPeople::viewInfo()
     if(input)
         userMenu();
 }
-
 
 void FamousPeople::fillVector(vector<InfoType>& FP)
 {
@@ -566,5 +561,4 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     FP.clear();
 
     userMenu();
-
 }
