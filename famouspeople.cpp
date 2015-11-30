@@ -41,7 +41,7 @@ void FamousPeople::userMenu()
                 getInfo();
                 break;
             case '2':
-                viewInfo();
+                viewInfo(FP);
                 break;
             case '3':
                 cout << "3" << endl;
@@ -166,9 +166,9 @@ void FamousPeople::displayPerson(InfoType p)
         cout << "Year of death: " << p.deathYear << endl;
 }
 
-void FamousPeople::viewInfo()
+void FamousPeople::viewInfo(vector<InfoType>& FP)
 {
-    ofstream getFile;
+    /*ofstream getFile;
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
@@ -184,7 +184,15 @@ void FamousPeople::viewInfo()
             cin >> p.deathYear;
             displayPerson(p);
         }
-    getFile.close();
+    getFile.close();*/
+
+    fillVector(FP);
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        printVector(FP[i]);
+    }
+
+    FP.clear();
 }
 
 
@@ -202,11 +210,11 @@ void FamousPeople::fillVector(vector <InfoType>& FP)
         while(!getFile.eof())
         {
             InfoType p;
-            //getline(cin, p.name, '*');
+            //getline(getFile, p.name, "*");
             getFile >> p.name;
-            /*getFile >> p.gender;
+            getFile >> p.gender;
             getFile >> p.birthYear;
-            getFile >> p.deathYear;*/
+            getFile >> p.deathYear;
 
             FP.push_back(p);
         }
@@ -286,6 +294,8 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             cout<<"wrong input"<<endl;
         }
     }while (choise != 5);
+
+    FP.clear();
 
     userMenu();
 
