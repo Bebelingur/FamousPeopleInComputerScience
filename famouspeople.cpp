@@ -44,6 +44,7 @@ void FamousPeople::userMenu()
                 viewInfo();
                 break;
             case '3':
+                fillVector(FP);
                 sortMenu();
                 break;
             case '4':
@@ -60,6 +61,7 @@ void FamousPeople::userMenu()
 }
 
 
+//menu valmynd fyrir sort föllin
 void FamousPeople::sortMenu()
 {
     char choice;
@@ -79,27 +81,27 @@ void FamousPeople::sortMenu()
         {
             case '1':
                 {
-                fillVector(FP);
-                sortByNameAsc(FP);
+                //fillVector(FP);
+                //sortByNameAsc(FP);
                 break;
                 }
             case '2':
                 {
-                fillVector(FP);
-                sortByNameDesc(FP);
+                //fillVector(FP);
+                //sortByNameDesc(FP);
                 break;
                 }
 
             case '3':
                 {
-                fillVector(FP);
-                sortByYearAsc(FP);
+                //fillVector(FP);
+                //sortByYearAsc(FP);
                 break;
                 }
             case '4':
                 {
-                fillVector(FP);
-                sortByYearDesc(FP);
+                //fillVector(FP);
+                //sortByYearDesc(FP);
                 break;
                 }
 
@@ -438,14 +440,18 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(deathYearSearch == FP[i].deathYear)
+                {
+                    //printVector(FP[i]);
+                }
 
-                    printVector(FP[i]);
+
                 else
+                {
                  cout << "Name was not in file" << endl;
 
                  cout<<"deathYear was not in file"<<endl;
 
-                {
+
                     displayPerson(FP[i]);
                     check = true;
                 }
@@ -468,11 +474,13 @@ void FamousPeople::searchVector(vector<InfoType>& FP)
 
 }
 
+/*
+
 void FamousPeople::printVector(InfoType& FP)const
 {
 
 
-/*void FamousPeople::printVector(InfoType& FP)const
+void FamousPeople::printVector(InfoType& FP)const
 {   cout <<endl;
 >>>>>>> 3613765cbd2b8793f4df6a01e5a46510c65aeb8c
     cout << "Name: " << FP.name << endl;
