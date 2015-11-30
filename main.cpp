@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "famouspeople.h"
 
 
@@ -14,6 +15,7 @@ int main()
 
     FamousPeople people;
     people.userMenu();
+    FamousPeople readFile;
 
     return 0;
 }
