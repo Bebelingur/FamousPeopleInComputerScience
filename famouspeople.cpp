@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
 #include "famouspeople.h"
 #include <algorithm>
 
@@ -90,10 +91,15 @@ void FamousPeople::getInfo()
 {
 
     ofstream getFile;
-    getFile.open("InfoFile.txt");
+    getFile.open("InfoFile.txt", ios::app);
+    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn
+    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana
 
-    if(getFile.is_open())
+    if(getFile.fail( ))
     {
+        cout << "Could not open file." << endl;
+        exit(1);
+    }
         string firstName = " ", lastName = " ";
         int bYear = 0, dYear = 0;
         char keepGoing = ' ', gender = ' ';
@@ -105,28 +111,18 @@ void FamousPeople::getInfo()
             cout << "Input gender (F for female, M for male or ? for other): ";
             getFile << gender << " * ";
             cout << endl;
-<<<<<<< HEAD
             cout << "Input birthYear: ";
             getFile << bYear << " * ";
             cout << endl;
             cout << "Input deathYear: ";
             getFile << dYear << " * ";
-=======
-            cout << "Input birth year: ";
-            cout << endl;
-            cout << "Input death year: ";
->>>>>>> 75d4624f38e3fca409d02a9173b94a65d0861de9
             cout << endl;
             cout << "Input more information (Y for yes N for no): ";
             cin >> keepGoing;
             cout << endl;
         }while(keepGoing == 'Y' || keepGoing == 'y');
-    }
-    else
-    {
-        cout << "Could not open file." << endl;
-    }
-    getFile.close();
+
+    getFile.close( );
 }
 
 
