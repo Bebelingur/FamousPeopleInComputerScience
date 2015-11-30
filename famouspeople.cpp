@@ -110,7 +110,7 @@ void FamousPeople::getInfo()
             cin.ignore();
             cout << "Input name: ";
             getline(cin, name);
-            getFile << name << " * ";
+            getFile << name << "\n";
 
             do{
                     cout << "Input gender (F for female, M for male or ? for other): ";
@@ -120,23 +120,23 @@ void FamousPeople::getInfo()
                             cout << "Wrong input. Please try again." << endl;
                         }
             }while(!(gender == 'F' || gender == 'M' || gender == '?'));
-            getFile << gender << " * ";
+            getFile << gender << "\n";
 
             cout << "Input birthYear: ";
             cin >> bYear;
-            getFile << bYear << " * ";
+            getFile << bYear << "\n";
             cout << "Is this person deceased? (Y for yes N for no): ";
             cin >> personDead;
                 if(personDead == 'Y' || personDead == 'y')
                 {
                     cout << "Input deathYear: ";
                     cin >> dYear;
-                    getFile << dYear << " * ";
+                    getFile << dYear << "\n";
                 }
                 else
                 {
                     int zero = 0;
-                    getFile << zero << " * ";
+                    getFile << zero << "\n";
                 }
 
             cout << "Input more information (Y for yes N for no): ";
@@ -168,7 +168,7 @@ void FamousPeople::displayPerson(InfoType p)
 
 void FamousPeople::viewInfo()
 {
-    ofstream getFile;
+    ifstream getFile;
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
@@ -178,7 +178,7 @@ void FamousPeople::viewInfo()
         while(!getFile.eof())
         {
             InfoType p;
-            getline(cin, p.name, '*');
+            getline(getFile , p.name, '*');
             cin >> p.gender;
             cin >> p.birthYear;
             cin >> p.deathYear;
