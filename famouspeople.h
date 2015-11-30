@@ -8,26 +8,33 @@
 
 using namespace std;
 
+struct InfoType
+{
+    string name;
+    char gender;
+    int birthYear;
+    int deathYear;
+};
+
 class FamousPeople
 {
 public:
 
     FamousPeople();
 
-    struct InfoType
-    {
-        string name;
-        char gender;
-        int birthYear;
-        int deathYear;
-    };
-
+    void userMenu();
+    void getInfo();
+    void viewInfo();
+    void displayPerson(InfoType p);
 
     void fillVector(vector <InfoType>& FP);
     //tekur skjalið og setur inn í vektor
 
     void searchVector(vector <InfoType>& FP);
     //leitar að skilirðum í vektornum úr skjalinu
+
+
+    void sortMenu();
 
     void sortByNameDesc(vector <InfoType>& FP);
 
@@ -37,18 +44,9 @@ public:
 
     void sortByYearAsc(vector <InfoType>& FP);
 
-    void userMenu();
-
-    void getInfo();
-
-    void viewInfo(vector<InfoType>& FP);
-
-    void displayPerson(InfoType& p)const;
-    //fall sem skrifar bara út upplýsingar, hvort sem er úr skjalinu eða vektor
-
 
 private:
-    vector<InfoType>FP;
+    vector <InfoType> FP;
 };
 
 #endif // FAMOUSPEOPLE_H
