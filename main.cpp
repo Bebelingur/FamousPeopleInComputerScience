@@ -15,7 +15,6 @@ int main()
 
     FamousPeople people;
     people.userMenu();
-    FamousPeople readFile;
 
     return 0;
 }

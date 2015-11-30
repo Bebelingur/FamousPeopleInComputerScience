@@ -25,7 +25,7 @@ public:
 
     void fillVector(vector <InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
-    void printVector(InfoType& FPP) const;
+    void printVector(InfoType& FP) const;
 
     void sortByNameDesc(vector <InfoType>& FP);
 
