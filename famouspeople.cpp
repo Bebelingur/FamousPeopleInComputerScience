@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <algorithm>
 //#include <ctime>
-//nota ef ég bæti við nákvæmari ári
 #include "famouspeople.h"
 #include "data.h"
 
@@ -64,8 +63,7 @@ void FamousPeople::userMenu()
                 exit(1);
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
-    //ekki alveg nógu viss með þetta, keyrir á meðan þessir möguleikar eru valdir, spurning með þetta - BóE
-    // 1 og 5 virka en ekki 2, 3 og 4
+    //náði að láta virka aðeins, google to the rescue :)  - BóE
 }
 
 void FamousPeople::sortMenu()
@@ -166,7 +164,7 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 
     for (unsigned int i = 0; i < FP.size(); i++)
     {
-        cout << "Name: " << FP.at(i).name << endl;
+        cout << "Name: " << FP.at(i).name<< endl;
 
         if(FP.at(i).gender == 'F')
         {
@@ -246,6 +244,7 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 
     for (unsigned int i = 0; i < FP.size(); i++)
     {
+
         cout << "Name: " << FP.at(i).name << endl;
 
 
@@ -344,82 +343,75 @@ void FamousPeople::getInfo()
     //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
     //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
 
-        if(getFile.fail( ))
-        {
-            cout << "Could not open file." << endl;
-            exit(1);
-            //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-        }
+    if(getFile.fail( ))
+    {
+        cout << "Could not open file." << endl;
+        exit(1);
+        //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
+    }
+        string name = " ";
+        int bYear = 0, dYear = 0;
+        char keepGoing = ' ', gender = ' ', personDead = ' ';
+        //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
-    string name = " ";
-    int bYear = 0, dYear = 0;
-    char keepGoing = ' ', gender = ' ', personDead = ' ';
-    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
-
-    do{
-        //NAME
-        cout << "Input name (in the order first, middle and last name): ";
-        cin.ignore();
-        //use ignore before getline(cin) to get rid of before use
-        getline(cin, name);
-        getFile << name << "*";
-
-        //GENDER
         do{
-            cout << "Input gender (F for female/M for male /? for other): ";
-            cin >> gender;
-            cin.clear();
-            cin.ignore(CHAR_MAX, '\n');
-        }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
-        getFile << gender << " ";
+            cout << "Input name (in the order first, middle and last name): ";
+            cin.ignore();
+            //use ignore before getline(cin) to get rid of before use
+            getline(cin, name);
+            getFile << name << "*";
 
-        //BIRTH YEAR
-        do{
-            cout << "Input year of birth: ";
-            cin >> bYear;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-        }while(!((bYear < yearNow) && (bYear >= CstartYear)));
-        getFile << bYear << " ";
+            do{
+                cout << "Input gender (F for female/M for male /? for other): ";
+                cin >> gender;
+                    if(!(toupper(gender) == 'F' || toupper(gender) == 'M' || gender == '?'))
+                    {
+                        cout << "Wrong input. Please try again." << endl;
+                    }
+            }while(!(toupper(gender) == 'F' || toupper(gender) == 'M' || gender == '?'));
+            getFile << gender << " ";
+            //er að koma vitlaust hérna þar sem kkk t.d. skilar 3 útkomum um wrong input
 
-        //DEATH YEAR
-        do{
-            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
-            cin >> personDead;
-            cin.clear();
-            cin.ignore(CHAR_MAX, '\n');
+            do{
+                cout << "Input year of birth: ";
+                cin >> bYear;
+                if(!((bYear < yearNow) && (bYear >= CstartYear)))
+                {
+                    cout << "Wrong input. Please try again." << endl;
+                }
+            }while(!((bYear < yearNow) && (bYear >= CstartYear)));
+            getFile << bYear << " ";
 
-            if(toupper(personDead) == 'Y')
-            //fallegra að nota toupper frekar en langa uppröðun - BóE
-            {
-                do{
-                    cout << "Input year of death: ";
-                    cin >> dYear;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
-                }while(!((dYear > bYear) && (dYear <= yearNow)));
-                //year of birth has to be less than year of death - BÓE
-                //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
-                //use a constant for the year, now it is set to 2015, death year should be less or equal
-                getFile << dYear;
-            }
-            if(toupper(personDead) == 'N')
-            {
-                int zero = 0;
-                getFile << zero;
-                //all deceased get zero as input for year of death - BóE
-            }
-        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+                cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+                cin >> personDead;
+                if(toupper(personDead) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun
+                {
+                    do{
+                        cout << "Input year of death: ";
+                        cin >> dYear;
+                            if(!((dYear > bYear) && (dYear <= yearNow)))
+                            //year of birth has to be less than year of death - BÓE
+                            //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                            //use a constant for the year, now it is set to 2015, death year should be less or equal
+                            {
+                                cout << "Wrong input. Please try again." << endl;
+                            }
+                    }while(!((dYear > bYear)&& (dYear <= yearNow)));
+                    getFile << dYear;
+                }
+                else
+                {
+                    int zero = 0;
+                    getFile << zero;
+                    //all deceased get zero as input for year of death - BóE
+                }
+            //dYear kemur vitlaust út á þann hátt að ef slegið er inn nnn þá er hoppað í userMenu
 
-        //CONTINUE
-        do{
             cout << "Input more information (Y for yes/N for no): ";
             cin >> keepGoing;
-            cin.clear();
-            cin.ignore(CHAR_MAX, '\n');
-        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+        }while(toupper(keepGoing) == 'Y');
 
-    }while(toupper(keepGoing) == 'Y');
     getFile.close( );
 }
 
@@ -571,7 +563,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
         }
         if(choice == "2")
-        {       
+        {
             cout << "Enter gender: ";
             cin >> genderSearch;
             string tempGender;
