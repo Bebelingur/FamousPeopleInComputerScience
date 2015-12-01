@@ -256,10 +256,8 @@ void FamousPeople::viewInfo()
 }
 void FamousPeople::displayPerson(InfoType p)
 {
-<<<<<<< HEAD
-=======
+
     cout << endl;
->>>>>>> d20401ccea0c8791d012f9cd903b00d21466982f
     string tempName = changeName(p);
     cout << "Name: " << tempName << endl;
     cout << "Gender: ";
@@ -276,12 +274,12 @@ void FamousPeople::displayPerson(InfoType p)
             cout << "Other" << endl;
         }
     cout << "Year of birth: " << p.birthYear << endl;
-<<<<<<< HEAD
+
         if(p.deathYear != 0)
         {
             cout << "Year of death: " << p.deathYear << endl;
         }
-=======
+
     if(p.deathYear != 0)
     {
         cout << "Year of death: " << p.deathYear << endl;
@@ -289,7 +287,6 @@ void FamousPeople::displayPerson(InfoType p)
     cout << endl;
 
     }
->>>>>>> d20401ccea0c8791d012f9cd903b00d21466982f
     cout << endl;
 }
 string FamousPeople::changeName(InfoType p)
@@ -324,11 +321,9 @@ void FamousPeople::sortMenu()
     cout << "How would you like to sort?" << endl;
     cout << "1. Sort by name (Ascending)" << endl;
     cout << "2. Sort by name (Descending)" << endl;
-<<<<<<< HEAD
     cout << "3. Sort by birth year (Ascending)" << endl;
     cout << "4. Sort by birth year (Descending)" << endl;
     cout << "5. Return to main menu" << endl;
-=======
     cout << "3. Sort by gender (Males first)" << endl;
     cout << "4. Sort by gender (Females first)" << endl;
     cout << "5. Sort by year of birth (Ascending)" << endl;
@@ -336,7 +331,6 @@ void FamousPeople::sortMenu()
     cout << "7. Sort by year of death (Ascending)" << endl;
     cout << "8. Sort by year of death (Descending)" << endl;
     cout << "9. Return" << endl;
->>>>>>> 1812fd6ac46f0bb16a5e36e0a09f5df4708568f6
     cout << "===========================================" << endl;
     cout << "Please choose one of these numbers: ";
     cin >> choice;
