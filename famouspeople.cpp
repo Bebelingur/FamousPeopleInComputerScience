@@ -519,13 +519,15 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do
         {
-        cout<<"do you want to search: "<<endl;
-        cout<<"1 name"<<endl;
-        cout<<"2 gender"<<endl;
-        cout<<"3 birth year"<<endl;
-        cout<<"4 death year"<<endl;
-        cout<<"5 return " <<endl;
-        cin>> choice;
+        cout << "Do you want to: "<< endl;
+        cout << "1    Search name"<< endl;
+        cout << "2    Search gender"<< endl;
+        cout << "3    Search birth year"<< endl;
+        cout << "4    Search death year"<< endl;
+        cout << "5    Return " << endl;
+        cout << "Enter a number: ";
+        cin >> choice;
+        cout <<endl;
 
 
         if(choice == "1")
@@ -556,7 +558,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(check == false)
             {
-                cout<<endl;
                 cout << "Name was not in file" << endl;
                 cout<<endl;
             }
@@ -585,7 +586,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(check == false || genderSearch.size()!=1)
             {
-                cout << endl;
                 cout << "Gender was not in file or input not in the right format" << endl;
                 cout << endl;
             }
@@ -631,7 +631,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 }
             }
             if(check == false)
-            {   cout << endl;
+            {
                 cout << "Death year is not in file or input not in the right format" << endl;
                 cout << endl;
             }
@@ -639,7 +639,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
 
         if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
         {
-            cout << endl;
             cout << "Wrong input" << endl;
             cout << endl;
         }
