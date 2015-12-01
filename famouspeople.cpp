@@ -280,13 +280,7 @@ void FamousPeople::displayPerson(InfoType p)
             cout << "Year of death: " << p.deathYear << endl;
         }
 
-    if(p.deathYear != 0)
-    {
-        cout << "Year of death: " << p.deathYear << endl;
 
-    cout << endl;
-
-    }
     cout << endl;
 }
 string FamousPeople::changeName(InfoType p)
@@ -489,12 +483,6 @@ bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
-
-    /*for (unsigned int i = 0; i < FP.size(); i++)
-    {
-        cout << "Name: " << FP.at(i).name << endl;
-    }*/
-
 //Fall sem ber saman fæðingarár og skilar elst fyrst
 bool compareYearAsc(const InfoType& a, const InfoType& b);
 bool compareYearAsc(const InfoType& a, const InfoType& b)
@@ -710,7 +698,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(choice == "2")
             {
-                cout << "Enter gender: ";
+                cout << "Enter gender, M for male, F for female and ? for other: ";
                 cin >> genderSearch;
                 string tempGender;
                 if(genderSearch.size() == 1)
