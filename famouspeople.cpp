@@ -26,6 +26,7 @@ void FamousPeople::userMenu()
 {
     int choice;
     do{
+        cout << endl;
         cout << "===========================================" << endl;
         cout << "==== Famous People In Computer Science ====" << endl;
         cout << "===========================================" << endl;
@@ -38,11 +39,18 @@ void FamousPeople::userMenu()
         cout << "===========================================" << endl;
 
         do{
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
+            cout << "Please choose one of these numbers: ";
+            cin >> choice;
+            cout << "===========================================" << endl;
+            cout << endl;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
 
         switch(choice)
@@ -101,7 +109,13 @@ void FamousPeople::getInfo()
             cout << "Input gender (F for female/M for male /? for other): ";
             cin >> gender;
             cin.clear();
-            cin.ignore(CHAR_MAX, '\n');
+            cin.ignore(INT_MAX, '\n');
+                if(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?')
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
         }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
         getFile << gender << " ";
 
@@ -111,6 +125,12 @@ void FamousPeople::getInfo()
             cin >> bYear;
             cin.clear();
             cin.ignore(INT_MAX, '\n');
+                if(!((bYear < yearNow) && (bYear >= CstartYear)))
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
         }while(!((bYear < yearNow) && (bYear >= CstartYear)));
         getFile << bYear << " ";
 
@@ -119,28 +139,41 @@ void FamousPeople::getInfo()
             cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
             cin >> personDead;
             cin.clear();
-            cin.ignore(CHAR_MAX, '\n');
+            cin.ignore(INT_MAX, '\n');
 
-            if(toupper(personDead) == 'Y')
-            //fallegra að nota toupper frekar en langa uppröðun - BóE
-            {
-                do{
-                    cout << "Input year of death: ";
-                    cin >> dYear;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
-                }while(!((dYear > bYear) && (dYear <= yearNow)));
-                //year of birth has to be less than year of death - BÓE
-                //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
-                //use a constant for the year, now it is set to 2015, death year should be less or equal
-                getFile << dYear;
-            }
-            if(toupper(personDead) == 'N')
-            {
-                int zero = 0;
-                getFile << zero;
-                //all deceased get zero as input for year of death - BóE
-            }
+                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
+
+                if(toupper(personDead) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun - BóE
+                {
+                    do{
+                        cout << "Input year of death: ";
+                        cin >> dYear;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(!((dYear > bYear) && (dYear <= yearNow)))
+                            {
+                                cout << "------------------------------------------" << endl;
+                                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                                cout << "------------------------------------------" << endl;
+                            }
+                    }while(!((dYear > bYear) && (dYear <= yearNow)));
+                    //year of birth has to be less than year of death - BÓE
+                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                    //use a constant for the year, now it is set to 2015, death year should be less or equal
+                    getFile << dYear;
+                }
+                if(toupper(personDead) == 'N')
+                {
+                    int zero = 0;
+                    getFile << zero;
+                    //all deceased get zero as input for year of death - BóE
+                }
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
 
         //CONTINUE
@@ -148,7 +181,13 @@ void FamousPeople::getInfo()
             cout << "Input more information (Y for yes/N for no): ";
             cin >> keepGoing;
             cin.clear();
-            cin.ignore(CHAR_MAX, '\n');
+            cin.ignore(INT_MAX, '\n');
+                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
         }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
 
     }while(toupper(keepGoing) == 'Y');
@@ -159,12 +198,38 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
     ifstream getFile;
     getFile.open("InfoFile.txt");
 
-    if(getFile.fail())
-    {
-        cout << "Could not open file." << endl;
-    }
-    else{
+        if(getFile.fail())
+        {
+            cout << "Could not open file." << endl;
+        }
+        else{
+            while(!getFile.eof())
+            {
+                InfoType p;
+                getline(getFile, p.name, '*');
+                getFile >> p.gender;
+                getFile >> p.birthYear;
+                getFile >> p.deathYear;
+                FP.push_back(p);
+            }
+            getFile.close();
+        }
+}
+void FamousPeople::viewInfo()
+{
+    ifstream getFile;
+    getFile.open("InfoFile.txt");
 
+        if(getFile.fail())
+        {
+            cout << endl;
+            cout << "-------------------------------------------------------------" << endl;
+            cout << "| | | Could not open file. No data to display. | | |" << endl;
+            cout << "-------------------------------------------------------------" << endl;
+            cout << endl;
+            userMenu();
+            //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
+        }
         while(!getFile.eof())
         {
             InfoType p;
@@ -172,57 +237,30 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
             getFile >> p.gender;
             getFile >> p.birthYear;
             getFile >> p.deathYear;
-
-            FP.push_back(p);
+            displayPerson(p);
         }
-
-        //cout << "Press r to return to user menu. " << endl;
     getFile.close();
-    }
-}
-void FamousPeople::viewInfo()
-{
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
-    if(getFile.fail())
-    {
-        cout << endl;
-        cout << "-------------------------------------------------------------" << endl;
-        cout << "| | | Could not open file. No data to display. | | |" << endl;
-        cout << "-------------------------------------------------------------" << endl;
-        cout << endl;
-        userMenu();
-        //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
-    }
-    cout << endl;
-    while(!getFile.eof())
-    {
-        InfoType p;
 
-        getline(getFile, p.name, '*');
-        getFile >> p.gender;
-        getFile >> p.birthYear;
-        getFile >> p.deathYear;
-        displayPerson(p);
-    }
-    getFile.close();
     char input;
-    cout << "Press any key to return to menu." << endl;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
     cin >> input;
-    if(input)
-        userMenu();
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            userMenu();
+        }
 }
 void FamousPeople::displayPerson(InfoType p)
 {
-    cout<<endl;
     string tempName = changeName(p);
     cout << "Name: " << tempName << endl;
     cout << "Gender: ";
-        if(p.gender == 'f' || p.gender == 'F')
+        if(toupper(p.gender) == 'F')
         {
             cout << "Female" << endl;
         }
-        else if (p.gender == 'm' || p.gender == 'M')
+        else if (toupper(p.gender) == 'M')
         {
             cout << "Male" << endl;
         }
@@ -231,21 +269,16 @@ void FamousPeople::displayPerson(InfoType p)
             cout << "Other" << endl;
         }
     cout << "Year of birth: " << p.birthYear << endl;
-    if(p.deathYear != 0)
-    {
-        cout << "Year of death: " << p.deathYear << endl;
-
-    cout<<endl;
-
-    }
+        if(p.deathYear != 0)
+        {
+            cout << "Year of death: " << p.deathYear << endl;
+        }
     cout << endl;
 }
 string FamousPeople::changeName(InfoType p)
 {
     string tempName = p.name;
-
-        int NameLength = tempName.size();
-
+    int NameLength = tempName.size();
         for (int i = 0; i < NameLength; i++)
         {
             if(tempName[i] == ' ')
@@ -257,11 +290,12 @@ string FamousPeople::changeName(InfoType p)
             {
                 tempName[i] = toupper(tempName[i]);
             }
-
             else
+            {
                 tempName[i] = tolower(tempName[i]);
+            }
         }
-       return tempName;
+    return tempName;
 }
 void FamousPeople::sortMenu()
 {
@@ -272,7 +306,7 @@ void FamousPeople::sortMenu()
     cout << "2. Sort by name (Descending)" << endl;
     cout << "3. Sort by birth year (Ascending)" << endl;
     cout << "4. Sort by birth year (Descending)" << endl;
-    cout << "5. Return" << endl;
+    cout << "5. Return to main menu" << endl;
     cout << "===========================================" << endl;
     cout << "Please choose one of these numbers: ";
     cin >> choice;
