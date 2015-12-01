@@ -287,7 +287,6 @@ void FamousPeople::displayPerson(InfoType p)
             cout << "Year of death: " << p.deathYear << endl;
         }
 
-
     cout << endl;
 }
 string FamousPeople::changeName(InfoType p)
@@ -436,6 +435,7 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
 
         if(FP.at(i).deathYear == 0)
         {
+            cout << "Not deceased!" << endl;
             cout << endl;
         }
         else
