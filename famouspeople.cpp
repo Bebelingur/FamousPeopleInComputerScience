@@ -7,6 +7,7 @@
 //#include <ctime>
 #include "famouspeople.h"
 #include "data.h"
+#include <sstream>
 
 using namespace std;
 
@@ -554,9 +555,9 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
    //gerum breytur fyrir hvert leitarskilyrði
 
     string nameSearch;
-    char genderSearch;
-    int birthYearSearch;
-    int deathYearSearch;
+    string genderSearch;
+    string birthYearSearch;
+    string deathYearSearch;
 
     bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do
@@ -573,7 +574,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
         {
             cout << "Enter name: ";
             cin >> nameSearch;
-            cout << endl;
 
             int nameSize = nameSearch.size();
             for(int i = 0; i < nameSize; i++)
@@ -598,21 +598,25 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(check == false)
             {
+                cout<<endl;
                 cout << "Name was not in file" << endl;
+                cout<<endl;
             }
         }
         if(choice == "2")
         {       
             cout << "Enter gender: ";
             cin >> genderSearch;
-            cout << endl;
-            char tempGender;
+            string tempGender;
+            if(genderSearch.size() == 1)
+            {   for(int i = 0; i <1; i++)
+                genderSearch[i] = tolower(genderSearch[i]);
 
-            genderSearch = tolower(genderSearch);
-            for(unsigned int i = 0; i < FP.size(); i++)
+                for(unsigned int i = 0; i < FP.size(); i++)
             {
                 tempGender = FP[i].gender;
-                tempGender = tolower(tempGender);
+                for(int j = 0; j <1; j++)
+                tempGender[j] = tolower(tempGender[j]);
 
                 if(genderSearch == tempGender)
                 {
@@ -620,66 +624,83 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     check = true;
                 }
             }
-
-            if(check == false)
+            }
+            if(check == false || genderSearch.size()!=1)
             {
-                cout << "Gender was not in file" << endl;
+                cout << endl;
+                cout << "Gender was not in file or input not in the right format" << endl;
+                cout << endl;
             }
         }
         if(choice == "3")
         {
             cout << "Enter year of birth: ";
             cin >> birthYearSearch;
-            cout << endl;
-            for(unsigned int i = 0; i < FP.size(); i++)
+            if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
             {
-                if(birthYearSearch == FP[i].birthYear)
+                int birthYearSearchI = atoi(birthYearSearch.c_str());
+                for(unsigned int i = 0; i < FP.size(); i++)
                 {
-                    displayPerson(FP[i]);
-                    check = true;
+                    if(birthYearSearchI == FP[i].birthYear)
+                    {
+                        displayPerson(FP[i]);
+                        check = true;
+                    }
                 }
             }
             if(check == false)
             {
-                cout << "Birth year was not in file" << endl;
+                cout << "Birth year is not in file or input not in the right format" << endl;
+                cout<<endl;
             }
         }
         if(choice == "4")
         {
-            cout << "Enter year of death: ";
+            cout << "Enter death year: ";
             cin >> deathYearSearch;
-            cout << endl;
-            for(unsigned int i = 0; i < FP.size(); i++)
+            if(deathYearSearch.size()== 4 && isdigit(deathYearSearch[0])&& isdigit(deathYearSearch[1])&& isdigit(deathYearSearch[2])&& isdigit(deathYearSearch[3]))
             {
-                if(deathYearSearch == FP[i].deathYear)
+                int deathYearSearchI = atoi(deathYearSearch.c_str());
+                for(unsigned int i = 0; i < FP.size(); i++)
                 {
                     displayPerson(FP[i]);
                 }
-
-                else
-                 cout << "Name was not in file" << endl;
-
+            }
+            else
+            {
                  cout << "Year of death was not in file" << endl;
-                {
-                    displayPerson(FP[i]);
+
+                    //displayPerson(FP[i]);
                     check = true;
-                }
             }
             if(check == false)
             {
                 cout << "Year of death was not in file" << endl;
+
+                    if(deathYearSearchI == FP[i].deathYear)
+                    {
+                        displayPerson(FP[i]);
+                        check = true;
+                    }
+                }
             }
-        }
-        if (choice == "5")
-        {
+            if(check == false)
+            {   cout << endl;
+                cout << "Death year is not in file or input not in the right format" << endl;
+                cout << endl;
+
+            }
 
         }
-        if(check == false)
+
+        if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
         {
-             cout << "Wrong input" << endl;
+            cout << endl;
+            cout << "Wrong input" << endl;
+            cout << endl;
         }
 
-    }while (choice != "6");
+    }while (choice != "5");
 
     FP.clear();//hreinsum vektorinn eftir notkun
 }
