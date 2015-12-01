@@ -778,7 +778,7 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
         }
         else
         {
-         cout << "Other" << endl;
+         cout << "Gender: Other" << endl;
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -835,7 +835,7 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
         }
         else
         {
-         cout << "Other" << endl;
+         cout << "Gender: Other" << endl;
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -1067,7 +1067,7 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
         }
         else
         {
-         cout << "Other" << endl;
+         cout << "Gender: Other" << endl;
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -1125,7 +1125,7 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
         else
         {
-         cout << "Other" << endl;
+         cout << "Gender: Other" << endl;
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
