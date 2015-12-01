@@ -6,16 +6,9 @@
 #include <fstream>
 #include <algorithm>
 #include <data.h>
+#include <infotype.h>
 
 using namespace std;
-
-struct InfoType
-{
-    string name;
-    char gender;
-    int birthYear;
-    int deathYear;
-};
 
 class FamousPeople
 {
