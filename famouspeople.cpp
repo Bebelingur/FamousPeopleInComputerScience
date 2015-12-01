@@ -524,11 +524,11 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     do
         {
         cout << "Do you want to: "<< endl;
-        cout << "1    Search name"<< endl;
-        cout << "2    Search gender"<< endl;
-        cout << "3    Search birth year"<< endl;
-        cout << "4    Search death year"<< endl;
-        cout << "5    Return " << endl;
+        cout << "1. Search name"<< endl;
+        cout << "2. Search gender"<< endl;
+        cout << "3. Search birth year"<< endl;
+        cout << "4. Search death year"<< endl;
+        cout << "5. Return " << endl;
         cout << "Enter a number: ";
         cin >> choice;
         cout <<endl;
