@@ -35,7 +35,7 @@ void FamousPeople::userMenu()
         cout << "===========================================" << endl;
         cout << "==== Famous People In Computer Science ====" << endl;
         cout << "===========================================" << endl;
-        cout << "What would you like to do?" << endl;
+        //cout << "What would you like to do?" << endl;
         cout << "1. Input information" << endl;
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
@@ -100,7 +100,11 @@ void FamousPeople::getInfo()
     char keepGoing = ' ', gender = ' ', personDead = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
+    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << endl;
+
     do{
+
         //NAME
         cout << "Input name (in the order first, middle and last name): ";
         cin.clear();
@@ -191,6 +195,7 @@ void FamousPeople::getInfo()
                     cout << "| | | Wrong input. Please try again. | | |" << endl;
                     cout << "------------------------------------------" << endl;
                 }
+            cout << endl;
         }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
 
     }while(toupper(keepGoing) == 'Y');
@@ -233,6 +238,9 @@ void FamousPeople::viewInfo()
             userMenu();
             //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
         }
+
+        cout << "* * * VIEW INFORMATION * * *" << endl;
+
         while(!getFile.eof())
         {
             InfoType p;
@@ -318,7 +326,9 @@ void FamousPeople::sortMenu()
     int choice;
 
     do{
-            cout << "How would you like to sort?" << endl;
+            cout << "* * * SORT INFORMATION * * *" << endl;
+            cout << endl;
+            //cout << "How would you like to sort?" << endl;
             cout << "1. Sort by name (Ascending)" << endl;
             cout << "2. Sort by name (Descending)" << endl;
             cout << "3. Sort by gender (Males first)" << endl;
@@ -327,7 +337,7 @@ void FamousPeople::sortMenu()
             cout << "6. Sort by year of birth (Descending)" << endl;
             cout << "7. Sort by year of death (Ascending)" << endl;
             cout << "8. Sort by year of death (Descending)" << endl;
-            cout << "9. Return" << endl;
+            cout << "9. Return to main menu" << endl;
             cout << "===========================================" << endl;
             cout << "Please choose one of these numbers: ";
             cin >> choice;
@@ -660,14 +670,18 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     string deathYearSearch;
     bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do{
-            cout << "Do you want to: "<< endl;
-            cout << "1. Search name"<< endl;
-            cout << "2. Search gender"<< endl;
-            cout << "3. Search birth year"<< endl;
-            cout << "4. Search death year"<< endl;
-            cout << "5. Return " << endl;
-            cout << "Enter a number: ";
+            cout << "* * * SEARCH INFORMATION * * *" << endl;
+            cout << endl;
+            //cout << "What would you like to do? "<< endl;
+            cout << "1. Search by name"<< endl;
+            cout << "2. Search by gender"<< endl;
+            cout << "3. Search by birth year"<< endl;
+            cout << "4. Search by death year"<< endl;
+            cout << "5. Return to main menu" << endl;
+            cout << "===========================================" << endl;
+            cout << "Please choose one of these numbers: ";
             cin >> choice;
+            cout << "===========================================" << endl;
             cout <<endl;
 
             if(choice == "1")
@@ -686,8 +700,10 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     nameSize = tempName.size();
 
                     for(int j = 0; j < nameSize; j++)
+                    {
                         tempName[j] = tolower(tempName[j]);
-                    //setjum nafnið í skjalinu í lower case og berum svo saman
+                        //setjum nafnið í skjalinu í lower case og berum svo saman
+                    }
 
                     int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
                     if(found != std::string::npos)
@@ -709,8 +725,9 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 string tempGender;
                 if(genderSearch.size() == 1)
                 {   for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
-                    genderSearch[i] = tolower(genderSearch[i]);
-
+                    {
+                        genderSearch[i] = tolower(genderSearch[i]);
+                    }
                     for(unsigned int i = 0; i < FP.size(); i++)
                     {
                         tempGender = FP[i].gender;
@@ -776,13 +793,13 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     cout << endl;
                 }
             }
-
             if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
-            {
-                cout << "Wrong input" << endl;
+            {                
+                cout << "------------------------------------------" << endl;
+                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                cout << "------------------------------------------" << endl;
                 cout << endl;
             }
-
         }while (choice != "5");
 
         FP.clear();//hreinsum vektorinn eftir notkun
