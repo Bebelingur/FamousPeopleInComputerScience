@@ -23,7 +23,7 @@ FamousPeople::FamousPeople()
 
 void FamousPeople::userMenu()
 {
-    int choice = 0;
+    int choice;
     do{
         cout << "===========================================" << endl;
         cout << "==== Famous People In Computer Science ====" << endl;
@@ -36,41 +36,33 @@ void FamousPeople::userMenu()
         cout << "5. Exit" << endl;
         cout << "===========================================" << endl;
 
-        while (choice < 1 || choice > 5)
-        {
-            if ( !cin )
-            {
-                cin.clear();
-                cin.ignore(256, '\n');
-                if ( !cin )
-                {
-                    break ;
-                }
-            }
-            cout << "Please choose one of these numbers: ";
-            cin >> choice;
-            cout << "===========================================" << endl;
-        }
+        do{
+        cout << "Please choose one of these numbers: ";
+        cin >> choice;
+        cout << "===========================================" << endl;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
 
         switch(choice)
         {
             case 1:
                 getInfo();
-            break;
+                break;
             case 2:
                 viewInfo();
-            break;
+                break;
             case 3:
                 fillVector(FP);
                 sortMenu();
-            break;
+                break;
             case 4:
                 searchVector(FP);
-            break;
+                break;
             case 5:
                 exit(1);
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4); //eða while(choice != 5);
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
     //náði að láta virka aðeins, google to the rescue :)  - BóE
 }
 
@@ -362,9 +354,9 @@ void FamousPeople::getInfo()
         //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
         do{
+            cout << "Input name (in the order first, middle and last name): ";
             cin.ignore();
             //use ignore before getline(cin) to get rid of before use
-            cout << "Input name (in the order first, middle and last name): ";
             getline(cin, name);
             getFile << name << "*";
 
