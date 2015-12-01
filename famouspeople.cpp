@@ -457,8 +457,13 @@ void FamousPeople::viewInfo()
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
-        cout << "Could not open file." << endl;
-        exit(1);
+        cout << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "| | | Could not open file. No data to display. | | |" << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << endl;
+        userMenu();
+        //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
     }
     cout << endl;
     while(!getFile.eof())
