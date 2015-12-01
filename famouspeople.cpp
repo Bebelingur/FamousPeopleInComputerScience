@@ -7,7 +7,6 @@
 //#include <ctime>
 #include "famouspeople.h"
 #include "data.h"
-#include <sstream>
 
 using namespace std;
 
