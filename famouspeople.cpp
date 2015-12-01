@@ -445,7 +445,6 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
     }
 }
 
-
 //Fall sem ber saman fyrsta staf í hverjum streng, notað
 //til að sorta föll í stafrófsröð
 bool compareNameAsc(const InfoType& a, const InfoType& b);
@@ -489,11 +488,6 @@ bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
-
-    /*for (unsigned int i = 0; i < FP.size(); i++)
-    {
-        cout << "Name: " << FP.at(i).name << endl;
-    }*/
 
 //Fall sem ber saman fæðingarár og skilar elst fyrst
 bool compareYearAsc(const InfoType& a, const InfoType& b);
