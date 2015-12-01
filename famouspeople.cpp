@@ -35,9 +35,22 @@ void FamousPeople::userMenu()
         cout << "4. Search information" << endl;
         cout << "5. Exit" << endl;
         cout << "===========================================" << endl;
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
+
+        while (choice < 1 || choice > 5)
+        {
+            if ( !cin )
+            {
+                cin.clear();
+                cin.ignore(256, '\n');
+                if ( !cin )
+                {
+                    break ;
+                }
+            }
+            cout << "Please choose one of these numbers: ";
+            cin >> choice;
+            cout << "===========================================" << endl;
+        }
 
         switch(choice)
         {
@@ -60,8 +73,8 @@ void FamousPeople::userMenu()
                 cout << " | | | Wrong input! Please try again. | | |" << endl;
                 break;
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
-    //næ ekki að láta virka fyrir default :/ - BóE
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
+    //náði að láta virka, google to the rescue :)  - BóE
 }
 
 void FamousPeople::sortMenu()
@@ -113,8 +126,6 @@ void FamousPeople::sortMenu()
                 break;
                 }
 
-            case '5':
-                break;
             default:
                 cout << "Wrong input! Please try again" << endl;
                 break;
