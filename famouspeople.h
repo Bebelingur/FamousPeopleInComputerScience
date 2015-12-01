@@ -39,6 +39,8 @@ public:
     void sortByDeathYearAsc(vector <InfoType>& FP);
     void sortByDeathYearDesc(vector <InfoType>& FP);
     void displaySortedPerson(vector <InfoType>& FP);
+    void sortByDeceased(vector <InfoType>& FP);
+    void sortByNotDeceased(vector <InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
     //leitar að skylirðum í vektornum úr skjalinu
 
