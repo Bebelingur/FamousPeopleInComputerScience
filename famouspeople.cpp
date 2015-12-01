@@ -29,7 +29,6 @@ FamousPeople::FamousPeople()
 }
 void FamousPeople::userMenu()
 {
-    FP.clear();
 
     int choice;
 
@@ -260,6 +259,10 @@ void FamousPeople::viewInfo()
 }
 void FamousPeople::displayPerson(InfoType p)
 {
+<<<<<<< HEAD
+=======
+    cout << endl;
+>>>>>>> d20401ccea0c8791d012f9cd903b00d21466982f
     string tempName = changeName(p);
     cout << "Name: " << tempName << endl;
     cout << "Gender: ";
@@ -276,10 +279,20 @@ void FamousPeople::displayPerson(InfoType p)
             cout << "Other" << endl;
         }
     cout << "Year of birth: " << p.birthYear << endl;
+<<<<<<< HEAD
         if(p.deathYear != 0)
         {
             cout << "Year of death: " << p.deathYear << endl;
         }
+=======
+    if(p.deathYear != 0)
+    {
+        cout << "Year of death: " << p.deathYear << endl;
+
+    cout << endl;
+
+    }
+>>>>>>> d20401ccea0c8791d012f9cd903b00d21466982f
     cout << endl;
 }
 string FamousPeople::changeName(InfoType p)
@@ -308,7 +321,6 @@ string FamousPeople::changeName(InfoType p)
 //Fall sem birtir valmynd fyrir sort
 void FamousPeople::sortMenu()
 {
-    fillVector(FP);
     char choice;
 
     do{
@@ -333,46 +345,64 @@ void FamousPeople::sortMenu()
     cin >> choice;
     cout << "===========================================" << endl;
 
+
+
             switch(choice)
         {
             case '1':
                 {
+                fillVector(FP);
                 sortByNameAsc(FP);
+                FP.clear();
                 break;
                 }
             case '2':
                 {
+                fillVector(FP);
                 sortByNameDesc(FP);
+                FP.clear();
                 break;
                 }
             case '3':
                 {
+                fillVector(FP);
                 sortByGenderMale(FP);
+                FP.clear();
                 break;
                 }
             case '4':
                 {
+                fillVector(FP);
                 sortByGenderFemale(FP);
+                FP.clear();
                 break;
                 }
             case '5':
                 {
+                fillVector(FP);
                 sortByYearAsc(FP);
+                FP.clear();
                 break;
                 }
             case '6':
                 {
+                fillVector(FP);
                 sortByYearDesc(FP);
+                FP.clear();
                 break;
                 }
             case '7':
                 {
+                fillVector(FP);
                 sortByDeathYearAsc(FP);
+                FP.clear();
                 break;
                 }
             case '8':
                 {
+                fillVector(FP);
                 sortByDeathYearDesc(FP);
+                FP.clear();
                 break;
                 }
             case '9':
@@ -381,8 +411,6 @@ void FamousPeople::sortMenu()
                 cout << "Wrong input! Please try again" << endl;
                 break;
         }
-
-
     }while(choice != '9');
 }
 
@@ -618,9 +646,6 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 
     displaySortedPerson(FP);
 }
-
-
-
 
 
 void FamousPeople::searchVector(vector <InfoType>& FP)
