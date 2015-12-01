@@ -22,34 +22,22 @@ class FamousPeople
 public:
 
     FamousPeople();
-
     void userMenu();
     void getInfo();
+    void fillVector(vector <InfoType>& FP);
+    //tekur skjalið og setur inn í vektor
     void viewInfo();
     void displayPerson(InfoType p);
     string changeName(InfoType p);
-
-    void fillVector(vector <InfoType>& FP);
-    //tekur skjalið og setur inn í vektor
-
+    void sortMenu();
+    void sortByNameAsc(vector <InfoType>& FP);
+    void sortByNameDesc(vector <InfoType>& FP);
+    void sortByYearAsc(vector <InfoType>& FP);
+    void sortByYearDesc(vector <InfoType>& FP);
+    //void sortByGenderMale(vector <InfoType>& FP);
+    // void sortByGenderFemale(vector <InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
     //leitar að skilirðum í vektornum úr skjalinu
-
-    void sortMenu();
-
-    void sortByNameDesc(vector <InfoType>& FP);
-
-    void sortByNameAsc(vector <InfoType>& FP);
-
-    void sortByYearDesc(vector <InfoType>& FP);
-
-    void sortByYearAsc(vector <InfoType>& FP);
-
-    //void sortByGenderMale(vector <InfoType>& FP);
-
-   // void sortByGenderFemale(vector <InfoType>& FP);
-
-
 
 private:
     vector <InfoType> FP;
