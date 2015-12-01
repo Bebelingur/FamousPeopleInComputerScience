@@ -34,8 +34,11 @@ public:
     void sortByNameDesc(vector <InfoType>& FP);
     void sortByYearAsc(vector <InfoType>& FP);
     void sortByYearDesc(vector <InfoType>& FP);
-    //void sortByGenderMale(vector <InfoType>& FP);
-    // void sortByGenderFemale(vector <InfoType>& FP);
+    void sortByGenderMale(vector <InfoType>& FP);
+    void sortByGenderFemale(vector <InfoType>& FP);
+    void sortByDeathYearAsc(vector <InfoType>& FP);
+    void sortByDeathYearDesc(vector <InfoType>& FP);
+    void displaySortedPerson(vector <InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
     //leitar að skilirðum í vektornum úr skjalinu
 
