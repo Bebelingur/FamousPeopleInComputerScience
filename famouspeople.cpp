@@ -448,25 +448,25 @@ void FamousPeople::sortGenderMenu()
 
         switch(choice)
         {
-        case 1:
-        {
-            sortByGenderMale(FP);
-            break;
-        }
-        case 2:
-        {
-            sortByGenderFemale(FP);
-            break;
-         }
-        case 3:
-        {
-            sortByGenderUndecided(FP);
-            break;
-         }
-         case 4:
-         {
-            sortMenu();
-         }
+            case 1:
+            {
+                sortByGenderMale(FP);
+                break;
+            }
+            case 2:
+            {
+                sortByGenderFemale(FP);
+                break;
+             }
+            case 3:
+            {
+                sortByGenderUndecided(FP);
+                break;
+             }
+             case 4:
+             {
+                sortMenu();
+             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
@@ -768,6 +768,7 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
         {
             cout << "Name: " << FP.at(i).name<< endl;
 
+<<<<<<< HEAD
             if(toupper(FP.at(i).gender) == 'F')
             {
                 cout << "Gender: " << "Female" << endl;
@@ -779,6 +780,19 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
             else
             {
                 cout << "Gender: " << "Undecided" << endl;
+=======
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+             cout << "Undecided" << endl;
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
             }
 
             cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -790,8 +804,13 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
             }
             else
             {
+<<<<<<< HEAD
                 cout << "Year of death: " << FP.at(i).deathYear << endl;
                 cout << endl;
+=======
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
+            cout << endl;
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
             }
         }
     }
@@ -825,6 +844,7 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
         {
             cout << "Name: " << FP.at(i).name<< endl;
 
+<<<<<<< HEAD
             if(toupper(FP.at(i).gender) == 'F')
             {
                 cout << "Gender: " << "Female" << endl;
@@ -836,6 +856,19 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
             else
             {
                 cout << "Undecided" << endl;
+=======
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+             cout << "Undecided" << endl;
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
             }
 
             cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -847,8 +880,13 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
             }
             else
             {
+<<<<<<< HEAD
                 cout << "Year of death: " << FP.at(i).deathYear << endl;
                 cout << endl;
+=======
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
+            cout << endl;
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
             }
         }
     }
@@ -888,12 +926,13 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
     }
     else
     {
-    for (unsigned int i = 0; i < FP.size(); i++)
-    {
-        if(FP.at(i).gender == '?')
+        for (unsigned int i = 0; i < FP.size(); i++)
         {
-        cout << "Name: " << FP.at(i).name<< endl;
+            if(FP.at(i).gender == '?')
+            {
+                cout << "Name: " << FP.at(i).name<< endl;
 
+<<<<<<< HEAD
         if(toupper(FP.at(i).gender) == 'F')
         {
         cout << "Gender: " << "Female" << endl;
@@ -906,33 +945,47 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
         {
             cout << "Gender: Undecided" << endl;
         }
+=======
+                if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+                {
+                cout << "Gender: " << "Female" << endl;
+                }
+                else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+                {
+                cout << "Gender: " << "Male" << endl;
+                }
+                else
+                {
+                    cout << "Gender: Undecided" << endl;
+                }
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+                cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
-            cout << endl;
+                if(FP.at(i).deathYear == 0)
+                {
+                    cout << "Not deceased!" << endl;
+                    cout << endl;
+                }
+                else
+                {
+                cout << "Year of death: " << FP.at(i).deathYear << endl;
+                cout << endl;
+                }
+            }
         }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
         }
-        }
+        FP.clear();
+        char input;
+        cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+        cin >> input;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(input)
+            {
+                sortMenu();
+            }
     }
-    }
-    FP.clear();
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            sortMenu();
-        }
-}
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
@@ -1057,6 +1110,7 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
         {
             cout << "Name: " << FP.at(i).name<< endl;
 
+<<<<<<< HEAD
         if(toupper(FP.at(i).gender) == 'F')
         {
             cout << "Gender: " << "Female" << endl;
@@ -1069,19 +1123,33 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
         {
             cout << "Gender: " << "Undecided" << endl;
         }
+=======
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+             cout << "Undecided" << endl;
+            }
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+            cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
+            if(FP.at(i).deathYear == 0)
+            {
+                cout << "Not deceased!" << endl;
+                cout << endl;
+            }
+            else
+            {
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
             cout << endl;
-        }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-        }
+            }
         }
     }
 
@@ -1115,6 +1183,7 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         {
             cout << "Name: " << FP.at(i).name<< endl;
 
+<<<<<<< HEAD
             if(toupper(FP.at(i).gender) == 'F')
             {
                 cout << "Gender: " << "Female" << endl;
@@ -1126,6 +1195,19 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
             else
             {
                 cout << "Gender: " << "Undecided" << endl;
+=======
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+            cout << "Undecided" << endl;
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
             }
 
             cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -1137,8 +1219,13 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
             }
             else
             {
+<<<<<<< HEAD
                 cout << "Year of death: " << FP.at(i).deathYear << endl;
                 cout << endl;
+=======
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
+            cout << endl;
+>>>>>>> 1433dde311b8dce1efb7fdb3ab9b52df835951ba
             }
         }
     }
