@@ -23,7 +23,7 @@ FamousPeople::FamousPeople()
 
 void FamousPeople::userMenu()
 {
-    int choice;
+    int choice = 0;
     do{
         cout << "===========================================" << endl;
         cout << "==== Famous People In Computer Science ====" << endl;
@@ -69,12 +69,9 @@ void FamousPeople::userMenu()
             break;
             case 5:
                 exit(1);
-            default:
-                cout << " | | | Wrong input! Please try again. | | |" << endl;
-                break;
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
-    //náði að láta virka, google to the rescue :)  - BóE
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4); //eða while(choice != 5);
+    //náði að láta virka aðeins, google to the rescue :)  - BóE
 }
 
 void FamousPeople::sortMenu()
@@ -125,10 +122,7 @@ void FamousPeople::sortMenu()
                 //sortByGenderFemale(FP);
                 break;
                 }
-<<<<<<< HEAD
 
-=======
->>>>>>> e76e2ccda343f9a192978fab657b1f5dda9b1f8f
             default:
                 cout << "Wrong input! Please try again" << endl;
                 break;
@@ -350,6 +344,7 @@ void FamousPeople::getInfo()
 {
     data datalayer;
     datalayer.loadData();
+
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
     //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
