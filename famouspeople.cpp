@@ -650,7 +650,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     string genderSearch;
     string birthYearSearch;
     string deathYearSearch;
-    bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
+    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
     do{
             cout << "* * * SEARCH INFORMATION * * *" << endl;
             cout << endl;
