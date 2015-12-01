@@ -273,7 +273,7 @@ string FamousPeople::changeName(InfoType p)
 //Fall sem birtir valmynd fyrir sort
 void FamousPeople::sortMenu()
 {
-    char choice;
+    int choice;
 
     do{
     cout << "How would you like to sort?" << endl;
@@ -295,69 +295,73 @@ void FamousPeople::sortMenu()
 
             switch(choice)
         {
-            case '1':
+            case 1:
                 {
                 fillVector(FP);
                 sortByNameAsc(FP);
                 FP.clear();
                 break;
                 }
-            case '2':
+            case 2:
                 {
                 fillVector(FP);
                 sortByNameDesc(FP);
                 FP.clear();
                 break;
                 }
-            case '3':
+            case 3:
                 {
                 fillVector(FP);
                 sortByGenderMale(FP);
                 FP.clear();
                 break;
                 }
-            case '4':
+            case 4:
                 {
                 fillVector(FP);
                 sortByGenderFemale(FP);
                 FP.clear();
                 break;
                 }
-            case '5':
+            case 5:
                 {
                 fillVector(FP);
                 sortByYearAsc(FP);
                 FP.clear();
                 break;
                 }
-            case '6':
+            case 6:
                 {
                 fillVector(FP);
                 sortByYearDesc(FP);
                 FP.clear();
                 break;
                 }
-            case '7':
+            case 7:
                 {
                 fillVector(FP);
                 sortByDeathYearAsc(FP);
                 FP.clear();
                 break;
                 }
-            case '8':
+            case 8:
                 {
                 fillVector(FP);
                 sortByDeathYearDesc(FP);
                 FP.clear();
                 break;
                 }
-            case '9':
+            case 9:
+                {
+                userMenu();
+                }
                 break;
             default:
                 cout << "Wrong input! Please try again" << endl;
                 break;
         }
-    }while(choice != '9');
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7 || choice == 8 || choice == 9);
+    sortMenu();
 }
 
 
