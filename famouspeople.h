@@ -30,6 +30,10 @@ public:
     void displayPerson(InfoType p);
     string changeName(InfoType p);
     void sortMenu();
+    void sortNameMenu();
+    void sortGenderMenu();
+    void sortYearOfBirthMenu();
+    void sortYearOfDeathMenu();
     void sortByNameAsc(vector <InfoType>& FP);
     void sortByNameDesc(vector <InfoType>& FP);
     void sortByYearAsc(vector <InfoType>& FP);

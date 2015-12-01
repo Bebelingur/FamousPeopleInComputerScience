@@ -320,18 +320,11 @@ void FamousPeople::sortMenu()
     do{
         cout << "* * * SORT INFORMATION * * *" << endl;
         cout << endl;
-        cout << "1. Sort by name (Ascending)" << endl;
-        cout << "2. Sort by name (Descending)" << endl;
-        cout << "3. Sort by gender (Male)" << endl;
-        cout << "4. Sort by gender (Female)" << endl;
-        cout << "5. Sort by gender (Other)" << endl;
-        cout << "6. Sort by year of birth (Ascending)" << endl;
-        cout << "7. Sort by year of birth (Descending)" << endl;
-        cout << "8. Sort by year of death (Ascending)" << endl;
-        cout << "9. Sort by year of death (Descending)" << endl;
-        cout << "10. Sort by deceased" << endl;
-        cout << "11. Sort by not deceased" << endl;
-        cout << "0. Return to main menu" << endl;
+        cout << "1. Sort by name" << endl;
+        cout << "2. Sort by gender" << endl;
+        cout << "3. Sort by year of birth" << endl;
+        cout << "4. Sort by year of death" << endl;
+        cout << "5. Return to main menu" << endl;
         cout << "===========================================" << endl;
         cout << "Please choose one of these numbers: ";
         cin >> choice;
@@ -340,7 +333,65 @@ void FamousPeople::sortMenu()
         cin.clear();
         cin.ignore(INT_MAX, '\n');
 
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9 && choice != 10 && choice != 11 && choice != 0)
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+        {
+                cout << "------------------------------------------" << endl;
+                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                cout << "------------------------------------------" << endl;
+        }
+
+        switch(choice)
+        {
+            case 1:
+            {
+            sortNameMenu();
+                break;
+            }
+            case 2:
+            {
+            sortGenderMenu();
+                break;
+            }
+            case 3:
+            {
+            sortYearOfBirthMenu();
+                break;
+            }
+            case 4:
+            {
+            sortYearOfDeathMenu();
+                break;
+            }
+            case 5:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
+    sortMenu();
+}
+
+
+void FamousPeople::sortNameMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT BY NAME INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by name (Ascending)" << endl;
+        cout << "2. Sort by name (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        cout << "Please choose one of these numbers: ";
+        cin >> choice;
+        cout << "===========================================" << endl;
+        cout << endl;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+
+        if(choice != 1 && choice != 2 && choice != 3)
         {
                 cout << "------------------------------------------" << endl;
                 cout << "| | | Wrong input. Please try again. | | |" << endl;
@@ -365,75 +416,187 @@ void FamousPeople::sortMenu()
             }
             case 3:
             {
-                fillVector(FP);
-                sortByGenderMale(FP);
-                FP.clear();
+                sortMenu();
                 break;
             }
-            case 4:
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+
+void FamousPeople::sortGenderMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT BY GENDER INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by male" << endl;
+        cout << "2. Sort by female" << endl;
+        cout << "3. Sort by other" << endl;
+        cout << "4. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        cout << "Please choose one of these numbers: ";
+        cin >> choice;
+        cout << "===========================================" << endl;
+        cout << endl;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4)
+        {
+                cout << "------------------------------------------" << endl;
+                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                cout << "------------------------------------------" << endl;
+        }
+
+        switch(choice)
+        {
+        case 1:
+        {
+            fillVector(FP);
+            sortByGenderMale(FP);
+            FP.clear();
+            break;
+        }
+        case 2:
+        {
+            fillVector(FP);
+            sortByGenderFemale(FP);
+            FP.clear();
+            break;
+         }
+        case 3:
+        {
+            fillVector(FP);
+            sortByGenderOther(FP);
+            FP.clear();
+            break;
+         }
+         case 4:
+         {
+            sortMenu();
+         }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+}
+
+
+void FamousPeople::sortYearOfBirthMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT BY YEAR OF BIRTH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by year of birth (Ascending)" << endl;
+        cout << "2. Sort by year of birth (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        cout << "Please choose one of these numbers: ";
+        cin >> choice;
+        cout << "===========================================" << endl;
+        cout << endl;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+
+        if(choice != 1 && choice != 2 && choice != 3)
+        {
+                cout << "------------------------------------------" << endl;
+                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                cout << "------------------------------------------" << endl;
+        }
+
+        switch(choice)
+        {
+            case 1:
             {
-                fillVector(FP);
-                sortByGenderFemale(FP);
-                FP.clear();
-                break;
-             }
-            case 5:
-            {
-                fillVector(FP);
-                sortByGenderOther(FP);
-                FP.clear();
-                break;
-             }
-             case 6:
-             {
                 fillVector(FP);
                 sortByYearAsc(FP);
                 FP.clear();
                 break;
-             }
-             case 7:
-             {
+            }
+            case 2:
+            {
                 fillVector(FP);
                 sortByYearDesc(FP);
                 FP.clear();
                 break;
-             }
-             case 8:
+            }
+            case 3:
+            {
+                sortMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 );
+}
+
+void FamousPeople::sortYearOfDeathMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT BY YEAR OF DEATH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by year of death (Ascending)" << endl;
+        cout << "2. Sort by year of death (Descending)" << endl;
+        cout << "3. Sort by year of death (deceased only)" << endl;
+        cout << "4. Sort by year of death (not deceased)" << endl;
+        cout << "5. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        cout << "Please choose one of these numbers: ";
+        cin >> choice;
+        cout << "===========================================" << endl;
+        cout << endl;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+        {
+                cout << "------------------------------------------" << endl;
+                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                cout << "------------------------------------------" << endl;
+        }
+
+        switch(choice)
+        {
+             case 1:
              {
                 fillVector(FP);
                 sortByDeathYearAsc(FP);
                 FP.clear();
                 break;
              }
-             case 9:
+             case 2:
              {
                 fillVector(FP);
                 sortByDeathYearDesc(FP);
                 FP.clear();
                 break;
              }
-            case 10:
+            case 3:
             {
                fillVector(FP);
                sortByDeceased(FP);
                FP.clear();
                break;
             }
-            case 11:
+            case 4:
             {
                fillVector(FP);
                sortByNotDeceased(FP);
                FP.clear();
                break;
             }
-             case 0:
+             case 5:
              {
-                userMenu();
+                sortMenu();
              }
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7 || choice == 8 || choice == 9 || choice == 10 || choice == 11 || choice == 0);
-    sortMenu();
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
+
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
 void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
@@ -876,7 +1039,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     string genderSearch;
     string birthYearSearch;
     string deathYearSearch;
-    bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
+    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
     do{
             cout << "* * * SEARCH INFORMATION * * *" << endl;
             cout << endl;
