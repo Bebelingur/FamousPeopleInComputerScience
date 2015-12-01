@@ -509,7 +509,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
 
     fillVector(FP);//búum til vektorinn
     string choice;
-   //gerum breytur fyrir hvert leitarskilyrði
+   //gerum breytur fyrir hvert leitarskilyrði. allar breytur eru strengjabreytur svo við getum skoðað hvað var slegið inn nákvæmlega
 
     string nameSearch;
     string genderSearch;
@@ -567,21 +567,21 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             cin >> genderSearch;
             string tempGender;
             if(genderSearch.size() == 1)
-            {   for(int i = 0; i <1; i++)
+            {   for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
                 genderSearch[i] = tolower(genderSearch[i]);
 
                 for(unsigned int i = 0; i < FP.size(); i++)
-            {
-                tempGender = FP[i].gender;
-                for(int j = 0; j <1; j++)
-                tempGender[j] = tolower(tempGender[j]);
-
-                if(genderSearch == tempGender)
                 {
-                    displayPerson(FP[i]);
-                    check = true;
+                    tempGender = FP[i].gender;
+                    for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
+                    tempGender[j] = tolower(tempGender[j]);
+
+                    if(genderSearch == tempGender)
+                    {
+                        displayPerson(FP[i]);
+                        check = true;
+                    }
                 }
-            }
             }
             if(check == false || genderSearch.size()!=1)
             {
@@ -594,9 +594,10 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
         {
             cout << "Enter year of birth: ";
             cin >> birthYearSearch;
+            //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
             if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
             {
-                int birthYearSearchI = atoi(birthYearSearch.c_str());
+                int birthYearSearchI = atoi(birthYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
                 for(unsigned int i = 0; i < FP.size(); i++)
                 {
                     if(birthYearSearchI == FP[i].birthYear)
@@ -616,9 +617,10 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
         {
             cout << "Enter death year: ";
             cin >> deathYearSearch;
+            //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
             if(deathYearSearch.size()== 4 && isdigit(deathYearSearch[0])&& isdigit(deathYearSearch[1])&& isdigit(deathYearSearch[2])&& isdigit(deathYearSearch[3]))
             {
-                int deathYearSearchI = atoi(deathYearSearch.c_str());
+                int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
                 for(unsigned int i = 0; i < FP.size(); i++)
                 {
                     if(deathYearSearchI == FP[i].deathYear)
@@ -633,7 +635,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 cout << "Death year is not in file or input not in the right format" << endl;
                 cout << endl;
             }
-
         }
 
         if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
