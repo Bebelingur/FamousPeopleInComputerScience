@@ -882,7 +882,7 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
     if(FP.at(i).gender != '?')
     {
         cout << "------------------------------------------------------------" << endl;
-        cout << "| | | There aren't any persons of other/unknown gender | | |" << endl;
+        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
         cout << "------------------------------------------------------------" << endl;
         cout << endl;
     }
@@ -904,11 +904,7 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
         }
         else
         {
-<<<<<<< HEAD
-         cout << "Undecided" << endl;
-=======
-         cout << "Gender: Other" << endl;
->>>>>>> 88e05a4669f5ea9e26a705e04117fbf1402d78e7
+            cout << "Gender: Undecided" << endl;
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
