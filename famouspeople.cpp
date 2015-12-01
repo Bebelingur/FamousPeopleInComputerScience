@@ -92,8 +92,7 @@ void FamousPeople::getInfo()
     do{
         //NAME
         cout << "Input name (in the order first, middle and last name): ";
-        cin.ignore();
-        //use ignore before getline(cin) to get rid of before use
+        cin.clear();
         getline(cin, name);
         getFile << name << "*";
 
