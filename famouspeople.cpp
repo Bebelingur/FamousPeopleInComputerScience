@@ -4,7 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <algorithm>
-#include <ctime>
+//#include <ctime>
 #include "famouspeople.h"
 #include "data.h"
 
@@ -12,8 +12,8 @@ using namespace std;
 
 const int yearNow = 2015;
 const int CstartYear = 1791;
-//birth year of Charles Babbage should do for beginning year of computer science
-//kannski finna fall með nákvæmri dagsetnintu/ári hvers dags fyrir sig
+//birth year of Charles Babbage should do for beginning year of computer science - BóE
+//kannski finna fall með nákvæmri dagsetnintu/ári hvers dags fyrir sig - BóE
 
 FamousPeople::FamousPeople()
 {
@@ -23,48 +23,55 @@ FamousPeople::FamousPeople()
 
 void FamousPeople::userMenu()
 {
-    char choice;
+    int choice = 0;
     do{
-    cout << "===========================================" << endl;
-    cout << "==== Famous People In Computer Science ====" << endl;
-    cout << "===========================================" << endl;
-    cout << "What would you like to do?" << endl;
-    cout << "1. Input information" << endl;
-    //Berglind, eftir getline þá stjarna
-    cout << "2. View information" << endl;
-    //Dagur
-    cout << "3. Sort information" << endl;
-    //Hjálmar og Kristófer
-    cout << "4. Search information" << endl;
-    //Drífa
-    cout << "5. Exit" << endl;
-    cout << "===========================================" << endl;
-    cout << "Please choose one of these numbers: ";
-    cin >> choice;
-    cout << "===========================================" << endl;
+        cout << "===========================================" << endl;
+        cout << "==== Famous People In Computer Science ====" << endl;
+        cout << "===========================================" << endl;
+        cout << "What would you like to do?" << endl;
+        cout << "1. Input information" << endl;
+        cout << "2. View information" << endl;
+        cout << "3. Sort information" << endl;
+        cout << "4. Search information" << endl;
+        cout << "5. Exit" << endl;
+        cout << "===========================================" << endl;
+
+        while (choice < 1 || choice > 5)
+        {
+            if ( !cin )
+            {
+                cin.clear();
+                cin.ignore(256, '\n');
+                if ( !cin )
+                {
+                    break ;
+                }
+            }
+            cout << "Please choose one of these numbers: ";
+            cin >> choice;
+            cout << "===========================================" << endl;
+        }
 
         switch(choice)
         {
-            case '1':
+            case 1:
                 getInfo();
-                break;
-            case '2':
+            break;
+            case 2:
                 viewInfo();
-                break;
-            case '3':
+            break;
+            case 3:
                 fillVector(FP);
                 sortMenu();
-                break;
-            case '4':
+            break;
+            case 4:
                 searchVector(FP);
-                break;
-            case '5':
-                break;
-            default:
-                cout << "Wrong input! Please try again" << endl;
-                break;
+            break;
+            case 5:
+                exit(1);
         }
-    }while(choice != '5');
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4); //eða while(choice != 5);
+    //náði að láta virka aðeins, google to the rescue :)  - BóE
 }
 
 void FamousPeople::sortMenu()
@@ -82,7 +89,7 @@ void FamousPeople::sortMenu()
     cin >> choice;
     cout << "===========================================" << endl;
 
-        switch(choice)
+            switch(choice)
         {
             case '1':
                 {
@@ -115,11 +122,13 @@ void FamousPeople::sortMenu()
                 //sortByGenderFemale(FP);
                 break;
                 }
+
             default:
                 cout << "Wrong input! Please try again" << endl;
                 break;
         }
     }while(choice != '5');
+    //þetta er ekki rétt hérna mun keyra vitlaust með while svona - BóE
 }
 
 bool compareNameAsc(const InfoType& a, const InfoType& b);
@@ -335,37 +344,40 @@ void FamousPeople::getInfo()
 {
     data datalayer;
     datalayer.loadData();
+
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
-    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn
-    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana
+    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
+    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
 
     if(getFile.fail( ))
     {
         cout << "Could not open file." << endl;
         exit(1);
-        //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið
+        //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
     }
         string name = " ";
         int bYear = 0, dYear = 0;
         char keepGoing = ' ', gender = ' ', personDead = ' ';
-        //færibreytur núllstilltar svo rusl fylgi ekki með
+        //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
         do{
             cin.ignore();
+            //use ignore before getline(cin) to get rid of before use
             cout << "Input name (in the order first, middle and last name): ";
             getline(cin, name);
             getFile << name << "*";
 
             do{
-                cout << "Input gender (F for female, M for male or ? for other): ";
+                cout << "Input gender (F for female/M for male /? for other): ";
                 cin >> gender;
-                    if(!(gender == 'F' || gender == 'M' || gender == '?'))
+                    if(!(toupper(gender) == 'F' || toupper(gender) == 'M' || gender == '?'))
                     {
                         cout << "Wrong input. Please try again." << endl;
                     }
-            }while(!(gender == 'F' || gender == 'M' || gender == '?'));
+            }while(!(toupper(gender) == 'F' || toupper(gender) == 'M' || gender == '?'));
             getFile << gender << " ";
+            //er að koma vitlaust hérna þar sem kkk t.d. skilar 3 útkomum um wrong input
 
             do{
                 cout << "Input year of birth: ";
@@ -377,32 +389,35 @@ void FamousPeople::getInfo()
             }while(!((bYear < yearNow) && (bYear >= CstartYear)));
             getFile << bYear << " ";
 
-                cout << "Is " << name << " deceased? (Y for yes N for no): ";
+                cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
                 cin >> personDead;
-                if(personDead == 'Y' || personDead == 'y')
+                if(toupper(personDead) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun
                 {
-                    do
-                    {
-                    cout << "Input year of death: ";
-                    cin >> dYear;
-                    if(dYear < bYear)
-                    {
-                        cout << "Wrong input. Please try again." << endl;
-                    }
-                    else
-                    {
-                        getFile << dYear;
-                    }
-                    }while(dYear < bYear);
+                    do{
+                        cout << "Input year of death: ";
+                        cin >> dYear;
+                            if(!((dYear > bYear) && (dYear <= yearNow)))
+                            //year of birth has to be less than year of death - BÓE
+                            //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                            //use a constant for the year, now it is set to 2015, death year should be less or equal
+                            {
+                                cout << "Wrong input. Please try again." << endl;
+                            }
+                    }while(!((dYear > bYear)&& (dYear <= yearNow)));
+                    getFile << dYear;
                 }
                 else
                 {
                     int zero = 0;
                     getFile << zero;
+                    //all deceased get zero as input for year of death - BóE
                 }
-            cout << "Input more information (Y for yes N for no): ";
+            //dYear kemur vitlaust út á þann hátt að ef slegið er inn nnn þá er hoppað í userMenu
+
+            cout << "Input more information (Y for yes/N for no): ";
             cin >> keepGoing;
-        }while(keepGoing == 'Y' || keepGoing == 'y');
+        }while(toupper(keepGoing) == 'Y');
 
     getFile.close( );
 }
@@ -442,8 +457,13 @@ void FamousPeople::viewInfo()
     getFile.open("InfoFile.txt");
     if(getFile.fail())
     {
-        cout << "Could not open file." << endl;
-        exit(1);
+        cout << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "| | | Could not open file. No data to display. | | |" << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << endl;
+        userMenu();
+        //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
     }
     cout << endl;
     while(!getFile.eof())
