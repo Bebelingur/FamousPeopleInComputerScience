@@ -662,11 +662,11 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
     do{
             cout << "Do you want to: "<< endl;
-            cout << "1    Search name"<< endl;
-            cout << "2    Search gender"<< endl;
-            cout << "3    Search birth year"<< endl;
-            cout << "4    Search death year"<< endl;
-            cout << "5    Return " << endl;
+            cout << "1. Search name"<< endl;
+            cout << "2. Search gender"<< endl;
+            cout << "3. Search birth year"<< endl;
+            cout << "4. Search death year"<< endl;
+            cout << "5. Return " << endl;
             cout << "Enter a number: ";
             cin >> choice;
             cout <<endl;
@@ -699,7 +699,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 }
                 if(check == false)
                 {
-                    cout << "Name was not in file" << endl;
+                    cout << nameSearch << " was not in file" << endl;
                     cout<<endl;
                 }
             }
@@ -727,7 +727,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 }
                 if(check == false || genderSearch.size()!=1)
                 {
-                    cout << "Gender was not in file or input not in the right format" << endl;
+                    cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
                     cout << endl;
                 }
             }
@@ -750,7 +750,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 }
                 if(check == false)
                 {
-                    cout << "Birth year is not in file or input not in the right format" << endl;
+                    cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
                     cout<<endl;
                 }
             }
@@ -773,7 +773,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 }
                 if(check == false)
                 {
-                    cout << "Death year is not in file or input not in the right format" << endl;
+                    cout << "Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
                     cout << endl;
                 }
             }
