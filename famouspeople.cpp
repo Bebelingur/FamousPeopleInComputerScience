@@ -32,7 +32,7 @@ void FamousPeople::userMenu()
     do{
         cout << endl;
         cout << "===========================================" << endl;
-        cout << "==== Famous People In Computer Science ====" << endl;
+        cout << "===  Famous People In Computer Science  ===" << endl;
         cout << "===========================================" << endl;
         //cout << "What would you like to do?" << endl;
         cout << "1. Input information" << endl;
@@ -252,7 +252,7 @@ void FamousPeople::viewInfo()
     getFile.close();
 
     char input;
-    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cout << "--- Press any key and then enter to return to main menu ---" << endl;
     cin >> input;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
@@ -263,9 +263,9 @@ void FamousPeople::viewInfo()
 }
 void FamousPeople::displayPerson(InfoType p)
 {
-
     cout << endl;
     string tempName = changeName(p);
+
     cout << "Name: " << tempName << endl;
     cout << "Gender: ";
         if(toupper(p.gender) == 'F')
@@ -733,6 +733,16 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
@@ -745,6 +755,16 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameDesc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Males
@@ -790,6 +810,15 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Females
@@ -801,7 +830,6 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
-
 
     for (unsigned int i = 0; i < FP.size(); i++)
     {
@@ -836,6 +864,15 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, other
@@ -895,6 +932,16 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareYearAsc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
@@ -908,6 +955,16 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareYearDesc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
@@ -922,6 +979,16 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
@@ -935,6 +1002,16 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareDeathYearDesc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 
@@ -980,6 +1057,15 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 
@@ -1025,6 +1111,15 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 
@@ -1061,8 +1156,10 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
 
                 int nameSize = nameSearch.size();
                 for(int i = 0; i < nameSize; i++)
-                     nameSearch[i] = tolower(nameSearch[i]);
-                //setjum innsláttinn í lower case
+                {
+                    nameSearch[i] = tolower(nameSearch[i]);
+                    //setjum innsláttinn í lower case
+                }
 
                 for(unsigned int i = 0; i < FP.size(); i++)
                 {
@@ -1080,12 +1177,22 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     {
                         displayPerson(FP[i]);
                         check = true;
+
+                        /*char input;
+                        cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                        cin >> input;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(input)
+                            {
+                                userMenu(); //vantar search menu til að virki
+                            }*/
                     }
                 }
                 if(check == false)
                 {
-                    cout << nameSearch << " was not in file" << endl;
-                    cout<<endl;
+                    cout << nameSearch << " was not in file. Please try again." << endl;
+                    cout << endl;
                 }
             }
             if(choice == "2")
