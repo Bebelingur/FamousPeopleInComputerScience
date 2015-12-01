@@ -562,6 +562,16 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
@@ -574,6 +584,16 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameDesc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni þar sem Males koma fyrst fyrir
@@ -619,6 +639,15 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni þar sem Females koma fyrst fyrir
@@ -630,7 +659,6 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
-
 
     for (unsigned int i = 0; i < FP.size(); i++)
     {
@@ -665,6 +693,15 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
@@ -678,6 +715,16 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareYearAsc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
@@ -691,6 +738,16 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareYearDesc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
@@ -705,6 +762,16 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
@@ -718,6 +785,16 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareDeathYearDesc);
 
     displaySortedPerson(FP);
+
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 
@@ -763,6 +840,15 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 
@@ -808,6 +894,15 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
         }
     }
+    char input;
+    cout << "--- Press any key and then enter to return to menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
 }
 
 
