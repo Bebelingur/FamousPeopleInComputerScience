@@ -40,7 +40,7 @@ public:
     void sortByYearDesc(vector <InfoType>& FP);
     void sortByGenderMale(vector <InfoType>& FP);
     void sortByGenderFemale(vector <InfoType>& FP);
-    void sortByGenderOther(vector <InfoType>& FP);
+    void sortByGenderUndecided(vector <InfoType>& FP);
     void sortByDeathYearAsc(vector <InfoType>& FP);
     void sortByDeathYearDesc(vector <InfoType>& FP);
     void displaySortedPerson(vector <InfoType>& FP);
