@@ -609,6 +609,7 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
 
         if(FP.at(i).deathYear == 0)
         {
+            cout << "Not deceased!" << endl;
             cout << endl;
         }
         else
@@ -654,6 +655,7 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 
         if(FP.at(i).deathYear == 0)
         {
+            cout << "Not deceased!" << endl;
             cout << endl;
         }
         else
@@ -751,6 +753,7 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
 
         if(FP.at(i).deathYear == 0)
         {
+            cout << "Not deceased!" << endl;
             cout << endl;
         }
         else
@@ -795,6 +798,7 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
 
         if(FP.at(i).deathYear == 0)
         {
+            cout << "Not deceased!" << endl;
             cout << endl;
         }
         else
