@@ -41,6 +41,7 @@ public:
     void displaySortedPerson(vector <InfoType>& FP);
     void sortByDeceased(vector <InfoType>& FP);
     void sortByNotDeceased(vector <InfoType>& FP);
+    string searchMenu();
     void searchVector(vector <InfoType>& FP);
     //leitar að skylirðum í vektornum úr skjalinu
 

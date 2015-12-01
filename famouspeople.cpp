@@ -905,33 +905,37 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
 }
 
+string FamousPeople::searchMenu()
+{
+    string choice;
+
+    cout << "* * * SEARCH INFORMATION * * *" << endl;
+    cout << endl;
+    cout << "1. Search by name"<< endl;
+    cout << "2. Search by gender"<< endl;
+    cout << "3. Search by year of birth"<< endl;
+    cout << "4. Search by year of death"<< endl;
+    cout << "5. Return to main menu" << endl;
+    cout << "===========================================" << endl;
+    cout << "Please choose one of these numbers: ";
+    cin >> choice;
+    cout << "===========================================" << endl;
+    cout << endl;
+
+    return choice;
+}
 
 void FamousPeople::searchVector(vector <InfoType>& FP)
 {
-
     fillVector(FP);//búum til vektorinn
-    string choice;
-   //gerum breytur fyrir hvert leitarskilyrði. allar breytur eru strengjabreytur svo við getum skoðað hvað var slegið inn nákvæmlega
-
-    string nameSearch;
-    string genderSearch;
-    string birthYearSearch;
-    string deathYearSearch;
+    string choice, nameSearch, genderSearch, birthYearSearch, deathYearSearch;
+   //breytur f. hvert leitarskilyrði, strengjabreytur svo við getum skoðað hvað var slegið inn nkvl.
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
-    do{
-            cout << "* * * SEARCH INFORMATION * * *" << endl;
-            cout << endl;
-            cout << "1. Search by name"<< endl;
-            cout << "2. Search by gender"<< endl;
-            cout << "3. Search by birth year"<< endl;
-            cout << "4. Search by death year"<< endl;
-            cout << "5. Return to main menu" << endl;
-            cout << "===========================================" << endl;
-            cout << "Please choose one of these numbers: ";
-            cin >> choice;
-            cout << "===========================================" << endl;
-            cout <<endl;
 
+    do{
+            choice = searchMenu();
+
+            //NAME
             if(choice == "1")
             {
                 cout << "Enter name: ";
@@ -956,7 +960,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     }
 
                     int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
-                    if(found != std::string::npos)
+                    if(found != (int) std::string::npos)
                     {
                         displayPerson(FP[i]);
                         check = true;
@@ -968,19 +972,22 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         cin.ignore(INT_MAX, '\n');
                             if(input)
                             {
-                                userMenu(); //vantar search menu til að virki
+                                //kannski cin.clear(); hérna svo valið geymist ekki? - BóE
+                                searchMenu(); //gerði search menu svo það myndi virka - BóE
                             }*/
                     }
                 }
                 if(check == false)
                 {
-                    cout << nameSearch << " was not in file. Please try again." << endl;
+                    cout << nameSearch << " was not in file." << endl;
+                    cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
             }
+            //GENDER
             if(choice == "2")
             {
-                cout << "Enter gender, M for male, F for female and ? for other: ";
+                cout << "Enter gender (M for male, F for female or ? for other): ";
                 cin >> genderSearch;
                 string tempGender;
                 if(genderSearch.size() == 1)
@@ -998,15 +1005,27 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         {
                             displayPerson(FP[i]);
                             check = true;
+
+                            /*char input;
+                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                            cin >> input;
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                                if(input)
+                                {
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                }*/
                         }
                     }
                 }
-                if(check == false || genderSearch.size()!=1)
+                if(check == false || genderSearch.size() != 1)
                 {
-                    cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
+                    cout << "Gender " << genderSearch << " was not in file or input not in the right format." << endl;
+                    cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
             }
+            //BIRTH YEAR
             if(choice == "3")
             {
                 cout << "Enter year of birth: ";
@@ -1021,21 +1040,32 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         {
                             displayPerson(FP[i]);
                             check = true;
+
+                            /*char input;
+                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                            cin >> input;
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                                if(input)
+                                {
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                }*/
                         }
                     }
                 }
                 if(check == false)
                 {
                     cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
-                    cout<<endl;
+                    cout << endl;
                 }
             }
+            //DEATH YEAR
             if(choice == "4")
             {
                 cout << "Enter death year: ";
                 cin >> deathYearSearch;
                 //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
-                if(deathYearSearch.size()== 4 && isdigit(deathYearSearch[0])&& isdigit(deathYearSearch[1])&& isdigit(deathYearSearch[2])&& isdigit(deathYearSearch[3]))
+                if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
                 {
                     int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
                     for(unsigned int i = 0; i < FP.size(); i++)
@@ -1044,6 +1074,16 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         {
                             displayPerson(FP[i]);
                             check = true;
+
+                            /*char input;
+                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                            cin >> input;
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                                if(input)
+                                {
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                }*/
                         }
                     }
                 }
@@ -1053,7 +1093,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     cout << endl;
                 }
             }
-            if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
+            if(choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5")
             {                
                 cout << "------------------------------------------" << endl;
                 cout << "| | | Wrong input. Please try again. | | |" << endl;
