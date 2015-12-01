@@ -27,6 +27,7 @@ public:
     void getInfo();
     void viewInfo();
     void displayPerson(InfoType p);
+    string changeName(InfoType p);
 
     void fillVector(vector <InfoType>& FP);
     //tekur skjalið og setur inn í vektor
