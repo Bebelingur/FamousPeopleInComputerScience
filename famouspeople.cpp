@@ -288,13 +288,7 @@ void FamousPeople::displayPerson(InfoType p)
             cout << "Year of death: " << p.deathYear << endl;
         }
 
-    if(p.deathYear != 0)
-    {
-        cout << "Year of death: " << p.deathYear << endl;
 
-    cout << endl;
-
-    }
     cout << endl;
 }
 string FamousPeople::changeName(InfoType p)
@@ -428,11 +422,11 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F')
+        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
         {
         cout << "Gender: " << "Female" << endl;
         }
-        else if(FP.at(i).gender == 'M')
+        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
         {
         cout << "Gender: " << "Male" << endl;
         }
@@ -720,7 +714,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             }
             if(choice == "2")
             {
-                cout << "Enter gender: ";
+                cout << "Enter gender, M for male, F for female and ? for other: ";
                 cin >> genderSearch;
                 string tempGender;
                 if(genderSearch.size() == 1)
