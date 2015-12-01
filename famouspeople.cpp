@@ -115,9 +115,6 @@ void FamousPeople::sortMenu()
                 //sortByGenderFemale(FP);
                 break;
                 }
-
-            case '5':
-                break;
             default:
                 cout << "Wrong input! Please try again" << endl;
                 break;
@@ -336,6 +333,8 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 
 void FamousPeople::getInfo()
 {
+    data datalayer;
+    datalayer.loadData();
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
     //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn
@@ -411,7 +410,8 @@ void FamousPeople::getInfo()
 void FamousPeople::displayPerson(InfoType p)
 {
     cout<<endl;
-    cout << "Name: " << p.name << endl;
+    string tempName = changeName(p);
+    cout << "Name: " << tempName << endl;
     cout << "Gender: ";
         if(p.gender == 'f' || p.gender == 'F')
         {
@@ -572,7 +572,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 }
             }
 
-
             if(check == false)
             {
                 cout << "Gender was not in file" << endl;
@@ -622,5 +621,27 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     }while (choice != 5);
 
     FP.clear();//hreinsum vektorinn eftir notkun
+}
+string FamousPeople::changeName(InfoType p)
+{
+    string tempName = p.name;
 
+        int NameLength = tempName.size();
+
+        for (int i = 0; i < NameLength; i++)
+        {
+            if(tempName[i] == ' ')
+            {
+                tempName[i+1] = toupper(tempName[i+1]);
+                i++;
+            }
+            else if(i ==0)
+            {
+                tempName[i] = toupper(tempName[i]);
+            }
+
+            else
+                tempName[i] = tolower(tempName[i]);
+        }
+       return tempName;
 }
