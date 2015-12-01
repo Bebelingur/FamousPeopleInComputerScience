@@ -596,8 +596,6 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
     displaySortedPerson(FP);
 }
 
-
-
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
 void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
 {
