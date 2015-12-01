@@ -7,6 +7,7 @@
 //#include <ctime>
 #include "famouspeople.h"
 #include "data.h"
+#include "infotype.h"
 
 using namespace std;
 
@@ -34,7 +35,6 @@ void FamousPeople::userMenu()
         cout << "===========================================" << endl;
         cout << "===  Famous People In Computer Science  ===" << endl;
         cout << "===========================================" << endl;
-        //cout << "What would you like to do?" << endl;
         cout << "1. Input information" << endl;
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
@@ -1224,8 +1224,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         cin.ignore(INT_MAX, '\n');
                             if(input)
                             {
-                                //kannski cin.clear(); hérna svo valið geymist ekki? - BóE
-                                searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
                             }*/
                     }
                 }
@@ -1327,7 +1326,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                             displayPerson(FP[i]);
                             check = true;
 
-                            /*char input;
+                            char input;
                             cout << "--- Press any key and then enter to return to search menu ---" << endl;
                             cin >> input;
                             cin.clear();
@@ -1335,7 +1334,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                                 if(input)
                                 {
                                     searchMenu(); //gerði search menu svo það myndi virka - BóE
-                                }*/
+                                }
                         }
                     }
                 }

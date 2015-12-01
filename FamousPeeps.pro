@@ -13,5 +13,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     famouspeople.h \
-    data.h
+    data.h \
+    infotype.h
 
