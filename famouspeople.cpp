@@ -412,11 +412,11 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F')
+        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
         {
         cout << "Gender: " << "Female" << endl;
         }
-        else if(FP.at(i).gender == 'M')
+        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
         {
         cout << "Gender: " << "Male" << endl;
         }
@@ -438,7 +438,6 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
         }
     }
 }
-
 
 //Fall sem ber saman fyrsta staf í hverjum streng, notað
 //til að sorta föll í stafrófsröð
@@ -483,6 +482,7 @@ bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
+
 //Fall sem ber saman fæðingarár og skilar elst fyrst
 bool compareYearAsc(const InfoType& a, const InfoType& b);
 bool compareYearAsc(const InfoType& a, const InfoType& b)
