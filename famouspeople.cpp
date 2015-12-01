@@ -112,7 +112,7 @@ void FamousPeople::getInfo()
 
         //GENDER
         do{
-            cout << "Input gender (F for female/M for male /? for other): ";
+            cout << "Input gender (F for female/M for male /? for undecided): ";
             cin >> gender;
             cin.clear();
             cin.ignore(INT_MAX, '\n');
@@ -278,7 +278,7 @@ void FamousPeople::displayPerson(InfoType p)
         }
         else if (p.gender == '?')
         {
-            cout << "Other" << endl;
+            cout << "Undecided" << endl;
         }
     cout << "Year of birth: " << p.birthYear << endl;
 
@@ -429,7 +429,7 @@ void FamousPeople::sortGenderMenu()
         cout << endl;
         cout << "1. Sort by male" << endl;
         cout << "2. Sort by female" << endl;
-        cout << "3. Sort by other" << endl;
+        cout << "3. Sort by undecided" << endl;
         cout << "4. Return to sort menu" << endl;
         cout << "===========================================" << endl;
         cout << "Please choose one of these numbers: ";
@@ -448,25 +448,25 @@ void FamousPeople::sortGenderMenu()
 
         switch(choice)
         {
-        case 1:
-        {
-            sortByGenderMale(FP);
-            break;
-        }
-        case 2:
-        {
-            sortByGenderFemale(FP);
-            break;
-         }
-        case 3:
-        {
-            sortByGenderOther(FP);
-            break;
-         }
-         case 4:
-         {
-            sortMenu();
-         }
+            case 1:
+            {
+                sortByGenderMale(FP);
+                break;
+            }
+            case 2:
+            {
+                sortByGenderFemale(FP);
+                break;
+             }
+            case 3:
+            {
+                sortByGenderUndecided(FP);
+                break;
+             }
+             case 4:
+             {
+                sortMenu();
+             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
@@ -593,7 +593,7 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
         }
         else
         {
-         cout << "Other" << endl;
+         cout << "Undecided" << endl;
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -766,33 +766,33 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
     {
         if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
         {
-        cout << "Name: " << FP.at(i).name<< endl;
+            cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
-        {
-        cout << "Gender: " << "Female" << endl;
-        }
-        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
-        {
-        cout << "Gender: " << "Male" << endl;
-        }
-        else
-        {
-         cout << "Other" << endl;
-        }
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+             cout << "Undecided" << endl;
+            }
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+            cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
+            if(FP.at(i).deathYear == 0)
+            {
+                cout << "Not deceased!" << endl;
+                cout << endl;
+            }
+            else
+            {
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
             cout << endl;
-        }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-        }
+            }
         }
     }
 
@@ -823,33 +823,33 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
     {
         if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
         {
-        cout << "Name: " << FP.at(i).name<< endl;
+            cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
-        {
-        cout << "Gender: " << "Female" << endl;
-        }
-        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
-        {
-        cout << "Gender: " << "Male" << endl;
-        }
-        else
-        {
-         cout << "Other" << endl;
-        }
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+             cout << "Undecided" << endl;
+            }
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+            cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
+            if(FP.at(i).deathYear == 0)
+            {
+                cout << "Not deceased!" << endl;
+                cout << endl;
+            }
+            else
+            {
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
             cout << endl;
-        }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-        }
+            }
         }
     }
 
@@ -866,12 +866,12 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
         }
 }
 
-//Fall sem birtir lista sem er sortaður eftir kyni, other
-void FamousPeople::sortByGenderOther(vector <InfoType>& FP)
+//Fall sem birtir lista sem er sortaður eftir kyni, undecided
+void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
 {
     fillVector(FP);
     cout << endl;
-    cout << "--- Displaying persons of other/unkown gender ---" << endl;
+    cout << "--- Displaying persons of undecided gender ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -882,57 +882,57 @@ void FamousPeople::sortByGenderOther(vector <InfoType>& FP)
     if(FP.at(i).gender != '?')
     {
         cout << "------------------------------------------------------------" << endl;
-        cout << "| | | There aren't any persons of other/unknown gender | | |" << endl;
+        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
         cout << "------------------------------------------------------------" << endl;
         cout << endl;
     }
     else
     {
-    for (unsigned int i = 0; i < FP.size(); i++)
-    {
-        if(FP.at(i).gender == '?')
+        for (unsigned int i = 0; i < FP.size(); i++)
         {
-        cout << "Name: " << FP.at(i).name<< endl;
+            if(FP.at(i).gender == '?')
+            {
+                cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
-        {
-        cout << "Gender: " << "Female" << endl;
-        }
-        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
-        {
-        cout << "Gender: " << "Male" << endl;
-        }
-        else
-        {
-         cout << "Gender: Other" << endl;
-        }
+                if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+                {
+                cout << "Gender: " << "Female" << endl;
+                }
+                else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+                {
+                cout << "Gender: " << "Male" << endl;
+                }
+                else
+                {
+                    cout << "Gender: Undecided" << endl;
+                }
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+                cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
-            cout << endl;
+                if(FP.at(i).deathYear == 0)
+                {
+                    cout << "Not deceased!" << endl;
+                    cout << endl;
+                }
+                else
+                {
+                cout << "Year of death: " << FP.at(i).deathYear << endl;
+                cout << endl;
+                }
+            }
         }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
         }
-        }
+        FP.clear();
+        char input;
+        cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+        cin >> input;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(input)
+            {
+                sortMenu();
+            }
     }
-    }
-    FP.clear();
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            sortMenu();
-        }
-}
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
@@ -1055,33 +1055,33 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
     {
         if(FP.at(i).deathYear > 0)
         {
-        cout << "Name: " << FP.at(i).name<< endl;
+            cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
-        {
-        cout << "Gender: " << "Female" << endl;
-        }
-        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
-        {
-        cout << "Gender: " << "Male" << endl;
-        }
-        else
-        {
-         cout << "Other" << endl;
-        }
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+             cout << "Undecided" << endl;
+            }
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+            cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
+            if(FP.at(i).deathYear == 0)
+            {
+                cout << "Not deceased!" << endl;
+                cout << endl;
+            }
+            else
+            {
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
             cout << endl;
-        }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-        }
+            }
         }
     }
 
@@ -1113,33 +1113,33 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
     {
         if(FP.at(i).deathYear == 0)
         {
-        cout << "Name: " << FP.at(i).name<< endl;
+            cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
-        {
-        cout << "Gender: " << "Female" << endl;
-        }
-        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
-        {
-        cout << "Gender: " << "Male" << endl;
-        }
-        else
-        {
-         cout << "Other" << endl;
-        }
+            if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+            {
+            cout << "Gender: " << "Female" << endl;
+            }
+            else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+            {
+            cout << "Gender: " << "Male" << endl;
+            }
+            else
+            {
+            cout << "Undecided" << endl;
+            }
 
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
+            cout << "Year of birth: " << FP.at(i).birthYear << endl;
 
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
+            if(FP.at(i).deathYear == 0)
+            {
+                cout << "Not deceased!" << endl;
+                cout << endl;
+            }
+            else
+            {
+            cout << "Year of death: " << FP.at(i).deathYear << endl;
             cout << endl;
-        }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-        }
+            }
         }
     }
 
@@ -1156,33 +1156,37 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
 }
 
+string FamousPeople::searchMenu()
+{
+    string choice;
+
+    cout << "* * * SEARCH INFORMATION * * *" << endl;
+    cout << endl;
+    cout << "1. Search by name"<< endl;
+    cout << "2. Search by gender"<< endl;
+    cout << "3. Search by year of birth"<< endl;
+    cout << "4. Search by year of death"<< endl;
+    cout << "5. Return to main menu" << endl;
+    cout << "===========================================" << endl;
+    cout << "Please choose one of these numbers: ";
+    cin >> choice;
+    cout << "===========================================" << endl;
+    cout << endl;
+
+    return choice;
+}
 
 void FamousPeople::searchVector(vector <InfoType>& FP)
 {
-
     fillVector(FP);//búum til vektorinn
-    string choice;
-   //gerum breytur fyrir hvert leitarskilyrði. allar breytur eru strengjabreytur svo við getum skoðað hvað var slegið inn nákvæmlega
-
-    string nameSearch;
-    string genderSearch;
-    string birthYearSearch;
-    string deathYearSearch;
+    string choice, nameSearch, genderSearch, birthYearSearch, deathYearSearch;
+   //breytur f. hvert leitarskilyrði, strengjabreytur svo við getum skoðað hvað var slegið inn nkvl.
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
-    do{
-            cout << "* * * SEARCH INFORMATION * * *" << endl;
-            cout << endl;
-            cout << "1. Search by name"<< endl;
-            cout << "2. Search by gender"<< endl;
-            cout << "3. Search by birth year"<< endl;
-            cout << "4. Search by death year"<< endl;
-            cout << "5. Return to main menu" << endl;
-            cout << "===========================================" << endl;
-            cout << "Please choose one of these numbers: ";
-            cin >> choice;
-            cout << "===========================================" << endl;
-            cout <<endl;
 
+    do{
+            choice = searchMenu();
+
+            //NAME
             if(choice == "1")
             {
                 cout << "Enter name: ";
@@ -1207,7 +1211,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     }
 
                     int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
-                    if(found != std::string::npos)
+                    if(found != (int) std::string::npos)
                     {
                         displayPerson(FP[i]);
                         check = true;
@@ -1219,19 +1223,22 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         cin.ignore(INT_MAX, '\n');
                             if(input)
                             {
-                                userMenu(); //vantar search menu til að virki
+                                //kannski cin.clear(); hérna svo valið geymist ekki? - BóE
+                                searchMenu(); //gerði search menu svo það myndi virka - BóE
                             }*/
                     }
                 }
                 if(check == false)
                 {
-                    cout << nameSearch << " was not in file. Please try again." << endl;
+                    cout << nameSearch << " was not in file." << endl;
+                    cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
             }
+            //GENDER
             if(choice == "2")
             {
-                cout << "Enter gender, M for male, F for female and ? for other: ";
+                cout << "Enter gender (M for male, F for female or ? for undecided): ";
                 cin >> genderSearch;
                 string tempGender;
                 if(genderSearch.size() == 1)
@@ -1249,15 +1256,27 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         {
                             displayPerson(FP[i]);
                             check = true;
+
+                            /*char input;
+                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                            cin >> input;
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                                if(input)
+                                {
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                }*/
                         }
                     }
                 }
-                if(check == false || genderSearch.size()!=1)
+                if(check == false || genderSearch.size() != 1)
                 {
-                    cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
+                    cout << "Gender " << genderSearch << " was not in file or input not in the right format." << endl;
+                    cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
             }
+            //BIRTH YEAR
             if(choice == "3")
             {
                 cout << "Enter year of birth: ";
@@ -1272,21 +1291,32 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         {
                             displayPerson(FP[i]);
                             check = true;
+
+                            /*char input;
+                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                            cin >> input;
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                                if(input)
+                                {
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                }*/
                         }
                     }
                 }
                 if(check == false)
                 {
                     cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
-                    cout<<endl;
+                    cout << endl;
                 }
             }
+            //DEATH YEAR
             if(choice == "4")
             {
                 cout << "Enter death year: ";
                 cin >> deathYearSearch;
                 //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
-                if(deathYearSearch.size()== 4 && isdigit(deathYearSearch[0])&& isdigit(deathYearSearch[1])&& isdigit(deathYearSearch[2])&& isdigit(deathYearSearch[3]))
+                if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
                 {
                     int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
                     for(unsigned int i = 0; i < FP.size(); i++)
@@ -1295,6 +1325,16 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                         {
                             displayPerson(FP[i]);
                             check = true;
+
+                            /*char input;
+                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                            cin >> input;
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                                if(input)
+                                {
+                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                }*/
                         }
                     }
                 }
@@ -1304,7 +1344,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                     cout << endl;
                 }
             }
-            if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
+            if(choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5")
             {                
                 cout << "------------------------------------------" << endl;
                 cout << "| | | Wrong input. Please try again. | | |" << endl;

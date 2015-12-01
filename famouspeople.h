@@ -40,12 +40,13 @@ public:
     void sortByYearDesc(vector <InfoType>& FP);
     void sortByGenderMale(vector <InfoType>& FP);
     void sortByGenderFemale(vector <InfoType>& FP);
-    void sortByGenderOther(vector <InfoType>& FP);
+    void sortByGenderUndecided(vector <InfoType>& FP);
     void sortByDeathYearAsc(vector <InfoType>& FP);
     void sortByDeathYearDesc(vector <InfoType>& FP);
     void displaySortedPerson(vector <InfoType>& FP);
     void sortByDeceased(vector <InfoType>& FP);
     void sortByNotDeceased(vector <InfoType>& FP);
+    string searchMenu();
     void searchVector(vector <InfoType>& FP);
     //leitar að skylirðum í vektornum úr skjalinu
 
