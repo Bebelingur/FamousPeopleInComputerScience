@@ -402,16 +402,12 @@ void FamousPeople::sortNameMenu()
         {
             case 1:
             {
-                fillVector(FP);
                 sortByNameAsc(FP);
-                FP.clear();
                 break;
             }
             case 2:
             {
-                fillVector(FP);
                 sortByNameDesc(FP);
-                FP.clear();
                 break;
             }
             case 3:
@@ -454,23 +450,17 @@ void FamousPeople::sortGenderMenu()
         {
         case 1:
         {
-            fillVector(FP);
             sortByGenderMale(FP);
-            FP.clear();
             break;
         }
         case 2:
         {
-            fillVector(FP);
             sortByGenderFemale(FP);
-            FP.clear();
             break;
          }
         case 3:
         {
-            fillVector(FP);
             sortByGenderOther(FP);
-            FP.clear();
             break;
          }
          case 4:
@@ -511,16 +501,12 @@ void FamousPeople::sortYearOfBirthMenu()
         {
             case 1:
             {
-                fillVector(FP);
                 sortByYearAsc(FP);
-                FP.clear();
                 break;
             }
             case 2:
             {
-                fillVector(FP);
                 sortByYearDesc(FP);
-                FP.clear();
                 break;
             }
             case 3:
@@ -563,30 +549,22 @@ void FamousPeople::sortYearOfDeathMenu()
         {
              case 1:
              {
-                fillVector(FP);
                 sortByDeathYearAsc(FP);
-                FP.clear();
                 break;
              }
              case 2:
              {
-                fillVector(FP);
                 sortByDeathYearDesc(FP);
-                FP.clear();
                 break;
              }
             case 3:
             {
-               fillVector(FP);
                sortByDeceased(FP);
-               FP.clear();
                break;
             }
             case 4:
             {
-               fillVector(FP);
                sortByNotDeceased(FP);
-               FP.clear();
                break;
             }
              case 5:
@@ -726,6 +704,7 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 //Fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
 void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons by name in ascending order ---" << endl;
     cout << endl;
@@ -733,6 +712,8 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
 
     displaySortedPerson(FP);
+
+    FP.clear();
 
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
@@ -748,6 +729,7 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
 void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons by name in descending order ---" << endl;
     cout << endl;
@@ -755,6 +737,8 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameDesc);
 
     displaySortedPerson(FP);
+
+    FP.clear();
 
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
@@ -770,6 +754,7 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir kyni, Males
 void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying male persons ---" << endl;
     cout << endl;
@@ -810,6 +795,8 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
         }
         }
     }
+
+    FP.clear();
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
     cin >> input;
@@ -824,6 +811,7 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir kyni, Females
 void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying female persons ---" << endl;
     cout << endl;
@@ -864,6 +852,9 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
         }
         }
     }
+
+    FP.clear();
+
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
     cin >> input;
@@ -878,6 +869,7 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir kyni, other
 void FamousPeople::sortByGenderOther(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons of other/unkown gender ---" << endl;
     cout << endl;
@@ -919,11 +911,13 @@ void FamousPeople::sortByGenderOther(vector <InfoType>& FP)
         }
         }
     }
+    FP.clear();
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
 void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons by year of birth in ascending order ---" << endl;
     cout << endl;
@@ -932,6 +926,8 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareYearAsc);
 
     displaySortedPerson(FP);
+
+    FP.clear();
 
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
@@ -947,6 +943,7 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
 void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons by year of birth in descending order ---" << endl;
     cout << endl;
@@ -955,6 +952,8 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareYearDesc);
 
     displaySortedPerson(FP);
+
+    FP.clear();
 
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
@@ -970,6 +969,7 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
 void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons by year of death in descending order ---" << endl;
     cout << endl;
@@ -979,6 +979,8 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
 
     displaySortedPerson(FP);
+
+    FP.clear();
 
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
@@ -994,6 +996,7 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying persons by year of death in ascending order ---" << endl;
     cout << endl;
@@ -1002,6 +1005,8 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareDeathYearDesc);
 
     displaySortedPerson(FP);
+
+    FP.clear();
 
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
@@ -1017,6 +1022,7 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 
 void FamousPeople::sortByDeceased(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying deceased persons ---" << endl;
     cout << endl;
@@ -1057,6 +1063,9 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
         }
         }
     }
+
+    FP.clear();
+
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
     cin >> input;
@@ -1071,6 +1080,7 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
 
 void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
 {
+    fillVector(FP);
     cout << endl;
     cout << "--- Displaying non deceased persons ---" << endl;
     cout << endl;
@@ -1111,6 +1121,9 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
         }
     }
+
+    FP.clear();
+
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
     cin >> input;
