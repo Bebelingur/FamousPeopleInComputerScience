@@ -271,6 +271,7 @@ string FamousPeople::changeName(InfoType p)
        return tempName;
 }
 
+//Fall sem birtir valmynd fyrir sort
 void FamousPeople::sortMenu()
 {
     fillVector(FP);
@@ -479,7 +480,7 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by name in asccending order ---" << endl;
+    cout << "--- Displaying programmers by name in ascending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
