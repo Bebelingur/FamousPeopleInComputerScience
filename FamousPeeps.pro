@@ -8,8 +8,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    famouspeople.cpp
+    famouspeople.cpp \
+    data.cpp
 
 HEADERS += \
-    famouspeople.h
+    famouspeople.h \
+    data.h
 

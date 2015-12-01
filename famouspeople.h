@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <data.h>
 
 using namespace std;
 
@@ -26,10 +27,13 @@ public:
     void getInfo();
     void viewInfo();
     void displayPerson(InfoType p);
+    string changeName(InfoType p);
 
-    void fillVector(vector<InfoType>& FP);
+    void fillVector(vector <InfoType>& FP);
+    //tekur skjalið og setur inn í vektor
+
     void searchVector(vector <InfoType>& FP);
-    void printVector(InfoType& FP) const;
+    //leitar að skilirðum í vektornum úr skjalinu
 
     void sortMenu();
 
@@ -50,6 +54,7 @@ public:
     void sortByDeathYearDesc(vector <InfoType>& FP);
 
     void sortByDeathYearAsc(vector <InfoType>& FP);
+
 
 private:
     vector <InfoType> FP;
