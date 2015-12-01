@@ -877,7 +877,17 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
 
-
+    for (unsigned int i = 0; i < FP.size(); i++)
+    {
+    if(FP.at(i).gender != '?')
+    {
+        cout << "------------------------------------------------------------" << endl;
+        cout << "| | | There aren't any persons of other/unknown gender | | |" << endl;
+        cout << "------------------------------------------------------------" << endl;
+        cout << endl;
+    }
+    else
+    {
     for (unsigned int i = 0; i < FP.size(); i++)
     {
         if(FP.at(i).gender == '?')
@@ -894,7 +904,11 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
         }
         else
         {
+<<<<<<< HEAD
          cout << "Undecided" << endl;
+=======
+         cout << "Gender: Other" << endl;
+>>>>>>> 88e05a4669f5ea9e26a705e04117fbf1402d78e7
         }
 
         cout << "Year of birth: " << FP.at(i).birthYear << endl;
@@ -911,7 +925,18 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
         }
         }
     }
+    }
     FP.clear();
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
+}
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
