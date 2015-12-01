@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <algorithm>
 //#include <ctime>
+//nota ef ég bæti við nákvæmari ári
 #include "famouspeople.h"
 #include "data.h"
 #include <sstream>
@@ -26,7 +27,6 @@ FamousPeople::FamousPeople()
      data datalayer;
      datalayer.loadData();
 }
-
 void FamousPeople::userMenu()
 {
     FP.clear();
@@ -71,10 +71,206 @@ void FamousPeople::userMenu()
                 exit(1);
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
-    //náði að láta virka aðeins, google to the rescue :)  - BóE
+    //ekki alveg nógu viss með þetta, keyrir á meðan þessir möguleikar eru valdir, spurning með þetta - BóE
+    // 1 og 5 virka en ekki 2, 3 og 4
+}
+void FamousPeople::getInfo()
+{
+    data datalayer;
+    datalayer.loadData();
+
+    ofstream getFile;
+    getFile.open("InfoFile.txt", ios::app);
+    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
+    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
+
+        if(getFile.fail( ))
+        {
+            cout << "Could not open file." << endl;
+            exit(1);
+            //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
+        }
+
+    string name = " ";
+    int bYear = 0, dYear = 0;
+    char keepGoing = ' ', gender = ' ', personDead = ' ';
+    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+
+    do{
+        //NAME
+        cout << "Input name (in the order first, middle and last name): ";
+        cin.clear();
+        getline(cin, name);
+        getFile << name << "*";
+
+        //GENDER
+        do{
+            cout << "Input gender (F for female/M for male /? for other): ";
+            cin >> gender;
+            cin.clear();
+            cin.ignore(CHAR_MAX, '\n');
+        }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
+        getFile << gender << " ";
+
+        //BIRTH YEAR
+        do{
+            cout << "Input year of birth: ";
+            cin >> bYear;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+        }while(!((bYear < yearNow) && (bYear >= CstartYear)));
+        getFile << bYear << " ";
+
+        //DEATH YEAR
+        do{
+            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+            cin >> personDead;
+            cin.clear();
+            cin.ignore(CHAR_MAX, '\n');
+
+            if(toupper(personDead) == 'Y')
+            //fallegra að nota toupper frekar en langa uppröðun - BóE
+            {
+                do{
+                    cout << "Input year of death: ";
+                    cin >> dYear;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                }while(!((dYear > bYear) && (dYear <= yearNow)));
+                //year of birth has to be less than year of death - BÓE
+                //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                //use a constant for the year, now it is set to 2015, death year should be less or equal
+                getFile << dYear;
+            }
+            if(toupper(personDead) == 'N')
+            {
+                int zero = 0;
+                getFile << zero;
+                //all deceased get zero as input for year of death - BóE
+            }
+        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+
+        //CONTINUE
+        do{
+            cout << "Input more information (Y for yes/N for no): ";
+            cin >> keepGoing;
+            cin.clear();
+            cin.ignore(CHAR_MAX, '\n');
+        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+
+    }while(toupper(keepGoing) == 'Y');
+    getFile.close( );
+}
+void FamousPeople::fillVector(vector<InfoType>& FP)
+{
+    ifstream getFile;
+    getFile.open("InfoFile.txt");
+
+    if(getFile.fail())
+    {
+        cout << "Could not open file." << endl;
+    }
+    else{
+
+        while(!getFile.eof())
+        {
+            InfoType p;
+            getline(getFile, p.name, '*');
+            getFile >> p.gender;
+            getFile >> p.birthYear;
+            getFile >> p.deathYear;
+
+            FP.push_back(p);
+        }
+
+        //cout << "Press r to return to user menu. " << endl;
+    getFile.close();
+    }
+}
+void FamousPeople::viewInfo()
+{
+    ifstream getFile;
+    getFile.open("InfoFile.txt");
+    if(getFile.fail())
+    {
+        cout << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "| | | Could not open file. No data to display. | | |" << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << endl;
+        userMenu();
+        //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
+    }
+    cout << endl;
+    while(!getFile.eof())
+    {
+        InfoType p;
+
+        getline(getFile, p.name, '*');
+        getFile >> p.gender;
+        getFile >> p.birthYear;
+        getFile >> p.deathYear;
+        displayPerson(p);
+    }
+    getFile.close();
+    char input;
+    cout << "Press any key to return to menu." << endl;
+    cin >> input;
+    if(input)
+        userMenu();
+}
+void FamousPeople::displayPerson(InfoType p)
+{
+    cout<<endl;
+    string tempName = changeName(p);
+    cout << "Name: " << tempName << endl;
+    cout << "Gender: ";
+        if(p.gender == 'f' || p.gender == 'F')
+        {
+            cout << "Female" << endl;
+        }
+        else if (p.gender == 'm' || p.gender == 'M')
+        {
+            cout << "Male" << endl;
+        }
+        else if (p.gender == '?')
+        {
+            cout << "Other" << endl;
+        }
+    cout << "Year of birth: " << p.birthYear << endl;
+    if(p.deathYear != 0)
+    {
+        cout << "Year of death: " << p.deathYear << endl;
+
+    cout<<endl;
+
+    }
+    cout << endl;
+}
+string FamousPeople::changeName(InfoType p)
+{
+    string tempName = p.name;
+
+        int NameLength = tempName.size();
+
+        for (int i = 0; i < NameLength; i++)
+        {
+            if(tempName[i] == ' ')
+            {
+                tempName[i+1] = toupper(tempName[i+1]);
+                i++;
+            }
+            else if(i ==0)
+            {
+                tempName[i] = toupper(tempName[i]);
+            }
+
+            else
+                tempName[i] = tolower(tempName[i]);
+        }
+       return tempName;
 }
 
-//Fall sem birtir valmynd fyrir sort
 void FamousPeople::sortMenu()
 {
     fillVector(FP);
@@ -145,8 +341,10 @@ void FamousPeople::sortMenu()
                 break;
         }
 
+
     }while(choice != '9');
 }
+
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
 void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
@@ -181,6 +379,7 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
         }
     }
 }
+
 
 //Fall sem ber saman fyrsta staf í hverjum streng, notað
 //til að sorta föll í stafrófsröð
@@ -365,6 +564,7 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
     displaySortedPerson(FP);
 }
 
+
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 {
@@ -378,353 +578,150 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
     displaySortedPerson(FP);
 }
 
-void FamousPeople::getInfo()
-{
-    data datalayer;
-    datalayer.loadData();
 
-    ofstream getFile;
-    getFile.open("InfoFile.txt", ios::app);
-    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
-    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
 
-    if(getFile.fail( ))
-    {
-        cout << "Could not open file." << endl;
-        exit(1);
-        //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-    }
-        string name = " ";
-        int bYear = 0, dYear = 0;
-        char keepGoing = ' ', gender = ' ', personDead = ' ';
-        //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
-        do{
-            cout << "Input name (in the order first, middle and last name): ";
-            cin.ignore();
-            //use ignore before getline(cin) to get rid of before use
-            getline(cin, name);
-            getFile << name << "*";
-
-            do{
-                cout << "Input gender (F for female/M for male /? for other): ";
-                cin >> gender;
-                    if(!(toupper(gender) == 'F' || toupper(gender) == 'M' || gender == '?'))
-                    {
-                        cout << "Wrong input. Please try again." << endl;
-                    }
-            }while(!(toupper(gender) == 'F' || toupper(gender) == 'M' || gender == '?'));
-            getFile << gender << " ";
-            //er að koma vitlaust hérna þar sem kkk t.d. skilar 3 útkomum um wrong input
-
-            do{
-                cout << "Input year of birth: ";
-                cin >> bYear;
-                if(!((bYear < yearNow) && (bYear >= CstartYear)))
-                {
-                    cout << "Wrong input. Please try again." << endl;
-                }
-            }while(!((bYear < yearNow) && (bYear >= CstartYear)));
-            getFile << bYear << " ";
-
-                cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
-                cin >> personDead;
-                if(toupper(personDead) == 'Y')
-                //fallegra að nota toupper frekar en langa uppröðun
-                {
-                    do{
-                        cout << "Input year of death: ";
-                        cin >> dYear;
-                            if(!((dYear > bYear) && (dYear <= yearNow)))
-                            //year of birth has to be less than year of death - BÓE
-                            //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
-                            //use a constant for the year, now it is set to 2015, death year should be less or equal
-                            {
-                                cout << "Wrong input. Please try again." << endl;
-                            }
-                    }while(!((dYear > bYear)&& (dYear <= yearNow)));
-                    getFile << dYear;
-                }
-                else
-                {
-                    int zero = 0;
-                    getFile << zero;
-                    //all deceased get zero as input for year of death - BóE
-                }
-            //dYear kemur vitlaust út á þann hátt að ef slegið er inn nnn þá er hoppað í userMenu
-
-            cout << "Input more information (Y for yes/N for no): ";
-            cin >> keepGoing;
-        }while(toupper(keepGoing) == 'Y');
-
-    getFile.close( );
-}
-
-void FamousPeople::displayPerson(InfoType p)
-{
-    cout<<endl;
-    string tempName = changeName(p);
-    cout << "Name: " << tempName << endl;
-    cout << "Gender: ";
-        if(p.gender == 'f' || p.gender == 'F')
-        {
-            cout << "Female" << endl;
-        }
-        else if (p.gender == 'm' || p.gender == 'M')
-        {
-            cout << "Male" << endl;
-        }
-        else if (p.gender == '?')
-        {
-            cout << "Other" << endl;
-        }
-    cout << "Year of birth: " << p.birthYear << endl;
-    if(p.deathYear != 0)
-    {
-        cout << "Year of death: " << p.deathYear << endl;
-
-    cout<<endl;
-
-    }
-    cout << endl;
-}
-
-void FamousPeople::viewInfo()
-{
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
-    if(getFile.fail())
-    {
-        cout << endl;
-        cout << "-------------------------------------------------------------" << endl;
-        cout << "| | | Could not open file. No data to display. | | |" << endl;
-        cout << "-------------------------------------------------------------" << endl;
-        cout << endl;
-        userMenu();
-        //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
-    }
-    cout << endl;
-    while(!getFile.eof())
-    {
-        InfoType p;
-
-        getline(getFile, p.name, '*');
-        getFile >> p.gender;
-        getFile >> p.birthYear;
-        getFile >> p.deathYear;
-        displayPerson(p);
-    }
-    getFile.close();
-    char input;
-    cout << "Press any key to return to menu." << endl;
-    cin >> input;
-    if(input)
-        userMenu();
-}
-
-void FamousPeople::fillVector(vector<InfoType>& FP)
-{
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
-
-    if(getFile.fail())
-    {
-        cout << "Could not open file!" << endl;
-    }
-    else
-    {
-        while(!getFile.eof())
-        {
-            InfoType p;
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-
-            FP.push_back(p);
-        }
-    getFile.close();
-    }
-}
 
 void FamousPeople::searchVector(vector <InfoType>& FP)
 {
 
     fillVector(FP);//búum til vektorinn
-    string choice;
-   //gerum breytur fyrir hvert leitarskilyrði
+        string choice;
+       //gerum breytur fyrir hvert leitarskilyrði. allar breytur eru strengjabreytur svo við getum skoðað hvað var slegið inn nákvæmlega
 
-    string nameSearch;
-    string genderSearch;
-    string birthYearSearch;
-    string deathYearSearch;
+        string nameSearch;
+        string genderSearch;
+        string birthYearSearch;
+        string deathYearSearch;
 
-    bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
-    do
-        {
-        cout << "What do you want to search?: " << endl;
-        cout << "1. Name"<< endl;
-        cout << "2. Gender"<< endl;
-        cout << "3. Year of birth" << endl;
-        cout << "4. Year of death" << endl;
-        cout << "5. Return " << endl;
-        cin >> choice;
-
-        if(choice == "1")
-        {
-            cout << "Enter name: ";
-            cin >> nameSearch;
-
-            int nameSize = nameSearch.size();
-            for(int i = 0; i < nameSize; i++)
-                 nameSearch[i] = tolower(nameSearch[i]);
-            //setjum innsláttinn í lower case
-
-            for(unsigned int i = 0; i < FP.size(); i++)
+        bool check = false;//check til að athuga hvort það sé búið að finna í leitinni
+        do
             {
-                string tempName = FP[i].name;
-                nameSize = tempName.size();
+            cout << "Do you want to: "<< endl;
+            cout << "1    Search name"<< endl;
+            cout << "2    Search gender"<< endl;
+            cout << "3    Search birth year"<< endl;
+            cout << "4    Search death year"<< endl;
+            cout << "5    Return " << endl;
+            cout << "Enter a number: ";
+            cin >> choice;
+            cout <<endl;
 
-                for(int j = 0; j < nameSize; j++)
-                    tempName[j] = tolower(tempName[j]);
-                //setjum nafnið í skjalinu í lower case og berum svo saman
 
-                int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
-                if(found != std::string::npos)
-                {
-                    displayPerson(FP[i]);
-                    check = true;
-                }
-            }
-            if(check == false)
+            if(choice == "1")
             {
-                cout<<endl;
-                cout << "Name was not in file" << endl;
-                cout<<endl;
-            }
-        }
-        if(choice == "2")
-        {       
-            cout << "Enter gender: ";
-            cin >> genderSearch;
-            string tempGender;
-            if(genderSearch.size() == 1)
-            {   for(int i = 0; i <1; i++)
-                genderSearch[i] = tolower(genderSearch[i]);
+                cout << "Enter name: ";
+                cin >> nameSearch;
+
+                int nameSize = nameSearch.size();
+                for(int i = 0; i < nameSize; i++)
+                     nameSearch[i] = tolower(nameSearch[i]);
+                //setjum innsláttinn í lower case
 
                 for(unsigned int i = 0; i < FP.size(); i++)
-            {
-                tempGender = FP[i].gender;
-                for(int j = 0; j <1; j++)
-                tempGender[j] = tolower(tempGender[j]);
+                {
+                    string tempName = FP[i].name;
+                    nameSize = tempName.size();
 
-                if(genderSearch == tempGender)
-                {
-                    displayPerson(FP[i]);
-                    check = true;
-                }
-            }
-            }
-            if(check == false || genderSearch.size()!=1)
-            {
-                cout << endl;
-                cout << "Gender was not in file or input not in the right format" << endl;
-                cout << endl;
-            }
-        }
-        if(choice == "3")
-        {
-            cout << "Enter year of birth: ";
-            cin >> birthYearSearch;
-            if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
-            {
-                int birthYearSearchI = atoi(birthYearSearch.c_str());
-                for(unsigned int i = 0; i < FP.size(); i++)
-                {
-                    if(birthYearSearchI == FP[i].birthYear)
+                    for(int j = 0; j < nameSize; j++)
+                        tempName[j] = tolower(tempName[j]);
+                    //setjum nafnið í skjalinu í lower case og berum svo saman
+
+                    int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+                    if(found != std::string::npos)
                     {
                         displayPerson(FP[i]);
                         check = true;
                     }
                 }
-            }
-            if(check == false)
-            {
-                cout << "Birth year is not in file or input not in the right format" << endl;
-                cout<<endl;
-            }
-        }
-        if(choice == "4")
-        {
-            cout << "Enter death year: ";
-            cin >> deathYearSearch;
-            if(deathYearSearch.size()== 4 && isdigit(deathYearSearch[0])&& isdigit(deathYearSearch[1])&& isdigit(deathYearSearch[2])&& isdigit(deathYearSearch[3]))
-            {
-                int deathYearSearchI = atoi(deathYearSearch.c_str());
-                for(unsigned int i = 0; i < FP.size(); i++)
+                if(check == false)
                 {
-                    displayPerson(FP[i]);
+                    cout << "Name was not in file" << endl;
+                    cout<<endl;
                 }
             }
-            else
+            if(choice == "2")
             {
-                 cout << "Year of death was not in file" << endl;
+                cout << "Enter gender: ";
+                cin >> genderSearch;
+                string tempGender;
+                if(genderSearch.size() == 1)
+                {   for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
+                    genderSearch[i] = tolower(genderSearch[i]);
 
-                    //displayPerson(FP[i]);
-                    check = true;
-            }
-            if(check == false)
-            {
-                cout << "Year of death was not in file" << endl;
-
-                    if(deathYearSearchI == FP[i].deathYear)
+                    for(unsigned int i = 0; i < FP.size(); i++)
                     {
-                        displayPerson(FP[i]);
-                        check = true;
+                        tempGender = FP[i].gender;
+                        for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
+                        tempGender[j] = tolower(tempGender[j]);
+
+                        if(genderSearch == tempGender)
+                        {
+                            displayPerson(FP[i]);
+                            check = true;
+                        }
                     }
                 }
+                if(check == false || genderSearch.size()!=1)
+                {
+                    cout << "Gender was not in file or input not in the right format" << endl;
+                    cout << endl;
+                }
             }
-            if(check == false)
-            {   cout << endl;
-                cout << "Death year is not in file or input not in the right format" << endl;
+            if(choice == "3")
+            {
+                cout << "Enter year of birth: ";
+                cin >> birthYearSearch;
+                //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+                if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
+                {
+                    int birthYearSearchI = atoi(birthYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+                    for(unsigned int i = 0; i < FP.size(); i++)
+                    {
+                        if(birthYearSearchI == FP[i].birthYear)
+                        {
+                            displayPerson(FP[i]);
+                            check = true;
+                        }
+                    }
+                }
+                if(check == false)
+                {
+                    cout << "Birth year is not in file or input not in the right format" << endl;
+                    cout<<endl;
+                }
+            }
+            if(choice == "4")
+            {
+                cout << "Enter death year: ";
+                cin >> deathYearSearch;
+                //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+                if(deathYearSearch.size()== 4 && isdigit(deathYearSearch[0])&& isdigit(deathYearSearch[1])&& isdigit(deathYearSearch[2])&& isdigit(deathYearSearch[3]))
+                {
+                    int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+                    for(unsigned int i = 0; i < FP.size(); i++)
+                    {
+                        if(deathYearSearchI == FP[i].deathYear)
+                        {
+                            displayPerson(FP[i]);
+                            check = true;
+                        }
+                    }
+                }
+                if(check == false)
+                {
+                    cout << "Death year is not in file or input not in the right format" << endl;
+                    cout << endl;
+                }
+            }
+
+            if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
+            {
+                cout << "Wrong input" << endl;
                 cout << endl;
-
             }
 
-        }
+        }while (choice != "5");
 
-        if(choice !="1"&&choice !="2"&&choice !="3"&&choice !="4"&&choice !="5")
-        {
-            cout << endl;
-            cout << "Wrong input" << endl;
-            cout << endl;
-        }
-
-    }while (choice != "5");
-
-    FP.clear();//hreinsum vektorinn eftir notkun
-}
-
-string FamousPeople::changeName(InfoType p)
-{
-    string tempName = p.name;
-
-        int NameLength = tempName.size();
-
-        for (int i = 0; i < NameLength; i++)
-        {
-            if(tempName[i] == ' ')
-            {
-                tempName[i+1] = toupper(tempName[i+1]);
-                i++;
-            }
-            else if(i ==0)
-            {
-                tempName[i] = toupper(tempName[i]);
-            }
-
-            else
-                tempName[i] = tolower(tempName[i]);
-        }
-       return tempName;
+        FP.clear();//hreinsum vektorinn eftir notkun
 }
