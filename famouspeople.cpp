@@ -328,8 +328,8 @@ void FamousPeople::sortMenu()
         cout << "6. Sort by year of birth (Descending)" << endl;
         cout << "7. Sort by year of death (Ascending)" << endl;
         cout << "8. Sort by year of death (Descending)" << endl;
-        cout << "9. Sort by deceased" << endl;
-        cout << "10. Sort by not deceased" << endl;
+        cout << "9. Sort by year of death (deceased only)" << endl;
+        cout << "10. Sort by year of death (not deceased)" << endl;
         cout << "0. Return to main menu" << endl;
         cout << "===========================================" << endl;
         cout << "Please choose one of these numbers: ";
