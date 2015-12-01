@@ -13,7 +13,6 @@ using namespace std;
 
 const int yearNow = 2015;
 const int CstartYear = 1791;
-
 //birth year of Charles Babbage should do for beginning year of computer science
 //kannski finna fall með nákvæmri dagsetningu/ári hvers dags fyrir sig
 const int alive = (yearNow + 1);
@@ -320,100 +319,98 @@ void FamousPeople::sortMenu()
     int choice;
 
     do{
-            cout << "* * * SORT INFORMATION * * *" << endl;
-            cout << endl;
-            //cout << "How would you like to sort?" << endl;
-            cout << "1. Sort by name (Ascending)" << endl;
-            cout << "2. Sort by name (Descending)" << endl;
-            cout << "3. Sort by gender (Males first)" << endl;
-            cout << "4. Sort by gender (Females first)" << endl;
-            cout << "5. Sort by year of birth (Ascending)" << endl;
-            cout << "6. Sort by year of birth (Descending)" << endl;
-            cout << "7. Sort by year of death (Ascending)" << endl;
-            cout << "8. Sort by year of death (Descending)" << endl;
-            cout << "9. Return to main menu" << endl;
-            cout << "===========================================" << endl;
-            cout << "Please choose one of these numbers: ";
-            cin >> choice;
-            cout << "===========================================" << endl;
-            cout << endl;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9)
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
+        cout << "* * * SORT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by name (Ascending)" << endl;
+        cout << "2. Sort by name (Descending)" << endl;
+        cout << "3. Sort by gender (Males first)" << endl;
+        cout << "4. Sort by gender (Females first)" << endl;
+        cout << "5. Sort by year of birth (Ascending)" << endl;
+        cout << "6. Sort by year of birth (Descending)" << endl;
+        cout << "7. Sort by year of death (Ascending)" << endl;
+        cout << "8. Sort by year of death (Descending)" << endl;
+        cout << "9. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+        cout << "Please choose one of these numbers: ";
+        cin >> choice;
+        cout << "===========================================" << endl;
+        cout << endl;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9)
+        {
+                cout << "------------------------------------------" << endl;
+                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                cout << "------------------------------------------" << endl;
+        }
 
         switch(choice)
         {
-        case 1:
-                       {
-                       fillVector(FP);
-                       sortByNameAsc(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 2:
-                       {
-                       fillVector(FP);
-                       sortByNameDesc(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 3:
-                       {
-                       fillVector(FP);
-                       sortByGenderMale(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 4:
-                       {
-                       fillVector(FP);
-                       sortByGenderFemale(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 5:
-                       {
-                       fillVector(FP);
-                       sortByYearAsc(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 6:
-                       {
-                       fillVector(FP);
-                       sortByYearDesc(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 7:
-                       {
-                       fillVector(FP);
-                       sortByDeathYearAsc(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 8:
-                       {
-                       fillVector(FP);
-                       sortByDeathYearDesc(FP);
-                       FP.clear();
-                       break;
-                       }
-                   case 9:
-                       {
-                       userMenu();
-                       }
-                       break;
+            case 1:
+            {
+                fillVector(FP);
+                sortByNameAsc(FP);
+                FP.clear();
+                break;
+            }
+            case 2:
+            {
+                fillVector(FP);
+                sortByNameDesc(FP);
+                FP.clear();
+                break;
+            }
+            case 3:
+            {
+                fillVector(FP);
+                sortByGenderMale(FP);
+                FP.clear();
+                break;
+            }
+            case 4:
+            {
+                fillVector(FP);
+                sortByGenderFemale(FP);
+                FP.clear();
+                break;
+             }
+             case 5:
+             {
+                fillVector(FP);
+                sortByYearAsc(FP);
+                FP.clear();
+                break;
+             }
+             case 6:
+             {
+                fillVector(FP);
+                sortByYearDesc(FP);
+                FP.clear();
+                break;
+             }
+             case 7:
+             {
+                fillVector(FP);
+                sortByDeathYearAsc(FP);
+                FP.clear();
+                break;
+             }
+             case 8:
+             {
+                fillVector(FP);
+                sortByDeathYearDesc(FP);
+                FP.clear();
+                break;
+             }
+             case 9:
+             {
+                userMenu();
+             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7 || choice == 8 || choice == 9);
     sortMenu();
 }
-
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
 void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
@@ -449,8 +446,7 @@ void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
     }
 }
 
-//Fall sem ber saman fyrsta staf í hverjum streng, notað
-//til að sorta föll í stafrófsröð
+//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í stafrófsröð
 bool compareNameAsc(const InfoType& a, const InfoType& b);
 bool compareNameAsc(const InfoType& a, const InfoType& b)
 {
@@ -463,8 +459,7 @@ bool compareNameAsc(const InfoType& a, const InfoType& b)
     return str1 < str2;
 }
 
-//Fall sem ber saman fyrsta staf í hverjum streng, notað
-//til að sorta föll í öfugri stafrófsröð
+//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
 bool compareNameDesc(const InfoType& a, const InfoType& b);
 bool compareNameDesc(const InfoType& a, const InfoType& b)
 {
@@ -477,16 +472,14 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
     return str1 > str2;
 }
 
-//Fall sem ber saman M og F og skilar M til að sorta lista eftir kyni
-//þar sem Males kemur fyrst fyrir í lista
+//Fall sem ber saman M og F og skilar M til að sorta lista eftir kyni þar sem M kemur fyrst fyrir í lista
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b);
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender > b.gender;
 }
 
-//Fall sem ber saman M og F og skilar F til að sorta lista eftir kyni
-//þar sem Females kemur fyrst fyrir í lista
+//Fall sem ber saman M og F og skilar F til að sorta lista eftir kyni þar sem F kemur fyrst fyrir í lista
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b);
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
@@ -547,7 +540,7 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by name in ascending order ---" << endl;
+    cout << "--- Displaying persons by name in ascending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -559,7 +552,7 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by name in descending order ---" << endl;
+    cout << "--- Displaying persons by name in descending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameDesc);
@@ -571,7 +564,7 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
 void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by gender, males first ---" << endl;
+    cout << "--- Displaying persons by gender, males first ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -584,7 +577,7 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
 void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by gender, females first ---" << endl;
+    cout << "--- Displaying persons by gender, females first ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -597,7 +590,7 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by year of birth in ascending order ---" << endl;
+    cout << "--- Displaying persons by year of birth in ascending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -606,13 +599,11 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
     displaySortedPerson(FP);
 }
 
-
-
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
 void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by year of birth in descending order ---" << endl;
+    cout << "--- Displaying persons by year of birth in descending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -621,12 +612,11 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
     displaySortedPerson(FP);
 }
 
-
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
 void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by year of death in descending order ---" << endl;
+    cout << "--- Displaying persons by year of death in descending order ---" << endl;
     cout << endl;
 
 
@@ -636,12 +626,11 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
     displaySortedPerson(FP);
 }
 
-
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 {
     cout << endl;
-    cout << "--- Displaying programmers by year of death in ascending order ---" << endl;
+    cout << "--- Displaying persons by year of death in ascending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
@@ -649,7 +638,6 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 
     displaySortedPerson(FP);
 }
-
 
 void FamousPeople::searchVector(vector <InfoType>& FP)
 {
@@ -666,7 +654,6 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
     do{
             cout << "* * * SEARCH INFORMATION * * *" << endl;
             cout << endl;
-            //cout << "What would you like to do? "<< endl;
             cout << "1. Search by name"<< endl;
             cout << "2. Search by gender"<< endl;
             cout << "3. Search by birth year"<< endl;

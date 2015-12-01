@@ -40,7 +40,7 @@ public:
     void sortByDeathYearDesc(vector <InfoType>& FP);
     void displaySortedPerson(vector <InfoType>& FP);
     void searchVector(vector <InfoType>& FP);
-    //leitar að skilirðum í vektornum úr skjalinu
+    //leitar að skylirðum í vektornum úr skjalinu
 
 private:
     vector <InfoType> FP;
