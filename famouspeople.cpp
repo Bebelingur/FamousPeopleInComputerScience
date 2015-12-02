@@ -110,6 +110,7 @@ void FamousPeople::getInfo()
         cin.clear();
         getline(cin, name);
         check = false;
+        //athuga hvort innslátturinn innihaldi nokkuð tölur
         for(unsigned int i = 0; i < name.size(); i++)
         {
             if(isdigit(name[i]))
