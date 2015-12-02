@@ -41,7 +41,7 @@ public:
     void sortByNotDeceased(vector <InfoType>& FP);
     string searchMenu();
     void searchVector(vector <InfoType>& FP);
-    //leitar að skylirðum í vektornum úr skjalinu
+    //leitar í vektornum úr skjalinu
 
 private:
     vector <InfoType> FP;

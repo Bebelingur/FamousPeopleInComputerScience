@@ -99,28 +99,28 @@ void FamousPeople::getInfo()
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
-do{
-    bool check = false;
     do{
-        //NAME
-        cout << "Input name (in the order first, middle and last name): ";
-        cin.clear();
-        getline(cin, name);
-        check = false;
-        //athuga hvort innslátturinn innihaldi nokkuð tölur
-        for(unsigned int i = 0; i < name.size(); i++)
-        {
-            if(isdigit(name[i]))
+        bool check = false;
+        do{
+            //NAME
+            cout << "Input name (in the order first, middle and last name): ";
+            cin.clear();
+            getline(cin, name);
+            check = false;
+            //athuga hvort innslátturinn innihaldi nokkuð tölur
+            for(unsigned int i = 0; i < name.size(); i++)
             {
-                check = true;
+                if(isdigit(name[i]))
+                {
+                    check = true;
+                }
             }
-        }
-        if(check == true)
-        {
+            if(check == true)
+            {
             cout << "------------------------------------------" << endl;
             cout << "| | | Wrong input. Please try again. | | |" << endl;
             cout << "------------------------------------------" << endl;
-        }
+            }
         }while(check == true);
 
         getFile << name << "*";
@@ -1240,14 +1240,15 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                             if(input)
                             {
                                     searchMenu(); //gerði search menu svo það myndi virka - BóE
-                            }*/
+                            }
+                        //eru ekki að virka eins og er, virðist þurfa að slá inn töluna tvisvar í valmöguleikum*/
                     }
                 }
                 if(check == false)
                 {
-                    cout << "==========================================="<<endl;
+                    cout << "-------------------------------------------" << endl;
                     cout << "   "<<nameSearch << " was not in file or input not in the right format" << endl;
-                    cout << "==========================================="<<endl;
+                    cout << "-------------------------------------------" << endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
@@ -1281,16 +1282,16 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                             cin.ignore(INT_MAX, '\n');
                                 if(input)
                                 {
-                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                    searchMenu();
                                 }*/
                         }
                     }
                 }
                 if(check == false || genderSearch.size() != 1)
                 {
-                    cout << "==========================================="<<endl;
+                    cout << "-------------------------------------------" << endl;
                     cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
-                    cout << "==========================================="<<endl;
+                    cout << "-------------------------------------------" << endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
@@ -1318,16 +1319,16 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                             cin.ignore(INT_MAX, '\n');
                                 if(input)
                                 {
-                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                    searchMenu();
                                 }*/
                         }
                     }
                 }
                 if(check == false)
                 {
-                    cout << "=================================================================="<<endl;
+                    cout << "-------------------------------------------" << endl;
                     cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
-                    cout << "=================================================================="<<endl;
+                    cout << "-------------------------------------------" << endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
@@ -1355,16 +1356,16 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                             cin.ignore(INT_MAX, '\n');
                                 if(input)
                                 {
-                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
+                                    searchMenu();
                                 }*/
                         }
                     }
                 }
                 if(check == false)
                 {
-                    cout << "=================================================================="<<endl;
+                    cout << "-------------------------------------------"<<endl;
                     cout << "Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
-                    cout << "=================================================================="<<endl;
+                    cout << "-------------------------------------------"<<endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
                 }
