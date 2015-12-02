@@ -101,55 +101,7 @@ void FamousPeople::getInfo()
     cout << endl;
 
     do{
-<<<<<<< HEAD
 
-
-
-while (1)
-{
-    cout << "Input name (in the order first, middle and last name): ";
-    cin.clear();
-    getline(cin, name);
-
-    bool valid = false;
-
-    for (unsigned int i = 0; i < name.length() && !valid; i++)
-    //go through string, until hit end of string or a need to reject a character
-    {
-        if (isalpha(name[i]))
-        {
-            continue;
-        }
-        if (name[i]==' ')
-        //verð að gera ráð fyrir bilum
-        {
-            continue;
-        }
-        else
-        {
-            valid = true;
-        }
-    }
-
-    if (!valid)
-    //Ef inputið frá notanda er allt stafir þá förum við úr loopunni
-    {
-        break;
-    }
-}
-getFile << name << "*";
-
-=======
-        bool check = false;
-        do{
->>>>>>> 60c714078613018606180111e970eddb5f9ec6e1
-        //NAME
-        /*cout << "Input name (in the order first, middle and last name): ";
-        cin.clear();
-        getline(cin, name);
-<<<<<<< HEAD
-        getFile << name << "*";*/
-=======
         check = false;
         for(unsigned int i = 0; i < name.size(); i++)
         {
@@ -167,7 +119,6 @@ getFile << name << "*";
         }while(check == true);
 
         getFile << name << "*";
->>>>>>> 60c714078613018606180111e970eddb5f9ec6e1
 
         //GENDER
         do{
