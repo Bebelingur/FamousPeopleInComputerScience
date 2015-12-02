@@ -99,9 +99,13 @@ void FamousPeople::getInfo()
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
-
+do{
+    bool check = false;
     do{
-
+        //NAME
+        cout << "Input name (in the order first, middle and last name): ";
+        cin.clear();
+        getline(cin, name);
         check = false;
         for(unsigned int i = 0; i < name.size(); i++)
         {
