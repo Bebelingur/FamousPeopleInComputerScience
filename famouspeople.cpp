@@ -103,11 +103,28 @@ void FamousPeople::getInfo()
     cout << endl;
 
     do{
-
+        bool check = false;
+        do{
         //NAME
         cout << "Input name (in the order first, middle and last name): ";
         cin.clear();
         getline(cin, name);
+        check = false;
+        for(unsigned int i = 0; i < name.size(); i++)
+        {
+            if(isdigit(name[i]))
+            {
+                check = true;
+            }
+        }
+        if(check == true)
+        {
+            cout << "------------------------------------------" << endl;
+            cout << "| | | Wrong input. Please try again. | | |" << endl;
+            cout << "------------------------------------------" << endl;
+        }
+        }while(check == true);
+
         getFile << name << "*";
 
         //GENDER
@@ -1192,8 +1209,8 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
             {
                 cout << "Enter name: ";
                 cin >> nameSearch;
-
                 int nameSize = nameSearch.size();
+
                 for(int i = 0; i < nameSize; i++)
                 {
                     nameSearch[i] = tolower(nameSearch[i]);
@@ -1231,7 +1248,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 if(check == false)
                 {
                     cout << "==========================================="<<endl;
-                    cout << "   "<<nameSearch << " was not in file" << endl;
+                    cout << "   "<<nameSearch << " was not in file or input not in the right format" << endl;
                     cout << "==========================================="<<endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
