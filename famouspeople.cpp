@@ -4,7 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <algorithm>
-//#include <ctime>
+#include <cctype>
 #include "famouspeople.h"
 #include "data.h"
 #include "infotype.h"
@@ -14,11 +14,9 @@ using namespace std;
 
 const int yearNow = 2015;
 const int CstartYear = 1791;
-//birth year of Charles Babbage should do for beginning year of computer science
-//kannski finna fall með nákvæmri dagsetningu/ári hvers dags fyrir sig
+//birth year of Charles Babbage should do for beginning year of computer science - BóE
 const int alive = (yearNow + 1);
 //Fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
-//fastinn alive er alltaf yearnow + 1
 
 FamousPeople::FamousPeople()
 {
@@ -33,7 +31,7 @@ void FamousPeople::userMenu()
     do{
         cout << endl;
         cout << "===========================================" << endl;
-        cout << "===  Famous People In Computer Science  ===" << endl;
+        cout << "==   Famous People In Computer Science   ==" << endl;
         cout << "===========================================" << endl;
         cout << "1. Input information" << endl;
         cout << "2. View information" << endl;
@@ -104,11 +102,47 @@ void FamousPeople::getInfo()
 
     do{
 
+
+
+while (1)
+{
+    cout << "Input name (in the order first, middle and last name): ";
+    cin.clear();
+    getline(cin, name);
+
+    bool valid = false;
+
+    for (unsigned int i = 0; i < name.length() && !valid; i++)
+    //go through string, until hit end of string or a need to reject a character
+    {
+        if (isalpha(name[i]))
+        {
+            continue;
+        }
+        if (name[i]==' ')
+        //verð að gera ráð fyrir bilum
+        {
+            continue;
+        }
+        else
+        {
+            valid = true;
+        }
+    }
+
+    if (!valid)
+    //Ef inputið frá notanda er allt stafir þá förum við úr loopunni
+    {
+        break;
+    }
+}
+getFile << name << "*";
+
         //NAME
-        cout << "Input name (in the order first, middle and last name): ";
+        /*cout << "Input name (in the order first, middle and last name): ";
         cin.clear();
         getline(cin, name);
-        getFile << name << "*";
+        getFile << name << "*";*/
 
         //GENDER
         do{
@@ -1274,7 +1308,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 if(check == false || genderSearch.size() != 1)
                 {
                     cout << "==========================================="<<endl;
-                    cout << "   Gender " << genderSearch << " was not in file or input not in the right format" << endl;
+                    cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
                     cout << "==========================================="<<endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
@@ -1311,7 +1345,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                 if(check == false)
                 {
                     cout << "=================================================================="<<endl;
-                    cout << "   Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
+                    cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
                     cout << "=================================================================="<<endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
@@ -1333,7 +1367,7 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                             displayPerson(FP[i]);
                             check = true;
 
-                            char input;
+                            /*char input;
                             cout << "--- Press any key and then enter to return to search menu ---" << endl;
                             cin >> input;
                             cin.clear();
@@ -1341,14 +1375,14 @@ void FamousPeople::searchVector(vector <InfoType>& FP)
                                 if(input)
                                 {
                                     searchMenu(); //gerði search menu svo það myndi virka - BóE
-                                }
+                                }*/
                         }
                     }
                 }
                 if(check == false)
                 {
                     cout << "=================================================================="<<endl;
-                    cout << "   Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
+                    cout << "Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
                     cout << "=================================================================="<<endl;
                     cout << "--- Please try again. ---" << endl;
                     cout << endl;
