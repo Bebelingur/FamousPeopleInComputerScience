@@ -25,6 +25,10 @@ public:
 
     int chooseNumber();
     void displayError();
+
+    void getInfo();
+    string getName();
+    char getGender();
 };
 
 #endif // UI_H
