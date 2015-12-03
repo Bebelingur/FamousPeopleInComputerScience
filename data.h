@@ -5,6 +5,7 @@
 #include <iostream>
 #include <QtSql>
 #include <QtDebug>
+#include <QtCore>
 #include "infotype.h"
 
 using namespace std;

@@ -30,12 +30,20 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     while(query.next())
     {
         p.name = query.value("name").toString().toStdString();
-        //p.gender = query.value("gender").toChar();
+
+        QChar x = query.value("gender").toChar();
+        x.combiningClass();//þarf að ná að breyta qChar í char
+        //p.gender = x;
+
         p.birthYear = query.value("birthyear").toUInt();
 
-        //if deathyear is NULL, ekki ná í deathyear ef null annars ná í það? spurja gulla eða holmfriði
+        /*int y = query.value("deathyear").toUInt();//tjekka hvort deathyear sé relevant
+        if(y == NULL)
+            p.deathYear = 0;
+        else
+            p.deathYear = y;
 
-        people.push_back(p);
+        people.push_back(p);*/
 
         //get ég notað þetta fall fyrir computers líka, bara geta breytt filenameinu?
     }
