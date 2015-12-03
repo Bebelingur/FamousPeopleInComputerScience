@@ -1,5 +1,5 @@
-#ifndef FAMOUSPEOPLE_H
-#define FAMOUSPEOPLE_H
+#ifndef SERVICES_H
+#define SERVICES_H
 #include <string>
 #include <iostream>
 #include <vector>
@@ -11,11 +11,11 @@
 
 using namespace std;
 
-class FamousPeople
+class Services
 {
 public:
-//bla
-    FamousPeople();
+
+    Services();
 
     void getInfo();
 
@@ -63,4 +63,4 @@ private:
 
 };
 
-#endif // FAMOUSPEOPLE_H
+#endif // SERVICES_H

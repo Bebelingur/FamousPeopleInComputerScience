@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cctype>
-#include "famouspeople.h"
+#include "services.h"
 #include "data.h"
 #include "infotype.h"
 #include "ui.h"
@@ -18,13 +18,13 @@ const int CstartYear = 1791;
 const int alive = (yearNow + 1);
 //Fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
 
-FamousPeople::FamousPeople()
+Services::Services()
 {
      data datalayer;
      datalayer.loadData();
 }
 
-void FamousPeople::getInfo()
+void Services::getInfo()
 {
     data datalayer;
     datalayer.loadData();
@@ -164,7 +164,7 @@ void FamousPeople::getInfo()
     }while(toupper(keepGoing) == 'Y');
     getFile.close( );
 }
-void FamousPeople::fillVector(vector<InfoType>& FP)
+void Services::fillVector(vector<InfoType>& FP)
 {
     ifstream getFile;
     getFile.open("InfoFile.txt");
@@ -186,7 +186,7 @@ void FamousPeople::fillVector(vector<InfoType>& FP)
             getFile.close();
         }
 }
-void FamousPeople::viewInfo()
+void Services::viewInfo()
 {
     UI p;
 
@@ -227,7 +227,7 @@ void FamousPeople::viewInfo()
             p.userMenu();
         }
 }
-void FamousPeople::displayPerson(InfoType p)
+void Services::displayPerson(InfoType p)
 {
     cout << endl;
     string tempName = changeName(p);
@@ -255,7 +255,7 @@ void FamousPeople::displayPerson(InfoType p)
 
     cout << endl;
 }
-string FamousPeople::changeName(InfoType p)
+string Services::changeName(InfoType p)
 {
     string tempName = p.name;
     int NameLength = tempName.size();
@@ -284,7 +284,7 @@ string FamousPeople::changeName(InfoType p)
 
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
-void FamousPeople::displaySortedPerson(vector <InfoType>& FP)
+void Services::displaySortedPerson(vector <InfoType>& FP)
 {
     for (unsigned int i = 0; i < FP.size(); i++)
     {
@@ -409,7 +409,7 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
-void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
+void Services::sortByNameAsc(vector <InfoType>& FP)
 {
     UI user;
 
@@ -436,7 +436,7 @@ void FamousPeople::sortByNameAsc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
-void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
+void Services::sortByNameDesc(vector <InfoType>& FP)
 {
     UI user;
     fillVector(FP);
@@ -462,7 +462,7 @@ void FamousPeople::sortByNameDesc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Males
-void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
+void Services::sortByGenderMale(vector <InfoType>& FP)
 {
     UI user;
 
@@ -522,7 +522,7 @@ void FamousPeople::sortByGenderMale(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Females
-void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
+void Services::sortByGenderFemale(vector <InfoType>& FP)
 {
     UI user;
 
@@ -582,7 +582,7 @@ void FamousPeople::sortByGenderFemale(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, undecided
-void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
+void Services::sortByGenderUndecided(vector <InfoType>& FP)
 {
     UI user;
 
@@ -653,7 +653,7 @@ void FamousPeople::sortByGenderUndecided(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
-void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
+void Services::sortByYearAsc(vector <InfoType>& FP)
 {
     UI user;
 
@@ -681,7 +681,7 @@ void FamousPeople::sortByYearAsc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
-void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
+void Services::sortByYearDesc(vector <InfoType>& FP)
 {
     UI user;
 
@@ -709,7 +709,7 @@ void FamousPeople::sortByYearDesc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
-void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
+void Services::sortByDeathYearDesc(vector <InfoType>& FP)
 {
     UI user;
 
@@ -738,7 +738,7 @@ void FamousPeople::sortByDeathYearDesc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
-void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
+void Services::sortByDeathYearAsc(vector <InfoType>& FP)
 {
     UI user;
 
@@ -766,7 +766,7 @@ void FamousPeople::sortByDeathYearAsc(vector <InfoType>& FP)
 }
 
 
-void FamousPeople::sortByDeceased(vector <InfoType>& FP)
+void Services::sortByDeceased(vector <InfoType>& FP)
 {
     UI user;
 
@@ -826,7 +826,7 @@ void FamousPeople::sortByDeceased(vector <InfoType>& FP)
 }
 
 
-void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
+void Services::sortByNotDeceased(vector <InfoType>& FP)
 {
     UI user;
 
@@ -885,7 +885,7 @@ void FamousPeople::sortByNotDeceased(vector <InfoType>& FP)
         }
 }
 
-string FamousPeople::searchMenu()
+string Services::searchMenu()
 {
     string choice;
 
@@ -905,7 +905,7 @@ string FamousPeople::searchMenu()
     return choice;
 }
 
-void FamousPeople::searchVector(vector <InfoType>& FP)
+void Services::searchVector(vector <InfoType>& FP)
 {
     fillVector(FP);//búum til vektorinn
     string choice, nameSearch, genderSearch, birthYearSearch, deathYearSearch;

@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cctype>
-#include "famouspeople.h"
+#include "services.h"
 #include "data.h"
 #include "infotype.h"
 #include "ui.h"
@@ -19,7 +19,7 @@ UI::UI()
 
 void UI::userMenu()
 {
-    FamousPeople p;
+    Services p;
 
     int choice;
 
@@ -132,7 +132,7 @@ void UI::sortMenu()
 
 void UI::sortNameMenu()
 {
-    FamousPeople p;
+    Services p;
 
     int choice;
 
@@ -182,7 +182,7 @@ void UI::sortNameMenu()
 
 void UI::sortGenderMenu()
 {
-    FamousPeople p;
+    Services p;
 
     int choice;
 
@@ -236,7 +236,7 @@ void UI::sortGenderMenu()
 
 void UI::sortYearOfBirthMenu()
 {
-    FamousPeople p;
+    Services p;
 
     int choice;
 
@@ -284,7 +284,7 @@ void UI::sortYearOfBirthMenu()
 
 void UI::sortYearOfDeathMenu()
 {
-    FamousPeople p;
+    Services p;
 
     int choice;
 
