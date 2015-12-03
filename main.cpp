@@ -4,12 +4,13 @@
 #include <vector>
 #include <algorithm>
 #include "famouspeople.h"
+#include "ui.h"
 
 using namespace std;
 
 int main()
 {
-    FamousPeople people;
+    UI people;
     people.userMenu();
 
     return 0;

@@ -9,10 +9,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     famouspeople.cpp \
-    data.cpp
+    data.cpp \
+    ui.cpp
 
 HEADERS += \
     famouspeople.h \
     data.h \
-    infotype.h
-
+    infotype.h \
+    ui.h
