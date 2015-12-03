@@ -14,7 +14,7 @@ using namespace std;
 class FamousPeople
 {
 public:
-
+//bla
     FamousPeople();
 
     void getInfo();
