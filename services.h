@@ -8,6 +8,8 @@
 #include <data.h>
 #include <infotype.h>
 #include <ui.h>
+#include <QtSql>
+#include <QtDebug>
 
 using namespace std;
 
@@ -52,10 +54,16 @@ public:
 
     void sortByNotDeceased(vector <InfoType>& FP);
 
-    string searchMenu();
-
-    void searchVector(vector <InfoType>& FP);
+    void searchVector();
     //leitar í vektornum úr skjalinu
+
+    void searchVectorName(vector <InfoType>& FP);
+    void searchVectorGender(vector <InfoType>& FP);
+    void searchVectorBirthYear(vector <InfoType>& FP);
+    void searchVectorDeathYear(vector <InfoType>& FP);
+
+
+
 
     vector <InfoType> FP;
 

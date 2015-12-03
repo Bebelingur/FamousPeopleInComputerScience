@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cctype>
+#include <QtSql>
+#include <QtDebug>
 #include "services.h"
 #include "data.h"
 #include "infotype.h"
@@ -26,8 +28,6 @@ Services::Services()
 
 void Services::getInfo()
 {
-    data datalayer;
-    datalayer.loadData();
 
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
@@ -66,9 +66,8 @@ void Services::getInfo()
             }
             if(check == true)
             {
-            cout << "------------------------------------------" << endl;
-            cout << "| | | Wrong input. Please try again. | | |" << endl;
-            cout << "------------------------------------------" << endl;
+                UI user;
+                user.displayError();
             }
         }while(check == true);
 
@@ -82,9 +81,8 @@ void Services::getInfo()
             cin.ignore(INT_MAX, '\n');
                 if(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?')
                 {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
+                    UI user;
+                    user.displayError();
                 }
         }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
         getFile << gender << " ";
@@ -97,9 +95,8 @@ void Services::getInfo()
             cin.ignore(INT_MAX, '\n');
                 if(!((bYear < yearNow) && (bYear >= CstartYear)))
                 {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
+                    UI user;
+                    user.displayError();
                 }
         }while(!((bYear < yearNow) && (bYear >= CstartYear)));
         getFile << bYear << " ";
@@ -113,9 +110,8 @@ void Services::getInfo()
 
                 if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
                 {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
+                    UI user;
+                    user.displayError();
                 }
 
                 if(toupper(personDead) == 'Y')
@@ -128,9 +124,8 @@ void Services::getInfo()
                         cin.ignore(INT_MAX, '\n');
                             if(!((dYear > bYear) && (dYear <= yearNow)))
                             {
-                                cout << "------------------------------------------" << endl;
-                                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                                cout << "------------------------------------------" << endl;
+                                UI user;
+                                user.displayError();
                             }
                     }while(!((dYear > bYear) && (dYear <= yearNow)));
                     //year of birth has to be less than year of death - BÓE
@@ -154,9 +149,8 @@ void Services::getInfo()
             cin.ignore(INT_MAX, '\n');
                 if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
                 {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
+                    UI user;
+                    user.displayError();
                 }
             cout << endl;
         }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
@@ -277,11 +271,6 @@ string Services::changeName(InfoType p)
         }
     return tempName;
 }
-
-//Fall sem birtir valmynd fyrir sort
-
-
-
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
 void Services::displaySortedPerson(vector <InfoType>& FP)
@@ -885,212 +874,192 @@ void Services::sortByNotDeceased(vector <InfoType>& FP)
         }
 }
 
-string Services::searchMenu()
+void Services::searchVectorName(vector <InfoType>& FP)
 {
-    string choice;
-
-    cout << "* * * SEARCH INFORMATION * * *" << endl;
-    cout << endl;
-    cout << "1. Search by name"<< endl;
-    cout << "2. Search by gender"<< endl;
-    cout << "3. Search by year of birth"<< endl;
-    cout << "4. Search by year of death"<< endl;
-    cout << "5. Return to main menu" << endl;
-    cout << "===========================================" << endl;
-    cout << "Please choose one of these numbers: ";
-    cin >> choice;
-    cout << "===========================================" << endl;
-    cout << endl;
-
-    return choice;
-}
-
-void Services::searchVector(vector <InfoType>& FP)
-{
-    fillVector(FP);//búum til vektorinn
-    string choice, nameSearch, genderSearch, birthYearSearch, deathYearSearch;
-   //breytur f. hvert leitarskilyrði, strengjabreytur svo við getum skoðað hvað var slegið inn nkvl.
+    UI user;
+    string nameSearch;
+    cout << "Enter name: ";
+    cin >> nameSearch;
+    int nameSize = nameSearch.size();
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
-    do{
-            choice = searchMenu();
 
-            //NAME
-            if(choice == "1")
+    for(int i = 0; i < nameSize; i++)
+    {
+        nameSearch[i] = tolower(nameSearch[i]);
+        //setjum innsláttinn í lower case
+    }
+
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        string tempName = FP[i].name;
+        nameSize = tempName.size();
+
+        for(int j = 0; j < nameSize; j++)
+        {
+            tempName[j] = tolower(tempName[j]);
+            //setjum nafnið í skjalinu í lower case og berum svo saman
+        }
+
+        int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+        if(found != (int) std::string::npos)
+        {
+            displayPerson(FP[i]);
+            check = true;
+
+            char input;
+            cout << "--- Press any key and then enter to return to search menu ---" << endl;
+            cin >> input;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(input)
+                {
+                    user.searchMenu();
+                }
+        }
+    }
+    if(check == false)
+    {
+        cout << "-------------------------------------------" << endl;
+        cout << "   "<<nameSearch << " was not in file or input not in the right format" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "--- Please try again. ---" << endl;
+        cout << endl;
+    }
+
+}
+void Services::searchVectorGender(vector <InfoType>& FP)
+{
+    UI user;
+    string genderSearch;
+        bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
+
+        cout << "Enter gender (M for male, F for female or ? for undecided): ";
+        cin >> genderSearch;
+        string tempGender;
+        if(genderSearch.size() == 1)
+        {   for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
             {
-                cout << "Enter name: ";
-                cin >> nameSearch;
-                int nameSize = nameSearch.size();
-
-                for(int i = 0; i < nameSize; i++)
-                {
-                    nameSearch[i] = tolower(nameSearch[i]);
-                    //setjum innsláttinn í lower case
-                }
-
-                for(unsigned int i = 0; i < FP.size(); i++)
-                {
-                    string tempName = FP[i].name;
-                    nameSize = tempName.size();
-
-                    for(int j = 0; j < nameSize; j++)
-                    {
-                        tempName[j] = tolower(tempName[j]);
-                        //setjum nafnið í skjalinu í lower case og berum svo saman
-                    }
-
-                    int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
-                    if(found != (int) std::string::npos)
-                    {
-                        displayPerson(FP[i]);
-                        check = true;
-
-                        /*char input;
-                        cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                        cin >> input;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(input)
-                            {
-                                    searchMenu(); //gerði search menu svo það myndi virka - BóE
-                            }
-                        //eru ekki að virka eins og er, virðist þurfa að slá inn töluna tvisvar í valmöguleikum*/
-                    }
-                }
-                if(check == false)
-                {
-                    cout << "-------------------------------------------" << endl;
-                    cout << "   "<<nameSearch << " was not in file or input not in the right format" << endl;
-                    cout << "-------------------------------------------" << endl;
-                    cout << "--- Please try again. ---" << endl;
-                    cout << endl;
-                }
+                genderSearch[i] = tolower(genderSearch[i]);
             }
-            //GENDER
-            if(choice == "2")
+            for(unsigned int i = 0; i < FP.size(); i++)
             {
-                cout << "Enter gender (M for male, F for female or ? for undecided): ";
-                cin >> genderSearch;
-                string tempGender;
-                if(genderSearch.size() == 1)
-                {   for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
-                    {
-                        genderSearch[i] = tolower(genderSearch[i]);
-                    }
-                    for(unsigned int i = 0; i < FP.size(); i++)
-                    {
-                        tempGender = FP[i].gender;
-                        for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
-                        tempGender[j] = tolower(tempGender[j]);
+                tempGender = FP[i].gender;
+                for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
+                tempGender[j] = tolower(tempGender[j]);
 
-                        if(genderSearch == tempGender)
+                if(genderSearch == tempGender)
+                {
+                    displayPerson(FP[i]);
+                    check = true;
+
+                    char input;
+                    cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                    cin >> input;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(input)
                         {
-                            displayPerson(FP[i]);
-                            check = true;
-
-                            /*char input;
-                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                            cin >> input;
-                            cin.clear();
-                            cin.ignore(INT_MAX, '\n');
-                                if(input)
-                                {
-                                    searchMenu();
-                                }*/
+                            user.searchMenu();
                         }
-                    }
-                }
-                if(check == false || genderSearch.size() != 1)
-                {
-                    cout << "-------------------------------------------" << endl;
-                    cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
-                    cout << "-------------------------------------------" << endl;
-                    cout << "--- Please try again. ---" << endl;
-                    cout << endl;
                 }
             }
-            //BIRTH YEAR
-            if(choice == "3")
+        }
+        if(check == false || genderSearch.size() != 1)
+        {
+            cout << "-------------------------------------------" << endl;
+            cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
+            cout << "-------------------------------------------" << endl;
+            cout << "--- Please try again. ---" << endl;
+            cout << endl;
+        }
+}
+
+void Services::searchVectorBirthYear(vector <InfoType>& FP)
+{
+    UI user;
+    string birthYearSearch;
+    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
+
+    cout << "Enter year of birth: ";
+        cin >> birthYearSearch;
+        //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+        if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
+        {
+            int birthYearSearchI = atoi(birthYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+            for(unsigned int i = 0; i < FP.size(); i++)
             {
-                cout << "Enter year of birth: ";
-                cin >> birthYearSearch;
-                //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
-                if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
+                if(birthYearSearchI == FP[i].birthYear)
                 {
-                    int birthYearSearchI = atoi(birthYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
-                    for(unsigned int i = 0; i < FP.size(); i++)
-                    {
-                        if(birthYearSearchI == FP[i].birthYear)
-                        {
-                            displayPerson(FP[i]);
-                            check = true;
+                    displayPerson(FP[i]);
+                    check = true;
 
-                            /*char input;
-                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                            cin >> input;
-                            cin.clear();
-                            cin.ignore(INT_MAX, '\n');
-                                if(input)
-                                {
-                                    searchMenu();
-                                }*/
+                    char input;
+                    cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                    cin >> input;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(input)
+                        {
+                            user.searchMenu();
                         }
-                    }
-                }
-                if(check == false)
-                {
-                    cout << "-------------------------------------------" << endl;
-                    cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
-                    cout << "-------------------------------------------" << endl;
-                    cout << "--- Please try again. ---" << endl;
-                    cout << endl;
                 }
             }
-            //DEATH YEAR
-            if(choice == "4")
+        }
+        if(check == false)
+        {
+            cout << "-------------------------------------------" << endl;
+            cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
+            cout << "-------------------------------------------" << endl;
+            cout << "--- Please try again. ---" << endl;
+            cout << endl;
+        }
+}
+void Services::searchVectorDeathYear(vector <InfoType>& FP)
+{
+    UI user;
+    string deathYearSearch;
+    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
+
+
+        cout << "Enter death year: ";
+        cin >> deathYearSearch;
+        //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+        if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
+        {
+            int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+            for(unsigned int i = 0; i < FP.size(); i++)
             {
-                cout << "Enter death year: ";
-                cin >> deathYearSearch;
-                //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
-                if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
+                if(deathYearSearchI == FP[i].deathYear)
                 {
-                    int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
-                    for(unsigned int i = 0; i < FP.size(); i++)
-                    {
-                        if(deathYearSearchI == FP[i].deathYear)
+                    displayPerson(FP[i]);
+                    check = true;
+
+                    char input;
+                    cout << "--- Press any key and then enter to return to search menu ---" << endl;
+                    cin >> input;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(input)
                         {
-                            displayPerson(FP[i]);
-                            check = true;
-
-                            /*char input;
-                            cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                            cin >> input;
-                            cin.clear();
-                            cin.ignore(INT_MAX, '\n');
-                                if(input)
-                                {
-                                    searchMenu();
-                                }*/
+                            user.searchMenu();
                         }
-                    }
-                }
-                if(check == false)
-                {
-                    cout << "-------------------------------------------"<<endl;
-                    cout << "Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
-                    cout << "-------------------------------------------"<<endl;
-                    cout << "--- Please try again. ---" << endl;
-                    cout << endl;
                 }
             }
-            if(choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5")
-            {                
-                cout << "------------------------------------------" << endl;
-                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                cout << "------------------------------------------" << endl;
-                cout << endl;
-            }
-        }while (choice != "5");
+        }
+        if(check == false)
+        {
+            cout << "-------------------------------------------"<<endl;
+            cout << "Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
+            cout << "-------------------------------------------"<<endl;
+            cout << "--- Please try again. ---" << endl;
+            cout << endl;
+        }
+}
 
-        FP.clear();//hreinsum vektorinn eftir notkun
+void Services::searchVector()
+{
+    UI user;
+    fillVector(FP);//búum til vektorinn
+    user.searchMenu();
 }

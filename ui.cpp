@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cctype>
+#include <QtSql>
+#include <QtDebug>
 #include "services.h"
 #include "data.h"
 #include "infotype.h"
@@ -20,7 +22,6 @@ UI::UI()
 void UI::userMenu()
 {
     Services p;
-
     int choice;
 
     do{
@@ -36,18 +37,7 @@ void UI::userMenu()
         cout << "===========================================" << endl;
 
         do{
-            cout << "Please choose one of these numbers: ";
-            cin >> choice;
-            cout << "===========================================" << endl;
-            cout << endl;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
+            choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
 
         switch(choice)
@@ -62,7 +52,7 @@ void UI::userMenu()
                 sortMenu();
                 break;
             case 4:
-                p.searchVector(p.FP);
+                p.searchVector();
                 break;
             case 5:
                 exit(1);
@@ -84,19 +74,8 @@ void UI::sortMenu()
         cout << "4. Sort by year of death" << endl;
         cout << "5. Return to main menu" << endl;
         cout << "===========================================" << endl;
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
-        cout << endl;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
 
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
-        {
-                cout << "------------------------------------------" << endl;
-                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                cout << "------------------------------------------" << endl;
-        }
+        choice = chooseNumber();
 
         switch(choice)
         {
@@ -143,19 +122,7 @@ void UI::sortNameMenu()
         cout << "2. Sort by name (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
-        cout << endl;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-
-        if(choice != 1 && choice != 2 && choice != 3)
-        {
-                cout << "------------------------------------------" << endl;
-                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                cout << "------------------------------------------" << endl;
-        }
+        choice = chooseNumber();
 
         switch(choice)
         {
@@ -178,8 +145,6 @@ void UI::sortNameMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 
-
-
 void UI::sortGenderMenu()
 {
     Services p;
@@ -194,19 +159,7 @@ void UI::sortGenderMenu()
         cout << "3. Sort by undecided" << endl;
         cout << "4. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
-        cout << endl;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4)
-        {
-                cout << "------------------------------------------" << endl;
-                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                cout << "------------------------------------------" << endl;
-        }
+        choice = chooseNumber();
 
         switch(choice)
         {
@@ -233,7 +186,6 @@ void UI::sortGenderMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
 
-
 void UI::sortYearOfBirthMenu()
 {
     Services p;
@@ -247,19 +199,7 @@ void UI::sortYearOfBirthMenu()
         cout << "2. Sort by year of birth (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
-        cout << endl;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-
-        if(choice != 1 && choice != 2 && choice != 3)
-        {
-                cout << "------------------------------------------" << endl;
-                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                cout << "------------------------------------------" << endl;
-        }
+        choice = chooseNumber();
 
         switch(choice)
         {
@@ -285,7 +225,6 @@ void UI::sortYearOfBirthMenu()
 void UI::sortYearOfDeathMenu()
 {
     Services p;
-
     int choice;
 
     do{
@@ -297,19 +236,7 @@ void UI::sortYearOfDeathMenu()
         cout << "4. Sort by year of death (not deceased)" << endl;
         cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        cout << "Please choose one of these numbers: ";
-        cin >> choice;
-        cout << "===========================================" << endl;
-        cout << endl;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
-        {
-                cout << "------------------------------------------" << endl;
-                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                cout << "------------------------------------------" << endl;
-        }
+        choice = chooseNumber();
 
         switch(choice)
         {
@@ -339,4 +266,68 @@ void UI::sortYearOfDeathMenu()
              }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
+}
+void UI::searchMenu()
+{
+    Services p;
+
+    int choice;
+
+    do{
+        cout << "* * * SEARCH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Search by name"<< endl;
+        cout << "2. Search by gender"<< endl;
+        cout << "3. Search by year of birth"<< endl;
+        cout << "4. Search by year of death"<< endl;
+        cout << "5. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+
+        switch(choice)
+        {
+            case 1:
+                p.searchVectorName(p.FP);
+                break;
+            case 2:
+                p.searchVectorGender(p.FP);
+                break;
+            case 3:
+                p.searchVectorBirthYear(p.FP);
+                break;
+            case 4:
+                p.searchVectorBirthYear(p.FP);
+                break;
+            case 5:
+                //FP.clear();//hreinsum vektorinn eftir notkun
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
+
+}
+int UI::chooseNumber()
+{
+    int choice;
+    cout << "Please choose one of these numbers: ";
+    cin >> choice;
+    cout << "===========================================" << endl;
+    cout << endl;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+        {
+            displayError();
+        }
+    return choice;
+}
+
+void UI::displayError()
+{
+    cout << "------------------------------------------" << endl;
+    cout << "| | | Wrong input. Please try again. | | |" << endl;
+    cout << "------------------------------------------" << endl;
 }

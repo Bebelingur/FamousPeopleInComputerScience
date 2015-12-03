@@ -3,7 +3,8 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
-
+#include <QtSql>
+#include <QtDebug>
 
 using namespace std;
 
