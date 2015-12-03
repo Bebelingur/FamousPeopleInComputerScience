@@ -19,7 +19,6 @@ public:
 
     Services();
 
-    void getInfo();
 
     void fillVector(vector <InfoType>& FP);
     //tekur skjalið og setur inn í vektor

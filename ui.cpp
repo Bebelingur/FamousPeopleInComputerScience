@@ -14,6 +14,11 @@
 
 using namespace std;
 
+const int yearNow = 2015;
+const int CstartYear = 1791;
+//birth year of Charles Babbage should do for beginning year of computer science - BóE
+
+
 UI::UI()
 {
 
@@ -43,7 +48,7 @@ void UI::userMenu()
         switch(choice)
         {
             case 1:
-                p.getInfo();
+                getInfo();
                 break;
             case 2:
                 p.viewInfo();
@@ -330,4 +335,158 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
+}
+void UI::getInfo()
+{
+
+    ofstream getFile;
+    getFile.open("InfoFile.txt", ios::app);
+    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
+    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
+
+        if(getFile.fail( ))
+        {
+            cout << "Could not open file." << endl;
+            exit(1);
+            //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
+        }
+
+    char keepGoing = ' ', personDead = ' ';
+    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+
+    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << endl;
+    do{
+        string name = getName();
+        getFile << name << "*";
+
+        char gender = getGender();
+        getFile << gender << " ";
+
+
+
+        int bYear = ;
+        getFile << bYear << " ";
+
+        int dYear = 0;
+
+        //DEATH YEAR
+        do{
+            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+            cin >> personDead;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+
+                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
+                {
+                    UI user;
+                    user.displayError();
+                }
+
+                if(toupper(personDead) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun - BóE
+                {
+                    do{
+                        cout << "Input year of death: ";
+                        cin >> dYear;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(!((dYear > bYear) && (dYear <= yearNow)))
+                            {
+                                UI user;
+                                user.displayError();
+                            }
+                    }while(!((dYear > bYear) && (dYear <= yearNow)));
+                    //year of birth has to be less than year of death - BÓE
+                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                    //use a constant for the year, now it is set to 2015, death year should be less or equal
+                    getFile << dYear;
+                }
+                if(toupper(personDead) == 'N')
+                {
+                    int zero = 0;
+                    getFile << zero;
+                    //all deceased get zero as input for year of death - BóE
+                }
+        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+
+        //CONTINUE
+        do{
+            cout << "Input more information (Y for yes/N for no): ";
+            cin >> keepGoing;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+                {
+                    UI user;
+                    user.displayError();
+                }
+            cout << endl;
+        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+
+    }while(toupper(keepGoing) == 'Y');
+    getFile.close( );
+}
+string UI::getName()
+{
+    bool check = false;
+    string name = " ";
+
+    do{
+
+
+        cout << "Input name (in the order first, middle and last name): ";
+        cin.clear();
+        getline(cin, name);
+        check = false;
+        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        for(unsigned int i = 0; i < name.size(); i++)
+        {
+            if(isdigit(name[i]))
+            {
+                check = true;
+            }
+        }
+        if(check == true)
+        {
+            UI user;
+            user.displayError();
+        }
+    }while(check == true);
+
+    return name;
+}
+char UI::getGender()
+{
+    char gender = ' ';
+    do{
+        cout << "Input gender (F for female/M for male /? for undecided): ";
+        cin >> gender;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?')
+            {
+                UI user;
+                user.displayError();
+            }
+    }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
+
+    return gender;
+}
+int UI::getBirthYear();
+{
+    int bYear = 0;
+
+    do{
+        cout << "Input year of birth: ";
+        cin >> bYear;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(!((bYear < yearNow) && (bYear >= CstartYear)))
+            {
+                UI user;
+                user.displayError();
+            }
+    }while(!((bYear < yearNow) && (bYear >= CstartYear)));
+    return bYear;
 }
