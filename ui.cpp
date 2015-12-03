@@ -351,7 +351,7 @@ void UI::getInfo()
             //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
         }
 
-    char keepGoing = ' ', personDead = ' ';
+    char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
@@ -363,52 +363,11 @@ void UI::getInfo()
         char gender = getGender();
         getFile << gender << " ";
 
-
-
-        int bYear = ;
+        int bYear = getBirthYear();
         getFile << bYear << " ";
 
-        int dYear = 0;
-
-        //DEATH YEAR
-        do{
-            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
-            cin >> personDead;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-
-                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
-                {
-                    UI user;
-                    user.displayError();
-                }
-
-                if(toupper(personDead) == 'Y')
-                //fallegra að nota toupper frekar en langa uppröðun - BóE
-                {
-                    do{
-                        cout << "Input year of death: ";
-                        cin >> dYear;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(!((dYear > bYear) && (dYear <= yearNow)))
-                            {
-                                UI user;
-                                user.displayError();
-                            }
-                    }while(!((dYear > bYear) && (dYear <= yearNow)));
-                    //year of birth has to be less than year of death - BÓE
-                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
-                    //use a constant for the year, now it is set to 2015, death year should be less or equal
-                    getFile << dYear;
-                }
-                if(toupper(personDead) == 'N')
-                {
-                    int zero = 0;
-                    getFile << zero;
-                    //all deceased get zero as input for year of death - BóE
-                }
-        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+        int dYear = getDeathYear();
+        getFile << dYear << " ";
 
         //CONTINUE
         do{
@@ -433,8 +392,6 @@ string UI::getName()
     string name = " ";
 
     do{
-
-
         cout << "Input name (in the order first, middle and last name): ";
         cin.clear();
         getline(cin, name);
@@ -473,7 +430,7 @@ char UI::getGender()
 
     return gender;
 }
-int UI::getBirthYear();
+int UI::getBirthYear()
 {
     int bYear = 0;
 
@@ -488,5 +445,56 @@ int UI::getBirthYear();
                 user.displayError();
             }
     }while(!((bYear < yearNow) && (bYear >= CstartYear)));
+
     return bYear;
+}
+int UI::getDeathYear()
+{
+        int dYear = 0;
+        char personDead = ' ';
+        int bYear = getBirthYear();
+        string name = getName();
+
+        do{
+            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+            cin >> personDead;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+
+                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
+                {
+                    UI user;
+                    user.displayError();
+                }
+
+                if(toupper(personDead) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun - BóE
+                {
+                    do{
+                        cout << "Input year of death: ";
+                        cin >> dYear;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(!((dYear > bYear) && (dYear <= yearNow)))
+                            {
+                                UI user;
+                                user.displayError();
+                            }
+                    }while(!((dYear > bYear) && (dYear <= yearNow)));
+                    //year of birth has to be less than year of death - BÓE
+                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                    //use a constant for the year, now it is set to 2015, death year should be less or equal
+                    //getFile << dYear;
+
+                }
+                if(toupper(personDead) == 'N')
+                {
+                    //int zero = 0;
+                    dYear = 0;
+                    //getFile << zero;
+                    //all deceased get zero as input for year of death - BóE
+                }
+        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+
+    return dYear;
 }
