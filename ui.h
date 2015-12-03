@@ -30,7 +30,7 @@ public:
     string getName();
     char getGender();
     int getBirthYear();
-    int getDeathYear();
+    int getDeathYear(string name, int bYear);
 };
 
 #endif // UI_H

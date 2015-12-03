@@ -366,7 +366,7 @@ void UI::getInfo()
         int bYear = getBirthYear();
         getFile << bYear << " ";
 
-        int dYear = getDeathYear();
+        int dYear = getDeathYear(name, bYear);
         getFile << dYear << " ";
 
         //CONTINUE
@@ -448,12 +448,10 @@ int UI::getBirthYear()
 
     return bYear;
 }
-int UI::getDeathYear()
+int UI::getDeathYear(string name, int bYear)
 {
         int dYear = 0;
         char personDead = ' ';
-        int bYear = getBirthYear();
-        string name = getName();
 
         do{
             cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
