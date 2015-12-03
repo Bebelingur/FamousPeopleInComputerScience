@@ -6,7 +6,9 @@
 #include <fstream>
 #include <algorithm>
 #include <data.h>
-#include <famouspeople.h>
+#include <services.h>
+#include <QtSql>
+#include <QtDebug>
 
 using namespace std;
 
