@@ -1,5 +1,5 @@
-#ifndef FAMOUSPEOPLE_H
-#define FAMOUSPEOPLE_H
+#ifndef SERVICES_H
+#define SERVICES_H
 #include <string>
 #include <iostream>
 #include <vector>
@@ -7,44 +7,67 @@
 #include <algorithm>
 #include <data.h>
 #include <infotype.h>
+#include <ui.h>
+#include <QtSql>
+#include <QtDebug>
 
 using namespace std;
 
-class FamousPeople
+class Services
 {
 public:
 
-    FamousPeople();
-    void userMenu();
-    void getInfo();
+    Services();
+
+
     void fillVector(vector <InfoType>& FP);
     //tekur skjalið og setur inn í vektor
+
     void viewInfo();
+
     void displayPerson(InfoType p);
+
     string changeName(InfoType p);
-    void sortMenu();
-    void sortNameMenu();
-    void sortGenderMenu();
-    void sortYearOfBirthMenu();
-    void sortYearOfDeathMenu();
+
     void sortByNameAsc(vector <InfoType>& FP);
+
     void sortByNameDesc(vector <InfoType>& FP);
+
     void sortByYearAsc(vector <InfoType>& FP);
+
     void sortByYearDesc(vector <InfoType>& FP);
+
     void sortByGenderMale(vector <InfoType>& FP);
+
     void sortByGenderFemale(vector <InfoType>& FP);
+
     void sortByGenderUndecided(vector <InfoType>& FP);
+
     void sortByDeathYearAsc(vector <InfoType>& FP);
+
     void sortByDeathYearDesc(vector <InfoType>& FP);
+
     void displaySortedPerson(vector <InfoType>& FP);
+
     void sortByDeceased(vector <InfoType>& FP);
+
     void sortByNotDeceased(vector <InfoType>& FP);
-    string searchMenu();
-    void searchVector(vector <InfoType>& FP);
+
+    void searchVector();
     //leitar í vektornum úr skjalinu
 
-private:
+    void searchVectorName(vector <InfoType>& FP);
+    void searchVectorGender(vector <InfoType>& FP);
+    void searchVectorBirthYear(vector <InfoType>& FP);
+    void searchVectorDeathYear(vector <InfoType>& FP);
+
+
+
+
     vector <InfoType> FP;
+
+private:
+
 };
 
-#endif // FAMOUSPEOPLE_H
+#endif // SERVICES_H
