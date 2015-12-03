@@ -29,6 +29,8 @@ public:
     void getInfo();
     string getName();
     char getGender();
+    int getBirthYear();
+    int getDeathYear(string name, int bYear);
 };
 
 #endif // UI_H
