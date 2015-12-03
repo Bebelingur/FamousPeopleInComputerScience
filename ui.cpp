@@ -406,8 +406,7 @@ string UI::getName()
         }
         if(check == true)
         {
-            UI user;
-            user.displayError();
+           displayError();
         }
     }while(check == true);
 

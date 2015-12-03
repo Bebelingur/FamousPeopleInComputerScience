@@ -26,6 +26,7 @@ Services::Services()
 
 void Services::fillVector(vector<InfoType>& FP)
 {
+
     ifstream getFile;
     getFile.open("InfoFile.txt");
 
