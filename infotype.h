@@ -6,9 +6,7 @@
 #include <fstream>
 #include <algorithm>
 #include <data.h>
-#include <services.h>
-#include <QtSql>
-#include <QtDebug>
+
 
 using namespace std;
 
@@ -21,4 +19,5 @@ struct InfoType
 };
 
 #endif // INFOTYPE
+
 
