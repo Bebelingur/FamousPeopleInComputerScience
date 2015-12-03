@@ -5,6 +5,8 @@
 #include <iostream>
 #include <QtSql>
 #include <QtDebug>
+#include <QtCore>
+#include "infotype.h"
 
 using namespace std;
 
@@ -12,8 +14,10 @@ class data {
 
 public:
     data();
-    void loadData();
-    void saveData();
+    vector<InfoType> loadData();
+    void saveData(vector <InfoType> p);
+private:
+    string personFilename, computerFilename;
 };
 
 #endif // DATA
