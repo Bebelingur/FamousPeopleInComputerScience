@@ -45,6 +45,7 @@ public:
     void searchVectorBirthYear();
     void searchVectorDeathYear();
     void backToSearchMenu();
+    void displayComputer(CompType p);
 
 private:
     vector <InfoType> FP;
