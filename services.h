@@ -20,6 +20,8 @@ public:
     Services();
 
 
+
+    void addPerson(string name, char gender, int bYear, int dYear);
     void fillVector(vector <InfoType>& FP);
     //tekur skjalið og setur inn í vektor
     void viewInfo();

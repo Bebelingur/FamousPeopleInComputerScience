@@ -24,6 +24,19 @@ Services::Services()
      datalayer.loadData();
 }
 
+void Services::addPerson(string name, char gender, int bYear, int dYear)
+{
+    InfoType p;
+    p.name = name;
+    p.gender = gender;
+    p.birthYear = bYear;
+    p.deathYear = dYear;
+    FP.push_back(p);
+
+    Data personsToData;
+    personsToData.savedData(FP);
+}
+
 void Services::fillVector(vector<InfoType>& FP)
 {
 
