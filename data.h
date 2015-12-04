@@ -17,9 +17,13 @@ class data {
 
 public:
     data();
+
     vector<InfoType> loadData();
+
     void saveData(InfoType p);
-    char convertToChar(QChar a);
+
+    char convertToChar(string a);
+
 private:
     string personFilename, computerFilename;
 };

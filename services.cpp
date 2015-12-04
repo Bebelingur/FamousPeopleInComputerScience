@@ -35,12 +35,9 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
 //    FP.push_back(p);
 
     data personsToData;
+
     personsToData.saveData(p);
-
-    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
-    FP.clear();
 }
-
 
 /*
 void Services::addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt)
@@ -60,7 +57,7 @@ void Services::addComputer(string computerName, int computerYearMade, char compu
 */
 
 
-void Services::fillVector()
+void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þorði ekki að eyða samt - SDS
 {
     //breyta file fyrir sql og fylla þaðan í vektor
     ifstream getFile;

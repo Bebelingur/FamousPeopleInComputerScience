@@ -5,13 +5,14 @@
 #include <QtSql>
 #include <string>
 
+
 data::data()
 {
     //personFilename = 'persons.sqlite';
     //computerFilename = 'computers.sqlite';
 }
 
-vector <InfoType> data::loadData()//setja string(filename) her inn til að geta notað fyrir computers og persons
+vector <InfoType> data::loadData()
 {
     vector<InfoType> people;
     InfoType p;
@@ -19,15 +20,14 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
-    db.setDatabaseName(dbName);//þarf þetta?
+    db.setDatabaseName(dbName);
 
     db.open();
 
-    if(!db.open())//má hafa villucheck hér?
+    if(!db.open())//má hafa villucheck hér?  - má ekki þurfum að laga
     {
         qDebug() << "Error = " << db.lastError().text();
     }
-
 
     QSqlQuery query(db);
 
@@ -37,24 +37,21 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     {
         p.name = query.value("name").toString().toStdString();
 
-
-        p.gender = convertToChar(query.value("gender").toChar());
+        p.gender = convertToChar(query.value("gender").toString().toStdString());
 
         p.birthYear = query.value("yearBorn").toUInt();
 
         p.deathYear = query.value("yearDead").toUInt();
 
         people.push_back(p);
-
-        //get ég notað þetta fall fyrir computers líka, bara geta breytt filenameinu?
     }
 
     db.close();
 
     return people;
-}
 
-void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
+}
+void data::saveData(InfoType p)
 {
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -62,12 +59,18 @@ void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að t
     db.setDatabaseName(dbName);
     db.open();
 
-    if(!db.open())//má hafa villucheck hér?
+    /*if(!db.open())//má hafa villucheck hér? - nope, muna að laga
     {
         qDebug() << "Error = " << db.lastError().text();
-    }
+    }*/
 
-       /* db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+    QSqlQuery query(db);
+
+    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender VARCHAR(sds), yearBorn INTEGER, yearDead INTEGER);";
+    query.exec(QString(queryCreate.c_str()));
+
+    /*
+        db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
         if( !db.exec() )
             qDebug() << db.lastError();
         else
@@ -80,11 +83,9 @@ void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að t
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
 }
 
-char data::convertToChar(QChar a)//fall sem QChar í Char
+char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
-    string b = a.decomposition().toStdString();
-
-    result = b.at(0);
+    result = a.at(0);
     return result;
 }
