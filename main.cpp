@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+//#include <string>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -7,11 +7,25 @@
 #include <QtDebug>
 #include "services.h"
 #include "ui.h"
+#include "string"
+#include <QCoreApplication>
 
 using namespace std;
 
 int main()
 {
+
+   /* QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString dbName = "persons.sqlite";
+    db.setDatabaseName(dbName);
+    db.open();
+
+    QSqlQuery query(db);
+
+    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender CHAR, yearBorn INTEGER, yearDead INTEGER);";
+    query.exec(QString(queryCreate.c_str()));*/
+
     UI people;
     people.userMenu();
 

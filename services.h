@@ -52,14 +52,13 @@ public:
     void searchVectorGender();
     void searchVectorBirthYear();
     void searchVectorDeathYear();
-
+    void backToSearchMenu();
+    void displayComputer(CompType p);
 
 
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
-
-    void backToSearchMenu();
 
 };
 
