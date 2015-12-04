@@ -17,4 +17,5 @@ HEADERS += \
     data.h \
     infotype.h \
     ui.h \
-    services.h
+    services.h \
+    comptype.h
