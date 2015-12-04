@@ -36,9 +36,11 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
 
     data personsToData;
     personsToData.saveData(FP);
+
     //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
     FP.clear();
 }
+
 
 /*
 void Services::addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt)
@@ -57,7 +59,8 @@ void Services::addComputer(string computerName, int computerYearMade, char compu
 }
 */
 
-void Services::fillVector(vector<InfoType>& FP)
+
+void Services::fillVector()
 {
     //breyta file fyrir sql og fylla þaðan í vektor
     ifstream getFile;
@@ -177,33 +180,7 @@ void Services::displaySortedPerson()
 {
     for (unsigned int i = 0; i < FP.size(); i++)
     {
-        cout << "Name: " << FP.at(i).name<< endl;
-
-        if(toupper(FP.at(i).gender) == 'F')
-        {
-            cout << "Gender: " << "Female" << endl;
-        }
-        else if(toupper(FP.at(i).gender) == 'M')
-        {
-            cout << "Gender: " << "Male" << endl;
-        }
-        else
-        {
-            cout << "Undecided" << endl;
-        }
-
-        cout << "Year of birth: " << FP.at(i).birthYear << endl;
-
-        if(FP.at(i).deathYear == 0)
-        {
-            cout << "Not deceased!" << endl;
-            cout << endl;
-        }
-        else
-        {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-        }
+        displaySorted(i);
     }
 }
 
@@ -300,9 +277,7 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 //Fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
 void Services::sortByNameAsc()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons by name in ascending order ---" << endl;
     cout << endl;
@@ -312,23 +287,13 @@ void Services::sortByNameAsc()
     displaySortedPerson();
 
     FP.clear();
-
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
 void Services::sortByNameDesc()
 {
-    UI user;
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons by name in descending order ---" << endl;
     cout << endl;
@@ -338,24 +303,13 @@ void Services::sortByNameDesc()
     displaySortedPerson();
 
     FP.clear();
-
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Males
 void Services::sortByGenderMale()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying male persons ---" << endl;
     cout << endl;
@@ -367,55 +321,18 @@ void Services::sortByGenderMale()
     {
         if(toupper(FP.at(i).gender) == 'M')
         {
-            cout << "Name: " << FP.at(i).name<< endl;
-
-            if(toupper(FP.at(i).gender) == 'F')
-            {
-                cout << "Gender: " << "Female" << endl;
-            }
-            else if(toupper(FP.at(i).gender) == 'M')
-            {
-                cout << "Gender: " << "Male" << endl;
-            }
-            else
-            {
-                cout << "Gender: " << "Undecided" << endl;
-
-            }
-
-            cout << "Year of birth: " << FP.at(i).birthYear << endl;
-
-            if(FP.at(i).deathYear == 0)
-            {
-                cout << "Not deceased!" << endl;
-                cout << endl;
-            }
-            else
-            {
-                cout << "Year of death: " << FP.at(i).deathYear << endl;
-                cout << endl;
-            }
+            displaySorted(i);
         }
     }
 
     FP.clear();
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Females
 void Services::sortByGenderFemale()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying female persons ---" << endl;
     cout << endl;
@@ -427,55 +344,18 @@ void Services::sortByGenderFemale()
     {
         if(toupper(FP.at(i).gender) == 'F')
         {
-            cout << "Name: " << FP.at(i).name<< endl;
-
-            if(toupper(FP.at(i).gender) == 'F')
-            {
-                cout << "Gender: " << "Female" << endl;
-            }
-            else if(toupper(FP.at(i).gender) == 'M')
-            {
-                cout << "Gender: " << "Male" << endl;
-            }
-            else
-            {
-                cout << "Gender: " << "Undecided" << endl;
-            }
-
-            cout << "Year of birth: " << FP.at(i).birthYear << endl;
-
-            if(FP.at(i).deathYear == 0)
-            {
-                cout << "Not deceased!" << endl;
-                cout << endl;
-            }
-            else
-            {
-                cout << "Year of death: " << FP.at(i).deathYear << endl;
-                cout << endl;
-            }
+            displaySorted(i);
         }
     }
 
     FP.clear();
-
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, undecided
 void Services::sortByGenderUndecided()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons of undecided gender ---" << endl;
     cout << endl;
@@ -485,68 +365,31 @@ void Services::sortByGenderUndecided()
 
     for (unsigned int i = 0; i < FP.size(); i++)
     {
-    if(FP.at(i).gender != '?')
-    {
-        cout << "------------------------------------------------------------" << endl;
-        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
-        cout << "------------------------------------------------------------" << endl;
-        cout << endl;
-    }
-    else
-    {
-        for (unsigned int i = 0; i < FP.size(); i++)
+        if(FP.at(i).gender != '?')
         {
-            if(FP.at(i).gender == '?')
-            {
-                cout << "Name: " << FP.at(i).name<< endl;
-
-        if(toupper(FP.at(i).gender) == 'F')
-        {
-        cout << "Gender: " << "Female" << endl;
-        }
-        else if(toupper(FP.at(i).gender) == 'M')
-        {
-        cout << "Gender: " << "Male" << endl;
+            cout << "------------------------------------------------------------" << endl;
+            cout << "| | | There aren't any persons of undecided gender | | |" << endl;
+            cout << "------------------------------------------------------------" << endl;
+            cout << endl;
         }
         else
         {
-            cout << "Gender: " << "Undecided" << endl;
-        }
-
-                cout << "Year of birth: " << FP.at(i).birthYear << endl;
-
-                if(FP.at(i).deathYear == 0)
+            for (unsigned int i = 0; i < FP.size(); i++)
+            {
+                if(FP.at(i).gender == '?')
                 {
-                    cout << "Not deceased!" << endl;
-                    cout << endl;
-                }
-                else
-                {
-                cout << "Year of death: " << FP.at(i).deathYear << endl;
-                cout << endl;
+                    displaySorted(i);
                 }
             }
-        }
         }
         FP.clear();
-        char input;
-        cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-        cin >> input;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-            if(input)
-            {
-                user.sortMenu();
-            }
+        backToSortMenu();
     }
 }
-
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
 void Services::sortByYearAsc()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons by year of birth in ascending order ---" << endl;
     cout << endl;
@@ -557,24 +400,13 @@ void Services::sortByYearAsc()
     displaySortedPerson();
 
     FP.clear();
-
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
 void Services::sortByYearDesc()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons by year of birth in descending order ---" << endl;
     cout << endl;
@@ -586,23 +418,13 @@ void Services::sortByYearDesc()
 
     FP.clear();
 
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
 void Services::sortByDeathYearDesc()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons by year of death in descending order ---" << endl;
     cout << endl;
@@ -615,23 +437,13 @@ void Services::sortByDeathYearDesc()
 
     FP.clear();
 
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+   backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 void Services::sortByDeathYearAsc()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying persons by year of death in ascending order ---" << endl;
     cout << endl;
@@ -643,23 +455,13 @@ void Services::sortByDeathYearAsc()
 
     FP.clear();
 
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+   backToSortMenu();
 }
 
 
 void Services::sortByDeceased()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying deceased persons ---" << endl;
     cout << endl;
@@ -671,55 +473,19 @@ void Services::sortByDeceased()
     {
         if(FP.at(i).deathYear > 0)
         {
-            cout << "Name: " << FP.at(i).name<< endl;
-
-            if(toupper(FP.at(i).gender) == 'F')
-            {
-                cout << "Gender: " << "Female" << endl;
-            }
-            else if(toupper(FP.at(i).gender) == 'M')
-            {
-                cout << "Gender: " << "Male" << endl;
-            }
-            else
-            {
-                cout << "Gender: " << "Undecided" << endl;
-            }
-
-            cout << "Year of birth: " << FP.at(i).birthYear << endl;
-
-            if(FP.at(i).deathYear == 0)
-            {
-                cout << "Not deceased!" << endl;
-                cout << endl;
-            }
-            else
-            {
-            cout << "Year of death: " << FP.at(i).deathYear << endl;
-            cout << endl;
-            }
+            displaySorted(i);
         }
     }
 
     FP.clear();
 
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
+    backToSortMenu();
 }
 
 
 void Services::sortByNotDeceased()
 {
-    UI user;
-
-    fillVector(FP);
+    fillVector();
     cout << endl;
     cout << "--- Displaying non deceased persons ---" << endl;
     cout << endl;
@@ -731,38 +497,47 @@ void Services::sortByNotDeceased()
     {
         if(FP.at(i).deathYear == 0)
         {
-            cout << "Name: " << FP.at(i).name<< endl;
-
-            if(toupper(FP.at(i).gender) == 'F')
-            {
-                cout << "Gender: " << "Female" << endl;
-            }
-            else if(toupper(FP.at(i).gender == 'M'))
-            {
-                cout << "Gender: " << "Male" << endl;
-            }
-            else
-            {
-                cout << "Gender: " << "Undecided" << endl;
-            }
-
-            cout << "Year of birth: " << FP.at(i).birthYear << endl;
-
-            if(FP.at(i).deathYear == 0)
-            {
-                cout << "Not deceased!" << endl;
-                cout << endl;
-            }
-            else
-            {
-                cout << "Year of death: " << FP.at(i).deathYear << endl;
-                cout << endl;
-            }
+            displaySorted(i);
         }
     }
 
     FP.clear();
+    backToSortMenu();
+}
+void Services::displaySorted(int i)
+{
+    cout << "Name: " << FP.at(i).name<< endl;
 
+    if(toupper(FP.at(i).gender) == 'F')
+    {
+        cout << "Gender: " << "Female" << endl;
+    }
+    else if(toupper(FP.at(i).gender) == 'M')
+    {
+        cout << "Gender: " << "Male" << endl;
+    }
+    else
+    {
+        cout << "Gender: " << "Undecided" << endl;
+    }
+
+    cout << "Year of birth: " << FP.at(i).birthYear << endl;
+
+    if(FP.at(i).deathYear == 0)
+    {
+        cout << "Not deceased!" << endl;
+        cout << endl;
+    }
+    else
+    {
+        cout << "Year of death: " << FP.at(i).deathYear << endl;
+        cout << endl;
+    }
+}
+
+void Services::backToSortMenu()
+{
+    UI user;
     char input;
     cout << "--- Press any key and then enter to return to sort menu ---" << endl;
     cin >> input;
@@ -776,7 +551,6 @@ void Services::sortByNotDeceased()
 
 void Services::searchVectorName()
 {
-    UI user;
     string nameSearch;
     cout << "Enter name: ";
     cin >> nameSearch;
@@ -806,16 +580,7 @@ void Services::searchVectorName()
         {
             displayPerson(FP[i]);
             check = true;
-
-            char input;
-            cout << "--- Press any key and then enter to return to search menu ---" << endl;
-            cin >> input;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(input)
-                {
-                    user.searchMenu();
-                }
+            backToSearchMenu();
         }
     }
     if(check == false)
@@ -830,7 +595,6 @@ void Services::searchVectorName()
 }
 void Services::searchVectorGender()
 {
-    UI user;
     string genderSearch;
         bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -852,16 +616,7 @@ void Services::searchVectorGender()
                 {
                     displayPerson(FP[i]);
                     check = true;
-
-                    char input;
-                    cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                    cin >> input;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
-                        if(input)
-                        {
-                            user.searchMenu();
-                        }
+                    backToSearchMenu();
                 }
             }
         }
@@ -877,7 +632,6 @@ void Services::searchVectorGender()
 
 void Services::searchVectorBirthYear()
 {
-    UI user;
     string birthYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -893,16 +647,7 @@ void Services::searchVectorBirthYear()
                 {
                     displayPerson(FP[i]);
                     check = true;
-
-                    char input;
-                    cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                    cin >> input;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
-                        if(input)
-                        {
-                            user.searchMenu();
-                        }
+                    backToSearchMenu();
                 }
             }
         }
@@ -917,7 +662,6 @@ void Services::searchVectorBirthYear()
 }
 void Services::searchVectorDeathYear()
 {
-    UI user;
     string deathYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -934,16 +678,7 @@ void Services::searchVectorDeathYear()
                 {
                     displayPerson(FP[i]);
                     check = true;
-
-                    char input;
-                    cout << "--- Press any key and then enter to return to search menu ---" << endl;
-                    cin >> input;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
-                        if(input)
-                        {
-                            user.searchMenu();
-                        }
+                    backToSearchMenu();
                 }
             }
         }
@@ -960,6 +695,19 @@ void Services::searchVectorDeathYear()
 void Services::searchVector()
 {
     UI user;
-    fillVector(FP);//búum til vektorinn
+    fillVector();//búum til vektorinn
     user.searchMenu();
+}
+void Services::backToSearchMenu()
+{
+    UI user;
+    char input;
+    cout << "--- Press any key and then enter to return to search menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            user.searchMenu();
+        }
 }

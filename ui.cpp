@@ -471,15 +471,12 @@ int UI::getDeathYear(string name, int bYear)
                     //year of birth has to be less than year of death - BÓE
                     //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
                     //use a constant for the year, now it is set to 2015, death year should be less or equal
-                    //getFile << dYear;
 
                 }
                 if(toupper(personDead) == 'N')
                 {
-                    //int zero = 0;
+                    //all deceased get zero as input for year of death, equals NULL in SQL - BóE
                     dYear = 0;
-                    //getFile << zero;
-                    //all deceased get zero as input for year of death - BóE
                 }
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
 
