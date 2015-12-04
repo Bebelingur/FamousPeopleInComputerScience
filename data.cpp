@@ -83,6 +83,7 @@ void data::saveData(InfoType p)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
 }
 
+//þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
