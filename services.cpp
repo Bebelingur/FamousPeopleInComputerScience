@@ -33,13 +33,15 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.deathYear = dYear;
     FP.push_back(p);
 
-    Data personsToData;
-    personsToData.savedData(FP);
+    data personsToData;
+    personsToData.saveData(FP);
+    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
+    FP.clear();
 }
 
 void Services::fillVector(vector<InfoType>& FP)
 {
-
+    //breyta file fyrir sql og fylla þaðan í vektor
     ifstream getFile;
     getFile.open("InfoFile.txt");
 
@@ -159,11 +161,11 @@ void Services::displaySortedPerson(vector <InfoType>& FP)
     {
         cout << "Name: " << FP.at(i).name<< endl;
 
-        if(FP.at(i).gender == 'F'||FP.at(i).gender == 'f')
+        if(toupper(FP.at(i).gender) == 'F')
         {
             cout << "Gender: " << "Female" << endl;
         }
-        else if(FP.at(i).gender == 'M'||FP.at(i).gender == 'm')
+        else if(toupper(FP.at(i).gender) == 'M')
         {
             cout << "Gender: " << "Male" << endl;
         }
