@@ -40,7 +40,6 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
 
         p.birthYear = query.value("birthyear").toUInt();
 
-
         if(query.value("deathyear").toUInt() == NULL)//tjekka hvort deathyear sé relevant
             p.deathYear = 0;
         else

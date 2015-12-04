@@ -15,7 +15,7 @@ class data {
 public:
     data();
     vector<InfoType> loadData();
-    void saveData(vector <InfoType> p);
+    void saveData(vector<InfoType> p);
 private:
     string personFilename, computerFilename;
 };
