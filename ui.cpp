@@ -133,12 +133,12 @@ void UI::sortNameMenu()
         {
             case 1:
             {
-                p.sortByNameAsc(p.FP);
+                p.sortByNameAsc();
                 break;
             }
             case 2:
             {
-                p.sortByNameDesc(p.FP);
+                p.sortByNameDesc();
                 break;
             }
             case 3:
@@ -170,17 +170,17 @@ void UI::sortGenderMenu()
         {
             case 1:
             {
-                p.sortByGenderMale(p.FP);
+                p.sortByGenderMale();
                 break;
             }
             case 2:
             {
-                p.sortByGenderFemale(p.FP);
+                p.sortByGenderFemale();
                 break;
              }
             case 3:
             {
-                p.sortByGenderUndecided(p.FP);
+                p.sortByGenderUndecided();
                 break;
              }
              case 4:
@@ -210,12 +210,12 @@ void UI::sortYearOfBirthMenu()
         {
             case 1:
             {
-                p.sortByYearAsc(p.FP);
+                p.sortByYearAsc();
                 break;
             }
             case 2:
             {
-                p.sortByYearDesc(p.FP);
+                p.sortByYearDesc();
                 break;
             }
             case 3:
@@ -247,22 +247,22 @@ void UI::sortYearOfDeathMenu()
         {
              case 1:
              {
-                p.sortByDeathYearAsc(p.FP);
+                p.sortByDeathYearAsc();
                 break;
              }
              case 2:
              {
-                p.sortByDeathYearDesc(p.FP);
+                p.sortByDeathYearDesc();
                 break;
              }
             case 3:
             {
-               p.sortByDeceased(p.FP);
+               p.sortByDeceased();
                break;
             }
             case 4:
             {
-               p.sortByNotDeceased(p.FP);
+               p.sortByNotDeceased();
                break;
             }
              case 5:
@@ -295,16 +295,16 @@ void UI::searchMenu()
         switch(choice)
         {
             case 1:
-                p.searchVectorName(p.FP);
+                p.searchVectorName();
                 break;
             case 2:
-                p.searchVectorGender(p.FP);
+                p.searchVectorGender();
                 break;
             case 3:
-                p.searchVectorBirthYear(p.FP);
+                p.searchVectorBirthYear();
                 break;
             case 4:
-                p.searchVectorBirthYear(p.FP);
+                p.searchVectorBirthYear();
                 break;
             case 5:
                 //FP.clear();//hreinsum vektorinn eftir notkun
@@ -358,16 +358,9 @@ void UI::getInfo()
     cout << endl;
     do{
         string name = getName();
-        getFile << name << "*";
-
         char gender = getGender();
-        getFile << gender << " ";
-
         int bYear = getBirthYear();
-        getFile << bYear << " ";
-
         int dYear = getDeathYear(name, bYear);
-        getFile << dYear << " ";
 
         Services p;
         p.addPerson(name, gender, bYear, dYear);
@@ -386,7 +379,6 @@ void UI::getInfo()
         }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
 
     }while(toupper(keepGoing) == 'Y');
-    getFile.close( );
 }
 string UI::getName()
 {
@@ -479,15 +471,12 @@ int UI::getDeathYear(string name, int bYear)
                     //year of birth has to be less than year of death - BÓE
                     //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
                     //use a constant for the year, now it is set to 2015, death year should be less or equal
-                    //getFile << dYear;
 
                 }
                 if(toupper(personDead) == 'N')
                 {
-                    //int zero = 0;
+                    //all deceased get zero as input for year of death, equals NULL in SQL - BóE
                     dYear = 0;
-                    //getFile << zero;
-                    //all deceased get zero as input for year of death - BóE
                 }
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
 
