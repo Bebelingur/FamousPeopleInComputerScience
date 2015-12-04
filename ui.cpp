@@ -338,7 +338,6 @@ void UI::displayError()
 }
 void UI::getInfo()
 {
-
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
     //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE

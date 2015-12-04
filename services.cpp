@@ -66,7 +66,6 @@ void Services::fillVector()
 void Services::viewInfo()
 {
     UI p;
-
     ifstream getFile;
     getFile.open("InfoFile.txt");
 
