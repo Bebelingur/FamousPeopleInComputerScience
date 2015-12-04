@@ -10,6 +10,7 @@
 #include <ui.h>
 #include <QtSql>
 #include <QtDebug>
+#include <comptype.h>
 
 using namespace std;
 
@@ -18,7 +19,12 @@ class Services
 public:
 
     Services();
+
+
     void addPerson(string name, char gender, int bYear, int dYear);
+    // setti upp eins fall og addPerson nema bara fyrir tölvurnar
+    // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
+    void addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt);
     void fillVector();
     //tekur skjalið og setur inn í vektor
     void viewInfo();
@@ -36,8 +42,10 @@ public:
     void displaySortedPerson();
     void sortByDeceased();
     void sortByNotDeceased();
+
     void displaySorted(int i);
     void backToSortMenu();
+
     void searchVector();
     //leitar í vektornum úr skjalinu
     void searchVectorName();
@@ -47,8 +55,10 @@ public:
     void backToSearchMenu();
     void displayComputer(CompType p);
 
+
 private:
     vector <InfoType> FP;
+    vector <CompType> Comp;
 
 };
 

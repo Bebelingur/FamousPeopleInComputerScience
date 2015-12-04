@@ -483,7 +483,7 @@ int UI::getDeathYear(string name, int bYear)
     return dYear;
 }
 
-void Services::getComputerInfo()
+void UI::getComputerInfo()
 {
     data datalayer;
     datalayer.loadData();
@@ -497,8 +497,6 @@ void Services::getComputerInfo()
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
     do{
-        bool check = false;
-        do{
             //NAME
             cout << "Input computer name: ";
             cin.clear();
@@ -521,16 +519,16 @@ void Services::getComputerInfo()
         //BIRTH YEAR
         do{
             cout << "Input year made: ";
-            cin >> yearMade;
+            cin >> computerYearMade;
             cin.clear();
             cin.ignore(INT_MAX, '\n');
-                if(!((yearMade < yearNow)))
+                if(!((computerYearMade < yearNow)))
                 {
                     cout << "------------------------------------------" << endl;
                     cout << "| | | Wrong input. Please try again. | | |" << endl;
                     cout << "------------------------------------------" << endl;
                 }
-        }while(!(yearMade < yearNow));
+        }while(!(computerYearMade < yearNow));
 
 
         //DEATH YEAR
@@ -583,7 +581,7 @@ void Services::getComputerInfo()
                     cout << "------------------------------------------" << endl;
                 }
             cout << endl;
-            addComputer(computerName, computerYearMade, computerType, computerBuilt);
+            //addComputer(computerName, computerYearMade, computerType, computerBuilt);
 
         }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
 

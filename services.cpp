@@ -11,6 +11,7 @@
 #include "data.h"
 #include "infotype.h"
 #include "ui.h"
+#include "comptype.h"
 
 using namespace std;
 
@@ -39,6 +40,25 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
     FP.clear();
 }
+
+
+/*
+void Services::addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt)
+{
+    CompType p;
+    p.compName = computerName;
+    p.yearMade = computerYearMade;
+    p.type = computerType;
+    p.wasBuilt = computerBuilt;
+    Comp.push_back(p);
+
+    data computerToData;
+    computerToData.saveData(Comp);
+    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
+    Comp.clear();
+}
+*/
+
 
 void Services::fillVector()
 {
