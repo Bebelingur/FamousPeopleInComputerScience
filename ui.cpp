@@ -369,6 +369,7 @@ void UI::getInfo()
         int dYear = getDeathYear(name, bYear);
         getFile << dYear << " ";
 
+
         //CONTINUE
         do{
             cout << "Input more information (Y for yes/N for no): ";
@@ -377,8 +378,7 @@ void UI::getInfo()
             cin.ignore(INT_MAX, '\n');
                 if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
                 {
-                    UI user;
-                    user.displayError();
+                    displayError();
                 }
             cout << endl;
         }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
@@ -422,8 +422,7 @@ char UI::getGender()
         cin.ignore(INT_MAX, '\n');
             if(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?')
             {
-                UI user;
-                user.displayError();
+               displayError();
             }
     }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
 
@@ -440,8 +439,7 @@ int UI::getBirthYear()
         cin.ignore(INT_MAX, '\n');
             if(!((bYear < yearNow) && (bYear >= CstartYear)))
             {
-                UI user;
-                user.displayError();
+                displayError();
             }
     }while(!((bYear < yearNow) && (bYear >= CstartYear)));
 
@@ -460,8 +458,7 @@ int UI::getDeathYear(string name, int bYear)
 
                 if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
                 {
-                    UI user;
-                    user.displayError();
+                    displayError();
                 }
 
                 if(toupper(personDead) == 'Y')
@@ -474,8 +471,7 @@ int UI::getDeathYear(string name, int bYear)
                         cin.ignore(INT_MAX, '\n');
                             if(!((dYear > bYear) && (dYear <= yearNow)))
                             {
-                                UI user;
-                                user.displayError();
+                                displayError();
                             }
                     }while(!((dYear > bYear) && (dYear <= yearNow)));
                     //year of birth has to be less than year of death - BÓE

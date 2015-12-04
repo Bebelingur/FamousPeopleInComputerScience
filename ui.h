@@ -9,23 +9,14 @@ public:
     UI();
 
     void userMenu();
-
     void sortMenu();
-
     void sortNameMenu();
-
     void sortGenderMenu();
-
     void sortYearOfBirthMenu();
-
     void sortYearOfDeathMenu();
-
     void searchMenu();
-
-
     int chooseNumber();
     void displayError();
-
     void getInfo();
     string getName();
     char getGender();
