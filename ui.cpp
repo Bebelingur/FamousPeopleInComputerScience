@@ -369,6 +369,8 @@ void UI::getInfo()
         int dYear = getDeathYear(name, bYear);
         getFile << dYear << " ";
 
+        Services p;
+        p.addPerson(name, gender, bYear, dYear);
 
         //CONTINUE
         do{
