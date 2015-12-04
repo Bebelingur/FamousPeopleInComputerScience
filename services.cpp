@@ -33,8 +33,8 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.deathYear = dYear;
     FP.push_back(p);
 
-    Data personsToData;
-    personsToData.savedData(FP);
+    data personsToData;
+    personsToData.saveData(FP);
 }
 
 void Services::fillVector(vector<InfoType>& FP)

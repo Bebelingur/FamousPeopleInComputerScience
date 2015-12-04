@@ -53,7 +53,8 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
 
 void data::saveData(vector<InfoType> p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
 {
-
-    //setja úr vektor inn í data, þarf að læra
-
+    //Tjekka hvort database sé til, ef til þá halda áfram
+    //ef ekki búa til DB í SQL(CREATE TABLE persons)
+    //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
+    //setja úr vektor inn í data
 }
