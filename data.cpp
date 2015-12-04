@@ -18,10 +18,15 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
-
     db.setDatabaseName(dbName);//þarf þetta?
 
     db.open();
+
+    if(!db.open())//má hafa villucheck hér?
+    {
+        qDebug() << "Error = " << db.lastError().text();
+    }
+
 
     QSqlQuery query(db);
 
@@ -31,7 +36,7 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     {
         p.name = query.value("name").toString().toStdString();
 
-        //p.gender = query.value("gender").toChar();//þarf að ná að breyta qChar í char (mögulega breyti í string)
+        //p.gender = query.value("gender").toChar();//þarf að ná að breyta QChar í char (mögulega breyti í string)
 
         p.birthYear = query.value("birthyear").toUInt();
 
@@ -46,12 +51,26 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
         //get ég notað þetta fall fyrir computers líka, bara geta breytt filenameinu?
     }
 
+    db.close();
+
     return people;
 }
 
 void data::saveData(vector<InfoType> p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
 {
-    //Tjekka hvort database sé til, ef til þá halda áfram
+    QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString dbName = "persons.sqlite";
+    db.setDatabaseName(dbName);
+    db.open();
+
+    if(!db.open())//má hafa villucheck hér?
+    {
+        qDebug() << "Error = " << db.lastError().text();
+    }
+
+
+
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
