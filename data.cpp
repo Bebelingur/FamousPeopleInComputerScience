@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QtSql>
+#include "string"
 
 data::data()
 {
@@ -27,7 +28,6 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
         qDebug() << "Error = " << db.lastError().text();
     }
 
-
     QSqlQuery query(db);
 
     query.exec("SELECT * FROM persons");//vesen hér samt
@@ -41,7 +41,7 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
         p.birthYear = query.value("yearBorn").toUInt();
 
 
-        if(query.value("yearDead").toUInt() == NULL)//tjekka hvort deathyear sé relevant
+        if(query.value("yearDead").toUInt() == 0)//tjekka hvort deathyear sé relevant
             p.deathYear = 0;
         else
             p.deathYear = query.value("yearDead").toUInt();
@@ -54,9 +54,9 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     db.close();
 
     return people;
-}
 
-void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
+}
+void data::saveData() //sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
 {
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -64,11 +64,18 @@ void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að t
     db.setDatabaseName(dbName);
     db.open();
 
-    if(!db.open())//má hafa villucheck hér?
+   /* if(!db.open())//má hafa villucheck hér?
     {
         qDebug() << "Error = " << db.lastError().text();
-    }
-    if(p.deathYear == 0)
+    }*/
+
+    QSqlQuery query(db);
+
+    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender CHAR, yearBorn INTEGER, yearDead INTEGER);";
+    query.exec(QString(queryCreate.c_str()));
+
+
+    /*if(p.deathYear == 0)
     {
         db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
         if( !db.exec() )
@@ -83,7 +90,7 @@ void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að t
             qDebug() << db.lastError();
         else
             qDebug( "Inserted!" );
-    }
+    }*/
 
 
 

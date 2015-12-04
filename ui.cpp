@@ -562,7 +562,7 @@ void UI::getComputerInfo()
                 }
                 if(toupper(computerBuilt) == 'N')
                 {
-                    int zero = 0;
+                    //int zero = 0;
                     //all deceased get zero as input for year of death - BóE
                 }
         }while(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N');
