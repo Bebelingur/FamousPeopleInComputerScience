@@ -38,12 +38,13 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
 
         //p.gender = query.value("gender").toChar();//þarf að ná að breyta QChar í char (mögulega breyti í string)
 
-        p.birthYear = query.value("birthyear").toUInt();
+        p.birthYear = query.value("yearBorn").toUInt();
 
-        if(query.value("deathyear").toUInt() == NULL)//tjekka hvort deathyear sé relevant
+        if(query.value("yearDead").toUInt() == NULL)//tjekka hvort deathyear sé relevant
+
             p.deathYear = 0;
         else
-            p.deathYear = query.value("deathyear").toUInt();
+            p.deathYear = query.value("yearDead").toUInt();
 
         people.push_back(p);
 
@@ -55,7 +56,7 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     return people;
 }
 
-void data::saveData(vector<InfoType> p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
+void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
 {
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -66,6 +67,23 @@ void data::saveData(vector<InfoType> p)//sama ves hér og í hinu, að þurfa ek
     if(!db.open())//má hafa villucheck hér?
     {
         qDebug() << "Error = " << db.lastError().text();
+    }
+
+    if(p.deathYear == 0)
+    {
+        db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+        if( !db.exec() )
+            qDebug() << db.lastError();
+        else
+            qDebug( "Inserted!" );
+    }
+    else
+    {
+        db.prepare( "INSERT INTO persons (name, gender, yearBorn, yearDead) VALUES (p.name, p.gender, p.birthYear, p.deathYear)" );
+        if( !db.exec() )
+            qDebug() << db.lastError();
+        else
+            qDebug( "Inserted!" );
     }
 
 

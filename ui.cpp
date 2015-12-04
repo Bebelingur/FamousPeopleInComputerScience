@@ -338,7 +338,6 @@ void UI::displayError()
 }
 void UI::getInfo()
 {
-
     ofstream getFile;
     getFile.open("InfoFile.txt", ios::app);
     //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
@@ -481,4 +480,109 @@ int UI::getDeathYear(string name, int bYear)
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
 
     return dYear;
+}
+
+void UI::getComputerInfo()
+{
+    data datalayer;
+    datalayer.loadData();
+
+
+    string computerName = " ";
+    int computerYearMade = 0;
+    char keepGoing = ' ', computerType = ' ', computerBuilt = ' ';
+    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+
+    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << endl;
+    do{
+            //NAME
+            cout << "Input computer name: ";
+            cin.clear();
+            getline(cin, computerName);
+
+        //GENDER
+        do{
+            cout << "Input computer type (M for mechanical/E for electronic /T for transistor): ";
+            cin >> computerType; //breyta öllum integerum sem heita gender í nýjan integer sem heitir type í staðinn?
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(toupper(computerType) != 'M' && toupper(computerType) != 'E' && toupper(computerType) != 'T')
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
+        }while(toupper(computerType) != 'M' && toupper(computerType) != 'E' && toupper(computerType) != 'T');
+
+        //BIRTH YEAR
+        do{
+            cout << "Input year made: ";
+            cin >> computerYearMade;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(!((computerYearMade < yearNow)))
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
+        }while(!(computerYearMade < yearNow));
+
+
+        //DEATH YEAR
+        do{
+            cout << "Has " << computerName << " been built? (Y for yes/ N for no): ";
+            cin >> computerBuilt;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+
+                if(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N')
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
+
+                if(toupper(computerBuilt) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun - BóE
+                {
+                    do{
+                        cout << "Input year made: ";
+                        cin >> computerYearMade;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(!(computerYearMade <= yearNow))
+                            {
+                                cout << "------------------------------------------" << endl;
+                                cout << "| | | Wrong input. Please try again. | | |" << endl;
+                                cout << "------------------------------------------" << endl;
+                            }
+                    }while(!(computerYearMade <= yearNow));
+                }
+                if(toupper(computerBuilt) == 'N')
+                {
+                    int zero = 0;
+                    //all deceased get zero as input for year of death - BóE
+                }
+        }while(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N');
+
+        //CONTINUE
+        do{
+            cout << "Input more information (Y for yes/N for no): ";
+            cin >> keepGoing;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+                {
+                    cout << "------------------------------------------" << endl;
+                    cout << "| | | Wrong input. Please try again. | | |" << endl;
+                    cout << "------------------------------------------" << endl;
+                }
+            cout << endl;
+            //addComputer(computerName, computerYearMade, computerType, computerBuilt);
+
+        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+
+    }while(toupper(keepGoing) == 'Y');
 }
