@@ -35,11 +35,9 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
 
     data personsToData;
     personsToData.saveData(FP);
-<<<<<<< HEAD
-=======
+
     //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
     FP.clear();
->>>>>>> b0fa8967ba9b90ac2edad1c2eec5e4c783012b9b
 }
 
 void Services::fillVector()

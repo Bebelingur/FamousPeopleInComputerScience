@@ -31,17 +31,15 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     {
         p.name = query.value("name").toString().toStdString();
 
-        QChar x = query.value("gender").toChar();//þarf að ná að breyta qChar í char
-        x.combiningClass();
-        //p.gender = x;
+        //p.gender = query.value("gender").toChar();//þarf að ná að breyta qChar í char (mögulega breyti í string)
 
         p.birthYear = query.value("birthyear").toUInt();
 
-        int y = query.value("deathyear").toUInt();//tjekka hvort deathyear sé relevant
-        if(y = NULL)
+
+        if(query.value("deathyear").toUInt() == NULL)//tjekka hvort deathyear sé relevant
             p.deathYear = 0;
         else
-            p.deathYear = y;
+            p.deathYear = query.value("deathyear").toUInt();
 
         people.push_back(p);
 
@@ -54,7 +52,7 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
 void data::saveData(vector<InfoType> p)//sama ves hér og í hinu, að þurfa ekki að tvíkóða, geta notað fyrir peeps og comps
 {
     //Tjekka hvort database sé til, ef til þá halda áfram
-    //ef ekki búa til DB í SQL(CREATE TABLE persons)
-    //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
-    //setja úr vektor inn í data
+        //ef ekki búa til DB í SQL(CREATE TABLE persons)
+        //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
+    //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
 }
