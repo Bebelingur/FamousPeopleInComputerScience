@@ -10,6 +10,7 @@
 #include <ui.h>
 #include <QtSql>
 #include <QtDebug>
+#include <comptype.h>
 
 using namespace std;
 
@@ -19,36 +20,39 @@ public:
 
     Services();
 
-
-
     void addPerson(string name, char gender, int bYear, int dYear);
+    // setti upp eins fall og addPerson nema bara fyrir tölvurnar
+    // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
+    void addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt);
     void fillVector(vector <InfoType>& FP);
+
     //tekur skjalið og setur inn í vektor
     void viewInfo();
     void displayPerson(InfoType p);
     string changeName(InfoType p);
-    void sortByNameAsc(vector <InfoType>& FP);
-    void sortByNameDesc(vector <InfoType>& FP);
-    void sortByYearAsc(vector <InfoType>& FP);
-    void sortByYearDesc(vector <InfoType>& FP);
-    void sortByGenderMale(vector <InfoType>& FP);
-    void sortByGenderFemale(vector <InfoType>& FP);
-    void sortByGenderUndecided(vector <InfoType>& FP);
-    void sortByDeathYearAsc(vector <InfoType>& FP);
-    void sortByDeathYearDesc(vector <InfoType>& FP);
-    void displaySortedPerson(vector <InfoType>& FP);
-    void sortByDeceased(vector <InfoType>& FP);
-    void sortByNotDeceased(vector <InfoType>& FP);
+    void sortByNameAsc();
+    void sortByNameDesc();
+    void sortByYearAsc();
+    void sortByYearDesc();
+    void sortByGenderMale();
+    void sortByGenderFemale();
+    void sortByGenderUndecided();
+    void sortByDeathYearAsc();
+    void sortByDeathYearDesc();
+    void displaySortedPerson();
+    void sortByDeceased();
+    void sortByNotDeceased();
     void searchVector();
     //leitar í vektornum úr skjalinu
-    void searchVectorName(vector <InfoType>& FP);
-    void searchVectorGender(vector <InfoType>& FP);
-    void searchVectorBirthYear(vector <InfoType>& FP);
-    void searchVectorDeathYear(vector <InfoType>& FP);
+    void searchVectorName();
+    void searchVectorGender();
+    void searchVectorBirthYear();
+    void searchVectorDeathYear();
 
-    vector <InfoType> FP;
 
 private:
+    vector <InfoType> FP;
+    vector <CompType> Comp;
 
 };
 

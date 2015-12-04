@@ -11,6 +11,7 @@
 #include "data.h"
 #include "infotype.h"
 #include "ui.h"
+#include "comptype.h"
 
 using namespace std;
 
@@ -38,6 +39,23 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
     FP.clear();
 }
+
+/*
+void Services::addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt)
+{
+    CompType p;
+    p.compName = computerName;
+    p.yearMade = computerYearMade;
+    p.type = computerType;
+    p.wasBuilt = computerBuilt;
+    Comp.push_back(p);
+
+    data computerToData;
+    computerToData.saveData(Comp);
+    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
+    Comp.clear();
+}
+*/
 
 void Services::fillVector(vector<InfoType>& FP)
 {
@@ -155,7 +173,7 @@ string Services::changeName(InfoType p)
 }
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
-void Services::displaySortedPerson(vector <InfoType>& FP)
+void Services::displaySortedPerson()
 {
     for (unsigned int i = 0; i < FP.size(); i++)
     {
@@ -280,7 +298,7 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
-void Services::sortByNameAsc(vector <InfoType>& FP)
+void Services::sortByNameAsc()
 {
     UI user;
 
@@ -291,7 +309,7 @@ void Services::sortByNameAsc(vector <InfoType>& FP)
 
     sort(FP.begin(), FP.end(), compareNameAsc);
 
-    displaySortedPerson(FP);
+    displaySortedPerson();
 
     FP.clear();
 
@@ -307,7 +325,7 @@ void Services::sortByNameAsc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
-void Services::sortByNameDesc(vector <InfoType>& FP)
+void Services::sortByNameDesc()
 {
     UI user;
     fillVector(FP);
@@ -317,7 +335,7 @@ void Services::sortByNameDesc(vector <InfoType>& FP)
 
     sort(FP.begin(), FP.end(), compareNameDesc);
 
-    displaySortedPerson(FP);
+    displaySortedPerson();
 
     FP.clear();
 
@@ -333,7 +351,7 @@ void Services::sortByNameDesc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Males
-void Services::sortByGenderMale(vector <InfoType>& FP)
+void Services::sortByGenderMale()
 {
     UI user;
 
@@ -393,7 +411,7 @@ void Services::sortByGenderMale(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, Females
-void Services::sortByGenderFemale(vector <InfoType>& FP)
+void Services::sortByGenderFemale()
 {
     UI user;
 
@@ -453,7 +471,7 @@ void Services::sortByGenderFemale(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir kyni, undecided
-void Services::sortByGenderUndecided(vector <InfoType>& FP)
+void Services::sortByGenderUndecided()
 {
     UI user;
 
@@ -524,7 +542,7 @@ void Services::sortByGenderUndecided(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
-void Services::sortByYearAsc(vector <InfoType>& FP)
+void Services::sortByYearAsc()
 {
     UI user;
 
@@ -536,7 +554,7 @@ void Services::sortByYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareYearAsc);
 
-    displaySortedPerson(FP);
+    displaySortedPerson();
 
     FP.clear();
 
@@ -552,7 +570,7 @@ void Services::sortByYearAsc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
-void Services::sortByYearDesc(vector <InfoType>& FP)
+void Services::sortByYearDesc()
 {
     UI user;
 
@@ -564,7 +582,7 @@ void Services::sortByYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareYearDesc);
 
-    displaySortedPerson(FP);
+    displaySortedPerson();
 
     FP.clear();
 
@@ -580,7 +598,7 @@ void Services::sortByYearDesc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
-void Services::sortByDeathYearDesc(vector <InfoType>& FP)
+void Services::sortByDeathYearDesc()
 {
     UI user;
 
@@ -593,7 +611,7 @@ void Services::sortByDeathYearDesc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
 
-    displaySortedPerson(FP);
+    displaySortedPerson();
 
     FP.clear();
 
@@ -609,7 +627,7 @@ void Services::sortByDeathYearDesc(vector <InfoType>& FP)
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
-void Services::sortByDeathYearAsc(vector <InfoType>& FP)
+void Services::sortByDeathYearAsc()
 {
     UI user;
 
@@ -621,7 +639,7 @@ void Services::sortByDeathYearAsc(vector <InfoType>& FP)
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareDeathYearDesc);
 
-    displaySortedPerson(FP);
+    displaySortedPerson();
 
     FP.clear();
 
@@ -637,7 +655,7 @@ void Services::sortByDeathYearAsc(vector <InfoType>& FP)
 }
 
 
-void Services::sortByDeceased(vector <InfoType>& FP)
+void Services::sortByDeceased()
 {
     UI user;
 
@@ -697,7 +715,7 @@ void Services::sortByDeceased(vector <InfoType>& FP)
 }
 
 
-void Services::sortByNotDeceased(vector <InfoType>& FP)
+void Services::sortByNotDeceased()
 {
     UI user;
 
@@ -756,7 +774,7 @@ void Services::sortByNotDeceased(vector <InfoType>& FP)
         }
 }
 
-void Services::searchVectorName(vector <InfoType>& FP)
+void Services::searchVectorName()
 {
     UI user;
     string nameSearch;
@@ -810,7 +828,7 @@ void Services::searchVectorName(vector <InfoType>& FP)
     }
 
 }
-void Services::searchVectorGender(vector <InfoType>& FP)
+void Services::searchVectorGender()
 {
     UI user;
     string genderSearch;
@@ -857,7 +875,7 @@ void Services::searchVectorGender(vector <InfoType>& FP)
         }
 }
 
-void Services::searchVectorBirthYear(vector <InfoType>& FP)
+void Services::searchVectorBirthYear()
 {
     UI user;
     string birthYearSearch;
@@ -897,7 +915,7 @@ void Services::searchVectorBirthYear(vector <InfoType>& FP)
             cout << endl;
         }
 }
-void Services::searchVectorDeathYear(vector <InfoType>& FP)
+void Services::searchVectorDeathYear()
 {
     UI user;
     string deathYearSearch;
