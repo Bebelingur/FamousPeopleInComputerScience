@@ -40,8 +40,13 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
 
         p.birthYear = query.value("yearBorn").toUInt();
 
+<<<<<<< HEAD
 
         if(query.value("yearDead").toUInt() == 0)//tjekka hvort deathyear sé relevant
+=======
+        if(query.value("yearDead").toUInt() == NULL)//tjekka hvort deathyear sé relevant
+
+>>>>>>> 03e45536cb3700040580ebe4d6c765866349cdbb
             p.deathYear = 0;
         else
             p.deathYear = query.value("yearDead").toUInt();
@@ -67,6 +72,7 @@ void data::saveData() //sama ves hér og í hinu, að þurfa ekki að tvíkóða
    /* if(!db.open())//má hafa villucheck hér?
     {
         qDebug() << "Error = " << db.lastError().text();
+<<<<<<< HEAD
     }*/
 
     QSqlQuery query(db);
@@ -76,6 +82,11 @@ void data::saveData() //sama ves hér og í hinu, að þurfa ekki að tvíkóða
 
 
     /*if(p.deathYear == 0)
+=======
+    }
+
+    if(p.deathYear == 0)
+>>>>>>> 03e45536cb3700040580ebe4d6c765866349cdbb
     {
         db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
         if( !db.exec() )
