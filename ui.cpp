@@ -367,7 +367,7 @@ void UI::getInfo()
         getFile << bYear << " ";
 
         int dYear = getDeathYear(name, bYear);
-        getFile << dYear << " ";
+        getFile << dYear;
 
         //CONTINUE
         do{
