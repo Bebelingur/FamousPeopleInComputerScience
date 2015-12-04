@@ -7,6 +7,9 @@
 #include <QtDebug>
 #include <QtCore>
 #include "infotype.h"
+#include <QCoreApplication>
+#include <QDebug>
+
 
 using namespace std;
 
@@ -16,6 +19,7 @@ public:
     data();
     vector<InfoType> loadData();
     void saveData(InfoType p);
+    char convertToChar(QChar a);
 private:
     string personFilename, computerFilename;
 };

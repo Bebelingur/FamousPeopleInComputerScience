@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QtSql>
+#include <string>
 
 data::data()
 {
@@ -36,15 +37,12 @@ vector <InfoType> data::loadData()//setja string(filename) her inn til að geta 
     {
         p.name = query.value("name").toString().toStdString();
 
-        //p.gender = query.value("gender").toChar();//þarf að ná að breyta QChar í char (mögulega breyti í string)
+
+        p.gender = convertToChar(query.value("gender").toChar());
 
         p.birthYear = query.value("yearBorn").toUInt();
 
-        if(query.value("yearDead").toUInt() == NULL)//tjekka hvort deathyear sé relevant
-
-            p.deathYear = 0;
-        else
-            p.deathYear = query.value("yearDead").toUInt();
+        p.deathYear = query.value("yearDead").toUInt();
 
         people.push_back(p);
 
@@ -69,26 +67,24 @@ void data::saveData(InfoType p)//sama ves hér og í hinu, að þurfa ekki að t
         qDebug() << "Error = " << db.lastError().text();
     }
 
-    if(p.deathYear == 0)
-    {
-        db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+       /* db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
         if( !db.exec() )
             qDebug() << db.lastError();
         else
-            qDebug( "Inserted!" );
-    }
-    else
-    {
-        db.prepare( "INSERT INTO persons (name, gender, yearBorn, yearDead) VALUES (p.name, p.gender, p.birthYear, p.deathYear)" );
-        if( !db.exec() )
-            qDebug() << db.lastError();
-        else
-            qDebug( "Inserted!" );
-    }
+            qDebug( "Inserted!" );*/
 
 
 
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
+}
+
+char data::convertToChar(QChar a)//fall sem QChar í Char
+{
+    char result;
+    string b = a.decomposition().toStdString();
+
+    result = b.at(0);
+    return result;
 }

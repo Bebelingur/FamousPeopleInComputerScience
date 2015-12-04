@@ -32,10 +32,10 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.gender = gender;
     p.birthYear = bYear;
     p.deathYear = dYear;
-    FP.push_back(p);
+//    FP.push_back(p);
 
     data personsToData;
-    personsToData.saveData(FP);
+    personsToData.saveData(p);
 
     //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
     FP.clear();
