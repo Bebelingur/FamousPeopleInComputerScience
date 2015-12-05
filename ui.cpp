@@ -642,7 +642,7 @@ int UI::getYearMade()
 
                 {
                     do{
-                        cout << "Input year designed: ";
+                        cout << "Input year designed (input 0 for unknown): ";
                         cin >> computerYearMade;
                         cin.clear();
                         cin.ignore(INT_MAX, '\n');
@@ -690,7 +690,7 @@ string UI::getComputerType()
                     }
                     case 'O':
                     {
-                        cout << "Computer type: ";
+                        cout  << " \t Input computer type name: ";
                         getline(cin, type);
                         break;
                     }
