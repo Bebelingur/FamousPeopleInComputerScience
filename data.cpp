@@ -37,20 +37,11 @@ vector <InfoType> data::loadData()
     {
         p.name = query.value("name").toString().toStdString();
 
-        p.gender = convertToChar(query.value("gender").toString().toStdString());
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
 
         p.birthYear = query.value("yearBorn").toUInt();
 
-        if(query.value("yearDead").toUInt() == 0)//tjekka hvort deathyear sé relevant
-
-        if(query.value("yearDead").toUInt() == NULL)//tjekka hvort deathyear sé relevant
-
-            p.deathYear = 0;
-        else
-            p.deathYear = query.value("yearDead").toUInt();
-
         p.deathYear = query.value("yearDead").toUInt();
-
 
         people.push_back(p);
     }
@@ -86,15 +77,12 @@ void data::saveData(InfoType p)
     {
         db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
 
-    /*
         db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
 
         if( !db.exec() )
             qDebug() << db.lastError();
         else
             qDebug( "Inserted!" );*/
-
-
 
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
