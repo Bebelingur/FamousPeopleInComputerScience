@@ -12,42 +12,41 @@ void connect();
 
 int main()
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
-    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
+   //CONNECTIONS TO DATABASE
+   QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
+   QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
 
-    db = QSqlDatabase::database("first");
-    QString dbName = "persons.sqlite";
-    db.setDatabaseName(dbName);
-    if(!db.open())
-    {
-        qDebug() << "Error = " << db.lastError().text();
-        //figure out what happened here
-    }
+   //PERSONS TABLE
+   db = QSqlDatabase::database("first");
+   QString dbName = "persons.sqlite";
+   db.setDatabaseName(dbName);
+   if(!db.open())
+   {
+        qDebug() << "Error: " << db.lastError().text();
+   }
 
-    QSqlQuery query(db);
-    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
-    query.exec(QString(queryCreate.c_str()));
+   QSqlQuery query(db);
+   string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
+   query.exec(QString(queryCreate.c_str()));
 
-
-    db2 = QSqlDatabase::database("second");
-    QString bdName = "computers.sqlite";
-    db2.setDatabaseName(bdName);
+   //COMPUTERS TABLE
+   db2 = QSqlDatabase::database("second");
+   QString bdName = "computers.sqlite";
+   db2.setDatabaseName(bdName);
     if(!db2.open())
     {
-        qDebug() << "Error = " << db2.lastError().text();
-        //figure out what happened here
+        qDebug() << "Error: " << db2.lastError().text();
     }
-
-    QSqlQuery qry(db2);
-    string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
-    qry.exec(QString(qryCreate.c_str()));
+   QSqlQuery qry(db2);
+   string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
+   qry.exec(QString(qryCreate.c_str()));
 
     //hugmynd að setja close í destructor! db.close();
 
-    UI people;
-    people.userMenu();
+   UI people;
+   people.userMenu();
 
-    return 0;
+   return 0;
 }
 
 /*struct People

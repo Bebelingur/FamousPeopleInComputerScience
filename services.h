@@ -55,6 +55,7 @@ public:
     void displayComputer(CompType p);
     void viewComputerInfo();
 
+    void searchVectorComputersName();
 
 
 
