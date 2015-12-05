@@ -9,7 +9,7 @@
 #include "infotype.h"
 #include <QCoreApplication>
 #include <QDebug>
-
+#include <string>
 
 using namespace std;
 
@@ -25,6 +25,8 @@ public:
     char convertToChar(string a);
 
     string convertToString(char a);
+
+    void connectToDatabase(string filename);
 
 private:
     string personFilename, computerFilename;

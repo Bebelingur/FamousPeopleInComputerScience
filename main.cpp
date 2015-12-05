@@ -1,30 +1,35 @@
-#include <iostream>
-//#include <string>
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <QtSql>
-#include <QtDebug>
+#include "comptype.h"
+#include "data.h"
+#include "infotype.h"
+#include "relationstype.h"
 #include "services.h"
 #include "ui.h"
-#include "string"
-#include <QCoreApplication>
+
+
 
 using namespace std;
 
 int main()
 {
 
-   /* QSqlDatabase db;
+    QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
-    db.open();
+    if(db.open())
+    {
+        qDebug() << "Opened!";
+    }
+    else
+    {
+        qDebug() << "Error = " << db.lastError().text();
+        //figure out what happened here
+    }
 
     QSqlQuery query(db);
 
-    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender CHAR, yearBorn INTEGER, yearDead INTEGER);";
-    query.exec(QString(queryCreate.c_str()));*/
+    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
+    query.exec(QString(queryCreate.c_str()));
 
     UI people;
     people.userMenu();
