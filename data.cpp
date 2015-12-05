@@ -8,15 +8,10 @@
 
 data::data()
 {
-<<<<<<< HEAD
 
-    //personFilename = 'persons.sqlite';
-    //computerFilename = 'computers.sqlite';
-=======
     //personFilename = ''persons.sqlite'';
     //computerFilename = ''computers.sqlite'';
 
->>>>>>> 2f2d84517bbb239381a21eb98de6b8363cafc19e
 }
 
 vector <InfoType> data::loadData()
@@ -64,11 +59,9 @@ void data::saveData(InfoType p)
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
 
-<<<<<<< HEAD
     db.open();
 
-    db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
-=======
+    //db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
@@ -82,7 +75,6 @@ void data::saveData(InfoType p)
 
         db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
 
->>>>>>> 2f2d84517bbb239381a21eb98de6b8363cafc19e
         if( !db.exec() )
             qDebug() << db.lastError();
         else
@@ -90,19 +82,16 @@ void data::saveData(InfoType p)
 
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
-    //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
+    //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)*/
     db.close();
 }
 
-/*//þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
+//þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
     result = a.at(0);
     return result;
-<<<<<<< HEAD
-}*/
-=======
 }
 
 string data::convertToString(char a)
@@ -111,4 +100,3 @@ string data::convertToString(char a)
     result = a;
     return result;
 }
->>>>>>> 2f2d84517bbb239381a21eb98de6b8363cafc19e
