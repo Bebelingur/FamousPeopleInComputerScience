@@ -68,7 +68,10 @@ void UI::sortPersonMenu()
         cout << "5. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
-        choice = chooseNumber();
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+
 
         switch(choice)
         {
@@ -115,7 +118,12 @@ void UI::sortNameMenu()
         cout << "2. Sort by name (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
 
         switch(choice)
         {
@@ -152,7 +160,12 @@ void UI::sortGenderMenu()
         cout << "3. Sort by undecided" << endl;
         cout << "4. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+
 
         switch(choice)
         {
@@ -192,7 +205,11 @@ void UI::sortYearOfBirthMenu()
         cout << "2. Sort by year of birth (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
 
         switch(choice)
         {
@@ -542,18 +559,6 @@ int UI::getDeathYear(string name, int bYear)
 
 void UI::getComputerInfo()
 {
-        ofstream getFile;
-        getFile.open("InfoFile.txt", ios::app);
-        //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
-        //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
-
-            if(getFile.fail( ))
-            {
-                cout << "Could not open file." << endl;
-                exit(1);
-                //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-            }
-
         char keepGoing = ' ';
         //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
@@ -626,9 +631,7 @@ int UI::getYearMade()
                         cin.ignore(INT_MAX, '\n');
                             if(!(computerYearMade <= yearNow))
                             {
-                                cout << "------------------------------------------" << endl;
-                                cout << "| | | Wrong input. Please try again. | | |" << endl;
-                                cout << "------------------------------------------" << endl;
+                               displayError();
                             }
                     }while(!(computerYearMade <= yearNow));
         return computerYearMade;
@@ -637,28 +640,40 @@ int UI::getYearMade()
 
 string UI::getComputerType()
 {
-    bool check = false; //spyrja Hófí
+    char choice = ' ';
     string type = " ";
 
     do{
-        cout << "Input computer type: ";
+        cout << "Input computer type (M for mechanical/E for electronic/T for transistor/O for other: ";
         cin.clear();
-        getline(cin, type);
-        check = false;
-        //athuga hvort innslátturinn innihaldi nokkuð tölur
-        for(unsigned int i = 0; i < type.size(); i++)
-        {
-            if(isdigit(type[i]))
+        cin >> choice;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O')
             {
-                check = true;
+               displayError();
             }
-        }
-        if(check == true)
-        {
-           displayError();
-        }
-    }while(check == true);
-
+            else
+            {
+                if(toupper(choice) == 'M')
+                {
+                    type = "Mechanical";
+                }
+                else if(toupper(choice) == 'E')
+                {
+                    type = "Electronic";
+                }
+                else if(toupper(choice) == 'T')
+                {
+                    type = "Transistor";
+                }
+                else if(toupper(choice) == 'O')
+                {
+                    cout << "Computer type: ";
+                    getline(cin, type);
+                }
+            }
+    }while(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O');
     return type;
 }
 
@@ -677,7 +692,7 @@ void UI::inputMenu()
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+        }while(choice != 1 && choice != 2 && choice != 3);
 
         switch(choice)
         {
@@ -802,7 +817,11 @@ void UI::sortComputerNameMenu()
         cout << "2. Sort by name (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
 
         switch(choice)
         {
@@ -838,7 +857,11 @@ void UI::sortComputerYearMadeMenu()
         cout << "2. Sort by year made (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
 
         switch(choice)
         {
@@ -874,7 +897,11 @@ void UI::sortComputerTypeMenu()
         cout << "2. Sort by type (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
 
         switch(choice)
         {
@@ -911,7 +938,10 @@ void UI::sortComputerBuiltMenu()
         cout << "3. Sort by unknown" << endl;
         cout << "4. Return to sort menu" << endl;
         cout << "===========================================" << endl;
-        choice = chooseNumber();
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
         switch(choice)
         {
