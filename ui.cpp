@@ -55,12 +55,12 @@ void UI::userMenu()
     //náði að láta virka aðeins, google to the rescue :)  - BóE
 }
 
-void UI::sortMenu()
+void UI::sortPersonMenu()
 {
     int choice;
 
     do{
-        cout << "* * * SORT INFORMATION * * *" << endl;
+        cout << "* * * SORT PERSON INFORMATION * * *" << endl;
         cout << endl;
         cout << "1. Sort by name" << endl;
         cout << "2. Sort by gender" << endl;
@@ -743,3 +743,238 @@ void UI::viewInfoMenu()
     userMenu();
 }
 
+void UI::sortComputerMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT COMPUTER INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by name" << endl;
+        cout << "2. Sort by year" << endl;
+        cout << "3. Sort by computer type" << endl;
+        cout << "4. Sort by built/not built" << endl;
+        cout << "5. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        choice = chooseNumber();
+
+        switch(choice)
+        {
+            case 1:
+            {
+            sortComputerNameMenu();
+                break;
+            }
+            case 2:
+            {
+            sortComputerYearMadeMenu();
+                break;
+            }
+            case 3:
+            {
+            sortComputerTypeMenu();
+                break;
+            }
+            case 4:
+            {
+            sortComputerBuiltMenu();
+                break;
+            }
+            case 5:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
+    sortComputerMenu();
+}
+
+void UI::sortComputerNameMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY COMPUTER NAME INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by name (Ascending)" << endl;
+        cout << "2. Sort by name (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        choice = chooseNumber();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //c.sortByComputerNameAsc();
+                break;
+            }
+            case 2:
+            {
+                //c.sortByComputerNameDesc();
+                break;
+            }
+            case 3:
+            {
+                sortMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+void UI::sortComputerYearMadeMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY YEAR MADE INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by year made (Ascending)" << endl;
+        cout << "2. Sort by year made (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        choice = chooseNumber();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //c.sortByYearMadeAsc();
+                break;
+            }
+            case 2:
+            {
+                //c.sortByYearMadeDesc();
+                break;
+            }
+            case 3:
+            {
+                sortMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 );
+}
+
+void UI::sortComputerTypeMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY COMPUTER TYPE INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by type (Ascending)" << endl;
+        cout << "2. Sort by type (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        choice = chooseNumber();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //c.sortByComputerTypeAsc();
+                break;
+            }
+            case 2:
+            {
+                //c.sortByComputerTypeDesc();
+                break;
+            }
+            case 3:
+            {
+                sortMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 );
+}
+
+void UI::sortComputerBuiltMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY BUILT/NOT BUILT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by built" << endl;
+        cout << "2. Sort by not built" << endl;
+        cout << "3. Sort by unknown" << endl;
+        cout << "4. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        choice = chooseNumber();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //c.sortByBuilt();
+                break;
+            }
+            case 2:
+            {
+                //c.sortByNotBuilt();
+                break;
+             }
+            case 3:
+            {
+                //c.sortByBuiltUnknown();
+                break;
+             }
+             case 4:
+             {
+                sortMenu();
+             }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+}
+
+void UI::sortMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort person information" << endl;
+        cout << "2. Sort computer information" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+            sortPersonMenu();
+                break;
+            }
+            case 2:
+            {
+            sortComputerMenu();
+                break;
+            }
+            case 3:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+    userMenu();
+}

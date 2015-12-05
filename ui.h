@@ -46,6 +46,12 @@ public:
     string getComputerName();
     void searchPersonMenu();
     void searchComputerMenu();
+    void sortComputerNameMenu();
+    void sortComputerYearMadeMenu();
+    void sortComputerTypeMenu();
+    void sortComputerBuiltMenu();
+    void sortComputerMenu();
+    void sortPersonMenu();
 };
 
 #endif // UI_H
