@@ -26,8 +26,11 @@ vector <InfoType> data::loadData()
     if(!db.open())//má hafa villucheck hér?  - má ekki þurfum að laga
     {
         qDebug() << "Error = " << db.lastError().text();
+
     }
-*/
+
+
+    }*/
     QSqlQuery query(db);
 
     query.exec("SELECT * FROM persons");//vesen hér samt
@@ -46,16 +49,22 @@ vector <InfoType> data::loadData()
     }
 
 
+    //db.close();
 
     return people;
 }
 void data::saveData(InfoType p)
 {
+
     QSqlDatabase db;
    /* db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
     db.open();*/
+
+
+    //db.open();
+
 
     QSqlQuery query(db);
 
@@ -69,6 +78,7 @@ void data::saveData(InfoType p)
     query.bindValue(":yearBorn", p.birthYear);
     query.bindValue(":yearDead", p.deathYear);
     query.exec();
+
     cout<<"hello";
 
 
@@ -87,6 +97,7 @@ void data::saveData(InfoType p)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)*/
 
+    //db.close();
 }
 
 //þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
