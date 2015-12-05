@@ -17,18 +17,6 @@ vector <InfoType> data::loadData()
     InfoType p;
 
     QSqlDatabase db;
-    /*db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "persons.sqlite";
-    db.setDatabaseName(dbName);
-
-    db.open();
-
-    if(!db.open())//má hafa villucheck hér?  - má ekki þurfum að laga
-    {
-        qDebug() << "Error = " << db.lastError().text();
-
-    }
-    }*/
     QSqlQuery query(db);
 
     query.exec("SELECT * FROM persons");//vesen hér samt

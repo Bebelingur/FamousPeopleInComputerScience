@@ -553,11 +553,9 @@ void UI::getComputerInfo()
                 //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
             }
 
-<<<<<<< HEAD
-=======
+
         char keepGoing = ' ';
         //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
->>>>>>> 8a42173d39fcae44df51438846ed9c514d1024d6
 
         cout << "* * * INPUT INFORMATION * * *" << endl;
         cout << endl;
