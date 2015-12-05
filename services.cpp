@@ -7,10 +7,7 @@ const int alive = (yearNow + 1);
 //Fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
 
 Services::Services()
-{
-     data datalayer;
-     datalayer.loadData();
-}
+{}
 
 void Services::addPerson(string name, char gender, int bYear, int dYear)
 {
@@ -63,7 +60,7 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
 void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
-    vector <InfoType> x = connection.loadData();
+    vector <InfoType> x = connection.loadPersData();
 
     /*geymi villumeldingu ef við viljum nota lookið
 

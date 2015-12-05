@@ -8,10 +8,12 @@
 
 using namespace std;
 
+void connect();
+
 int main()
 {
-   QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
-   QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
+    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
 
     db = QSqlDatabase::database("first");
     QString dbName = "persons.sqlite";
