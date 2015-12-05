@@ -41,7 +41,16 @@ vector <InfoType> data::loadData()
 
         p.birthYear = query.value("yearBorn").toUInt();
 
+        if(query.value("yearDead").toUInt() == 0)//tjekka hvort deathyear sé relevant
+
+        if(query.value("yearDead").toUInt() == NULL)//tjekka hvort deathyear sé relevant
+
+            p.deathYear = 0;
+        else
+            p.deathYear = query.value("yearDead").toUInt();
+
         p.deathYear = query.value("yearDead").toUInt();
+
 
         people.push_back(p);
     }
@@ -49,7 +58,6 @@ vector <InfoType> data::loadData()
     db.close();
 
     return people;
-
 }
 void data::saveData(InfoType p)
 {
@@ -71,8 +79,16 @@ void data::saveData(InfoType p)
     string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, sex VARCHAR, yearBorn INTEGER, yearDead INTEGER);";
     query.exec(QString(queryCreate.c_str()));
 
+    /*if(p.deathYear == 0)
+    }
+
+    if(p.deathYear == 0
+    {
+        db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+
     /*
         db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+
         if( !db.exec() )
             qDebug() << db.lastError();
         else
