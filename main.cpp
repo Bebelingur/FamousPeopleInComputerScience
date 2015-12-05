@@ -19,6 +19,7 @@ int main()
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
+    QSqlQuery query(db);
     if(db.open())
     {
         qDebug()<<"Opened";
@@ -28,7 +29,7 @@ int main()
         qDebug()<<"Error ="<<db.lastError().text();
     }
     string queryCreate = "CREATE TABLE persons(id INTEGER PRIMAY KEY AUTOINCREMENT, name VARCHAR, sex VARCHAR, yearBorn INTEGER, yearDead INTEGER);";
-
+    query.exec(QString(queryCreate.c_str()));
 
     UI people;
     people.userMenu();
