@@ -609,15 +609,15 @@ char UI::getWasBuilt()
 {
     char built = ' ';
     do{
-        cout << "Was the computer ever built?: ";
+        cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
         cin >> built;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-            if(toupper(built) != 'Y' && toupper(built) != 'N')
+            if(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?')
             {
                displayError();
             }
-    }while(toupper(built) != 'Y' && toupper(built) != 'N');
+    }while(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?');
 
 
     return built;
