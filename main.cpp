@@ -15,19 +15,23 @@ using namespace std;
 int main()
 {
 
-   QSqlDatabase db;
+    QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
-    db.open();
+    if(db.open())
+    {
+        qDebug() << "Opened!";
+    }
+    else
+    {
+        qDebug() << "Error = " << db.lastError().text();
+        //figure out what happened here
+    }
 
     QSqlQuery query(db);
 
-<<<<<<< HEAD
-    string queryCreate = "CREATE TABLE Persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
-=======
-    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender CHAR, yearBorn INTEGER, yearDead INTEGER);";
->>>>>>> 4fa3b85c6eb4ec3a6ff929dec091049fcf9bcbd4
+    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
     query.exec(QString(queryCreate.c_str()));
 
     UI people;

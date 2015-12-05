@@ -20,7 +20,7 @@ vector <InfoType> data::loadData()
     InfoType p;
 
     QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    /*db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
 
@@ -29,7 +29,7 @@ vector <InfoType> data::loadData()
     if(!db.open())//má hafa villucheck hér?  - má ekki þurfum að laga
     {
         qDebug() << "Error = " << db.lastError().text();
-    }
+    }*/
 
     QSqlQuery query(db);
 
@@ -48,25 +48,20 @@ vector <InfoType> data::loadData()
         people.push_back(p);
     }
 
-    db.close();
+    //db.close();
 
     return people;
 }
 void data::saveData(InfoType p)
 {
-    QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "persons.sqlite";
-    db.setDatabaseName(dbName);
 
-    db.open();
+    //db.open();
+    QSqlDatabase db;
 
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
 
-<<<<<<< HEAD
-=======
     QString qName = QString::fromUtf8(p.name.c_str());
     QString qSex = QString::fromUtf8(sex.c_str());
     query.prepare("INSERT INTO persons(name, sex, yearBorn, yearDead)VALUES(:name, :sex, :yearBorn, :yearDead)");
@@ -74,8 +69,7 @@ void data::saveData(InfoType p)
     query.bindValue(":sex", qSex);
     query.bindValue(":yearBorn", p.birthYear);
     query.bindValue(":yearDead", p.deathYear);
-
->>>>>>> 4fa3b85c6eb4ec3a6ff929dec091049fcf9bcbd4
+    query.exec();
 
     /*if(p.deathYear == 0)
     {
@@ -91,7 +85,7 @@ void data::saveData(InfoType p)
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)*/
-    db.close();
+    //db.close();
 }
 
 //þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
