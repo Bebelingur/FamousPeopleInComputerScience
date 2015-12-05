@@ -759,4 +759,48 @@ void Services::displayComputer(CompType c)
     cout << endl;
 }
 
+void Services::searchVectorComputersName()
+{
+    string nameSearch;
+    cout << "Enter name: ";
+    cin >> nameSearch;
+    int nameSize = nameSearch.size();
+    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
+
+
+    for(int i = 0; i < nameSize; i++)
+    {
+        nameSearch[i] = tolower(nameSearch[i]);
+        //setjum innsláttinn í lower case
+    }
+
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        string tempName = FP[i].name;
+        nameSize = tempName.size();
+
+        for(int j = 0; j < nameSize; j++)
+        {
+            tempName[j] = tolower(tempName[j]);
+            //setjum nafnið í skjalinu í lower case og berum svo saman
+        }
+
+        int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+        if(found != (int) std::string::npos)
+        {
+            displayComputers(FP[i]);
+            check = true;
+            backToSearchMenu();
+        }
+    }
+    if(check == false)
+    {
+        cout << "-------------------------------------------" << endl;
+        cout << "   "<<nameSearch << " was not in file or input not in the right format" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "--- Please try again. ---" << endl;
+        cout << endl;
+    }
+
+}
 
