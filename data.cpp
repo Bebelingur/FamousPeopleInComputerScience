@@ -3,11 +3,12 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QtSql>
-#include <string>
+#include "string"
 
 
 data::data()
 {
+
     //personFilename = 'persons.sqlite';
     //computerFilename = 'computers.sqlite';
 }
@@ -57,36 +58,27 @@ void data::saveData(InfoType p)
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
+
     db.open();
 
-    /*if(!db.open())//má hafa villucheck hér? - nope, muna að laga
-    {
-        qDebug() << "Error = " << db.lastError().text();
-    }*/
-
-    QSqlQuery query(db);
-
-    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender VARCHAR(sds), yearBorn INTEGER, yearDead INTEGER);";
-    query.exec(QString(queryCreate.c_str()));
-
-    /*
-        db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+    db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
         if( !db.exec() )
             qDebug() << db.lastError();
         else
-            qDebug( "Inserted!" );*/
+            qDebug( "Inserted!" );
 
 
 
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
+    db.close();
 }
 
-//þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
+/*//þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
     result = a.at(0);
     return result;
-}
+}*/
