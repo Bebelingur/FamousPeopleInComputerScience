@@ -24,6 +24,8 @@ public:
 
     char convertToChar(string a);
 
+    string convertToString(char a);
+
 private:
     string personFilename, computerFilename;
 };

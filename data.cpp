@@ -66,7 +66,9 @@ void data::saveData(InfoType p)
 
     QSqlQuery query(db);
 
-    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, gender VARCHAR(sds), yearBorn INTEGER, yearDead INTEGER);";
+    string sex = convertToString(p.gender);
+
+    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, sex VARCHAR, yearBorn INTEGER, yearDead INTEGER);";
     query.exec(QString(queryCreate.c_str()));
 
     /*
@@ -88,5 +90,12 @@ char data::convertToChar(string a)//fall sem tekur string úr databaseinu og ski
 {
     char result;
     result = a.at(0);
+    return result;
+}
+
+string data::convertToString(char a)
+{
+    string result;
+    result = a;
     return result;
 }
