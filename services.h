@@ -23,11 +23,7 @@ public:
     void addPerson(string name, char gender, int bYear, int dYear);
     // setti upp eins fall og addPerson nema bara fyrir tölvurnar
     // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
-<<<<<<< HEAD
-    void addComputer(string compName, int yearMade, char type, char wasBuilt);
-=======
-    void addComputer(string computerName, int computerYearMade, string computerType, char computerBuilt);
->>>>>>> 8a42173d39fcae44df51438846ed9c514d1024d6
+    void addComputer(string compName, int yearMade, string type, char wasBuilt);
     void fillVector();
     //tekur skjalið og setur inn í vektor
     void viewInfo();

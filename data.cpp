@@ -34,6 +34,7 @@ vector <InfoType> data::loadData()
 void data::saveDataPersons(InfoType p)
 {
     QSqlDatabase db;
+    db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
@@ -64,17 +65,19 @@ void data::saveDataPersons(InfoType p)
 }
 void data::saveDataComputers(CompType p)
 {
-    QSqlDatabase db;
-    QSqlQuery query(db);
+    QSqlDatabase db2;
+    db2 = QSqlDatabase::database("second");
+    //QSqlQuery query("second", db2);
+    QSqlQuery query(db2);
 
-    string type = convertToString(p.type);
+
     string wasBuilt = convertToString(p.wasBuilt);
 
     QString qcompName = QString::fromUtf8(p.compName.c_str());
-    QString qtype = QString::fromUtf8(type.c_str());
+    QString qtype = QString::fromUtf8(p.type.c_str());
     QString qwasBuilt = QString::fromUtf8(wasBuilt.c_str());
 
-    query.prepare("INSERT INTO persons(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
+    query.prepare("INSERT INTO computers(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
     query.bindValue(":compName", qcompName);
     query.bindValue(":yearBorn", p.yearMade);
     query.bindValue(":type", qtype);

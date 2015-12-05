@@ -13,7 +13,6 @@ int main()
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
 
-    //QSqlDatabase db;
     db = QSqlDatabase::database("first");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
@@ -32,7 +31,6 @@ int main()
     query.exec(QString(queryCreate.c_str()));
 
 
-    //QSqlDatabase bd;
     db2 = QSqlDatabase::database("second");
     QString bdName = "computers.sqlite";
     db2.setDatabaseName(bdName);

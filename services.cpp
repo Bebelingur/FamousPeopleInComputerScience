@@ -25,8 +25,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
-<<<<<<< HEAD
-void Services::addComputer(string compName, int yearMade, char type, char wasBuilt)
+void Services::addComputer(string compName, int yearMade, string type, char wasBuilt)
 {
     CompType p;
     p.compName = compName;
@@ -37,23 +36,6 @@ void Services::addComputer(string compName, int yearMade, char type, char wasBui
     data computersToData;
     computersToData.saveDataComputers(p);
 }
-=======
-
-void Services::addComputer(string computerName, int computerYearMade, string computerType, char computerBuilt)
-{
-    CompType c;
-    c.compName = computerName;
-    c.yearMade = computerYearMade;
-    c.type = computerType;
-    c.wasBuilt = computerBuilt;
-
-    data computerToData;
-    //computerToData.saveData(c);
-    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
-}
-
-
->>>>>>> 8a42173d39fcae44df51438846ed9c514d1024d6
 
 void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þorði ekki að eyða samt - SDS
 {
