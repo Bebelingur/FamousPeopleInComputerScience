@@ -8,7 +8,7 @@ data::data()
     //computerFilename = ''computers.sqlite'';
 }
 
-vector <InfoType> data::loadData()
+vector<InfoType> data::loadPersData()
 {
     vector<InfoType> people;
 
@@ -28,6 +28,28 @@ vector <InfoType> data::loadData()
         people.push_back(p);
     }
     return people;
+}
+
+vector<CompType> data::loadCompData()
+{
+    vector<CompType> computers;
+    QSqlDatabase db;
+    db = QSqlDatabase::database("second");
+    QSqlQuery query(db);
+
+    query.exec("SELECT * FROM computers");
+
+    while(query.next())
+    {
+        CompType c;
+        c.compName = query.value("compName").toString().toStdString();
+        c.yearMade = query.value("yearMade").toUInt();
+        c.type = query.value("type").toString().toStdString();
+        c.wasBuilt = convertToChar(query.value("wasBuilt").toString().toStdString());
+        computers.push_back(c);
+    }
+    return computers;
+
 }
 
 void data::saveDataPersons(InfoType p)
