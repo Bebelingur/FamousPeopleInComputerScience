@@ -542,18 +542,6 @@ int UI::getDeathYear(string name, int bYear)
 
 void UI::getComputerInfo()
 {
-        ofstream getFile;
-        getFile.open("InfoFile.txt", ios::app);
-        //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
-        //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
-
-            if(getFile.fail( ))
-            {
-                cout << "Could not open file." << endl;
-                exit(1);
-                //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-            }
-
         char keepGoing = ' ';
         //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
@@ -564,7 +552,6 @@ void UI::getComputerInfo()
             int computerYearMade = getYearMade();
             string computerType = getComputerType();
             char wasBuilt = getWasBuilt();
-
 
             Services c;
             c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
