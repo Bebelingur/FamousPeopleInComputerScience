@@ -104,6 +104,7 @@ void Services::viewInfo()
             p.userMenu();
         }
 }
+
 void Services::displayPerson(InfoType p)
 {
     cout << endl;
@@ -132,6 +133,7 @@ void Services::displayPerson(InfoType p)
 
     cout << endl;
 }
+
 string Services::changeName(InfoType p)
 {
     string tempName = p.name;
@@ -690,4 +692,70 @@ void Services::backToSearchMenu()
         {
             user.searchMenu();
         }
+}
+
+//þetta fall á að taka upplýsingar úr gagnagrunninum og birta þær
+void Services::viewComputerInfo()
+{
+    UI p;
+    ifstream getFile;
+    getFile.open("CompFile.txt");
+
+        if(getFile.fail())
+        {
+            cout << endl;
+            cout << "-------------------------------------------------------------" << endl;
+            cout << "| | | Could not open file. No data to display. | | |" << endl;
+            cout << "-------------------------------------------------------------" << endl;
+            cout << endl;
+            p.userMenu();
+            //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
+        }
+
+        cout << "* * * VIEW INFORMATION * * *" << endl;
+
+        while(!getFile.eof())
+        {
+            CompType c;
+            getline(getFile, c.compName, '*');
+            getFile >> c.yearMade;
+            getline(getFile, c.type, '*');
+            getFile >> c.wasBuilt;
+            displayComputer(c);
+        }
+    getFile.close();
+
+    char input;
+    cout << "--- Press any key and then enter to return to main menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            p.userMenu();
+        }
+}
+
+
+void Services::displayComputer(CompType c)
+{
+    cout << endl;
+
+    cout << "Name: " << c.compName << endl;
+
+    cout << "Year made: " << c.yearMade << endl;
+
+    cout << "Type: " << c.type << endl;
+
+    cout << "Was built?: ";
+
+    if(toupper(c.wasBuilt) == 'Y')
+    {
+        cout << "Yes" << endl;
+    }
+    else
+    {
+        cout << "No" << endl;
+    }
+    cout << endl;
 }

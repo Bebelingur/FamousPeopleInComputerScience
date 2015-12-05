@@ -24,6 +24,8 @@ public:
     UI();
 
     void userMenu();
+    void inputMenu();
+    void viewInfoMenu();
     void sortMenu();
     void sortNameMenu();
     void sortGenderMenu();
@@ -42,6 +44,8 @@ public:
     int getYearMade();
     char getWasBuilt();
     string getComputerName();
+    void searchPersonMenu();
+    void searchComputerMenu();
 };
 
 #endif // UI_H
