@@ -400,6 +400,7 @@ void Services::sortByYearDesc()
 
     FP.clear();
 
+
     backToSortMenu();
 }
 
@@ -753,9 +754,15 @@ void Services::displayComputer(CompType c)
     {
         cout << "Yes" << endl;
     }
-    else
+    else if (toupper(c.wasBuilt) == 'N')
     {
         cout << "No" << endl;
     }
+    else
+    {
+        cout << "Unknown" << endl;
+    }
     cout << endl;
 }
+
+
