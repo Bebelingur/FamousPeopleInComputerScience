@@ -1,15 +1,3 @@
-#include <string>
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <cstdlib>
-#include <algorithm>
-#include <cctype>
-#include <QtSql>
-#include <QtDebug>
-#include "services.h"
-#include "data.h"
-#include "infotype.h"
 #include "ui.h"
 
 using namespace std;

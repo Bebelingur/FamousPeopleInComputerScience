@@ -1,14 +1,11 @@
-#include <iostream>
-//#include <string>
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <QtSql>
-#include <QtDebug>
+#include "comptype.h"
+#include "data.h"
+#include "infotype.h"
+#include "relationstype.h"
 #include "services.h"
 #include "ui.h"
-#include "string"
-#include <QCoreApplication>
+
+
 
 using namespace std;
 

@@ -9,7 +9,7 @@
 #include "infotype.h"
 #include <QCoreApplication>
 #include <QDebug>
-
+#include <string>
 
 using namespace std;
 
