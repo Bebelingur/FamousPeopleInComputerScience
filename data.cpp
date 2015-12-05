@@ -4,8 +4,8 @@ using namespace std;
 
 data::data()
 {
-    //personFilename = ''persons.sqlite'';
-    //computerFilename = ''computers.sqlite'';
+    //personFilename = ''first'';
+    //computerFilename = ''second'';
 }
 
 vector<InfoType> data::loadPersData()
