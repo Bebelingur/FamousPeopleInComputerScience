@@ -8,8 +8,9 @@
 
 data::data()
 {
-    //personFilename = 'persons.sqlite';
-    //computerFilename = 'computers.sqlite';
+    //personFilename = ''persons.sqlite'';
+    //computerFilename = ''computers.sqlite'';
+
 }
 
 vector <InfoType> data::loadData()
@@ -71,9 +72,6 @@ void data::saveData(InfoType p)
     query.exec(QString(queryCreate.c_str()));
 
     /*if(p.deathYear == 0)
-    }
-
-    if(p.deathYear == 0
     {
         db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
 
