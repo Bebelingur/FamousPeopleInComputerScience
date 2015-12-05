@@ -24,6 +24,10 @@ public:
 
     char convertToChar(string a);
 
+    string convertToString(char a);
+
+    void connectToDatabase(string filename);
+
 private:
     string personFilename, computerFilename;
 };

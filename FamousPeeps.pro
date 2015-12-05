@@ -18,4 +18,5 @@ HEADERS += \
     infotype.h \
     ui.h \
     services.h \
-    comptype.h
+    comptype.h \
+    relationstype.h

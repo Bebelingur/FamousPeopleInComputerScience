@@ -8,9 +8,15 @@
 
 data::data()
 {
+<<<<<<< HEAD
 
     //personFilename = 'persons.sqlite';
     //computerFilename = 'computers.sqlite';
+=======
+    //personFilename = ''persons.sqlite'';
+    //computerFilename = ''computers.sqlite'';
+
+>>>>>>> 2f2d84517bbb239381a21eb98de6b8363cafc19e
 }
 
 vector <InfoType> data::loadData()
@@ -38,7 +44,7 @@ vector <InfoType> data::loadData()
     {
         p.name = query.value("name").toString().toStdString();
 
-        p.gender = convertToChar(query.value("gender").toString().toStdString());
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
 
         p.birthYear = query.value("yearBorn").toUInt();
 
@@ -50,7 +56,6 @@ vector <InfoType> data::loadData()
     db.close();
 
     return people;
-
 }
 void data::saveData(InfoType p)
 {
@@ -59,15 +64,29 @@ void data::saveData(InfoType p)
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
 
+<<<<<<< HEAD
     db.open();
 
     db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+=======
+    QSqlQuery query(db);
+
+    string sex = convertToString(p.gender);
+
+    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, sex VARCHAR, yearBorn INTEGER, yearDead INTEGER);";
+    query.exec(QString(queryCreate.c_str()));
+
+    /*if(p.deathYear == 0)
+    {
+        db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+
+        db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
+
+>>>>>>> 2f2d84517bbb239381a21eb98de6b8363cafc19e
         if( !db.exec() )
             qDebug() << db.lastError();
         else
             qDebug( "Inserted!" );
-
-
 
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
@@ -81,4 +100,15 @@ char data::convertToChar(string a)//fall sem tekur string úr databaseinu og ski
     char result;
     result = a.at(0);
     return result;
+<<<<<<< HEAD
 }*/
+=======
+}
+
+string data::convertToString(char a)
+{
+    string result;
+    result = a;
+    return result;
+}
+>>>>>>> 2f2d84517bbb239381a21eb98de6b8363cafc19e
