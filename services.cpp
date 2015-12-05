@@ -35,7 +35,6 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
 //    FP.push_back(p);
 
     data personsToData;
-
     personsToData.saveData(p);
 }
 

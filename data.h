@@ -26,6 +26,8 @@ public:
 
     string convertToString(char a);
 
+    void connectToDatabase(string filename);
+
 private:
     string personFilename, computerFilename;
 };

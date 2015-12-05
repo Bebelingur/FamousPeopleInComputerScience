@@ -3,13 +3,15 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QtSql>
-#include <string>
+#include "string"
 
 
 data::data()
 {
-    //personFilename = 'persons.sqlite';
-    //computerFilename = 'computers.sqlite';
+
+    //personFilename = ''persons.sqlite'';
+    //computerFilename = ''computers.sqlite'';
+
 }
 
 vector <InfoType> data::loadData()
@@ -56,13 +58,10 @@ void data::saveData(InfoType p)
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
+
     db.open();
 
-    /*if(!db.open())//má hafa villucheck hér? - nope, muna að laga
-    {
-        qDebug() << "Error = " << db.lastError().text();
-    }*/
-
+    //db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
@@ -71,9 +70,6 @@ void data::saveData(InfoType p)
     query.exec(QString(queryCreate.c_str()));
 
     /*if(p.deathYear == 0)
-    }
-
-    if(p.deathYear == 0
     {
         db.prepare( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
 
@@ -82,11 +78,12 @@ void data::saveData(InfoType p)
         if( !db.exec() )
             qDebug() << db.lastError();
         else
-            qDebug( "Inserted!" );*/
+            qDebug( "Inserted!" );
 
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
-    //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)
+    //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)*/
+    db.close();
 }
 
 //þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
