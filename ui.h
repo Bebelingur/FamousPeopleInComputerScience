@@ -9,6 +9,8 @@ public:
     UI();
 
     void userMenu();
+    void inputMenu();
+    void viewInfoMenu();
     void sortMenu();
     void sortNameMenu();
     void sortGenderMenu();
@@ -23,6 +25,9 @@ public:
     int getBirthYear();
     int getDeathYear(string name, int bYear);
     void getComputerInfo();
+    void searchPersonMenu();
+    void searchComputerMenu();
+
 };
 
 #endif // UI_H

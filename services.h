@@ -54,6 +54,8 @@ public:
     void searchVectorDeathYear();
     void backToSearchMenu();
     void displayComputer(CompType p);
+    void viewComputerInfo();
+
 
 
 private:
