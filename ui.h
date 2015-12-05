@@ -38,6 +38,10 @@ public:
     int getBirthYear();
     int getDeathYear(string name, int bYear);
     void getComputerInfo();
+    string getComputerType();
+    int getYearMade();
+    char getWasBuilt();
+    string getComputerName();
 };
 
 #endif // UI_H
