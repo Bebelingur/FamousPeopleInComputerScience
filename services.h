@@ -1,16 +1,14 @@
 #ifndef SERVICES_H
 #define SERVICES_H
-#include <string>
-#include <iostream>
-#include <vector>
-#include <fstream>
+#include <cstdlib>
+#include <cctype>
 #include <algorithm>
-#include <data.h>
-#include <infotype.h>
-#include <ui.h>
-#include <QtSql>
-#include <QtDebug>
-#include <comptype.h>
+#include "data.h"
+#include "infotype.h"
+#include "ui.h"
+#include "comptype.h"
+#include "relationstype.h"
+
 
 using namespace std;
 
@@ -59,6 +57,7 @@ public:
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
+    vector <RelationsType> Rel;
 
 };
 
