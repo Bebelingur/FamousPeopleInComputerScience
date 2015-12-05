@@ -16,11 +16,7 @@ int main()
     db = QSqlDatabase::database("first");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
-    if(db.open())
-    {
-        qDebug() << "Opened!";
-    }
-    else
+    if(!db.open())
     {
         qDebug() << "Error = " << db.lastError().text();
         //figure out what happened here
@@ -34,11 +30,7 @@ int main()
     db2 = QSqlDatabase::database("second");
     QString bdName = "computers.sqlite";
     db2.setDatabaseName(bdName);
-    if(db2.open())
-    {
-        qDebug() << "Opened!";
-    }
-    else
+    if(!db2.open())
     {
         qDebug() << "Error = " << db2.lastError().text();
         //figure out what happened here
