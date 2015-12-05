@@ -19,7 +19,6 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.gender = gender;
     p.birthYear = bYear;
     p.deathYear = dYear;
-//    FP.push_back(p);
 
     data personsToData;
     personsToData.saveDataPersons(p);
@@ -74,7 +73,6 @@ void Services::viewInfo()
             cout << "-------------------------------------------------------------" << endl;
             cout << endl;
             p.userMenu();
-            //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
         }
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
