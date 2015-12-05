@@ -22,26 +22,20 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
 //    FP.push_back(p);
 
     data personsToData;
-    personsToData.saveData(p);
+    personsToData.saveDataPersons(p);
 }
 
-/*
-void Services::addComputer(string computerName, int computerYearMade, char computerType, char computerBuilt)
+void Services::addComputer(string compName, int yearMade, char type, char wasBuilt)
 {
     CompType p;
-    p.compName = computerName;
-    p.yearMade = computerYearMade;
-    p.type = computerType;
-    p.wasBuilt = computerBuilt;
-    Comp.push_back(p);
+    p.compName = compName;
+    p.yearMade = yearMade;
+    p.type = type;
+    p.wasBuilt = wasBuilt;
 
-    data computerToData;
-    computerToData.saveData(Comp);
-    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
-    Comp.clear();
+    data computersToData;
+    computersToData.saveDataComputers(p);
 }
-*/
-
 
 void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þorði ekki að eyða samt - SDS
 {

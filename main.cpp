@@ -4,16 +4,17 @@
 #include "relationstype.h"
 #include "services.h"
 #include "ui.h"
-
-
+#include <QSqlDatabase>
 
 using namespace std;
 
 int main()
 {
+   QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
+   QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
 
-    QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    //QSqlDatabase db;
+    db = QSqlDatabase::database("first");
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
     if(db.open())
@@ -27,38 +28,33 @@ int main()
     }
 
     QSqlQuery query(db);
-
     string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
     query.exec(QString(queryCreate.c_str()));
+
+
+    //QSqlDatabase bd;
+    db2 = QSqlDatabase::database("second");
+    QString bdName = "computers.sqlite";
+    db2.setDatabaseName(bdName);
+    if(db2.open())
+    {
+        qDebug() << "Opened!";
+    }
+    else
+    {
+        qDebug() << "Error = " << db2.lastError().text();
+        //figure out what happened here
+    }
+
+    QSqlQuery qry(db2);
+    string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
+    qry.exec(QString(qryCreate.c_str()));
+
+    //hugmynd að setja close í destructor! db.close();
 
     UI people;
     people.userMenu();
 
-    /*QString servername = "LOCALHOST\\SQLEXPRESS";
-    //local host is your ip address on microsoft
-    QString dbname = "test";
-    //geri þetta til að connect to host
-
-    QSqlDatabase db QSqlDatabase::addDatabase("QODBC");
-    //universal driver QODBC
-
-    db.setConnectOptions();
-    QString dsn = QString("Driver=(SQL Native Client);SERVER=%1;DATABASE=%2;Trusted_Connection=Yes;").arg(servername).arg(dbname);
-    //copy and paste connection string from SQLite
-
-    db.setDatabaseName(dsn);
-    if(db.open())
-    {
-        qDebug() << "Opened!";
-        db.close();
-    }
-    else
-    {
-        qDebug() << "Error = " << db.lastError().text();
-        //figure out what happened here
-    }
-    //got to have a server name and method of connecting
-    */
     return 0;
 }
 

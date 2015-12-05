@@ -7,6 +7,7 @@
 #include <QtDebug>
 #include <QtCore>
 #include "infotype.h"
+#include "comptype.h"
 #include <QCoreApplication>
 #include <QDebug>
 #include <string>
@@ -20,7 +21,9 @@ public:
 
     vector<InfoType> loadData();
 
-    void saveData(InfoType p);
+    void saveDataPersons(InfoType p);
+
+    void saveDataComputers(CompType p);
 
     char convertToChar(string a);
 
