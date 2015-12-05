@@ -570,7 +570,6 @@ void UI::getComputerInfo()
             string computerType = getComputerType();
             char wasBuilt = getWasBuilt();
 
-
             Services c;
             c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
 

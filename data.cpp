@@ -1,14 +1,13 @@
 #include "data.h"
 
+
 using namespace std;
 
 
 data::data()
 {
-
     //personFilename = ''persons.sqlite'';
     //computerFilename = ''computers.sqlite'';
-
 }
 
 vector <InfoType> data::loadData()
@@ -17,44 +16,25 @@ vector <InfoType> data::loadData()
     InfoType p;
 
     QSqlDatabase db;
-    /*db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "persons.sqlite";
-    db.setDatabaseName(dbName);
-
-    db.open();
-
-    if(!db.open())//má hafa villucheck hér?  - má ekki þurfum að laga
-    {
-        qDebug() << "Error = " << db.lastError().text();
-    }*/
-
     QSqlQuery query(db);
 
-    query.exec("SELECT * FROM persons");//vesen hér samt
+    //query.exec("SELECT * FROM persons");//vesen hér samt
 
     while(query.next())
     {
         p.name = query.value("name").toString().toStdString();
-
         p.gender = convertToChar(query.value("sex").toString().toStdString());
-
         p.birthYear = query.value("yearBorn").toUInt();
-
         p.deathYear = query.value("yearDead").toUInt();
-
         people.push_back(p);
     }
 
-    //db.close();
-
     return people;
 }
-void data::saveData(InfoType p)
+void data::saveDataPersons(InfoType p)
 {
-
-    //db.open();
     QSqlDatabase db;
-
+    db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
@@ -82,7 +62,36 @@ void data::saveData(InfoType p)
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)*/
-    //db.close();
+}
+void data::saveDataComputers(CompType p)
+{
+    QSqlDatabase db2;
+    db2 = QSqlDatabase::database("second");
+    //QSqlQuery query("second", db2);
+    QSqlQuery query(db2);
+
+
+    string wasBuilt = convertToString(p.wasBuilt);
+
+    QString qcompName = QString::fromUtf8(p.compName.c_str());
+    QString qtype = QString::fromUtf8(p.type.c_str());
+    QString qwasBuilt = QString::fromUtf8(wasBuilt.c_str());
+
+    query.prepare("INSERT INTO computers(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
+    query.bindValue(":compName", qcompName);
+    query.bindValue(":yearMade", p.yearMade);
+    query.bindValue(":type", qtype);
+    query.bindValue(":wasBuilt", qwasBuilt);
+    query.exec();
+    /*if(query.exec())
+       {
+            cout << "Success" << endl;
+    }
+       else
+       {
+            qDebug() << "addPerson error:  "
+                     << query.lastError();
+       }*/
 }
 
 //þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
