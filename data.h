@@ -19,7 +19,10 @@ class data {
 public:
     data();
 
-    vector<InfoType> loadData();
+    vector<InfoType> loadPersData();
+
+    vector<CompType> loadCompData();
+
 
     void saveDataPersons(InfoType p);
 

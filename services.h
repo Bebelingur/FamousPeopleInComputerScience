@@ -55,6 +55,7 @@ public:
     void displayComputer(CompType p);
     void viewComputerInfo();
 
+    void searchVectorComputersName();
 
 
 
@@ -62,7 +63,7 @@ private:
     vector <InfoType> FP;
     vector <CompType> Comp;
     vector <RelationsType> Rel;
-
+    data connection;
 };
 
 #endif // SERVICES_H

@@ -7,10 +7,7 @@ const int alive = (yearNow + 1);
 //Fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
 
 Services::Services()
-{
-     data datalayer;
-     datalayer.loadData();
-}
+{}
 
 void Services::addPerson(string name, char gender, int bYear, int dYear)
 {
@@ -19,7 +16,6 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.gender = gender;
     p.birthYear = bYear;
     p.deathYear = dYear;
-//    FP.push_back(p);
 
     data personsToData;
     personsToData.saveDataPersons(p);
@@ -60,13 +56,13 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
             getFile.close();
         }
 }
-void Services::viewInfo()
+void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
+    vector <InfoType> x = connection.loadPersData();
 
-        if(getFile.fail())
+    /*geymi villumeldingu ef við viljum nota lookið
+
         {
             cout << endl;
             cout << "-------------------------------------------------------------" << endl;
@@ -74,21 +70,20 @@ void Services::viewInfo()
             cout << "-------------------------------------------------------------" << endl;
             cout << endl;
             p.userMenu();
-            //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
-        }
+         }*/
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
 
-        while(!getFile.eof())
+        for(unsigned int i = 0; i < x.size(); i++)
         {
-            InfoType p;
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-            displayPerson(p);
+            InfoType b;
+            b.name = x.at(i).name;
+            b.gender = x.at(i).gender;
+            b.birthYear = x.at(i).birthYear;
+            b.deathYear = x.at(i).deathYear;
+            displayPerson(b);
         }
-    getFile.close();
+
 
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;
@@ -695,32 +690,19 @@ void Services::backToSearchMenu()
 void Services::viewComputerInfo()
 {
     UI p;
-    ifstream getFile;
-    getFile.open("CompFile.txt");
-
-        if(getFile.fail())
-        {
-            cout << endl;
-            cout << "-------------------------------------------------------------" << endl;
-            cout << "| | | Could not open file. No data to display. | | |" << endl;
-            cout << "-------------------------------------------------------------" << endl;
-            cout << endl;
-            p.userMenu();
-            //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
-        }
+    vector <CompType> x = connection.loadCompData();
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
 
-        while(!getFile.eof())
+        for(unsigned int i = 0; i < x.size(); i++)
         {
             CompType c;
-            getline(getFile, c.compName, '*');
-            getFile >> c.yearMade;
-            getline(getFile, c.type, '*');
-            getFile >> c.wasBuilt;
+            c.compName = x.at(i).compName;
+            c.yearMade = x.at(i).yearMade;
+            c.type = x.at(i).type;
+            c.wasBuilt = x.at(i).wasBuilt;
             displayComputer(c);
         }
-    getFile.close();
 
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;
@@ -732,7 +714,6 @@ void Services::viewComputerInfo()
             p.userMenu();
         }
 }
-
 
 void Services::displayComputer(CompType c)
 {
@@ -761,4 +742,50 @@ void Services::displayComputer(CompType c)
     cout << endl;
 }
 
+void Services::searchVectorComputersName()
+{
+    vector <CompType> x = connection.loadCompData();
+
+    string nameSearch;
+    cout << "Enter name: ";
+    cin >> nameSearch;
+    int nameSize = nameSearch.size();
+    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
+
+
+    for(int i = 0; i < nameSize; i++)
+    {
+        nameSearch[i] = tolower(nameSearch[i]);
+        //setjum innsláttinn í lower case
+    }
+
+    for(int i = 0; i < (int) x.size(); i++)
+    {
+        string tempName = x[i].compName;
+        nameSize = tempName.size();
+
+        for(int j = 0; j < nameSize; j++)
+        {
+            tempName[j] = tolower(tempName[j]);
+            //setjum nafnið í skjalinu í lower case og berum svo saman
+        }
+
+        int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+        if(found != (int) std::string::npos)
+        {
+            displayComputer(x[i]);
+            check = true;
+            backToSearchMenu();
+        }
+    }
+    if(check == false)
+    {
+        cout << "-------------------------------------------" << endl;
+        cout << "   " << nameSearch << " was not in file or input not in the right format" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "--- Please try again. ---" << endl;
+        cout << endl;
+    }
+
+}
 
