@@ -61,11 +61,21 @@ void data::saveData(InfoType p)
 
     db.open();
 
-    //db.( "INSERT INTO persons (name, gender, yearBorn) VALUES (p.name, p.gender, p.birthYear)" );
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
 
+<<<<<<< HEAD
+=======
+    QString qName = QString::fromUtf8(p.name.c_str());
+    QString qSex = QString::fromUtf8(sex.c_str());
+    query.prepare("INSERT INTO persons(name, sex, yearBorn, yearDead)VALUES(:name, :sex, :yearBorn, :yearDead)");
+    query.bindValue(":name", qName);
+    query.bindValue(":sex", qSex);
+    query.bindValue(":yearBorn", p.birthYear);
+    query.bindValue(":yearDead", p.deathYear);
+
+>>>>>>> 4fa3b85c6eb4ec3a6ff929dec091049fcf9bcbd4
 
     /*if(p.deathYear == 0)
     {
