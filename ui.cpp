@@ -568,7 +568,7 @@ void UI::getComputerInfo()
             string computerName = getComputerName();
             int computerYearMade = getYearMade();
             string computerType = getComputerType();
-            char wasBuilt = getWasBuilt();
+            int wasBuilt = getWasBuilt();
 
             Services c;
             c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
@@ -600,20 +600,38 @@ string UI::getComputerName()
     return name;
 }
 
-char UI::getWasBuilt()
+int UI::getWasBuilt()
 {
-    char built = ' ';
+    char choice = ' ';
+    int built = 0;
     do{
         cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
-        cin >> built;
+        cin >> choice;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-            if(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?')
+            if(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?')
             {
                displayError();
             }
-    }while(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?');
-
+            else
+            {
+                if(toupper(choice) == 'Y')
+                {
+                    cout << "What year was the computer built?: ";
+                    cin >> built;
+                }
+                else if(toupper(choice) == 'N')
+                {
+                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                    built = 0;
+                }
+                else if(choice == '?')
+                {
+                    //ef ekki er vitað hvenær hún var byggðð(sett saman og hún virkaði) þá fær hún gildið 1
+                    built = 1;
+                }
+            }
+    }while(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?');
 
     return built;
 }
@@ -624,7 +642,7 @@ int UI::getYearMade()
 
                 {
                     do{
-                        cout << "Input year made: ";
+                        cout << "Input year designed: ";
                         cin >> computerYearMade;
                         cin.clear();
                         cin.ignore(INT_MAX, '\n');
@@ -646,7 +664,6 @@ string UI::getComputerType()
         cout << "Input computer type (M for mechanical/E for electronic/T for transistor/O for other: ";
         cin.clear();
         cin >> choice;
-        cin.clear();
         cin.ignore(INT_MAX, '\n');
             if(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O')
             {
@@ -654,22 +671,29 @@ string UI::getComputerType()
             }
             else
             {
-                if(toupper(choice) == 'M')
+                switch(toupper(choice))
                 {
-                    type = "Mechanical";
-                }
-                else if(toupper(choice) == 'E')
-                {
-                    type = "Electronic";
-                }
-                else if(toupper(choice) == 'T')
-                {
-                    type = "Transistor";
-                }
-                else if(toupper(choice) == 'O')
-                {
-                    cout << "Computer type: ";
-                    getline(cin, type);
+                    case 'M':
+                    {
+                        type = "Mechanical";
+                        break;
+                    }
+                    case 'E':
+                    {
+                        type = "Electronic";
+                        break;
+                    }
+                    case 'T':
+                    {
+                        type = "Transistor";
+                        break;
+                    }
+                    case 'O':
+                    {
+                        cout << "Computer type: ";
+                        getline(cin, type);
+                        break;
+                    }
                 }
             }
     }while(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O');

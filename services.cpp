@@ -740,7 +740,7 @@ void Services::displayComputer(CompType c)
 
     cout << "Name: " << c.compName << endl;
 
-    cout << "Year made: " << c.yearMade << endl;
+    cout << "Year designed: " << c.yearMade << endl;
 
     cout << "Type: " << c.type << endl;
 
@@ -750,7 +750,7 @@ void Services::displayComputer(CompType c)
     {
         cout << "Yes" << endl;
     }
-    else if (toupper(c.wasBuilt) == 'N')
+    else if(toupper(c.wasBuilt) == 'N')
     {
         cout << "No" << endl;
     }
