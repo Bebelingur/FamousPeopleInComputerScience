@@ -69,9 +69,8 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
 void Services::viewInfo()
 {
     UI p;
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
 
+/*
         if(getFile.fail())
         {
             cout << endl;
@@ -85,16 +84,17 @@ void Services::viewInfo()
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
 
-        while(!getFile.eof())
+        /*int size = people.size();
+        for( int i = 0; i < size; i++)
         {
-            InfoType p;
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-            displayPerson(p);
+
+           cout<<people.at(i).name<<endl;
+           cout<<people.at(i).gender<<endl;
+           cout<<people.at(i).birthYear<<endl;
+           cout<<people.at(i).deathYear<<endl;
+           cout<<endl;
         }
-    getFile.close();
+    getFile.close();*/
 
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;

@@ -14,6 +14,7 @@ UI::UI()
 
 void UI::userMenu()
 {
+
     Services p;
     int choice;
 
@@ -406,17 +407,6 @@ void UI::displayError()
 }
 void UI::getInfo()
 {
-    ofstream getFile;
-    getFile.open("InfoFile.txt", ios::app);
-    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
-    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
-
-        if(getFile.fail( ))
-        {
-            cout << "Could not open file." << endl;
-            exit(1);
-            //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-        }
 
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -555,17 +545,6 @@ void UI::getComputerInfo()
     //datalayer.loadData();
 
 
-    ofstream getFile;
-    getFile.open("CompFile.txt", ios::app);
-    //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
-    //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
-
-        if(getFile.fail( ))
-        {
-            cout << "Could not open file." << endl;
-            exit(1);
-            //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-        }
 
     string computerName = " ";
     string computerType = " ";

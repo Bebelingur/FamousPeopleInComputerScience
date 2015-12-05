@@ -17,17 +17,6 @@ int main()
     QString dbName = "persons.sqlite";
     db.setDatabaseName(dbName);
 
-    /*QSqlQuery query(db);
-    if(db.open())
-    {
-        qDebug()<<"Opened";
-    }
-    else
-    {
-        qDebug()<<"Error ="<<db.lastError().text();
-    }
-    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMAY KEY AUTOINCREMENT, name VARCHAR, sex VARCHAR, yearBorn INTEGER, yearDead INTEGER);";
-    */
     if(db.open())
     {
         qDebug() << "Opened!";

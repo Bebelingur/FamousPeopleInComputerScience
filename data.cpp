@@ -28,8 +28,6 @@ vector <InfoType> data::loadData()
         qDebug() << "Error = " << db.lastError().text();
 
     }
-
-
     }*/
     QSqlQuery query(db);
 
@@ -48,6 +46,15 @@ vector <InfoType> data::loadData()
         people.push_back(p);
     }
 
+    int size = people.size();
+    for( int i = 0; i < size; i++)
+    {
+       cout<<people.at(i).name<<endl;
+       cout<<people.at(i).gender<<endl;
+       cout<<people.at(i).birthYear<<endl;
+       cout<<people.at(i).deathYear<<endl;
+       cout<<endl;
+    }
 
     //db.close();
 
@@ -78,8 +85,6 @@ void data::saveData(InfoType p)
     query.bindValue(":yearBorn", p.birthYear);
     query.bindValue(":yearDead", p.deathYear);
     query.exec();
-
-    cout<<"hello";
 
 
     /*if(p.deathYear == 0)

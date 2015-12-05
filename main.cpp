@@ -90,7 +90,6 @@ People peoples(int id, string name)
 int main()
 {
 
-
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "people.sqlite";
