@@ -541,62 +541,85 @@ int UI::getDeathYear(string name, int bYear)
 
 void UI::getComputerInfo()
 {
-    //data datalayer;
-    //datalayer.loadData();
+        ofstream getFile;
+        getFile.open("InfoFile.txt", ios::app);
+        //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
+        //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
 
+            if(getFile.fail( ))
+            {
+                cout << "Could not open file." << endl;
+                exit(1);
+                //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
+            }
 
+<<<<<<< HEAD
+=======
+        char keepGoing = ' ';
+        //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+>>>>>>> 8a42173d39fcae44df51438846ed9c514d1024d6
 
-    string computerName = " ";
-    string computerType = " ";
-    int computerYearMade = 0;
-    char keepGoing = ' ', computerBuilt = ' ';
-    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
-
-    cout << "* * * INPUT COMPUTER INFORMATION * * *" << endl;
-    cout << endl;
-    do{
-            //name
-            cout << "Input computer name: ";
-            cin.clear();
-            getline(cin, computerName);
-
-        //year made
+        cout << "* * * INPUT INFORMATION * * *" << endl;
+        cout << endl;
         do{
-            cout << "Input year made: ";
-            cin >> computerYearMade;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(!(computerYearMade < yearNow))
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
-        }while(!(computerYearMade < yearNow));
+            string computerName = getComputerName();
+            int computerYearMade = getYearMade();
+            string computerType = getComputerType();
+            char wasBuilt = getWasBuilt();
 
-        //type
 
-        cout << "Input computer type: ";
+            Services c;
+            c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
+
+            //CONTINUE
+            do{
+                cout << "Input more information (Y for yes/N for no): ";
+                cin >> keepGoing;
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                    if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+                    {
+                        displayError();
+                    }
+                cout << endl;
+            }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+
+        }while(toupper(keepGoing) == 'Y');
+}
+
+string UI::getComputerName()
+{
+    string name = " ";
+
+        cout << "Input computer name: ";
         cin.clear();
-        getline(cin, computerType);
+        getline(cin, name);
+
+    return name;
+}
+
+char UI::getWasBuilt()
+{
+    char built = ' ';
+    do{
+        cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
+        cin >> built;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?')
+            {
+               displayError();
+            }
+    }while(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?');
 
 
-        //was built
-        do{
-            cout << "Has " << computerName << " been built? (Y for yes/ N for no): ";
-            cin >> computerBuilt;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
+    return built;
+}
 
-                if(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N')
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
+int UI::getYearMade()
+{
+    int computerYearMade = 0;
 
-                if(toupper(computerBuilt) == 'Y')
-                //fallegra að nota toupper frekar en langa uppröðun - BóE
                 {
                     do{
                         cout << "Input year made: ";
@@ -610,37 +633,36 @@ void UI::getComputerInfo()
                                 cout << "------------------------------------------" << endl;
                             }
                     }while(!(computerYearMade <= yearNow));
-                }
-                if(toupper(computerBuilt) == 'N')
-                {
-                    //int zero = 0;
-                    //all nonbuilt get zero as input - BóE
-                }
-        }while(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N');
-
-        //CONTINUE
-        do{
-            cout << "Input more information (Y for yes/N for no): ";
-            cin >> keepGoing;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
-            cout << endl;
-
-        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
-
-        //addComputer(computerName, computerYearMade, computerType, computerBuilt);
-
-    }while(toupper(keepGoing) == 'Y');
+        return computerYearMade;
+    }
 }
 
+string UI::getComputerType()
+{
+    bool check = false; //spyrja Hófí
+    string type = " ";
 
+    do{
+        cout << "Input computer type: ";
+        cin.clear();
+        getline(cin, type);
+        check = false;
+        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        for(unsigned int i = 0; i < type.size(); i++)
+        {
+            if(isdigit(type[i]))
+            {
+                check = true;
+            }
+        }
+        if(check == true)
+        {
+           displayError();
+        }
+    }while(check == true);
 
+    return type;
+}
 
 void UI::inputMenu()
 {
@@ -720,3 +742,4 @@ void UI::viewInfoMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
     userMenu();
 }
+
