@@ -60,7 +60,7 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
             getFile.close();
         }
 }
-void Services::viewInfo()
+void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
     vector <InfoType> x = connection.loadData();
