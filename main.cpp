@@ -12,14 +12,9 @@ void connect();
 
 int main()
 {
-<<<<<<< HEAD
    //CONNECTIONS TO DATABASE
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
-=======
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
-    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
->>>>>>> 076f5696e9dc85c0ac5a3efcce11f5acbba294f8
 
    //PERSONS TABLE
    db = QSqlDatabase::database("first");
