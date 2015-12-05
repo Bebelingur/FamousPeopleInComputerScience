@@ -66,8 +66,6 @@ void data::saveData(InfoType p)
 
     string sex = convertToString(p.gender);
 
-    string queryCreate = "CREATE TABLE Persons(id INTEGER, name VARCHAR, sex VARCHAR, yearBorn INTEGER, yearDead INTEGER);";
-    query.exec(QString(queryCreate.c_str()));
 
     /*if(p.deathYear == 0)
     {

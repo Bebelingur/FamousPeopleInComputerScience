@@ -23,7 +23,7 @@ int main()
 
     QSqlQuery query(db);
 
-    string queryCreate = "CREATE TABLE Persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER);";
+    string queryCreate = "CREATE TABLE Persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
     query.exec(QString(queryCreate.c_str()));
 
     db.close();
