@@ -414,6 +414,7 @@ void Services::sortByYearDesc()
 
     FP.clear();
 
+
     backToSortMenu();
 }
 
@@ -777,3 +778,5 @@ void Services::displayComputer(CompType c)
     }
     cout << endl;
 }
+
+

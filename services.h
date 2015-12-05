@@ -61,6 +61,7 @@ public:
 
 
 
+
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
