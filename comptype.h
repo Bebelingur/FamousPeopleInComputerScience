@@ -9,7 +9,7 @@ struct CompType
 {
     string compName;
     int yearMade;
-    char type; //eða strengur ef við viljum að notandinn skrifi sjálfur type
+    string type; //eða strengur ef við viljum að notandinn skrifi sjálfur type
     char wasBuilt;
 };
 
