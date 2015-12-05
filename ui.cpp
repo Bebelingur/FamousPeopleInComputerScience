@@ -36,16 +36,16 @@ void UI::userMenu()
         switch(choice)
         {
             case 1:
-                getInfo();
+                inputMenu();
                 break;
             case 2:
-                p.viewInfo();
+                viewInfoMenu();
                 break;
             case 3:
                 sortMenu();
                 break;
             case 4:
-                p.searchVector();
+                searchMenu();
                 break;
             case 5:
                 exit(1);
@@ -260,6 +260,8 @@ void UI::sortYearOfDeathMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
+
+
 void UI::searchMenu()
 {
     Services p;
@@ -268,6 +270,40 @@ void UI::searchMenu()
 
     do{
         cout << "* * * SEARCH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Search persons" << endl;
+        cout << "2. Search computers" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+                searchPersonMenu();
+                break;
+            case 2:
+                searchComputerMenu();
+                break;
+            case 3:
+                //FP.clear();//hreinsum vektorinn eftir notkun
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3); //eða while(choice != 5);
+}
+
+void UI::searchPersonMenu()
+{
+    Services p;
+
+    int choice;
+
+    do{
+        cout << "* * * SEARCH PERSON INFORMATION * * *" << endl;
         cout << endl;
         cout << "1. Search by name"<< endl;
         cout << "2. Search by gender"<< endl;
@@ -300,8 +336,52 @@ void UI::searchMenu()
                 break;
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
-
 }
+
+
+//á eftir að græja search föllin fyrir computers
+void UI::searchComputerMenu()
+{
+    Services p;
+
+    int choice;
+
+    do{
+        cout << "* * * SEARCH COMPUTER INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Search by name" << endl;
+        cout << "2. Search by year made" << endl;
+        cout << "3. Search by type" << endl;
+        cout << "4. Search by was built" << endl;
+        cout << "5. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+
+        switch(choice)
+        {
+            case 1:
+                p.searchVectorName();
+                break;
+            case 2:
+                p.searchVectorGender();
+                break;
+            case 3:
+                p.searchVectorBirthYear();
+                break;
+            case 4:
+                p.searchVectorBirthYear();
+                break;
+            case 5:
+                //FP.clear();//hreinsum vektorinn eftir notkun
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
+}
+
 int UI::chooseNumber()
 {
     int choice;
@@ -466,74 +546,87 @@ int UI::getDeathYear(string name, int bYear)
                     dYear = 0;
                 }
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
-
     return dYear;
 }
 
 void UI::getComputerInfo()
 {
-    data datalayer;
-    datalayer.loadData();
+        ofstream getFile;
+        getFile.open("InfoFile.txt", ios::app);
+        //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
+        //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
+
+            if(getFile.fail( ))
+            {
+                cout << "Could not open file." << endl;
+                exit(1);
+                //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
+            }
+
+        char keepGoing = ' ';
+        //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+
+        cout << "* * * INPUT INFORMATION * * *" << endl;
+        cout << endl;
+        do{
+            string computerName = getComputerName();
+            int computerYearMade = getYearMade();
+            string computerType = getComputerType();
+            char wasBuilt = getWasBuilt();
 
 
-    string computerName = " ";
-    int computerYearMade = 0;
-    char keepGoing = ' ', computerType = ' ', computerBuilt = ' ';
-    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+            Services c;
+            c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
 
-    cout << "* * * INPUT INFORMATION * * *" << endl;
-    cout << endl;
+            //CONTINUE
+            do{
+                cout << "Input more information (Y for yes/N for no): ";
+                cin >> keepGoing;
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                    if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+                    {
+                        displayError();
+                    }
+                cout << endl;
+            }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+
+        }while(toupper(keepGoing) == 'Y');
+}
+
+string UI::getComputerName()
+{
+    string name = " ";
+
+        cout << "Input computer name: ";
+        cin.clear();
+        getline(cin, name);
+
+    return name;
+}
+
+char UI::getWasBuilt()
+{
+    char built = ' ';
     do{
-            //NAME
-            cout << "Input computer name: ";
-            cin.clear();
-            getline(cin, computerName);
-
-        //GENDER
-        do{
-            cout << "Input computer type (M for mechanical/E for electronic /T for transistor): ";
-            cin >> computerType; //breyta öllum integerum sem heita gender í nýjan integer sem heitir type í staðinn?
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(toupper(computerType) != 'M' && toupper(computerType) != 'E' && toupper(computerType) != 'T')
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
-        }while(toupper(computerType) != 'M' && toupper(computerType) != 'E' && toupper(computerType) != 'T');
-
-        //BIRTH YEAR
-        do{
-            cout << "Input year made: ";
-            cin >> computerYearMade;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(!((computerYearMade < yearNow)))
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
-        }while(!(computerYearMade < yearNow));
+        cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
+        cin >> built;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?')
+            {
+               displayError();
+            }
+    }while(toupper(built) != 'Y' && toupper(built) != 'N' && built != '?');
 
 
-        //DEATH YEAR
-        do{
-            cout << "Has " << computerName << " been built? (Y for yes/ N for no): ";
-            cin >> computerBuilt;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
+    return built;
+}
 
-                if(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N')
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
+int UI::getYearMade()
+{
+    int computerYearMade = 0;
 
-                if(toupper(computerBuilt) == 'Y')
-                //fallegra að nota toupper frekar en langa uppröðun - BóE
                 {
                     do{
                         cout << "Input year made: ";
@@ -547,30 +640,113 @@ void UI::getComputerInfo()
                                 cout << "------------------------------------------" << endl;
                             }
                     }while(!(computerYearMade <= yearNow));
-                }
-                if(toupper(computerBuilt) == 'N')
-                {
-                    //int zero = 0;
-                    //all deceased get zero as input for year of death - BóE
-                }
-        }while(toupper(computerBuilt) != 'Y' && toupper(computerBuilt) != 'N');
-
-        //CONTINUE
-        do{
-            cout << "Input more information (Y for yes/N for no): ";
-            cin >> keepGoing;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
-                {
-                    cout << "------------------------------------------" << endl;
-                    cout << "| | | Wrong input. Please try again. | | |" << endl;
-                    cout << "------------------------------------------" << endl;
-                }
-            cout << endl;
-            //addComputer(computerName, computerYearMade, computerType, computerBuilt);
-
-        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
-
-    }while(toupper(keepGoing) == 'Y');
+        return computerYearMade;
+    }
 }
+
+string UI::getComputerType()
+{
+    bool check = false; //spyrja Hófí
+    string type = " ";
+
+    do{
+        cout << "Input computer type: ";
+        cin.clear();
+        getline(cin, type);
+        check = false;
+        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        for(unsigned int i = 0; i < type.size(); i++)
+        {
+            if(isdigit(type[i]))
+            {
+                check = true;
+            }
+        }
+        if(check == true)
+        {
+           displayError();
+        }
+    }while(check == true);
+
+    return type;
+}
+
+void UI::inputMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * INPUT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Input person" << endl;
+        cout << "2. Input computer" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+
+        switch(choice)
+        {
+            case 1:
+            {
+            getInfo();
+                break;
+            }
+            case 2:
+            {
+            getComputerInfo();
+                break;
+            }
+            case 3:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+    userMenu();
+}
+
+void UI::viewInfoMenu()
+{
+    Services p;
+    int choice;
+
+    do{
+        cout << "* * * VIEW INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. View person info" << endl;
+        cout << "2. View computer info" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+            p.viewInfo();
+                break;
+            }
+            case 2:
+            {
+            p.viewComputerInfo();
+                break;
+            }
+            case 3:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+    userMenu();
+}
+

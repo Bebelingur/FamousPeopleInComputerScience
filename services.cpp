@@ -25,6 +25,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
+<<<<<<< HEAD
 void Services::addComputer(string compName, int yearMade, char type, char wasBuilt)
 {
     CompType p;
@@ -36,6 +37,23 @@ void Services::addComputer(string compName, int yearMade, char type, char wasBui
     data computersToData;
     computersToData.saveDataComputers(p);
 }
+=======
+
+void Services::addComputer(string computerName, int computerYearMade, string computerType, char computerBuilt)
+{
+    CompType c;
+    c.compName = computerName;
+    c.yearMade = computerYearMade;
+    c.type = computerType;
+    c.wasBuilt = computerBuilt;
+
+    data computerToData;
+    //computerToData.saveData(c);
+    //erum að vinna með eitt stak í vektor og náum í úr gagnagrunni til að vinna með
+}
+
+
+>>>>>>> 8a42173d39fcae44df51438846ed9c514d1024d6
 
 void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þorði ekki að eyða samt - SDS
 {
@@ -100,6 +118,7 @@ void Services::viewInfo()
             p.userMenu();
         }
 }
+
 void Services::displayPerson(InfoType p)
 {
     cout << endl;
@@ -128,6 +147,7 @@ void Services::displayPerson(InfoType p)
 
     cout << endl;
 }
+
 string Services::changeName(InfoType p)
 {
     string tempName = p.name;
@@ -686,4 +706,74 @@ void Services::backToSearchMenu()
         {
             user.searchMenu();
         }
+}
+
+//þetta fall á að taka upplýsingar úr gagnagrunninum og birta þær
+void Services::viewComputerInfo()
+{
+    UI p;
+    ifstream getFile;
+    getFile.open("CompFile.txt");
+
+        if(getFile.fail())
+        {
+            cout << endl;
+            cout << "-------------------------------------------------------------" << endl;
+            cout << "| | | Could not open file. No data to display. | | |" << endl;
+            cout << "-------------------------------------------------------------" << endl;
+            cout << endl;
+            p.userMenu();
+            //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
+        }
+
+        cout << "* * * VIEW INFORMATION * * *" << endl;
+
+        while(!getFile.eof())
+        {
+            CompType c;
+            getline(getFile, c.compName, '*');
+            getFile >> c.yearMade;
+            getline(getFile, c.type, '*');
+            getFile >> c.wasBuilt;
+            displayComputer(c);
+        }
+    getFile.close();
+
+    char input;
+    cout << "--- Press any key and then enter to return to main menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            p.userMenu();
+        }
+}
+
+
+void Services::displayComputer(CompType c)
+{
+    cout << endl;
+
+    cout << "Name: " << c.compName << endl;
+
+    cout << "Year made: " << c.yearMade << endl;
+
+    cout << "Type: " << c.type << endl;
+
+    cout << "Was built?: ";
+
+    if(toupper(c.wasBuilt) == 'Y')
+    {
+        cout << "Yes" << endl;
+    }
+    else if (toupper(c.wasBuilt) == 'N')
+    {
+        cout << "No" << endl;
+    }
+    else
+    {
+        cout << "Unknown" << endl;
+    }
+    cout << endl;
 }
