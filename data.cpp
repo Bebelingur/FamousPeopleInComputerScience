@@ -79,10 +79,19 @@ void data::saveDataComputers(CompType p)
 
     query.prepare("INSERT INTO computers(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
     query.bindValue(":compName", qcompName);
-    query.bindValue(":yearBorn", p.yearMade);
+    query.bindValue(":yearMade", p.yearMade);
     query.bindValue(":type", qtype);
     query.bindValue(":wasBuilt", qwasBuilt);
     query.exec();
+    /*if(query.exec())
+       {
+            cout << "Success" << endl;
+    }
+       else
+       {
+            qDebug() << "addPerson error:  "
+                     << query.lastError();
+       }*/
 }
 
 //þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
