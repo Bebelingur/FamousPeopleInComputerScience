@@ -62,7 +62,7 @@ private:
     vector <InfoType> FP;
     vector <CompType> Comp;
     vector <RelationsType> Rel;
-
+    data connection;
 };
 
 #endif // SERVICES_H

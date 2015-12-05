@@ -63,10 +63,10 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
 void Services::viewInfo()
 {
     UI p;
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
+    vector <InfoType> x = connection.loadData();
 
-        if(getFile.fail())
+    /*geymi villumeldingu ef við viljum nota lookið
+
         {
             cout << endl;
             cout << "-------------------------------------------------------------" << endl;
@@ -75,20 +75,20 @@ void Services::viewInfo()
             cout << endl;
             p.userMenu();
             //breytti hér, fannst þetta betri möguleiki heldur en exit(1) út úr forritinu - BóE
-        }
+        }*/
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
 
-        while(!getFile.eof())
+        for(unsigned int i = 0; i < x.size(); i++)
         {
-            InfoType p;
-            getline(getFile, p.name, '*');
-            getFile >> p.gender;
-            getFile >> p.birthYear;
-            getFile >> p.deathYear;
-            displayPerson(p);
+            InfoType b;
+            b.name = x.at(i).name;
+            b.gender = x.at(i).gender;
+            b.birthYear = x.at(i).birthYear;
+            b.deathYear = x.at(i).deathYear;
+            displayPerson(b);
         }
-    getFile.close();
+
 
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;
