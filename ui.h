@@ -2,6 +2,21 @@
 #define UI_H
 #include <QtSql>
 #include <QtDebug>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <QtSql>
+#include <QtDebug>
+#include "services.h"
+#include "infotype.h"
+#include "relationstype.h"
+#include "comptype.h"
+
+
+
+using namespace std;
+
 
 class UI
 {

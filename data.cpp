@@ -1,9 +1,6 @@
-#include <QtSql>
 #include "data.h"
-#include <QCoreApplication>
-#include <QDebug>
-#include <QtSql>
-#include "string"
+
+using namespace std;
 
 
 data::data()
