@@ -405,9 +405,16 @@ void UI::displayError()
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
 }
+<<<<<<< HEAD
 void UI::getInfo()
 {
+=======
 
+>>>>>>> 02df132a2a865278a0754b909e98722dd3df75aa
+
+//
+void UI::getInfo()
+{
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
 
