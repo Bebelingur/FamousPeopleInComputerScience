@@ -1,8 +1,6 @@
 #include "data.h"
 
-
 using namespace std;
-
 
 data::data()
 {
@@ -13,13 +11,16 @@ data::data()
 vector <InfoType> data::loadData()
 {
     vector<InfoType> people;
-    InfoType p;
 
     QSqlDatabase db;
+    db = QSqlDatabase::database("first");
     QSqlQuery query(db);
+
+    query.exec("SELECT * FROM persons");
 
     while(query.next())
     {
+        InfoType p;
         p.name = query.value("name").toString().toStdString();
         p.gender = convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
@@ -28,6 +29,7 @@ vector <InfoType> data::loadData()
     }
     return people;
 }
+
 void data::saveDataPersons(InfoType p)
 {
     QSqlDatabase db;
@@ -63,7 +65,6 @@ void data::saveDataComputers(CompType p)
     }
 }
 
-//þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
