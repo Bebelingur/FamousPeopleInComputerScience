@@ -605,39 +605,35 @@ string UI::getComputerName()
 int UI::getYearMade()
 {
     int computerYearMade = 0;
-/*
-<<<<<<< HEAD
-                {
-                    do{
-                        cout << "Input year designed (input 0 for unknown): ";
-                        cin >> computerYearMade;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(!(computerYearMade <= yearNow))
-                            {
-                               displayError();
-                            }
-                    }while(!(computerYearMade <= yearNow));
+    bool check = false;
 
-        return computerYearMade;
-    }
-=======
     do{
-        cout << "Input year designed (input 0 for unknown): ";
+        cout << "Input year designed (input 1 for unknown): ";
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-        if(computerYearMade == 0)
-        {
-            computerYearMade = 0;
-        }
-        if(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)))
-            {
-                displayError();
-            }
 
-    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)));
-*/
+        if((computerYearMade <=yearNow && computerYearMade >=CstartYear)||computerYearMade == 1)
+        {
+            computerYearMade = computerYearMade;
+            check = true;
+        }
+
+       else
+        {
+            displayError();
+            check = false;
+
+        }
+
+    }while(check == false);//(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)));
+
+    if(computerYearMade == 1)
+    {
+        computerYearMade = 0;
+        return computerYearMade;
+    }
+    else
     return computerYearMade;
 
 
