@@ -1024,3 +1024,31 @@ void UI::addRelation()
 {
        cout << "Need stuff here" << endl;
 }
+
+void UI::displayPerson(InfoType p)
+{
+    Services c;
+    cout << endl;
+    string tempName = c.changeName(p);
+    cout << "Name: " << tempName << endl;
+    cout << "Gender: ";
+        if(toupper(p.gender) == 'F')
+        {
+            cout << "Female" << endl;
+        }
+        else if (toupper(p.gender) == 'M')
+        {
+            cout << "Male" << endl;
+        }
+        else if (p.gender == '?')
+        {
+            cout << "Undecided" << endl;
+        }
+    cout << "Year of birth: " << p.birthYear << endl;
+
+        if(p.deathYear != 0)
+        {
+            cout << "Year of death: " << p.deathYear << endl;
+        }
+    cout << endl;
+}

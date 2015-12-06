@@ -37,6 +37,8 @@ void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem b
 {
     vector <InfoType> x = makePersonsVector();
 
+    UI c;
+
     for(unsigned int i = 0; i < x.size(); i++)
     {
         InfoType b;
@@ -44,7 +46,7 @@ void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem b
         b.gender = x.at(i).gender;
         b.birthYear = x.at(i).birthYear;
         b.deathYear = x.at(i).deathYear;
-        displayPerson(b);
+        c.displayPerson(b);
     }
 }
 
@@ -61,7 +63,7 @@ void Services::returnToView()
         }
 }
 
-void Services::displayPerson(InfoType p)
+/*void Services::displayPerson(InfoType p)
 {
     cout << endl;
     string tempName = changeName(p);
@@ -86,7 +88,7 @@ void Services::displayPerson(InfoType p)
             cout << "Year of death: " << p.deathYear << endl;
         }
     cout << endl;
-}
+}*/
 
 string Services::changeName(InfoType p)
 {
@@ -484,6 +486,7 @@ void Services::backToSortMenu()
 
 void Services::searchVectorName()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string nameSearch;
     cout << "Enter name: ";
@@ -511,7 +514,7 @@ void Services::searchVectorName()
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            displayPerson(FP[i]);
+            c.displayPerson(FP[i]);
             check = true;
 
         }
@@ -530,6 +533,7 @@ void Services::searchVectorName()
 }
 void Services::searchVectorGender()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string genderSearch;
         bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -550,7 +554,7 @@ void Services::searchVectorGender()
 
                 if(genderSearch == tempGender)
                 {
-                    displayPerson(FP[i]);
+                    c.displayPerson(FP[i]);
                     check = true;
 
                 }
@@ -571,6 +575,7 @@ void Services::searchVectorGender()
 
 void Services::searchVectorBirthYear()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string birthYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -585,7 +590,7 @@ void Services::searchVectorBirthYear()
             {
                 if(birthYearSearchI == FP[i].birthYear)
                 {
-                    displayPerson(FP[i]);
+                    c.displayPerson(FP[i]);
                     check = true;
 
                 }
@@ -605,6 +610,7 @@ void Services::searchVectorBirthYear()
 }
 void Services::searchVectorDeathYear()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string deathYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -620,7 +626,7 @@ void Services::searchVectorDeathYear()
             {
                 if(deathYearSearchI == FP[i].deathYear)
                 {
-                    displayPerson(FP[i]);
+                    c.displayPerson(FP[i]);
                     check = true;
 
                 }
