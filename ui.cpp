@@ -609,6 +609,10 @@ int UI::getYearMade()
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
+            if(computerYearMade == 0)
+            {
+                return computerYearMade;
+            }
             if(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear)))
             {
                 displayError();
