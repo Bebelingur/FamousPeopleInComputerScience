@@ -39,11 +39,6 @@ int main()
     {
         qDebug() << "Error: " << db2.lastError().text();
     }
-   else
-    {
-        qDebug() << "Error = " << db2.lastError().text();
-        //figure out what happened here
-    }
 
     QSqlQuery qry(db2);
     string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";

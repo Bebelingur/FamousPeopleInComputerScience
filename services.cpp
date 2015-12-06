@@ -94,7 +94,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
-            p.userMenu();
+            p.viewInfoMenu();
         }
 }
 
