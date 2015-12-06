@@ -304,6 +304,8 @@ void UI::searchMenu()
                 searchPersonMenu();
                 break;
             case 2:
+                cout << "* * * SEARCH INFORMATION * * *" << endl;
+                cout << endl;
                 p.searchVectorComputersName();
                 break;
             case 3:
