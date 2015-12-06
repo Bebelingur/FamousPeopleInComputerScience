@@ -805,7 +805,7 @@ void UI::sortComputerMenu()
             }
             case 4:
             {
-            sortComputerBuiltMenu();
+            sortComputerWasBuiltMenu();
                 break;
             }
             case 5:
@@ -938,7 +938,7 @@ void UI::sortComputerTypeMenu()
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
 
-void UI::sortComputerBuiltMenu()
+void UI::sortComputerWasBuiltMenu()
 {
     Services c;
 
@@ -961,17 +961,17 @@ void UI::sortComputerBuiltMenu()
         {
             case 1:
             {
-                //c.sortByBuilt();
+                sortComputerYearBuiltMenu();
                 break;
             }
             case 2:
             {
-                //c.sortByNotBuilt();
+                sortComputerNotBuiltMenu();
                 break;
              }
             case 3:
             {
-                //c.sortByBuiltUnknown();
+                sortComputerUnkownBuiltMenu();
                 break;
              }
              case 4:
@@ -1083,4 +1083,122 @@ void UI::displayComputer(CompType c)
         }
 
     cout << endl;
+}
+
+
+void UI::sortComputerYearBuiltMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY YEAR BUILT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by year built (Ascending)" << endl;
+        cout << "2. Sort by year built (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                c.sortByYearBuiltAsc();
+                break;
+            }
+            case 2:
+            {
+                c.sortByYearBuiltDesc();
+                break;
+             }
+             case 3:
+             {
+                sortMenu();
+             }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+void UI::sortComputerNotBuiltMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY NOT BUILT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by not built (Ascending)" << endl;
+        cout << "2. Sort by not built (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                c.sortByYearNotBuiltAsc();
+                break;
+            }
+            case 2:
+            {
+                c.sortByYearNotBuiltDesc();
+                break;
+             }
+             case 3:
+             {
+                sortMenu();
+             }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+
+
+
+void UI::sortComputerUnkownBuiltMenu()
+{
+    Services c;
+
+    int choice;
+
+    do{
+        cout << "* * * SORT BY NOT BUILT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by not built (Ascending)" << endl;
+        cout << "2. Sort by not built (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                c.sortByYearUnknownBuiltAsc();
+                break;
+            }
+            case 2:
+            {
+                c.sortByYearUnknownBuiltDesc();
+                break;
+             }
+             case 3:
+             {
+                sortMenu();
+             }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
 }
