@@ -14,50 +14,21 @@ int main()
 {
    //CONNECTIONS TO DATABASE
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
-   QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
-   QSqlDatabase db3 = QSqlDatabase::addDatabase("QSQLITE", "third");
 
-   //PERSONS TABLE
    db = QSqlDatabase::database("first");
-   QString dbName = "persons.sqlite";
+   QString dbName = "CSdatabase.sqlite";
    db.setDatabaseName(dbName);
-   if(!db.open())
-   {
-        qDebug() << "Error: " << db.lastError().text();
-   }
+        if(!db.open())
+        {
+            qDebug() << "Error: " << db.lastError().text();
+        }
 
    QSqlQuery query(db);
    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
+   string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
+
    query.exec(QString(queryCreate.c_str()));
-
-   //COMPUTERS TABLE
-   db2 = QSqlDatabase::database("second");
-   QString bdName = "computers.sqlite";
-   db2.setDatabaseName(bdName);
-    if(!db2.open())
-
-    {
-        qDebug() << "Error: " << db2.lastError().text();
-    }
-
-    QSqlQuery qry(db2);
-    string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
-    qry.exec(QString(qryCreate.c_str()));
-    db2.close();
-
-    //RELATION TABLE
-    db3 = QSqlDatabase::database("third");
-    QString db3Name = "relations.sqlite";
-    db3.setDatabaseName(db3Name);
-    if(!db3.open())
-    {
-         qDebug() << "Error: " << db3.lastError().text();
-    }
-
-    QSqlQuery query3(db3);
-    string query3Create = "CREATE TABLE relations(idPerson INTEGER FOREIGN KEY NOT NULL,idComputer INTEGER FOREIGN KEY NOT NULL);";
-    query3.exec(QString(query3Create.c_str()));
-    db3.close();
+   query.exec(QString(queryCreate2.c_str()));
 
    UI people;
    people.userMenu();
