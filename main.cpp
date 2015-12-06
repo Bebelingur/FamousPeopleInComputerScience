@@ -15,7 +15,7 @@ int main()
    //CONNECTIONS TO DATABASE
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
-
+   QSqlDatabase db3 = QSqlDatabase::addDatabase("QSQLITE", "third");
 
    //PERSONS TABLE
    db = QSqlDatabase::database("first");
@@ -44,6 +44,20 @@ int main()
     string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
     qry.exec(QString(qryCreate.c_str()));
     db2.close();
+
+    //RELATION TABLE
+    db3 = QSqlDatabase::database("third");
+    QString db3Name = "relations.sqlite";
+    db3.setDatabaseName(db3Name);
+    if(!db3.open())
+    {
+         qDebug() << "Error: " << db3.lastError().text();
+    }
+
+    QSqlQuery query3(db3);
+    string query3Create = "CREATE TABLE relations(idPerson INTEGER FOREIGN KEY NOT NULL,idComputer INTEGER FOREIGN KEY NOT NULL);";
+    query3.exec(QString(query3Create.c_str()));
+    db3.close();
 
    UI people;
    people.userMenu();
