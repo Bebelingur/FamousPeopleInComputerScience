@@ -7,7 +7,8 @@ const int yearNow = 2015;
 const int alive = (yearNow + 1);
 
 Services::Services()
-{}
+{
+}
 
 void Services::addPerson(string name, char gender, int bYear, int dYear)
 {
@@ -35,7 +36,6 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
 void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     vector <InfoType> x = makePersonsVector();
-
     UI c;
 
     for(unsigned int i = 0; i < x.size(); i++)
@@ -212,7 +212,6 @@ void Services::sortByNameDesc()
     sort(FP.begin(), FP.end(), compareNameDesc);
 
     displaySortedPerson(FP);
-
     FP.clear();
     backToSortMenu();
 }

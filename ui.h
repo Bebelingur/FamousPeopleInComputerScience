@@ -19,7 +19,6 @@ class UI
 {
 public:
     UI();
-
     void userMenu();
     void inputMenu();
     void viewInfoMenu();

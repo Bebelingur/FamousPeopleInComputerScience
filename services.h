@@ -15,10 +15,7 @@ using namespace std;
 class Services
 {
 public:
-
     Services();
-
-
     void addPerson(string name, char gender, int bYear, int dYear);
     // setti upp eins fall og addPerson nema bara fyrir tölvurnar
     // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
@@ -38,12 +35,8 @@ public:
     void displaySortedPerson(vector<InfoType> FP);
     void sortByDeceased();
     void sortByNotDeceased();
-
     void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();
-
-
-
     void searchVector();
     //leitar í vektornum úr skjalinu
     void searchVectorName();
@@ -52,11 +45,9 @@ public:
     void searchVectorDeathYear();
     void backToSearchMenu();
     void viewComputerInfo();
-
     void searchVectorComputersName();
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
-
     void displaySortedComputer(vector <CompType> Comp);
     void displaySortedComp(int i, vector<CompType> Comp);
     void sortByComputerNameAsc();
@@ -65,10 +56,7 @@ public:
     void sortByYearMadeDesc();
     void sortByComputerTypeAsc();
     void sortByComputerTypeDesc();
-
-
     void returnToView();
-
 
 private:
     vector <InfoType> FP;

@@ -18,20 +18,12 @@ class data {
 
 public:
     data();
-
     vector<InfoType> loadPersData();
-
     vector<CompType> loadCompData();
-
-
     void saveDataPersons(InfoType p);
-
     void saveDataComputers(CompType p);
-
     char convertToChar(string a);
-
     string convertToString(char a);
-
     void connectToDatabase(string filename);
 
 private:
