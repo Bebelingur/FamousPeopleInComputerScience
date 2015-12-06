@@ -27,13 +27,9 @@ int main()
         }
 
    QSqlQuery query(db);
-<<<<<<< HEAD
-
-=======
    QSqlQuery query2(db);
->>>>>>> e40173f83195ab1b67078388b1d953ab314a4974
-   string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
 
+   string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
    string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL, FOREIGN KEY (id)REFERENCES persons (id));";
 
    query.exec(QString(queryCreate.c_str()));
