@@ -737,26 +737,25 @@ void Services::displayComputer(CompType c)
 {
     cout << endl;
 
-    cout << "Name: " << c.compName << endl;
+    cout << "Computer name: " << c.compName << endl;
 
     cout << "Year designed: " << c.yearMade << endl;
 
-    cout << "Type: " << c.type << endl;
+    cout << "Computer type: " << c.type << endl;
 
-    cout << "Was built?: ";
+        if(c.wasBuilt != 0 && c.wasBuilt != 1)
+        {
+            cout << "Year built: " << c.wasBuilt << endl;
+        }
+        else if (c.wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (c.wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
 
-    if(toupper(c.wasBuilt) == 'Y')
-    {
-        cout << "Yes" << endl;
-    }
-    else if(toupper(c.wasBuilt) == 'N')
-    {
-        cout << "No" << endl;
-    }
-    else
-    {
-        cout << "Unknown" << endl;
-    }
     cout << endl;
 }
 

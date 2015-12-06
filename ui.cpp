@@ -568,7 +568,7 @@ void UI::getComputerInfo()
             string computerName = getComputerName();
             int computerYearMade = getYearMade();
             string computerType = getComputerType();
-            int wasBuilt = getWasBuilt();
+            int wasBuilt = getWasBuilt(computerYearMade);
 
             Services c;
             c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
@@ -600,42 +600,6 @@ string UI::getComputerName()
     return name;
 }
 
-int UI::getWasBuilt()
-{
-    char choice = ' ';
-    int built = 0;
-    do{
-        cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
-        cin >> choice;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-            if(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?')
-            {
-               displayError();
-            }
-            else
-            {
-                if(toupper(choice) == 'Y')
-                {
-                    cout << "What year was the computer built?: ";
-                    cin >> built;
-                }
-                else if(toupper(choice) == 'N')
-                {
-                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
-                    built = 0;
-                }
-                else if(choice == '?')
-                {
-                    //ef ekki er vitað hvenær hún var byggðð(sett saman og hún virkaði) þá fær hún gildið 1
-                    built = 1;
-                }
-            }
-    }while(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?');
-
-    return built;
-}
-
 int UI::getYearMade()
 {
     int computerYearMade = 0;
@@ -651,6 +615,7 @@ int UI::getYearMade()
                                displayError();
                             }
                     }while(!(computerYearMade <= yearNow));
+
         return computerYearMade;
     }
 }
@@ -700,6 +665,50 @@ string UI::getComputerType()
     return type;
 }
 
+int UI::getWasBuilt(int computerYearMade)
+{
+    char choice = ' ';
+    int built = 0;
+    do{
+        cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
+        cin >> choice;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?')
+            {
+               displayError();
+            }
+            else
+            {
+                if(toupper(choice) == 'Y')
+                {
+                    do
+                    {
+                    cout << "What year was the computer built?: ";
+                    cin >> built;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(!((built < yearNow) && (built >= computerYearMade)))
+                        {
+                            displayError();
+                        }
+                    }while(!((built < yearNow) && (built >= computerYearMade)));
+                }
+                else if(toupper(choice) == 'N')
+                {
+                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                    built = 0;
+                }
+                else if(choice == '?')
+                {
+                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
+                    built = 1;
+                }
+            }
+    }while(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?');
+
+    return built;
+}
 void UI::inputMenu()
 {
     int choice;
