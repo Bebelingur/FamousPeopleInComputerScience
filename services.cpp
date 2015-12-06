@@ -16,7 +16,6 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.gender = gender;
     p.birthYear = bYear;
     p.deathYear = dYear;
-
     data personsToData;
     personsToData.saveDataPersons(p);
 }
@@ -62,33 +61,6 @@ void Services::returnToView()
             p.viewInfoMenu();
         }
 }
-
-/*void Services::displayPerson(InfoType p)
-{
-    cout << endl;
-    string tempName = changeName(p);
-    cout << "Name: " << tempName << endl;
-    cout << "Gender: ";
-        if(toupper(p.gender) == 'F')
-        {
-            cout << "Female" << endl;
-        }
-        else if (toupper(p.gender) == 'M')
-        {
-            cout << "Male" << endl;
-        }
-        else if (p.gender == '?')
-        {
-            cout << "Undecided" << endl;
-        }
-    cout << "Year of birth: " << p.birthYear << endl;
-
-        if(p.deathYear != 0)
-        {
-            cout << "Year of death: " << p.deathYear << endl;
-        }
-    cout << endl;
-}*/
 
 string Services::changeName(InfoType p)
 {
@@ -592,7 +564,6 @@ void Services::searchVectorBirthYear()
                 {
                     c.displayPerson(FP[i]);
                     check = true;
-
                 }
             }
         }
@@ -679,7 +650,7 @@ void Services::viewComputerInfo()
             c.yearMade = x.at(i).yearMade;
             c.type = x.at(i).type;
             c.wasBuilt = x.at(i).wasBuilt;
-            displayComputer(c);
+            p.displayComputer(c);
         }
 
     char input;
@@ -693,38 +664,6 @@ void Services::viewComputerInfo()
         }
 }
 
-void Services::displayComputer(CompType c)
-{
-    cout << endl;
-
-    cout << "Computer name: " << c.compName << endl;
-
-        if(c.yearMade == 0)
-        {
-            cout << "Computer has been designed, year is unknown." << endl;
-        }
-        else
-        {
-            cout << "Year designed: " << c.yearMade << endl;
-        }
-
-    cout << "Computer type: " << c.type << endl;
-
-        if(c.wasBuilt != 0 && c.wasBuilt != 1)
-        {
-            cout << "Year built: " << c.wasBuilt << endl;
-        }
-        else if (c.wasBuilt == 0)
-        {
-            cout << "Computer has not been built." << endl;
-        }
-        else if (c.wasBuilt == 1)
-        {
-            cout << "Computer has been built but year built is unknown." << endl;
-        }
-
-    cout << endl;
-}
 vector<InfoType> Services::makePersonsVector()
 {
    vector<InfoType> p = connection.loadPersData();
@@ -739,7 +678,7 @@ vector<CompType> Services::makeComputerVector()
 void Services::searchVectorComputersName()
 {
     vector <CompType> x = makeComputerVector();
-
+    UI p;
     string nameSearch;
     cout << "Enter name: ";
     cin >> nameSearch;
@@ -767,7 +706,7 @@ void Services::searchVectorComputersName()
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            displayComputer(x[i]);
+            p.displayComputer(x[i]);
             check = true;
             backToSearchMenu();
         }
