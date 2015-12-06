@@ -424,7 +424,7 @@ void UI::displayError()
 }
 
 
-void UI::getInfo()
+void UI::getPersonInfo()
 {
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -609,11 +609,13 @@ int UI::getYearMade()
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-        if(!(computerYearMade <= yearNow))
-        {
-            displayError();
-        }
-    }while(!(computerYearMade <= yearNow));
+            if(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear)))
+            {
+                displayError();
+            }
+
+    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear)));
+
     return computerYearMade;
 }
 
@@ -725,7 +727,7 @@ void UI::inputMenu()
         {
             case 1:
             {
-            getInfo();
+            getPersonInfo();
                 break;
             }
             case 2:
@@ -765,7 +767,7 @@ void UI::viewInfoMenu()
         {
             case 1:
             {
-            p.viewInfo();
+            p.viewPersonsInfo();
                 break;
             }
             case 2:

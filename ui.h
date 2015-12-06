@@ -13,10 +13,7 @@
 #include "relationstype.h"
 #include "comptype.h"
 
-
-
 using namespace std;
-
 
 class UI
 {
@@ -34,7 +31,7 @@ public:
     void searchMenu();
     int chooseNumber();
     void displayError();
-    void getInfo();
+    void getPersonInfo();
     string getName();
     char getGender();
     int getBirthYear();

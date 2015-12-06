@@ -56,7 +56,7 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
             getFile.close();
         }
 }
-void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
+void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
 
@@ -713,7 +713,7 @@ void Services::viewComputerInfo()
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
-            p.userMenu();
+            p.viewInfoMenu();
         }
 }
 
