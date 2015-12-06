@@ -38,7 +38,7 @@ int main()
         qDebug() << "Error: " << db2.lastError().text();
     }
    QSqlQuery qry(db2);
-   string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
+   string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
    qry.exec(QString(qryCreate.c_str()));
 
     //hugmynd að setja close í destructor! db.close();
