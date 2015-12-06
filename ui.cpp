@@ -66,7 +66,7 @@ void UI::sortPersonMenu()
         cout << "2. Sort by gender" << endl;
         cout << "3. Sort by year of birth" << endl;
         cout << "4. Sort by year of death" << endl;
-        cout << "5. Return to sort menu" << endl;
+        cout << "5. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
         do{
@@ -98,7 +98,7 @@ void UI::sortPersonMenu()
             }
             case 5:
             {
-            sortMenu();
+            userMenu();
                 break;
             }
         }
@@ -381,7 +381,7 @@ void UI::searchComputerMenu()
         switch(choice)
         {
             case 1:
-                p.searchVectorName();
+                p.searchVectorComputersName();
                 break;
             case 2:
                 p.searchVectorGender();
@@ -423,7 +423,14 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
+<<<<<<< HEAD
 void UI::getPersonInfo()
+=======
+
+
+void UI::getPersonInfo()
+
+>>>>>>> 366fe4dc51e0378ee759b5af9267deb48d517b75
 {
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -602,7 +609,23 @@ string UI::getComputerName()
 int UI::getYearMade()
 {
     int computerYearMade = 0;
+/*
+<<<<<<< HEAD
+                {
+                    do{
+                        cout << "Input year designed (input 0 for unknown): ";
+                        cin >> computerYearMade;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(!(computerYearMade <= yearNow))
+                            {
+                               displayError();
+                            }
+                    }while(!(computerYearMade <= yearNow));
 
+        return computerYearMade;
+    }
+=======
     do{
         cout << "Input year designed (input 0 for unknown): ";
         cin >> computerYearMade;
@@ -614,9 +637,16 @@ int UI::getYearMade()
                 displayError();
             }
 
+<<<<<<< HEAD
     }while(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)));
 
+=======
+    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)));
+*/
+>>>>>>> 366fe4dc51e0378ee759b5af9267deb48d517b75
     return computerYearMade;
+
+
 }
 
 string UI::getComputerType()
@@ -666,8 +696,8 @@ string UI::getComputerType()
 
 int UI::getWasBuilt(int computerYearMade)
 {
-    int built = 0;
     char choice = ' ';
+    int built = 0;
     do{
         cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
         cin >> choice;
@@ -677,10 +707,12 @@ int UI::getWasBuilt(int computerYearMade)
             {
                displayError();
             }
-
-        if(toupper(choice) == 'Y')
+            else
             {
-                do{
+                if(toupper(choice) == 'Y')
+                {
+                    do
+                    {
                     cout << "What year was the computer built?: ";
                     cin >> built;
                     cin.clear();
@@ -691,17 +723,17 @@ int UI::getWasBuilt(int computerYearMade)
                         }
                     }while(!((built < yearNow) && (built >= computerYearMade)));
                 }
-            if(toupper(choice) == 'N')
-            {
-                //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
-                built = 0;
+                else if(toupper(choice) == 'N')
+                {
+                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                    built = 0;
+                }
+                else if(choice == '?')
+                {
+                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
+                    built = 1;
+                }
             }
-            if(choice == '?')
-            {
-                //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
-                built = 1;
-            }
-
     }while(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?');
 
     return built;
@@ -801,7 +833,7 @@ void UI::sortComputerMenu()
         cout << "2. Sort by year" << endl;
         cout << "3. Sort by computer type" << endl;
         cout << "4. Sort by built/not built" << endl;
-        cout << "5. Return to sort menu" << endl;
+        cout << "5. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
         choice = chooseNumber();
@@ -830,7 +862,7 @@ void UI::sortComputerMenu()
             }
             case 5:
             {
-            sortMenu();
+            userMenu();
                 break;
             }
         }

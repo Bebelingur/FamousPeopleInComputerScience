@@ -38,11 +38,11 @@ public:
     void sortByGenderUndecided();
     void sortByDeathYearAsc();
     void sortByDeathYearDesc();
-    void displaySortedPerson();
+    void displaySortedPerson(vector<InfoType> FP);
     void sortByDeceased();
     void sortByNotDeceased();
 
-    void displaySorted(int i);
+    void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();
 
     void searchVector();
@@ -56,6 +56,8 @@ public:
     void viewComputerInfo();
 
     void searchVectorComputersName();
+    vector<CompType> makeComputerVector();
+    vector<InfoType> makePersonsVector();
 
 
 

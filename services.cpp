@@ -60,7 +60,7 @@ void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem b
 {
     UI p;
 
-    vector <InfoType> x = connection.loadPersData();
+    vector <InfoType> x = makePersonsVector();
 
     /*geymi villumeldingu ef við viljum nota lookið
 
@@ -150,11 +150,12 @@ string Services::changeName(InfoType p)
 }
 
 //Fall sem birtir persónur eftir að búið er að sorta lista
-void Services::displaySortedPerson()
+void Services::displaySortedPerson(vector<InfoType> FP)
 {
+
     for (unsigned int i = 0; i < FP.size(); i++)
     {
-        displaySorted(i);
+        displaySorted(i,FP);
     }
 }
 
@@ -251,14 +252,14 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 //Fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
 void Services::sortByNameAsc()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons by name in ascending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameAsc);
 
-    displaySortedPerson();
+    displaySortedPerson(FP);
 
     FP.clear();
     backToSortMenu();
@@ -267,14 +268,14 @@ void Services::sortByNameAsc()
 //Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
 void Services::sortByNameDesc()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons by name in descending order ---" << endl;
     cout << endl;
 
     sort(FP.begin(), FP.end(), compareNameDesc);
 
-    displaySortedPerson();
+    displaySortedPerson(FP);
 
     FP.clear();
     backToSortMenu();
@@ -283,7 +284,7 @@ void Services::sortByNameDesc()
 //Fall sem birtir lista sem er sortaður eftir kyni, Males
 void Services::sortByGenderMale()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying male persons ---" << endl;
     cout << endl;
@@ -295,7 +296,7 @@ void Services::sortByGenderMale()
     {
         if(toupper(FP.at(i).gender) == 'M')
         {
-            displaySorted(i);
+            displaySorted(i, FP);
         }
     }
 
@@ -306,7 +307,7 @@ void Services::sortByGenderMale()
 //Fall sem birtir lista sem er sortaður eftir kyni, Females
 void Services::sortByGenderFemale()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying female persons ---" << endl;
     cout << endl;
@@ -318,7 +319,7 @@ void Services::sortByGenderFemale()
     {
         if(toupper(FP.at(i).gender) == 'F')
         {
-            displaySorted(i);
+            displaySorted(i, FP);
         }
     }
 
@@ -329,7 +330,7 @@ void Services::sortByGenderFemale()
 //Fall sem birtir lista sem er sortaður eftir kyni, undecided
 void Services::sortByGenderUndecided()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons of undecided gender ---" << endl;
     cout << endl;
@@ -352,7 +353,7 @@ void Services::sortByGenderUndecided()
             {
                 if(FP.at(i).gender == '?')
                 {
-                    displaySorted(i);
+                    displaySorted(i,FP);
                 }
             }
         }
@@ -363,7 +364,7 @@ void Services::sortByGenderUndecided()
 //Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
 void Services::sortByYearAsc()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons by year of birth in ascending order ---" << endl;
     cout << endl;
@@ -371,7 +372,7 @@ void Services::sortByYearAsc()
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareYearAsc);
 
-    displaySortedPerson();
+    displaySortedPerson(FP);
 
     FP.clear();
     backToSortMenu();
@@ -380,7 +381,7 @@ void Services::sortByYearAsc()
 //Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
 void Services::sortByYearDesc()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons by year of birth in descending order ---" << endl;
     cout << endl;
@@ -388,18 +389,16 @@ void Services::sortByYearDesc()
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareYearDesc);
 
-    displaySortedPerson();
+    displaySortedPerson(FP);
 
     FP.clear();
-
-
     backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
 void Services::sortByDeathYearDesc()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons by year of death in descending order ---" << endl;
     cout << endl;
@@ -408,17 +407,16 @@ void Services::sortByDeathYearDesc()
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
 
-    displaySortedPerson();
+    displaySortedPerson(FP);
 
     FP.clear();
-
-   backToSortMenu();
+    backToSortMenu();
 }
 
 //Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 void Services::sortByDeathYearAsc()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying persons by year of death in ascending order ---" << endl;
     cout << endl;
@@ -426,17 +424,16 @@ void Services::sortByDeathYearAsc()
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareDeathYearDesc);
 
-    displaySortedPerson();
+    displaySortedPerson(FP);
 
     FP.clear();
-
-   backToSortMenu();
+    backToSortMenu();
 }
 
 
 void Services::sortByDeceased()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying deceased persons ---" << endl;
     cout << endl;
@@ -448,19 +445,17 @@ void Services::sortByDeceased()
     {
         if(FP.at(i).deathYear > 0)
         {
-            displaySorted(i);
+            displaySorted(i,FP);
         }
     }
-
     FP.clear();
-
     backToSortMenu();
 }
 
 
 void Services::sortByNotDeceased()
 {
-    fillVector();
+    vector <InfoType> FP = makePersonsVector();
     cout << endl;
     cout << "--- Displaying non deceased persons ---" << endl;
     cout << endl;
@@ -472,15 +467,16 @@ void Services::sortByNotDeceased()
     {
         if(FP.at(i).deathYear == 0)
         {
-            displaySorted(i);
+            displaySorted(i, FP);
         }
     }
 
     FP.clear();
     backToSortMenu();
 }
-void Services::displaySorted(int i)
+void Services::displaySorted(int i, vector<InfoType> FP)
 {
+
     cout << "Name: " << FP.at(i).name<< endl;
 
     if(toupper(FP.at(i).gender) == 'F')
@@ -526,7 +522,7 @@ void Services::backToSortMenu()
 
 void Services::searchVectorName()
 {
-    vector<InfoType> FP = connection.loadPersData();
+    vector <InfoType> FP = makePersonsVector();
     string nameSearch;
     cout << "Enter name: ";
     cin >> nameSearch;
@@ -557,9 +553,8 @@ void Services::searchVectorName()
             check = true;
 
         }
-
     }
-    backToSearchMenu();
+
     if(check == false)
     {
         cout << "-------------------------------------------" << endl;
@@ -569,10 +564,11 @@ void Services::searchVectorName()
         cout << endl;
     }
     FP.clear();
+    backToSearchMenu();
 }
 void Services::searchVectorGender()
 {
-    vector<InfoType> FP = connection.loadPersData();
+    vector <InfoType> FP = makePersonsVector();
     string genderSearch;
         bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -598,7 +594,7 @@ void Services::searchVectorGender()
                 }
             }
         }
-        backToSearchMenu();
+
         if(check == false || genderSearch.size() != 1)
         {
             cout << "-------------------------------------------" << endl;
@@ -607,12 +603,13 @@ void Services::searchVectorGender()
             cout << "--- Please try again. ---" << endl;
             cout << endl;
         }
+        backToSearchMenu();
         FP.clear();
 }
 
 void Services::searchVectorBirthYear()
 {
-    vector<InfoType> FP = connection.loadPersData();
+    vector <InfoType> FP = makePersonsVector();
     string birthYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -632,7 +629,7 @@ void Services::searchVectorBirthYear()
                 }
             }
         }
-        backToSearchMenu();
+
         if(check == false)
         {
             cout << "-------------------------------------------" << endl;
@@ -642,9 +639,11 @@ void Services::searchVectorBirthYear()
             cout << endl;
         }
         FP.clear();
+        backToSearchMenu();
 }
 void Services::searchVectorDeathYear()
 {
+    vector <InfoType> FP = makePersonsVector();
     string deathYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -665,7 +664,7 @@ void Services::searchVectorDeathYear()
                 }
             }
         }
-        backToSearchMenu();
+
         if(check == false)
         {
             cout << "-------------------------------------------"<<endl;
@@ -675,6 +674,7 @@ void Services::searchVectorDeathYear()
             cout << endl;
         }
         FP.clear();
+        backToSearchMenu();
 }
 
 void Services::searchVector()
@@ -750,10 +750,21 @@ void Services::displayComputer(CompType c)
 
     cout << endl;
 }
+vector<InfoType> Services::makePersonsVector()
+{
+   vector<InfoType> p = connection.loadPersData();
+   return p;
+}
+vector<CompType> Services::makeComputerVector()
+{
+   vector<CompType> c = connection.loadCompData();
+   return c;
+}
+
 
 void Services::searchVectorComputersName()
 {
-    vector <CompType> x = connection.loadCompData();
+    vector <CompType> x = makeComputerVector();
 
     string nameSearch;
     cout << "Enter name: ";
