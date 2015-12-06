@@ -423,12 +423,7 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
-<<<<<<< HEAD
-
 void UI::getPersonInfo()
-=======
-void UI::getInfo()
->>>>>>> 315ec7c024c352ea6d63121730ca9628223c2b62
 {
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -613,16 +608,13 @@ int UI::getYearMade()
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-        if(computerYearMade == 0)
-        {
-            computerYearMade = 0;
-        }
-        if(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)))
+
+            if(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)))
             {
                 displayError();
             }
 
-    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)));
+    }while(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)));
 
     return computerYearMade;
 }
