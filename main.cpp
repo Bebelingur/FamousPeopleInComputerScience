@@ -14,9 +14,19 @@ int main()
 {
    //CONNECTIONS TO DATABASE
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
+<<<<<<< HEAD
+   //QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
+   //QSqlDatabase db3 = QSqlDatabase::addDatabase("QSQLITE", "third");
+=======
+>>>>>>> 1fb720227bd7017425750d58c179599fad98017c
 
    db = QSqlDatabase::database("first");
+<<<<<<< HEAD
+   QString dbName = "database.sqlite";
+
+=======
    QString dbName = "CSdatabase.sqlite";
+>>>>>>> 1fb720227bd7017425750d58c179599fad98017c
    db.setDatabaseName(dbName);
         if(!db.open())
         {
@@ -24,12 +34,23 @@ int main()
         }
 
    QSqlQuery query(db);
+<<<<<<< HEAD
 
+=======
+   QSqlQuery query2(db);
+>>>>>>> e40173f83195ab1b67078388b1d953ab314a4974
    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
+<<<<<<< HEAD
+   string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL, FOREIGN KEY (id)REFERENCES persons (id));";
+
+   query.exec(QString(queryCreate.c_str()));
+   query2.exec(QString(queryCreate2.c_str()));
+=======
    string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
 
    query.exec(QString(queryCreate.c_str()));
    query.exec(QString(queryCreate2.c_str()));
+>>>>>>> 1fb720227bd7017425750d58c179599fad98017c
 
    UI people;
    people.userMenu();
