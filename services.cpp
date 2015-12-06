@@ -60,10 +60,6 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
 {
     UI p;
 
-
-/*
-        if(getFile.fail())
-
     vector <InfoType> x = connection.loadPersData();
 
     /*geymi villumeldingu ef við viljum nota lookið
@@ -80,19 +76,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
         cout << "* * * VIEW INFORMATION * * *" << endl;
 
 
-        /*int size = people.size();
-        for( int i = 0; i < size; i++)
-        {
-
-           cout<<people.at(i).name<<endl;
-           cout<<people.at(i).gender<<endl;
-           cout<<people.at(i).birthYear<<endl;
-           cout<<people.at(i).deathYear<<endl;
-           cout<<endl;
-        }
-    getFile.close();*/
-
- /*       for(unsigned int i = 0; i < x.size(); i++)
+        for(unsigned int i = 0; i < x.size(); i++)
         {
             InfoType b;
             b.name = x.at(i).name;
@@ -101,7 +85,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
             b.deathYear = x.at(i).deathYear;
             displayPerson(b);
         }
-*/
+
 
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;
