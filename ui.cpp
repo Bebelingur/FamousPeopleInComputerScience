@@ -14,6 +14,7 @@ UI::UI()
 
 void UI::userMenu()
 {
+
     Services p;
     int choice;
 
@@ -65,7 +66,7 @@ void UI::sortPersonMenu()
         cout << "2. Sort by gender" << endl;
         cout << "3. Sort by year of birth" << endl;
         cout << "4. Sort by year of death" << endl;
-        cout << "5. Return to main menu" << endl;
+        cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
         do{
@@ -97,7 +98,7 @@ void UI::sortPersonMenu()
             }
             case 5:
             {
-            userMenu();
+            sortMenu();
                 break;
             }
         }
@@ -423,7 +424,6 @@ void UI::displayError()
 }
 
 
-//
 void UI::getInfo()
 {
     char keepGoing = ' ';
@@ -604,20 +604,17 @@ int UI::getYearMade()
 {
     int computerYearMade = 0;
 
-                {
-                    do{
-                        cout << "Input year designed (input 0 for unknown): ";
-                        cin >> computerYearMade;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(!(computerYearMade <= yearNow))
-                            {
-                               displayError();
-                            }
-                    }while(!(computerYearMade <= yearNow));
-
-        return computerYearMade;
-    }
+    do{
+        cout << "Input year designed (input 0 for unknown): ";
+        cin >> computerYearMade;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        if(!(computerYearMade <= yearNow))
+        {
+            displayError();
+        }
+    }while(!(computerYearMade <= yearNow));
+    return computerYearMade;
 }
 
 string UI::getComputerType()
@@ -667,8 +664,8 @@ string UI::getComputerType()
 
 int UI::getWasBuilt(int computerYearMade)
 {
-    char choice = ' ';
     int built = 0;
+    char choice = ' ';
     do{
         cout << "Was the computer ever built? (Y for yes/N for no/? if unknown): ";
         cin >> choice;
@@ -678,12 +675,10 @@ int UI::getWasBuilt(int computerYearMade)
             {
                displayError();
             }
-            else
+
+        if(toupper(choice) == 'Y')
             {
-                if(toupper(choice) == 'Y')
-                {
-                    do
-                    {
+                do{
                     cout << "What year was the computer built?: ";
                     cin >> built;
                     cin.clear();
@@ -694,17 +689,17 @@ int UI::getWasBuilt(int computerYearMade)
                         }
                     }while(!((built < yearNow) && (built >= computerYearMade)));
                 }
-                else if(toupper(choice) == 'N')
-                {
-                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
-                    built = 0;
-                }
-                else if(choice == '?')
-                {
-                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
-                    built = 1;
-                }
+            if(toupper(choice) == 'N')
+            {
+                //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                built = 0;
             }
+            if(choice == '?')
+            {
+                //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
+                built = 1;
+            }
+
     }while(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?');
 
     return built;
@@ -799,7 +794,7 @@ void UI::sortComputerMenu()
         cout << "2. Sort by year" << endl;
         cout << "3. Sort by computer type" << endl;
         cout << "4. Sort by built/not built" << endl;
-        cout << "5. Return to main menu" << endl;
+        cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
         choice = chooseNumber();
@@ -828,7 +823,7 @@ void UI::sortComputerMenu()
             }
             case 5:
             {
-            userMenu();
+            sortMenu();
                 break;
             }
         }

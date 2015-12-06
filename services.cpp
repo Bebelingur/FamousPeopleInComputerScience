@@ -21,7 +21,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
-void Services::addComputer(string compName, int yearMade, string type, char wasBuilt)
+void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
     CompType p;
     p.compName = compName;
@@ -59,6 +59,7 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
 void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
+
     vector <InfoType> x = connection.loadPersData();
 
     /*geymi villumeldingu ef við viljum nota lookið
@@ -73,6 +74,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
          }*/
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
+
 
         for(unsigned int i = 0; i < x.size(); i++)
         {
@@ -91,7 +93,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
-            p.userMenu();
+            p.viewInfoMenu();
         }
 }
 

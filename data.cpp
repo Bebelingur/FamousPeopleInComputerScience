@@ -27,12 +27,28 @@ vector<InfoType> data::loadPersData()
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
     }
+
+
+
+    int size = people.size();
+    for( int i = 0; i < size; i++)
+    {
+       cout<<people.at(i).name<<endl;
+       cout<<people.at(i).gender<<endl;
+       cout<<people.at(i).birthYear<<endl;
+       cout<<people.at(i).deathYear<<endl;
+       cout<<endl;
+    }
+
+    //db.close();
+
     return people;
 }
 
 vector<CompType> data::loadCompData()
 {
     vector<CompType> computers;
+
     QSqlDatabase db;
     db = QSqlDatabase::database("second");
     QSqlQuery query(db);
@@ -45,11 +61,10 @@ vector<CompType> data::loadCompData()
         c.compName = query.value("compName").toString().toStdString();
         c.yearMade = query.value("yearMade").toUInt();
         c.type = query.value("type").toString().toStdString();
-        c.wasBuilt = query.value("wasBuilt").toString().toUInt();
+        c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
     }
     return computers;
-
 }
 
 void data::saveDataPersons(InfoType p)
@@ -57,15 +72,25 @@ void data::saveDataPersons(InfoType p)
     QSqlDatabase db;
     db = QSqlDatabase::database("first");
     QSqlQuery query(db);
+
+    db.open();
+
     string sex = convertToString(p.gender);
     QString qName = QString::fromUtf8(p.name.c_str());
     QString qSex = QString::fromUtf8(sex.c_str());
+
     query.prepare("INSERT INTO persons(name, sex, yearBorn, yearDead)VALUES(:name, :sex, :yearBorn, :yearDead)");
     query.bindValue(":name", qName);
     query.bindValue(":sex", qSex);
     query.bindValue(":yearBorn", p.birthYear);
     query.bindValue(":yearDead", p.deathYear);
-    query.exec();
+
+    if(!query.exec())
+    {
+        qDebug() << "addPersons error:  " << query.lastError();
+    }
+
+    db.close();
 }
 void data::saveDataComputers(CompType p)
 {
@@ -73,11 +98,10 @@ void data::saveDataComputers(CompType p)
     db2 = QSqlDatabase::database("second");
     QSqlQuery query(db2);
 
-    //string wasBuilt = convertToString(p.wasBuilt);
+    db2.open();
 
     QString qcompName = QString::fromUtf8(p.compName.c_str());
     QString qtype = QString::fromUtf8(p.type.c_str());
-    //QString qwasBuilt = QString::fromUtf8(wasBuilt.c_str());
 
     query.prepare("INSERT INTO computers(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
     query.bindValue(":compName", qcompName);
@@ -89,6 +113,7 @@ void data::saveDataComputers(CompType p)
     {
         qDebug() << "addComputer error:  " << query.lastError();
     }
+    db2.close();
 }
 
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
