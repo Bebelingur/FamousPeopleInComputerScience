@@ -609,16 +609,16 @@ int UI::getYearMade()
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
-            if(computerYearMade == 0)
-            {
-                return computerYearMade;
-            }
-            if(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear)))
+        if(computerYearMade == 0)
+        {
+            computerYearMade = 0;
+        }
+        if(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)))
             {
                 displayError();
             }
 
-    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear)));
+    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)));
 
     return computerYearMade;
 }
