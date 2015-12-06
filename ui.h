@@ -42,7 +42,6 @@ public:
     int getWasBuilt(int computerYearMade);
     string getComputerName();
     void searchPersonMenu();
-    void searchComputerMenu();
     void sortComputerNameMenu();
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
