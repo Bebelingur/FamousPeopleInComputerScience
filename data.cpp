@@ -38,7 +38,7 @@ vector<CompType> data::loadCompData()
     vector<CompType> computers;
 
     QSqlDatabase db;
-    db = QSqlDatabase::database("second");
+    db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
     query.exec("SELECT * FROM computers");

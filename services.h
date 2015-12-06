@@ -5,11 +5,10 @@
 #include <algorithm>
 #include "data.h"
 #include "infotype.h"
-#include "ui.h"
 #include "comptype.h"
 #include "relationstype.h"
 #include <string>
-
+#include "ui.h"
 
 using namespace std;
 
@@ -24,10 +23,8 @@ public:
     // setti upp eins fall og addPerson nema bara fyrir tölvurnar
     // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
-    void fillVector();
     //tekur skjalið og setur inn í vektor
     void viewPersonsInfo();
-    void displayPerson(InfoType p);
     string changeName(InfoType p);
     void sortByNameAsc();
     void sortByNameDesc();
@@ -45,6 +42,8 @@ public:
     void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();
 
+
+
     void searchVector();
     //leitar í vektornum úr skjalinu
     void searchVectorName();
@@ -52,13 +51,23 @@ public:
     void searchVectorBirthYear();
     void searchVectorDeathYear();
     void backToSearchMenu();
-    void displayComputer(CompType p);
     void viewComputerInfo();
 
     void searchVectorComputersName();
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 
+    void displaySortedComputer(vector <CompType> Comp);
+    void displaySortedComp(int i, vector<CompType> Comp);
+    void sortByComputerNameAsc();
+    void sortByComputerNameDesc();
+    void sortByYearMadeAsc();
+    void sortByYearMadeDesc();
+    void sortByComputerTypeAsc();
+    void sortByComputerTypeDesc();
+
+
+    void returnToView();
 
 
 private:
@@ -66,6 +75,7 @@ private:
     vector <CompType> Comp;
     vector <RelationsType> Rel;
     data connection;
+    //UI uiconnection;
 };
 
 #endif // SERVICES_H
