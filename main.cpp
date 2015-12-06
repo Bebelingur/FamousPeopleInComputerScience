@@ -15,8 +15,11 @@ int main()
    //CONNECTIONS TO DATABASE
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
 
+
    db = QSqlDatabase::database("first");
-   QString dbName = "CSdatabase.sqlite";
+
+   QString dbName = "database.sqlite";
+
    db.setDatabaseName(dbName);
         if(!db.open())
         {
@@ -24,11 +27,12 @@ int main()
         }
 
    QSqlQuery query(db);
+   QSqlQuery query2(db);
    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
-   string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
+   string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL, FOREIGN KEY (id)REFERENCES persons (id));";
 
    query.exec(QString(queryCreate.c_str()));
-   query.exec(QString(queryCreate2.c_str()));
+   query2.exec(QString(queryCreate2.c_str()));
 
    UI people;
    people.userMenu();
