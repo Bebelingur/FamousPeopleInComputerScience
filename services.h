@@ -26,7 +26,6 @@ public:
     void fillVector();
     //tekur skjalið og setur inn í vektor
     void viewPersonsInfo();
-    void displayPerson(InfoType p);
     string changeName(InfoType p);
     void sortByNameAsc();
     void sortByNameDesc();
@@ -51,7 +50,6 @@ public:
     void searchVectorBirthYear();
     void searchVectorDeathYear();
     void backToSearchMenu();
-    void displayComputer(CompType p);
     void viewComputerInfo();
 
     void searchVectorComputersName();

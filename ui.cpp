@@ -1052,3 +1052,35 @@ void UI::displayPerson(InfoType p)
         }
     cout << endl;
 }
+
+void UI::displayComputer(CompType c)
+{
+    cout << endl;
+    cout << "Computer name: " << c.compName << endl;
+
+        if(c.yearMade == 0)
+        {
+            cout << "Computer has been designed, year is unknown." << endl;
+        }
+        else
+        {
+            cout << "Year designed: " << c.yearMade << endl;
+        }
+
+    cout << "Computer type: " << c.type << endl;
+
+        if(c.wasBuilt != 0 && c.wasBuilt != 1)
+        {
+            cout << "Year built: " << c.wasBuilt << endl;
+        }
+        else if (c.wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (c.wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
+
+    cout << endl;
+}
