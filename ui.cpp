@@ -66,7 +66,7 @@ void UI::sortPersonMenu()
         cout << "2. Sort by gender" << endl;
         cout << "3. Sort by year of birth" << endl;
         cout << "4. Sort by year of death" << endl;
-        cout << "5. Return to main menu" << endl;
+        cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
         do{
@@ -98,7 +98,7 @@ void UI::sortPersonMenu()
             }
             case 5:
             {
-            userMenu();
+            sortMenu();
                 break;
             }
         }
@@ -423,8 +423,12 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
+<<<<<<< HEAD
 
 void UI::getPersonInfo()
+=======
+void UI::getInfo()
+>>>>>>> 315ec7c024c352ea6d63121730ca9628223c2b62
 {
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -719,13 +723,14 @@ void UI::inputMenu()
         cout << endl;
         cout << "1. Input person" << endl;
         cout << "2. Input computer" << endl;
-        cout << "3. Return to main menu" << endl;
+        cout << "3. Add relation between person and computer" << endl;
+        cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
         switch(choice)
         {
@@ -740,6 +745,10 @@ void UI::inputMenu()
                 break;
             }
             case 3:
+            {
+            addRelation();
+            }
+            case 4:
             {
             userMenu();
                 break;
@@ -800,7 +809,7 @@ void UI::sortComputerMenu()
         cout << "2. Sort by year" << endl;
         cout << "3. Sort by computer type" << endl;
         cout << "4. Sort by built/not built" << endl;
-        cout << "5. Return to main menu" << endl;
+        cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
         choice = chooseNumber();
@@ -829,7 +838,7 @@ void UI::sortComputerMenu()
             }
             case 5:
             {
-            userMenu();
+            sortMenu();
                 break;
             }
         }
@@ -1038,4 +1047,8 @@ void UI::sortMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
     userMenu();
+}
+void UI::addRelation()
+{
+
 }
