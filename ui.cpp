@@ -304,14 +304,15 @@ void UI::searchMenu()
                 searchPersonMenu();
                 break;
             case 2:
+                cout << "* * * SEARCH INFORMATION * * *" << endl;
+                cout << endl;
                 p.searchVectorComputersName();
                 break;
             case 3:
-                //FP.clear();//hreinsum vektorinn eftir notkun
                 userMenu();
                 break;
         }
-    }while(choice == 1 || choice == 2 || choice == 3); //eða while(choice != 5);
+    }while(choice == 1 || choice == 2 || choice == 3);
 }
 
 void UI::searchPersonMenu()
@@ -558,7 +559,7 @@ string UI::getComputerName()
     return name;
 }
 
-int UI::getYearMade()//
+int UI::getYearMade()
 {
     int computerYearMade = 0;
 
@@ -574,16 +575,15 @@ int UI::getYearMade()//
             computerYearMade = computerYearMade;
             check = true;
         }
-
        else
         {
             displayError();
             check = false;
-
         }
 
-    }while(check == false);//(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)));
+    }while(check == false);
 
+    //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
     if(computerYearMade == 1)
     {
         computerYearMade = 0;
@@ -661,11 +661,11 @@ int UI::getWasBuilt(int computerYearMade)
                     cin >> built;
                     cin.clear();
                     cin.ignore(INT_MAX, '\n');
-                        if(!((built < yearNow) && (built >= computerYearMade)))
+                        if(!((built <= yearNow) && (built >= computerYearMade)))
                         {
                             displayError();
                         }
-                    }while(!((built < yearNow) && (built >= computerYearMade)));
+                    }while(!((built <= yearNow) && (built >= computerYearMade)));
                 }
                 else if(toupper(choice) == 'N')
                 {
@@ -704,21 +704,22 @@ void UI::inputMenu()
         {
             case 1:
             {
-            getPersonInfo();
+                getPersonInfo();
                 break;
             }
             case 2:
             {
-            getComputerInfo();
+                getComputerInfo();
                 break;
             }
             case 3:
             {
-            addRelation();
+                addRelation();
+                break;
             }
             case 4:
             {
-            userMenu();
+                userMenu();
                 break;
             }
         }
@@ -748,17 +749,20 @@ void UI::viewInfoMenu()
         {
             case 1:
             {
-            p.viewPersonsInfo();
+                cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
+                p.viewPersonsInfo();
+                cout << "--- Press any key and then enter to return to view menu ---" << endl;
+                p.returnToView();
                 break;
             }
             case 2:
             {
-            p.viewComputerInfo();
+                p.viewComputerInfo();
                 break;
             }
             case 3:
             {
-            userMenu();
+                userMenu();
                 break;
             }
         }
@@ -1018,5 +1022,65 @@ void UI::sortMenu()
 }
 void UI::addRelation()
 {
+       cout << "Need stuff here" << endl;
+}
 
+void UI::displayPerson(InfoType p)
+{
+    Services c;
+    cout << endl;
+    string tempName = c.changeName(p);
+    cout << "Name: " << tempName << endl;
+    cout << "Gender: ";
+        if(toupper(p.gender) == 'F')
+        {
+            cout << "Female" << endl;
+        }
+        else if (toupper(p.gender) == 'M')
+        {
+            cout << "Male" << endl;
+        }
+        else if (p.gender == '?')
+        {
+            cout << "Undecided" << endl;
+        }
+    cout << "Year of birth: " << p.birthYear << endl;
+
+        if(p.deathYear != 0)
+        {
+            cout << "Year of death: " << p.deathYear << endl;
+        }
+    cout << endl;
+}
+
+void UI::displayComputer(CompType c)
+{
+    cout << endl;
+    cout << "Computer name: " << c.compName << endl;
+
+        if(c.yearMade == 0)
+        {
+            cout << "Computer has been designed, year is unknown." << endl;
+        }
+        else
+        {
+            cout << "Year designed: " << c.yearMade << endl;
+        }
+
+    cout << "Computer type: " << c.type << endl;
+
+        if(c.wasBuilt != 0 && c.wasBuilt != 1)
+        {
+            cout << "Year built: " << c.wasBuilt << endl;
+        }
+        else if (c.wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (c.wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
+
+    cout << endl;
 }

@@ -5,11 +5,10 @@
 #include <algorithm>
 #include "data.h"
 #include "infotype.h"
-#include "ui.h"
 #include "comptype.h"
 #include "relationstype.h"
 #include <string>
-
+#include "ui.h"
 
 using namespace std;
 
@@ -26,7 +25,6 @@ public:
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     //tekur skjalið og setur inn í vektor
     void viewPersonsInfo();
-    void displayPerson(InfoType p);
     string changeName(InfoType p);
     void sortByNameAsc();
     void sortByNameDesc();
@@ -53,7 +51,6 @@ public:
     void searchVectorBirthYear();
     void searchVectorDeathYear();
     void backToSearchMenu();
-    void displayComputer(CompType p);
     void viewComputerInfo();
 
     void searchVectorComputersName();
@@ -70,12 +67,15 @@ public:
     void sortByComputerTypeDesc();
 
 
+    void returnToView();
+
 
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
     vector <RelationsType> Rel;
     data connection;
+    //UI uiconnection;
 };
 
 #endif // SERVICES_H
