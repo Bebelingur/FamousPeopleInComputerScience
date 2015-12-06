@@ -386,6 +386,7 @@ void Services::sortByNotDeceased()
     FP.clear();
     backToSortMenu();
 }
+
 void Services::displaySorted(int i, vector<InfoType> FP)
 {
 
@@ -689,4 +690,343 @@ void Services::searchVectorComputersName()
         cout << endl;
     }
 
+}
+
+
+bool compareCompNameAsc(const CompType& a, const CompType& b);
+bool compareCompNameAsc(const CompType& a, const CompType& b)
+{
+    string str1 = a.compName;
+    str1[0] = tolower(str1[0]);
+
+    string str2 = b.compName;
+    str2[0] = tolower(str2[0]);
+
+    return str1 < str2;
+}
+
+//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+bool compareCompNameDesc(const CompType& a, const CompType& b);
+bool compareCompNameDesc(const CompType& a, const CompType& b)
+{
+    string str1 = a.compName;
+    str1[0] = tolower(str1[0]);
+
+    string str2 = b.compName;
+    str2[0] = tolower(str2[0]);
+
+    return str1 > str2;
+}
+
+bool compareComputerYearMadeAsc(const CompType& a, const CompType& b);
+bool compareComputerYearMadeAsc(const CompType& a, const CompType& b)
+{
+    return a.yearMade < b.yearMade;
+}
+
+bool compareComputerYearMadeDesc(const CompType& a, const CompType& b);
+bool compareComputerYearMadeDesc(const CompType& a, const CompType& b)
+{
+    return a.yearMade > b.yearMade;
+}
+
+bool compareCompTypeAsc(const CompType& a, const CompType& b);
+bool compareCompTypeAsc(const CompType& a, const CompType& b)
+{
+    string str1 = a.type;
+    str1[0] = tolower(str1[0]);
+
+    string str2 = b.type;
+    str2[0] = tolower(str2[0]);
+
+    return str1 < str2;
+}
+
+//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+bool compareCompTypeDesc(const CompType& a, const CompType& b);
+bool compareCompTypeDesc(const CompType& a, const CompType& b)
+{
+    string str1 = a.type;
+    str1[0] = tolower(str1[0]);
+
+    string str2 = b.type;
+    str2[0] = tolower(str2[0]);
+
+    return str1 > str2;
+}
+
+bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b);
+bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b)
+{
+    return a.wasBuilt < b.wasBuilt;
+}
+
+bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b);
+bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b)
+{
+    return a.wasBuilt > b.wasBuilt;
+}
+
+
+void Services::sortByComputerNameAsc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by name in ascending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+
+    displaySortedComputer(Comp);
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByComputerNameDesc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by name in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameDesc);
+
+    displaySortedComputer(Comp);
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByYearMadeAsc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by year made in ascending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearMadeAsc);
+
+    displaySortedComputer(Comp);
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByYearMadeDesc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by year made in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearMadeDesc);
+
+    displaySortedComputer(Comp);
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+
+void Services::sortByComputerTypeAsc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by type in ascending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompTypeAsc);
+
+    displaySortedComputer(Comp);
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByComputerTypeDesc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by type in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompTypeDesc);
+
+    displaySortedComputer(Comp);
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+
+void Services::sortByYearBuiltAsc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by year made in ascending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt > 1)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByYearBuiltDesc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers by year made in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt > 1)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+
+void Services::sortByYearNotBuiltAsc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers not made in ascending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt == 0)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByYearNotBuiltDesc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers not made in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt == 0)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+
+void Services::sortByYearUnknownBuiltAsc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers not made in ascending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt == 1)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::sortByYearUnknownBuiltDesc()
+{
+    vector <CompType> Comp = makeComputerVector();
+    cout << endl;
+    cout << "--- Displaying computers not made in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt == 1)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::displaySortedComp(int i, vector<CompType> Comp)
+{
+    cout << endl;
+
+    cout << "Computer name: " << Comp.at(i).compName << endl;
+
+    cout << "Year designed: " << Comp.at(i).yearMade << endl;
+
+    cout << "Computer type: " << Comp.at(i).type << endl;
+
+        if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
+        {
+            cout << "Year built: " << Comp.at(i).wasBuilt << endl;
+        }
+        else if (Comp.at(i).wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (Comp.at(i).wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
+
+    cout << endl;
+}
+
+
+void Services::displaySortedComputer(vector <CompType> Comp)
+{
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        displaySortedComp(i, Comp);
+    }
 }
