@@ -32,34 +32,10 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
+vector<InfoType> Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     vector <InfoType> x = makePersonsVector();
-
-    UI c;
-
-    for(unsigned int i = 0; i < x.size(); i++)
-    {
-        InfoType b;
-        b.name = x.at(i).name;
-        b.gender = x.at(i).gender;
-        b.birthYear = x.at(i).birthYear;
-        b.deathYear = x.at(i).deathYear;
-        c.displayPerson(b);
-    }
-}
-
-void Services::returnToView()
-{
-    char input;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            UI p;
-            p.viewInfoMenu();
-        }
+    return x;
 }
 
 string Services::changeName(InfoType p)
@@ -461,7 +437,6 @@ void Services::searchVectorName()
     UI c;
     vector <InfoType> FP = makePersonsVector();
     string nameSearch;
-    cout << "Enter name: ";
     cin >> nameSearch;
     int nameSize = nameSearch.size();
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -492,14 +467,8 @@ void Services::searchVectorName()
         }
     }
 
-    if(check == false)
-    {
-        cout << "-------------------------------------------" << endl;
-        cout << "   "<<nameSearch << " was not in database or input not in the right format" << endl;
-        cout << "-------------------------------------------" << endl;
-        cout << "--- Please try again. ---" << endl;
-        cout << endl;
-    }
+    c.falseCheck(check, nameSearch);
+
     FP.clear();
     backToSearchMenu();
 }

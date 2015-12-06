@@ -51,6 +51,7 @@ public:
     void addRelation();
     void displayPerson(InfoType p);
     void displayComputer(CompType c);
+    void falseCheck(bool check, string nameSearch);
 };
 
 #endif // UI_H

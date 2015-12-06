@@ -338,6 +338,7 @@ void UI::searchPersonMenu()
         switch(choice)
         {
             case 1:
+                cout << "Enter name: " << endl;
                 p.searchVectorName();
                 break;
             case 2:
@@ -750,9 +751,25 @@ void UI::viewInfoMenu()
             case 1:
             {
                 cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
-                p.viewPersonsInfo();
+                vector<InfoType> x = p.viewPersonsInfo();
+                for(unsigned int i = 0; i < x.size(); i++)
+                {
+                    InfoType b;
+                    b.name = x.at(i).name;
+                    b.gender = x.at(i).gender;
+                    b.birthYear = x.at(i).birthYear;
+                    b.deathYear = x.at(i).deathYear;
+                    displayPerson(b);
+                }
                 cout << "--- Press any key and then enter to return to view menu ---" << endl;
-                p.returnToView();
+                char input;
+                cin >> input;
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                    if(input)
+                    {
+                        viewInfoMenu();
+                    }
                 break;
             }
             case 2:
@@ -1083,4 +1100,16 @@ void UI::displayComputer(CompType c)
         }
 
     cout << endl;
+}
+
+void UI::falseCheck(bool check, string nameSearch)
+{
+    if(check == false)
+    {
+        cout << "-------------------------------------------" << endl;
+        cout << "   "<<nameSearch << " was not in database or input not in the right format" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "--- Please try again. ---" << endl;
+        cout << endl;
+    }
 }
