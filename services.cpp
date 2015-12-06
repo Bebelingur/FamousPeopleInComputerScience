@@ -59,6 +59,7 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
 void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
+
     vector <InfoType> x = connection.loadPersData();
 
     /*geymi villumeldingu ef við viljum nota lookið
@@ -73,6 +74,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
          }*/
 
         cout << "* * * VIEW INFORMATION * * *" << endl;
+
 
         for(unsigned int i = 0; i < x.size(); i++)
         {

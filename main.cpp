@@ -16,6 +16,7 @@ int main()
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
    QSqlDatabase db2 = QSqlDatabase::addDatabase("QSQLITE", "second");
 
+
    //PERSONS TABLE
    db = QSqlDatabase::database("first");
    QString dbName = "persons.sqlite";
@@ -34,14 +35,20 @@ int main()
    QString bdName = "computers.sqlite";
    db2.setDatabaseName(bdName);
     if(!db2.open())
+
     {
         qDebug() << "Error: " << db2.lastError().text();
     }
-   QSqlQuery qry(db2);
-   string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
-   qry.exec(QString(qryCreate.c_str()));
+   else
+    {
+        qDebug() << "Error = " << db2.lastError().text();
+        //figure out what happened here
+    }
 
-    //hugmynd að setja close í destructor! db.close();
+    QSqlQuery qry(db2);
+    string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
+    qry.exec(QString(qryCreate.c_str()));
+    db2.close();
 
    UI people;
    people.userMenu();
@@ -65,7 +72,6 @@ People peoples(int id, string name)
 
 int main()
 {
-
 
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");

@@ -14,6 +14,7 @@ UI::UI()
 
 void UI::userMenu()
 {
+
     Services p;
     int choice;
 
@@ -423,7 +424,6 @@ void UI::displayError()
 }
 
 
-//
 void UI::getInfo()
 {
     char keepGoing = ' ';
