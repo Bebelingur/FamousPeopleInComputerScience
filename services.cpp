@@ -84,7 +84,6 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
             displayPerson(b);
         }
 
-
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;
     cin >> input;
