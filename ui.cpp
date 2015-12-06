@@ -405,14 +405,8 @@ void UI::displayError()
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
 }
-<<<<<<< HEAD
-void UI::getInfo()
-{
-=======
 
->>>>>>> 02df132a2a865278a0754b909e98722dd3df75aa
 
-//
 void UI::getInfo()
 {
     char keepGoing = ' ';
@@ -548,18 +542,6 @@ int UI::getDeathYear(string name, int bYear)
 
 void UI::getComputerInfo()
 {
-        ofstream getFile;
-        getFile.open("InfoFile.txt", ios::app);
-        //nota ios::app svo það skrifist ekki yfir fyrirliggjandi gögn - BóE
-        //fasti sem er skilgreindur í iostream, opnast þannig að við getum bætt við hana - BóE
-
-            if(getFile.fail( ))
-            {
-                cout << "Could not open file." << endl;
-                exit(1);
-                //ef skrá opnast ekki þá hoppum við út bætti við cstdlib til að nota exitið - BóE
-            }
-
 
         char keepGoing = ' ';
         //færibreytur núllstilltar svo rusl fylgi ekki með - BóE

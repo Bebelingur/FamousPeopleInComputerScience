@@ -30,7 +30,7 @@ int main()
     QSqlQuery query(db);
     string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
     query.exec(QString(queryCreate.c_str()));
-
+    db.close();
 
     db2 = QSqlDatabase::database("second");
     QString bdName = "computers.sqlite";
@@ -48,7 +48,7 @@ int main()
     QSqlQuery qry(db2);
     string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
     qry.exec(QString(qryCreate.c_str()));
-
+    db2.close();
     //hugmynd að setja close í destructor! db.close();
 
     UI people;

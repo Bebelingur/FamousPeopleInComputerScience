@@ -29,7 +29,7 @@ vector <InfoType> data::loadData()
         people.push_back(p);
     }
 
-<<<<<<< HEAD
+
     int size = people.size();
     for( int i = 0; i < size; i++)
     {
@@ -42,29 +42,15 @@ vector <InfoType> data::loadData()
 
     //db.close();
 
-=======
->>>>>>> 02df132a2a865278a0754b909e98722dd3df75aa
     return people;
 }
 void data::saveDataPersons(InfoType p)
 {
-<<<<<<< HEAD
 
-    QSqlDatabase db;
-   /* db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "persons.sqlite";
-    db.setDatabaseName(dbName);
-    db.open();*/
-
-
-    //db.open();
-
-
-=======
     QSqlDatabase db;
     db = QSqlDatabase::database("first");
->>>>>>> 02df132a2a865278a0754b909e98722dd3df75aa
     QSqlQuery query(db);
+    db.open();
 
     string sex = convertToString(p.gender);
 
@@ -76,7 +62,7 @@ void data::saveDataPersons(InfoType p)
     query.bindValue(":yearBorn", p.birthYear);
     query.bindValue(":yearDead", p.deathYear);
     query.exec();
-
+    db.close();
 
     /*if(p.deathYear == 0)
     {
@@ -92,10 +78,10 @@ void data::saveDataPersons(InfoType p)
         //ef ekki búa til DB í SQL(CREATE TABLE persons)
         //(id(INTEGER PRIMARY KEY AOTUINCREMENT), name(VARCHAR NOT NULL), gender(CHAR NOT NULL), yearBorn(INTEGER NOT NULL), yearDead(INTEGER)
     //setja úr vektor inn í databaseið persons(INSERT INTO persons (name, gender, yearBorn) VALUES(p.name, p.gender, p.birthyear)*/
-<<<<<<< HEAD
+
 
     //db.close();
-=======
+
 }
 void data::saveDataComputers(CompType p)
 {
@@ -103,6 +89,7 @@ void data::saveDataComputers(CompType p)
     db2 = QSqlDatabase::database("second");
     //QSqlQuery query("second", db2);
     QSqlQuery query(db2);
+    db2.open();
 
 
     string wasBuilt = convertToString(p.wasBuilt);
@@ -113,11 +100,12 @@ void data::saveDataComputers(CompType p)
 
     query.prepare("INSERT INTO computers(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
     query.bindValue(":compName", qcompName);
-    query.bindValue(":yearBorn", p.yearMade);
+    query.bindValue(":yearMade", p.yearMade);
     query.bindValue(":type", qtype);
     query.bindValue(":wasBuilt", qwasBuilt);
     query.exec();
->>>>>>> 02df132a2a865278a0754b909e98722dd3df75aa
+    db2.close();
+    cout<<"Hallo"<<endl;
 }
 
 //þarf að geyma gender sem VARCHAR í SQL og breyta því í char þegar ég set það í vector og öfugt
