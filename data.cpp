@@ -84,7 +84,11 @@ void data::saveDataPersons(InfoType p)
     query.bindValue(":sex", qSex);
     query.bindValue(":yearBorn", p.birthYear);
     query.bindValue(":yearDead", p.deathYear);
-    query.exec();
+
+    if(!query.exec())
+    {
+        qDebug() << "addPersons error:  " << query.lastError();
+    }
 
     db.close();
 }
@@ -110,7 +114,6 @@ void data::saveDataComputers(CompType p)
         qDebug() << "addComputer error:  " << query.lastError();
     }
     db2.close();
-
 }
 
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
