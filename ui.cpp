@@ -599,7 +599,7 @@ string UI::getComputerName()
     return name;
 }
 
-int UI::getYearMade()//
+int UI::getYearMade()
 {
     int computerYearMade = 0;
 
@@ -615,16 +615,15 @@ int UI::getYearMade()//
             computerYearMade = computerYearMade;
             check = true;
         }
-
        else
         {
             displayError();
             check = false;
-
         }
 
-    }while(check == false);//(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)));
+    }while(check == false);
 
+    //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
     if(computerYearMade == 1)
     {
         computerYearMade = 0;
@@ -702,11 +701,11 @@ int UI::getWasBuilt(int computerYearMade)
                     cin >> built;
                     cin.clear();
                     cin.ignore(INT_MAX, '\n');
-                        if(!((built < yearNow) && (built >= computerYearMade)))
+                        if(!((built <= yearNow) && (built >= computerYearMade)))
                         {
                             displayError();
                         }
-                    }while(!((built < yearNow) && (built >= computerYearMade)));
+                    }while(!((built <= yearNow) && (built >= computerYearMade)));
                 }
                 else if(toupper(choice) == 'N')
                 {
@@ -745,21 +744,22 @@ void UI::inputMenu()
         {
             case 1:
             {
-            getPersonInfo();
+                getPersonInfo();
                 break;
             }
             case 2:
             {
-            getComputerInfo();
+                getComputerInfo();
                 break;
             }
             case 3:
             {
-            addRelation();
+                addRelation();
+                break;
             }
             case 4:
             {
-            userMenu();
+                userMenu();
                 break;
             }
         }
@@ -1059,5 +1059,5 @@ void UI::sortMenu()
 }
 void UI::addRelation()
 {
-
+       cout << "Need stuff here" << endl;
 }

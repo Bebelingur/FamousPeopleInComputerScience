@@ -58,23 +58,8 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
 }
 void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
-    UI p;
-
     vector <InfoType> x = makePersonsVector();
-
-    /*geymi villumeldingu ef við viljum nota lookið
-
-        {
-            cout << endl;
-            cout << "-------------------------------------------------------------" << endl;
-            cout << "| | | Could not open file. No data to display. | | |" << endl;
-            cout << "-------------------------------------------------------------" << endl;
-            cout << endl;
-            p.userMenu();
-         }*/
-
-        cout << "* * * VIEW INFORMATION * * *" << endl;
-
+    cout << "* * * VIEW INFORMATION * * *" << endl;
 
         for(unsigned int i = 0; i < x.size(); i++)
         {
@@ -93,6 +78,7 @@ void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem b
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
+            UI p;
             p.viewInfoMenu();
         }
 }
@@ -101,7 +87,6 @@ void Services::displayPerson(InfoType p)
 {
     cout << endl;
     string tempName = changeName(p);
-
     cout << "Name: " << tempName << endl;
     cout << "Gender: ";
         if(toupper(p.gender) == 'F')
@@ -731,7 +716,14 @@ void Services::displayComputer(CompType c)
 
     cout << "Computer name: " << c.compName << endl;
 
-    cout << "Year designed: " << c.yearMade << endl;
+        if(c.yearMade == 0)
+        {
+            cout << "Computer has been designed, year is unknown." << endl;
+        }
+        else
+        {
+            cout << "Year designed: " << c.yearMade << endl;
+        }
 
     cout << "Computer type: " << c.type << endl;
 
