@@ -21,7 +21,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
-void Services::addComputer(string compName, int yearMade, string type, char wasBuilt)
+void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
     CompType p;
     p.compName = compName;
@@ -94,7 +94,7 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
-            p.userMenu();
+            p.viewInfoMenu();
         }
 }
 

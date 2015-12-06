@@ -10,7 +10,7 @@ struct CompType
     string compName;
     int yearMade;
     string type;
-    char wasBuilt;
+    int wasBuilt;
 };
 
 #endif // COMPTYPE
