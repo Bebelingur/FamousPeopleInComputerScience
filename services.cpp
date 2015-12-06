@@ -107,7 +107,6 @@ void Services::displayPerson(InfoType p)
         {
             cout << "Year of death: " << p.deathYear << endl;
         }
-
     cout << endl;
 }
 
