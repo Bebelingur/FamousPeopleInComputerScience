@@ -59,7 +59,7 @@ public:
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 
-
+    void returnToView();
 
 private:
     vector <InfoType> FP;

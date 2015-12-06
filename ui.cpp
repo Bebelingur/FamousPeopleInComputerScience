@@ -309,11 +309,10 @@ void UI::searchMenu()
                 p.searchVectorComputersName();
                 break;
             case 3:
-                //FP.clear();//hreinsum vektorinn eftir notkun
                 userMenu();
                 break;
         }
-    }while(choice == 1 || choice == 2 || choice == 3); //eða while(choice != 5);
+    }while(choice == 1 || choice == 2 || choice == 3);
 }
 
 void UI::searchPersonMenu()
@@ -750,17 +749,20 @@ void UI::viewInfoMenu()
         {
             case 1:
             {
-            p.viewPersonsInfo();
+                cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
+                p.viewPersonsInfo();
+                cout << "--- Press any key and then enter to return to view menu ---" << endl;
+                p.returnToView();
                 break;
             }
             case 2:
             {
-            p.viewComputerInfo();
+                p.viewComputerInfo();
                 break;
             }
             case 3:
             {
-            userMenu();
+                userMenu();
                 break;
             }
         }
