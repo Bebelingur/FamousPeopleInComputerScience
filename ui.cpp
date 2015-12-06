@@ -423,10 +423,7 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
-
-
 void UI::getPersonInfo()
-
 {
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -605,8 +602,8 @@ string UI::getComputerName()
 int UI::getYearMade()//
 {
     int computerYearMade = 0;
-    bool check = false;
 
+    bool check = false;
     do{
         cout << "Input year designed (input 1 for unknown): ";
         cin >> computerYearMade;
@@ -635,8 +632,6 @@ int UI::getYearMade()//
     }
     else
     return computerYearMade;
-
-
 }
 
 string UI::getComputerType()
