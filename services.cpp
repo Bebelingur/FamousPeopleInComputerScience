@@ -56,7 +56,7 @@ void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þo
             getFile.close();
         }
 }
-void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
+void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     UI p;
 
@@ -85,7 +85,6 @@ void Services::viewInfo()//displayar manneskjur, þurfum að annað sem birtir t
             b.deathYear = x.at(i).deathYear;
             displayPerson(b);
         }
-
 
     char input;
     cout << "--- Press any key and then enter to return to main menu ---" << endl;
@@ -722,7 +721,7 @@ void Services::viewComputerInfo()
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
-            p.userMenu();
+            p.viewInfoMenu();
         }
 }
 

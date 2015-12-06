@@ -26,7 +26,7 @@ public:
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     void fillVector();
     //tekur skjalið og setur inn í vektor
-    void viewInfo();
+    void viewPersonsInfo();
     void displayPerson(InfoType p);
     string changeName(InfoType p);
     void sortByNameAsc();
