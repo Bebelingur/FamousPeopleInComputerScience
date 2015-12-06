@@ -761,7 +761,6 @@ vector<CompType> Services::makeComputerVector()
    return c;
 }
 
-
 void Services::searchVectorComputersName()
 {
     vector <CompType> x = makeComputerVector();
@@ -808,4 +807,3 @@ void Services::searchVectorComputersName()
     }
 
 }
-

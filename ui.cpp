@@ -304,7 +304,7 @@ void UI::searchMenu()
                 searchPersonMenu();
                 break;
             case 2:
-                searchComputerMenu();
+                p.searchVectorComputersName();
                 break;
             case 3:
                 //FP.clear();//hreinsum vektorinn eftir notkun
@@ -358,47 +358,6 @@ void UI::searchPersonMenu()
 
 
 //á eftir að græja search föllin fyrir computers
-void UI::searchComputerMenu()
-{
-    Services p;
-
-    int choice;
-
-    do{
-        cout << "* * * SEARCH COMPUTER INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Search by name" << endl;
-        cout << "2. Search by year made" << endl;
-        cout << "3. Search by type" << endl;
-        cout << "4. Search by was built" << endl;
-        cout << "5. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
-
-        switch(choice)
-        {
-            case 1:
-                p.searchVectorComputersName();
-                break;
-            case 2:
-                p.searchVectorGender();
-                break;
-            case 3:
-                p.searchVectorBirthYear();
-                break;
-            case 4:
-                p.searchVectorBirthYear();
-                break;
-            case 5:
-                //FP.clear();//hreinsum vektorinn eftir notkun
-                userMenu();
-                break;
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
-}
 
 int UI::chooseNumber()
 {
