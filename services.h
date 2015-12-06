@@ -1,5 +1,7 @@
 #ifndef SERVICES_H
 #define SERVICES_H
+
+#include "ui.h"
 #include <cstdlib>
 #include <cctype>
 #include <algorithm>
@@ -7,8 +9,9 @@
 #include "infotype.h"
 #include "comptype.h"
 #include "relationstype.h"
+
 #include <string>
-#include "ui.h"
+
 
 using namespace std;
 
@@ -24,7 +27,7 @@ public:
     // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     //tekur skjalið og setur inn í vektor
-    void viewPersonsInfo();
+    vector<InfoType> viewPersonsInfo();
     string changeName(InfoType p);
     void sortByNameAsc();
     void sortByNameDesc();
@@ -65,9 +68,16 @@ public:
     void sortByYearMadeDesc();
     void sortByComputerTypeAsc();
     void sortByComputerTypeDesc();
+    void sortByYearBuiltAsc();
+    void sortByYearBuiltDesc();
+    void sortByYearNotBuiltAsc();
+    void sortByYearNotBuiltDesc();
+    void sortByYearUnknownBuiltAsc();
+    void sortByYearUnknownBuiltDesc();
 
 
     void returnToView();
+
 
 
 private:
