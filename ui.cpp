@@ -423,14 +423,7 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
-<<<<<<< HEAD
 void UI::getPersonInfo()
-=======
-
-
-void UI::getPersonInfo()
-
->>>>>>> 366fe4dc51e0378ee759b5af9267deb48d517b75
 {
     char keepGoing = ' ';
     //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
@@ -609,23 +602,7 @@ string UI::getComputerName()
 int UI::getYearMade()
 {
     int computerYearMade = 0;
-/*
-<<<<<<< HEAD
-                {
-                    do{
-                        cout << "Input year designed (input 0 for unknown): ";
-                        cin >> computerYearMade;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(!(computerYearMade <= yearNow))
-                            {
-                               displayError();
-                            }
-                    }while(!(computerYearMade <= yearNow));
 
-        return computerYearMade;
-    }
-=======
     do{
         cout << "Input year designed (input 0 for unknown): ";
         cin >> computerYearMade;
@@ -637,16 +614,9 @@ int UI::getYearMade()
                 displayError();
             }
 
-<<<<<<< HEAD
     }while(!((computerYearMade <= yearNow) && (computerYearMade >= CstartYear)));
 
-=======
-    }while(!(((computerYearMade <= yearNow)) && (computerYearMade >= CstartYear) && (computerYearMade == 0)));
-*/
->>>>>>> 366fe4dc51e0378ee759b5af9267deb48d517b75
     return computerYearMade;
-
-
 }
 
 string UI::getComputerType()
