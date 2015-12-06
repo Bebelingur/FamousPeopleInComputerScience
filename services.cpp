@@ -1099,8 +1099,6 @@ void Services::displaySortedComp(int i, vector<CompType> Comp)
     cout << endl;
 }
 
-
-
 void Services::displaySortedComputer(vector <CompType> Comp)
 {
     for (unsigned int i = 0; i < Comp.size(); i++)
