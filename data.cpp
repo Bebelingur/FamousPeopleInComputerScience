@@ -21,6 +21,7 @@ vector<InfoType> data::loadPersData()
     while(query.next())
     {
         InfoType p;
+        p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
         p.gender = convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
@@ -28,7 +29,7 @@ vector<InfoType> data::loadPersData()
         people.push_back(p);
     }
 
-    //db.close();
+    db.close();
 
     return people;
 }
@@ -46,6 +47,7 @@ vector<CompType> data::loadCompData()
     while(query.next())
     {
         CompType c;
+        c.id = query.value("id").toUInt();
         c.compName = query.value("compName").toString().toStdString();
         c.yearMade = query.value("yearMade").toUInt();
         c.type = query.value("type").toString().toStdString();
@@ -53,6 +55,23 @@ vector<CompType> data::loadCompData()
         computers.push_back(c);
     }
     return computers;
+}
+void data::saveDataRelations(RelationsType p)
+{
+    QSqlDatabase db;
+    db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    db.open();
+
+    query.prepare("Insert Into relations(idPerson, idComputer)Values(:peopleId, :computerId)");
+    query.bindValue(":idPerson", p.personId);
+    query.bindValue(":idComputer", p.computerId);
+    if(!query.exec())
+    {
+        qDebug() << "addPersons error:  " << query.lastError();
+    }
+
+
 }
 
 void data::saveDataPersons(InfoType p)

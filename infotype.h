@@ -7,6 +7,7 @@ using namespace std;
 
 struct InfoType
 {
+    int id;
     string name;
     char gender;
     int birthYear;

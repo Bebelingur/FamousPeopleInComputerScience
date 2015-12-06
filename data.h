@@ -8,6 +8,7 @@
 #include <QtCore>
 #include "infotype.h"
 #include "comptype.h"
+#include "relationstype.h"
 #include <QCoreApplication>
 #include <QDebug>
 #include <string>
@@ -27,6 +28,7 @@ public:
     void saveDataPersons(InfoType p);
 
     void saveDataComputers(CompType p);
+    void saveDataRelations(RelationsType p);
 
     char convertToChar(string a);
 
