@@ -28,7 +28,10 @@ int main()
 
    QSqlQuery query(db);
    QSqlQuery query2(db);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8b98be5826d425928ae8f467bc1e640f36a2b623
    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
    string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL, FOREIGN KEY (id)REFERENCES persons (id));";
 
