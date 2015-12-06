@@ -527,12 +527,12 @@ void Services::backToSortMenu()
 
 void Services::searchVectorName()
 {
+    vector<InfoType> FP = connection.loadPersData();
     string nameSearch;
     cout << "Enter name: ";
     cin >> nameSearch;
     int nameSize = nameSearch.size();
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
-
 
     for(int i = 0; i < nameSize; i++)
     {
@@ -556,21 +556,24 @@ void Services::searchVectorName()
         {
             displayPerson(FP[i]);
             check = true;
-            backToSearchMenu();
+
         }
+
     }
+    backToSearchMenu();
     if(check == false)
     {
         cout << "-------------------------------------------" << endl;
-        cout << "   "<<nameSearch << " was not in file or input not in the right format" << endl;
+        cout << "   "<<nameSearch << " was not in database or input not in the right format" << endl;
         cout << "-------------------------------------------" << endl;
         cout << "--- Please try again. ---" << endl;
         cout << endl;
     }
-
+    FP.clear();
 }
 void Services::searchVectorGender()
 {
+    vector<InfoType> FP = connection.loadPersData();
     string genderSearch;
         bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -592,10 +595,11 @@ void Services::searchVectorGender()
                 {
                     displayPerson(FP[i]);
                     check = true;
-                    backToSearchMenu();
+
                 }
             }
         }
+        backToSearchMenu();
         if(check == false || genderSearch.size() != 1)
         {
             cout << "-------------------------------------------" << endl;
@@ -604,10 +608,12 @@ void Services::searchVectorGender()
             cout << "--- Please try again. ---" << endl;
             cout << endl;
         }
+        FP.clear();
 }
 
 void Services::searchVectorBirthYear()
 {
+    vector<InfoType> FP = connection.loadPersData();
     string birthYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
@@ -623,18 +629,20 @@ void Services::searchVectorBirthYear()
                 {
                     displayPerson(FP[i]);
                     check = true;
-                    backToSearchMenu();
+
                 }
             }
         }
+        backToSearchMenu();
         if(check == false)
         {
             cout << "-------------------------------------------" << endl;
-            cout << "Birth year " << birthYearSearch << " is not in file or input not in the right format" << endl;
+            cout << "Birth year " << birthYearSearch << " is not in database or input not in the right format" << endl;
             cout << "-------------------------------------------" << endl;
             cout << "--- Please try again. ---" << endl;
             cout << endl;
         }
+        FP.clear();
 }
 void Services::searchVectorDeathYear()
 {
@@ -654,24 +662,25 @@ void Services::searchVectorDeathYear()
                 {
                     displayPerson(FP[i]);
                     check = true;
-                    backToSearchMenu();
+
                 }
             }
         }
+        backToSearchMenu();
         if(check == false)
         {
             cout << "-------------------------------------------"<<endl;
-            cout << "Death year "<<  deathYearSearch << " is not in file or input not in the right format" << endl;
+            cout << "Death year "<<  deathYearSearch << " is not in database or input not in the right format" << endl;
             cout << "-------------------------------------------"<<endl;
             cout << "--- Please try again. ---" << endl;
             cout << endl;
         }
+        FP.clear();
 }
 
 void Services::searchVector()
 {
     UI user;
-    fillVector();//búum til vektorinn
     user.searchMenu();
 }
 void Services::backToSearchMenu()

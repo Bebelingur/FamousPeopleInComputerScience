@@ -46,7 +46,7 @@ int main()
     }
 
     QSqlQuery qry(db2);
-    string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt VARCHAR NOT NULL);";
+    string qryCreate = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
     qry.exec(QString(qryCreate.c_str()));
     db2.close();
 
