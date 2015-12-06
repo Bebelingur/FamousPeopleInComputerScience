@@ -42,7 +42,7 @@ public:
     void getComputerInfo();
     string getComputerType();
     int getYearMade();
-    int getWasBuilt();
+    int getWasBuilt(int computerYearMade);
     string getComputerName();
     void searchPersonMenu();
     void searchComputerMenu();

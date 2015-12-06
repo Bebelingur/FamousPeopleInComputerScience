@@ -568,7 +568,7 @@ void UI::getComputerInfo()
             string computerName = getComputerName();
             int computerYearMade = getYearMade();
             string computerType = getComputerType();
-            int wasBuilt = getWasBuilt();
+            int wasBuilt = getWasBuilt(computerYearMade);
 
             Services c;
             c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
@@ -665,7 +665,7 @@ string UI::getComputerType()
     return type;
 }
 
-int UI::getWasBuilt()
+int UI::getWasBuilt(int computerYearMade)
 {
     char choice = ' ';
     int built = 0;
@@ -682,8 +682,17 @@ int UI::getWasBuilt()
             {
                 if(toupper(choice) == 'Y')
                 {
+                    do
+                    {
                     cout << "What year was the computer built?: ";
                     cin >> built;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(!((built < yearNow) && (built >= computerYearMade)))
+                        {
+                            displayError();
+                        }
+                    }while(!((built < yearNow) && (built >= computerYearMade)));
                 }
                 else if(toupper(choice) == 'N')
                 {
@@ -692,7 +701,7 @@ int UI::getWasBuilt()
                 }
                 else if(choice == '?')
                 {
-                    //ef ekki er vitað hvenær hún var byggðð(sett saman og hún virkaði) þá fær hún gildið 1
+                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
                     built = 1;
                 }
             }
