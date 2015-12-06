@@ -82,11 +82,11 @@ void data::saveDataPersons(InfoType p)
 }
 void data::saveDataComputers(CompType p)
 {
-    QSqlDatabase db2;
-    db2 = QSqlDatabase::database("first");
-    QSqlQuery query(db2);
+    QSqlDatabase db;
+    db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
 
-    db2.open();
+    db.open();
 
     QString qcompName = QString::fromUtf8(p.compName.c_str());
     QString qtype = QString::fromUtf8(p.type.c_str());
@@ -101,7 +101,7 @@ void data::saveDataComputers(CompType p)
     {
         qDebug() << "addComputer error:  " << query.lastError();
     }
-    db2.close();
+    db.close();
 }
 
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
