@@ -423,7 +423,6 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
-
 void UI::getInfo()
 {
     char keepGoing = ' ';
@@ -713,13 +712,14 @@ void UI::inputMenu()
         cout << endl;
         cout << "1. Input person" << endl;
         cout << "2. Input computer" << endl;
-        cout << "3. Return to main menu" << endl;
+        cout << "3. Add relation between person and computer" << endl;
+        cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
         switch(choice)
         {
@@ -734,6 +734,10 @@ void UI::inputMenu()
                 break;
             }
             case 3:
+            {
+            addRelation();
+            }
+            case 4:
             {
             userMenu();
                 break;
@@ -1032,4 +1036,8 @@ void UI::sortMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
     userMenu();
+}
+void UI::addRelation()
+{
+
 }

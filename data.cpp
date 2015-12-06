@@ -28,18 +28,6 @@ vector<InfoType> data::loadPersData()
         people.push_back(p);
     }
 
-
-
-    int size = people.size();
-    for( int i = 0; i < size; i++)
-    {
-       cout<<people.at(i).name<<endl;
-       cout<<people.at(i).gender<<endl;
-       cout<<people.at(i).birthYear<<endl;
-       cout<<people.at(i).deathYear<<endl;
-       cout<<endl;
-    }
-
     //db.close();
 
     return people;
