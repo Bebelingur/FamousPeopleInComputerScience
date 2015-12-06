@@ -602,7 +602,7 @@ string UI::getComputerName()
     return name;
 }
 
-int UI::getYearMade()
+int UI::getYearMade()//
 {
     int computerYearMade = 0;
     bool check = false;
