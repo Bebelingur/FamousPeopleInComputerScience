@@ -841,12 +841,12 @@ void UI::sortComputerNameMenu()
         {
             case 1:
             {
-                //c.sortByComputerNameAsc();
+                c.sortByComputerNameAsc();
                 break;
             }
             case 2:
             {
-                //c.sortByComputerNameDesc();
+                c.sortByComputerNameDesc();
                 break;
             }
             case 3:
@@ -881,12 +881,12 @@ void UI::sortComputerYearMadeMenu()
         {
             case 1:
             {
-                //c.sortByYearMadeAsc();
+                c.sortByYearMadeAsc();
                 break;
             }
             case 2:
             {
-                //c.sortByYearMadeDesc();
+                c.sortByYearMadeDesc();
                 break;
             }
             case 3:
@@ -921,12 +921,12 @@ void UI::sortComputerTypeMenu()
         {
             case 1:
             {
-                //c.sortByComputerTypeAsc();
+                c.sortByComputerTypeAsc();
                 break;
             }
             case 2:
             {
-                //c.sortByComputerTypeDesc();
+                c.sortByComputerTypeDesc();
                 break;
             }
             case 3:

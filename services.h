@@ -23,7 +23,6 @@ public:
     // setti upp eins fall og addPerson nema bara fyrir tölvurnar
     // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
-    void fillVector();
     //tekur skjalið og setur inn í vektor
     void viewPersonsInfo();
     string changeName(InfoType p);
@@ -43,6 +42,8 @@ public:
     void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();
 
+
+
     void searchVector();
     //leitar í vektornum úr skjalinu
     void searchVectorName();
@@ -56,7 +57,18 @@ public:
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 
+    void displaySortedComputer(vector <CompType> Comp);
+    void displaySortedComp(int i, vector<CompType> Comp);
+    void sortByComputerNameAsc();
+    void sortByComputerNameDesc();
+    void sortByYearMadeAsc();
+    void sortByYearMadeDesc();
+    void sortByComputerTypeAsc();
+    void sortByComputerTypeDesc();
+
+
     void returnToView();
+
 
 private:
     vector <InfoType> FP;
