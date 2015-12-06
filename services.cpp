@@ -2,9 +2,9 @@
 
 using namespace std;
 
+//fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
 const int yearNow = 2015;
 const int alive = (yearNow + 1);
-//Fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
 
 Services::Services()
 {}
@@ -33,46 +33,26 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-void Services::fillVector()//loaddata fallið skilar vektor úr databaseinu, þorði ekki að eyða samt - SDS
-{
-    //breyta file fyrir sql og fylla þaðan í vektor
-    ifstream getFile;
-    getFile.open("InfoFile.txt");
-
-        if(getFile.fail())
-        {
-            cout << "Could not open file." << endl;
-        }
-        else{
-            while(!getFile.eof())
-            {
-                InfoType p;
-                getline(getFile, p.name, '*');
-                getFile >> p.gender;
-                getFile >> p.birthYear;
-                getFile >> p.deathYear;
-                FP.push_back(p);
-            }
-            getFile.close();
-        }
-}
 void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     vector <InfoType> x = makePersonsVector();
-    cout << "* * * VIEW INFORMATION * * *" << endl;
 
-        for(unsigned int i = 0; i < x.size(); i++)
-        {
-            InfoType b;
-            b.name = x.at(i).name;
-            b.gender = x.at(i).gender;
-            b.birthYear = x.at(i).birthYear;
-            b.deathYear = x.at(i).deathYear;
-            displayPerson(b);
-        }
+    UI c;
 
+    for(unsigned int i = 0; i < x.size(); i++)
+    {
+        InfoType b;
+        b.name = x.at(i).name;
+        b.gender = x.at(i).gender;
+        b.birthYear = x.at(i).birthYear;
+        b.deathYear = x.at(i).deathYear;
+        c.displayPerson(b);
+    }
+}
+
+void Services::returnToView()
+{
     char input;
-    cout << "--- Press any key and then enter to return to main menu ---" << endl;
     cin >> input;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
@@ -83,7 +63,7 @@ void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem b
         }
 }
 
-void Services::displayPerson(InfoType p)
+/*void Services::displayPerson(InfoType p)
 {
     cout << endl;
     string tempName = changeName(p);
@@ -108,7 +88,7 @@ void Services::displayPerson(InfoType p)
             cout << "Year of death: " << p.deathYear << endl;
         }
     cout << endl;
-}
+}*/
 
 string Services::changeName(InfoType p)
 {
@@ -506,6 +486,7 @@ void Services::backToSortMenu()
 
 void Services::searchVectorName()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string nameSearch;
     cout << "Enter name: ";
@@ -533,7 +514,7 @@ void Services::searchVectorName()
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            displayPerson(FP[i]);
+            c.displayPerson(FP[i]);
             check = true;
 
         }
@@ -552,6 +533,7 @@ void Services::searchVectorName()
 }
 void Services::searchVectorGender()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string genderSearch;
         bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -572,7 +554,7 @@ void Services::searchVectorGender()
 
                 if(genderSearch == tempGender)
                 {
-                    displayPerson(FP[i]);
+                    c.displayPerson(FP[i]);
                     check = true;
 
                 }
@@ -593,6 +575,7 @@ void Services::searchVectorGender()
 
 void Services::searchVectorBirthYear()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string birthYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -607,7 +590,7 @@ void Services::searchVectorBirthYear()
             {
                 if(birthYearSearchI == FP[i].birthYear)
                 {
-                    displayPerson(FP[i]);
+                    c.displayPerson(FP[i]);
                     check = true;
 
                 }
@@ -627,6 +610,7 @@ void Services::searchVectorBirthYear()
 }
 void Services::searchVectorDeathYear()
 {
+    UI c;
     vector <InfoType> FP = makePersonsVector();
     string deathYearSearch;
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -642,7 +626,7 @@ void Services::searchVectorDeathYear()
             {
                 if(deathYearSearchI == FP[i].deathYear)
                 {
-                    displayPerson(FP[i]);
+                    c.displayPerson(FP[i]);
                     check = true;
 
                 }

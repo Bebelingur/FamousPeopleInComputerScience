@@ -5,11 +5,10 @@
 #include <algorithm>
 #include "data.h"
 #include "infotype.h"
-#include "ui.h"
 #include "comptype.h"
 #include "relationstype.h"
 #include <string>
-
+#include "ui.h"
 
 using namespace std;
 
@@ -59,13 +58,14 @@ public:
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 
-
+    void returnToView();
 
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
     vector <RelationsType> Rel;
     data connection;
+    //UI uiconnection;
 };
 
 #endif // SERVICES_H

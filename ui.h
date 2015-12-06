@@ -49,6 +49,7 @@ public:
     void sortComputerMenu();
     void sortPersonMenu();
     void addRelation();
+    void displayPerson(InfoType p);
 };
 
 #endif // UI_H
