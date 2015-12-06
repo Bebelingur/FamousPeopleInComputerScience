@@ -56,6 +56,17 @@ public:
     void sortByYearMadeDesc();
     void sortByComputerTypeAsc();
     void sortByComputerTypeDesc();
+<<<<<<< HEAD
+=======
+    void sortByYearBuiltAsc();
+    void sortByYearBuiltDesc();
+    void sortByYearNotBuiltAsc();
+    void sortByYearNotBuiltDesc();
+    void sortByYearUnknownBuiltAsc();
+    void sortByYearUnknownBuiltDesc();
+
+
+>>>>>>> 26c4bf93dc3c42ccd23e55aa91383af0c341544b
     void returnToView();
 
 private:

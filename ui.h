@@ -44,12 +44,16 @@ public:
     void sortComputerNameMenu();
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
-    void sortComputerBuiltMenu();
+    void sortComputerWasBuiltMenu();
     void sortComputerMenu();
     void sortPersonMenu();
     void addRelation();
     void displayPerson(InfoType p);
     void displayComputer(CompType c);
+    void sortComputerBuiltMenu();
+    void sortComputerYearBuiltMenu();
+    void sortComputerNotBuiltMenu();
+    void sortComputerUnkownBuiltMenu();
 };
 
 #endif // UI_H
