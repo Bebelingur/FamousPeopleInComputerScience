@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 data::data()
 {
     //personFilename = ''first'';
