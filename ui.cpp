@@ -66,7 +66,7 @@ void UI::sortPersonMenu()
         cout << "2. Sort by gender" << endl;
         cout << "3. Sort by year of birth" << endl;
         cout << "4. Sort by year of death" << endl;
-        cout << "5. Return to main menu" << endl;
+        cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
         do{
@@ -98,7 +98,7 @@ void UI::sortPersonMenu()
             }
             case 5:
             {
-            userMenu();
+            sortMenu();
                 break;
             }
         }
@@ -794,7 +794,7 @@ void UI::sortComputerMenu()
         cout << "2. Sort by year" << endl;
         cout << "3. Sort by computer type" << endl;
         cout << "4. Sort by built/not built" << endl;
-        cout << "5. Return to main menu" << endl;
+        cout << "5. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
         choice = chooseNumber();
@@ -823,7 +823,7 @@ void UI::sortComputerMenu()
             }
             case 5:
             {
-            userMenu();
+            sortMenu();
                 break;
             }
         }
