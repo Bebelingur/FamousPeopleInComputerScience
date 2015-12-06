@@ -33,6 +33,7 @@ vector<InfoType> data::loadPersData()
 vector<CompType> data::loadCompData()
 {
     vector<CompType> computers;
+
     QSqlDatabase db;
     db = QSqlDatabase::database("second");
     QSqlQuery query(db);
@@ -45,7 +46,7 @@ vector<CompType> data::loadCompData()
         c.compName = query.value("compName").toString().toStdString();
         c.yearMade = query.value("yearMade").toUInt();
         c.type = query.value("type").toString().toStdString();
-        c.wasBuilt = query.value("wasBuilt").toString().toUInt();
+        c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
     }
     return computers;
@@ -73,11 +74,8 @@ void data::saveDataComputers(CompType p)
     db2 = QSqlDatabase::database("second");
     QSqlQuery query(db2);
 
-    //string wasBuilt = convertToString(p.wasBuilt);
-
     QString qcompName = QString::fromUtf8(p.compName.c_str());
     QString qtype = QString::fromUtf8(p.type.c_str());
-    //QString qwasBuilt = QString::fromUtf8(wasBuilt.c_str());
 
     query.prepare("INSERT INTO computers(compName, yearMade, type, wasBuilt)VALUES(:compName, :yearMade, :type, :wasBuilt)");
     query.bindValue(":compName", qcompName);
