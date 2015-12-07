@@ -133,6 +133,7 @@ void Services::viewRelationPerson()
             }
         }while(name == "");
 
+        //kemur villumelding hérna!
         std::string stringID = std::to_string(persID);
         QString qString = QString::fromUtf8(stringID.c_str());
         vector<CompType> computers;
@@ -184,6 +185,7 @@ UI a;
         }
     }while(name == "");
 
+    //kemur villumelding hérna!
     std::string stringID = std::to_string(persID);
     QString qString = QString::fromUtf8(stringID.c_str());
     vector<InfoType> people;
