@@ -36,7 +36,7 @@ int main()
    query.exec(QString(queryCreate.c_str()));
    query2.exec(QString(queryCreate2.c_str()));
    query3.exec(QString(queryCreate3.c_str()));
-
+/*
    string queryCreate4 = "CREATE UNIQUE INDEX computerPrimaryKey on computers (id ASC);";
    string queryCreate5 = "CREATE UNIQUE INDEX relations ON person_machine_rel (idPerson ASC, idComputer ASC);";
    string queryCreate6 = "CREATE UNIQUE INDEX relations ON relations (ID ASC);";
@@ -44,7 +44,7 @@ int main()
    query4.exec(QString(queryCreate4.c_str()));
    query5.exec(QString(queryCreate5.c_str()));
    query6.exec(QString(queryCreate6.c_str()));
-   query7.exec(QString(queryCreate7.c_str()));
+   query7.exec(QString(queryCreate7.c_str()));*/
 
    UI people;
    people.userMenu();

@@ -20,29 +20,12 @@ class Services
 public:
     Services();
 
-<<<<<<< HEAD
+
     void addRelation(int personId, int computerId);
-=======
->>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
+
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
-<<<<<<< HEAD
-    //tekur skjalið og setur inn í vektor
-    vector<InfoType> viewPersonsInfo();
-    string changeName(InfoType p);
-    void sortByNameAsc();
-    void sortByNameDesc();
-    void sortByYearAsc();
-    void sortByYearDesc();
-    void sortByGenderMale();
-    void sortByGenderFemale();
-    void sortByGenderUndecided();
-    void sortByDeathYearAsc();
-    void sortByDeathYearDesc();
     void displaySortedPerson(vector<InfoType> FP);
-    void sortByDeceased();
-    void sortByNotDeceased();
-
 
     void makeRelation();
     void viewRelationPerson();
@@ -50,22 +33,9 @@ public:
 
     void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();
-
-
-
     void searchVector();
-    //leitar í vektornum úr skjalinu
-    void searchVectorName();
-    void searchVectorGender();
-    void searchVectorBirthYear();
-    void searchVectorDeathYear();
-    void backToSearchMenu();
-    void viewComputerInfo();
 
-    void searchVectorComputersName();
-=======
 
->>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 

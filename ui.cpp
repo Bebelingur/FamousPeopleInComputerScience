@@ -50,8 +50,8 @@ Services a;
                 searchMenu();
                 break;
             case 5:
-                a.makeRelation();
-                break;
+                a.viewRelationPerson();
+                   break;
             case 6:
                 exit(1);
         }

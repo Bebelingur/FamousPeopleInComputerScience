@@ -257,30 +257,9 @@ vector <InfoType> Services::sortByNotDeceased()
 
 vector<InfoType> Services::searchVectorName(string nameSearch)
 {
-<<<<<<< HEAD
-    UI user;
-    char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.sortMenu();
-        }
-}
 
-void Services::searchVectorName()
-{   
-    UI c;
-    vector <InfoType> FP = makePersonsVector();
-    string nameSearch;
-    cin >> nameSearch;
-=======
-    vector <InfoType> FP = makePersonsVector();
-    vector <InfoType> result;
->>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
-
+    vector<InfoType> x = makePersonsVector();
+    vector<InfoType> result;
     int nameSize = nameSearch.size();
 
     for(int i = 0; i < nameSize; i++)
@@ -289,9 +268,9 @@ void Services::searchVectorName()
         //setjum innsláttinn í lower case
     }
 
-    for(unsigned int i = 0; i < FP.size(); i++)
+    for(int i = 0; i < (int) x.size(); i++)
     {
-        string tempName = FP[i].name;
+        string tempName = x[i].name;
         nameSize = tempName.size();
 
         for(int j = 0; j < nameSize; j++)
@@ -299,13 +278,13 @@ void Services::searchVectorName()
             tempName[j] = tolower(tempName[j]);
             //setjum nafnið í skjalinu í lower case og berum svo saman
         }
+
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            result.push_back(FP[i]);
+            result.push_back(x[i]);
         }
     }
-    FP.clear();
     return result;
 }
 
@@ -614,7 +593,6 @@ void Services::makeRelation()
       {
           CompType c;
           c.id = query.value("id").toUInt();
-          cout << query.value("compName").toString().toStdString();
           compID = c.id;
       }
       }while(compID == 0);
@@ -630,24 +608,27 @@ void Services::makeRelation()
       {
           InfoType p;
           p.id = query.value("id").toUInt();
-          cout << query.value("name").toString().toStdString();
           persID = p.id;
       }
       }while(persID == 0);
         bool check = false;
-      query.exec("SELECT* FROM relation");
+
+      query.exec("SELECT* FROM relations");
+
       while(query.next())
       {
           RelationsType r;
           r.computerId = query.value("idComputer").toUInt();
           r.personId = query.value("idPerson").toUInt();
 
-          if(r.computerId == compID && r.personId == persID)
+          if((r.computerId == compID) && (r.personId == persID))
           {
                 cout<<"relation is already in database"<<endl;
-                check = true;
+                check = false;
           }
+
       }
+
       if(check == false)
       {
           addRelation(persID, compID);
@@ -660,6 +641,7 @@ void Services::makeRelation()
 void Services::viewRelationComputer()
 {
     UI a;
+    data b;
 
     string name = "";
     //int persID;
@@ -668,6 +650,7 @@ void Services::viewRelationComputer()
     db = QSqlDatabase::database("first");
     db.open();
     QSqlQuery query(db);
+    do
     {
     cout<<"Enter name: ";
     cin>>name;
@@ -689,7 +672,11 @@ void Services::viewRelationComputer()
     while(query.next())
     {
         InfoType p;
+        p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
+        p.gender = b.convertToChar(query.value("sex").toString().toStdString());
+        p.birthYear = query.value("yearBorn").toUInt();
+        p.deathYear = query.value("yearDead").toUInt();
 
         people.push_back(p);
     }
@@ -709,6 +696,7 @@ void Services::viewRelationPerson()
     db = QSqlDatabase::database("first");
     db.open();
     QSqlQuery query(db);
+    do
     {
     cout<<"Enter name: ";
     cin>>name;
@@ -730,8 +718,11 @@ void Services::viewRelationPerson()
     while(query.next())
     {
         CompType c;
+        c.id = query.value("id").toUInt();
         c.compName = query.value("compName").toString().toStdString();
-
+        c.yearMade = query.value("yearMade").toUInt();
+        c.type = query.value("type").toString().toStdString();
+        c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
     }
     for(unsigned int i = 0; i < computers.size(); i++)
