@@ -573,7 +573,6 @@ vector <CompType> Services::sortByYearUnknownBuiltDesc()
 
 void Services::makeRelation()
 {
-
       string name;
       int compID = 0;
       int persID = 0;
@@ -583,10 +582,10 @@ void Services::makeRelation()
       QSqlQuery query(db);
       do
       {
-          cout<<"enter name of computer: ";
+          cout<<"Enter name of computer: ";
           cin>>name;
           QString qName = QString::fromUtf8(name.c_str());
-          query.exec("SELECT compName, id FROM computers WHERE compName = '"+qName+"'");
+          query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
 
           while(query.next())
           {
@@ -598,10 +597,10 @@ void Services::makeRelation()
 
       do
       {
-          cout<<"enter name: ";
+          cout<<"Enter name: ";
           cin>>name;
           QString qName = QString::fromUtf8(name.c_str());
-          query.exec("SELECT name, id FROM persons WHERE name = '"+qName+"'");
+          query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
 
           while(query.next())
           {
@@ -633,8 +632,6 @@ void Services::makeRelation()
       {
           addRelation(persID, compID);
       }
-
-
 }
 
 void Services::viewRelationComputer()
@@ -653,7 +650,7 @@ void Services::viewRelationComputer()
         cout<<"Enter computer name: ";
         cin>>name;
         QString qName = QString::fromUtf8(name.c_str());
-        query.exec("SELECT compName, id FROM computers WHERE compName = '"+qName+"'");
+        query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
         while(query.next())
         {
             InfoType p;
@@ -662,7 +659,7 @@ void Services::viewRelationComputer()
         }
     }while(name == "");
 
-    string stringID = std::to_string(persID);
+    std::string stringID = std::to_string(persID);
     QString qString = QString::fromUtf8(stringID.c_str());
     vector<InfoType> people;
     query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+qString+"'");
@@ -684,7 +681,7 @@ void Services::viewRelationComputer()
     if(people.size() ==0)
     {
         cout<<endl;
-        cout<<"| | |relation is already in database| | |"<<endl;
+        cout<<"| | |name not in database or no relations to show| | |"<<endl;
         cout<<endl;
     }
 }
@@ -703,17 +700,16 @@ void Services::viewRelationPerson()
         cout<<"Enter name: ";
         cin>>name;
         QString qName = QString::fromUtf8(name.c_str());
-        query.exec("SELECT name, id FROM persons WHERE name = '"+qName+"'");
+        query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
         while(query.next())
         {
             InfoType p;
             p.id = query.value("id").toUInt();
-            cout << query.value("name").toString().toStdString();
             persID = p.id;
         }
     }while(name == "");
 
-    string stringID = std::to_string(persID);
+    std::string stringID = std::to_string(persID);
     QString qString = QString::fromUtf8(stringID.c_str());
     vector<CompType> computers;
     query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = '"+qString+"'");

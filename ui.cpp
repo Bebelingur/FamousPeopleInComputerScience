@@ -661,7 +661,7 @@ void UI::relationMenu()
                 break;
 
             case 3:
-                s.viewPersonsInfo();
+                s.viewRelationPerson();
                 break;
             case 4:
                 userMenu();
@@ -1638,7 +1638,7 @@ int UI::chooseNumber()
     cout << endl;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
         {
             displayError();
         }
