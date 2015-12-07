@@ -24,6 +24,7 @@ public:
     void viewInfoMenu();
 
     void displaySortedPersons(vector<InfoType> FP);
+    void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
     void sortMenu();
     void sortNameMenu();
     void sortGenderMenu();
@@ -45,7 +46,8 @@ public:
     string getComputerName();
     void searchPersonMenu();
 
-    void displaySortedComputers(int i, vector<CompType> Comp);
+    void displaySortedComputers(vector<CompType> Comp);
+    void displaySortedComputersSpecial(int i, vector<CompType> Comp);
     void sortComputerNameMenu();
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();

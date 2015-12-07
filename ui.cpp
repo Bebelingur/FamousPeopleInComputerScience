@@ -304,6 +304,41 @@ void UI::displaySortedPersons(vector<InfoType> FP)
     }
     }
 }
+void UI::displaySortedPersonsSpecial(int i, vector<InfoType> FP)
+{
+    cout << "Name: " << FP.at(i).name<< endl;
+    if(toupper(FP.at(i).gender) == 'F')
+    {
+        cout << "Gender: " << "Female" << endl;
+    }
+    else if(toupper(FP.at(i).gender) == 'M')
+    {
+        cout << "Gender: " << "Male" << endl;
+    }
+    else if(FP.at(i).gender != '?')
+    {
+        cout << "------------------------------------------------------------" << endl;
+        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
+        cout << "------------------------------------------------------------" << endl;
+        cout << endl;
+    }
+    else
+    {
+        cout << "Gender: " << "Undecided" << endl;
+    }
+    cout << "Year of birth: " << FP.at(i).birthYear << endl;
+    if(FP.at(i).deathYear == 0)
+    {
+        cout << "Not deceased!" << endl;
+        cout << endl;
+    }
+    else
+    {
+        cout << "Year of death: " << FP.at(i).deathYear << endl;
+        cout << endl;
+    }
+}
+
 void UI::sortNameMenu()
 {
     Services p;
@@ -332,6 +367,7 @@ void UI::sortNameMenu()
                 cout << endl;
                 vector <InfoType> FP = p.sortByNameAsc();
                 displaySortedPersons(FP);
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -340,7 +376,8 @@ void UI::sortNameMenu()
                 cout << "--- Displaying persons by name in descending order ---" << endl;
                 cout << endl;
                 vector <InfoType> FP = p.sortByNameDesc();
-                    displaySortedPersons(FP);
+                displaySortedPersons(FP);
+                backToSortMenu();
                 break;
             }
             case 3:
@@ -381,7 +418,14 @@ void UI::sortGenderMenu()
                 cout << "--- Displaying male persons ---" << endl;
                 cout << endl;
                 vector <InfoType> FP = p.sortByGenderMale();
-                displaySortedPersons(FP);
+                for(unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(toupper(FP.at(i).gender) == 'M')
+                    {
+                        displaySortedPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -390,7 +434,14 @@ void UI::sortGenderMenu()
                 cout << "--- Displaying female persons ---" << endl;
                 cout << endl;
                 vector <InfoType> FP = p.sortByGenderFemale();
-                displaySortedPersons(FP);
+                for(unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(toupper(FP.at(i).gender) == 'F')
+                    {
+                        displaySortedPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
                 break;
              }
             case 3:
@@ -399,7 +450,14 @@ void UI::sortGenderMenu()
                 cout << "--- Displaying persons of undecided gender ---" << endl;
                 cout << endl;
                 vector <InfoType> FP = p.sortByGenderUndecided();
-                displaySortedPersons(FP);
+                for(unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(FP.at(i).gender == '?')
+                    {
+                        displaySortedPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
                 break;
              }
              case 4:
@@ -438,6 +496,7 @@ void UI::sortYearOfBirthMenu()
                 cout << endl;
                 vector <InfoType> FP = p.sortByYearAsc();
                 displaySortedPersons(FP);
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -447,6 +506,7 @@ void UI::sortYearOfBirthMenu()
                 cout << endl;
                 vector <InfoType> FP = p.sortByYearDesc();
                 displaySortedPersons(FP);
+                backToSortMenu();
                 break;
             }
             case 3:
@@ -483,6 +543,7 @@ void UI::sortYearOfDeathMenu()
                 cout << endl;
                 vector <InfoType> FP = p.sortByDeathYearAsc();
                 displaySortedPersons(FP);
+                backToSortMenu();
                 break;
              }
              case 2:
@@ -492,6 +553,7 @@ void UI::sortYearOfDeathMenu()
                 cout << endl;
                 vector <InfoType> FP = p.sortByDeathYearDesc();
                 displaySortedPersons(FP);
+                backToSortMenu();
                 break;
              }
             case 3:
@@ -504,9 +566,10 @@ void UI::sortYearOfDeathMenu()
                 {
                     if(FP.at(i).deathYear > 0)
                     {
-                        displaySortedPersons(FP);
+                        displaySortedPersonsSpecial(i, FP);
                     }
                 }
+                backToSortMenu();
                 break;
             }
             case 4:
@@ -519,9 +582,10 @@ void UI::sortYearOfDeathMenu()
                 {
                     if(FP.at(i).deathYear == 0)
                     {
-                        displaySortedPersons(FP);
+                        displaySortedPersonsSpecial(i, FP);
                     }
                 }
+                backToSortMenu();
                 break;
             }
              case 5:
@@ -966,6 +1030,27 @@ void UI::displaySortedComputers(vector<CompType> Comp)
     }
 }
 
+void UI::displaySortedComputersSpecial(int i, vector<CompType> Comp)
+{
+    cout << endl;
+    cout << "Computer name: " << Comp.at(i).compName << endl;
+    cout << "Year designed: " << Comp.at(i).yearMade << endl;
+    cout << "Computer type: " << Comp.at(i).type << endl;
+        if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
+        {
+            cout << "Year built: " << Comp.at(i).wasBuilt << endl;
+        }
+        else if (Comp.at(i).wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (Comp.at(i).wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
+    cout << endl;
+}
+
 void UI::sortComputerNameMenu()
 {
     Services c;
@@ -994,6 +1079,7 @@ void UI::sortComputerNameMenu()
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerNameAsc();
                 displaySortedComputers(Comp);
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -1003,6 +1089,7 @@ void UI::sortComputerNameMenu()
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerNameDesc();
                 displaySortedComputers(Comp);
+                backToSortMenu();
                 break;
             }
             case 3:
@@ -1042,6 +1129,7 @@ void UI::sortComputerYearMadeMenu()
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearMadeAsc();
                 displaySortedComputers(Comp);
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -1090,6 +1178,7 @@ void UI::sortComputerTypeMenu()
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerTypeAsc();
                 displaySortedComputers(Comp);
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -1099,6 +1188,7 @@ void UI::sortComputerTypeMenu()
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerTypeDesc();
                 displaySortedComputers(Comp);
+                backToSortMenu();
                 break;
             }
             case 3:
@@ -1222,9 +1312,10 @@ void UI::sortComputerYearBuiltMenu()
                 {
                     if(Comp.at(i).wasBuilt > 1)
                     {
-                        displaySortedComputers(Comp);
+                        displaySortedComputersSpecial(i, Comp);
                     }
                 }
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -1237,9 +1328,10 @@ void UI::sortComputerYearBuiltMenu()
                 {
                     if(Comp.at(i).wasBuilt > 1)
                     {
-                        displaySortedComputers(Comp);
+                        displaySortedComputersSpecial(i, Comp);
                     }
                 }
+                backToSortMenu();
                 break;
              }
              case 3:
@@ -1280,9 +1372,10 @@ void UI::sortComputerNotBuiltMenu()
                 {
                     if(Comp.at(i).wasBuilt == 0)
                     {
-                        displaySortedComputers(Comp);
+                        displaySortedComputersSpecial(i, Comp);
                     }
                 }
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -1295,9 +1388,10 @@ void UI::sortComputerNotBuiltMenu()
                 {
                     if(Comp.at(i).wasBuilt == 0)
                     {
-                        displaySortedComputers(Comp);
+                        displaySortedComputersSpecial(i, Comp);
                     }
                 }
+                backToSortMenu();
                 break;
              }
              case 3:
@@ -1338,9 +1432,10 @@ void UI::sortComputerUnkownBuiltMenu()
                 {
                     if(Comp.at(i).wasBuilt == 1)
                     {
-                        displaySortedComputers(Comp);
+                        displaySortedComputersSpecial(i, Comp);
                     }
                 }
+                backToSortMenu();
                 break;
             }
             case 2:
@@ -1353,9 +1448,10 @@ void UI::sortComputerUnkownBuiltMenu()
                 {
                     if(Comp.at(i).wasBuilt == 1)
                     {
-                        displaySortedComputers(i, Comp);
+                        displaySortedComputersSpecial(i, Comp);
                     }
                 }
+                backToSortMenu();
                 break;
              }
              case 3:
