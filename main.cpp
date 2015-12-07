@@ -12,12 +12,8 @@ void connect();
 
 int main()
 {
-   //CONNECTIONS TO DATABASE
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
-
-
    db = QSqlDatabase::database("first");
-
    QString dbName = "database.sqlite";
 
    db.setDatabaseName(dbName);
