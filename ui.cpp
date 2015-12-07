@@ -26,14 +26,14 @@ void UI::userMenu()
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
-        cout << "5. Add Relatinon" << endl;
+        cout << "5. Add or view relatinon between person and computer" << endl;
         cout << "6. Exit" << endl;
         cout << "===========================================" << endl;
 
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6);
-Services a;
+
         switch(choice)
         {
             case 1:
@@ -49,8 +49,8 @@ Services a;
                 searchMenu();
                 break;
             case 5:
-                a.makeRelation();
-                break;
+                relationMenu();
+                   break;
             case 6:
                 exit(1);
         }
@@ -863,7 +863,49 @@ void UI::sortComputerMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
     sortComputerMenu();
 }
+<<<<<<< HEAD
 void UI::sortComputerNameMenu()
+=======
+void UI::relationMenu()
+{
+    Services s;
+    int choice;
+
+    do{
+        cout << "* * * SEARCH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Add relations between computer and persons" << endl;
+        cout << "2. View persons related to computer" << endl;
+        cout << "3. View computers related to person" << endl;
+        cout << "4. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+
+        switch(choice)
+        {
+            case 1:
+                s.makeRelation();
+                break;
+            case 2:
+                s.viewRelationComputer();
+                break;
+
+            case 3:
+                s.viewPersonsInfo();
+                break;
+            case 4:
+                userMenu();
+            break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+
+}
+
+void UI::backToSearch()
+>>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777
 {
     Services c;
 
@@ -1120,9 +1162,15 @@ void UI::sortComputerNotBuiltMenu()
     do{
         cout << "* * * SORT BY NOT BUILT INFORMATION * * *" << endl;
         cout << endl;
+<<<<<<< HEAD
         cout << "1. Sort by not built (Ascending)" << endl;
         cout << "2. Sort by not built (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
+=======
+        cout << "1. Input person" << endl;
+        cout << "2. Input computer" << endl;
+        cout << "3. Return to main menu" << endl;
+>>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777
         cout << "===========================================" << endl;
 
         do{
@@ -1149,6 +1197,7 @@ void UI::sortComputerNotBuiltMenu()
             }
             case 2:
             {
+<<<<<<< HEAD
                 cout << endl;
                 cout << "--- Displaying computers not made in descending order ---" << endl;
                 cout << endl;
@@ -1161,6 +1210,15 @@ void UI::sortComputerNotBuiltMenu()
                     }
                 }
                 backToSortMenu();
+=======
+                getComputerInfo();
+                break;
+            }
+
+            case 3:
+            {
+                userMenu();
+>>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777
                 break;
              }
              case 3:
@@ -1584,6 +1642,7 @@ void UI::displayError()
 void UI::falseCheck(string x)
 {
 
+<<<<<<< HEAD
     cout << "-------------------------------------------" << endl;
     cout << "   "<< x << " was not in database or input not in the right format" << endl;
     cout << "-------------------------------------------" << endl;
@@ -1596,3 +1655,6 @@ void UI::addRelation()
 {
        cout << "Need stuff here" << endl;
 }
+=======
+
+>>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777

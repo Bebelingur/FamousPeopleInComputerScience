@@ -22,7 +22,24 @@ public:
     void userMenu();
     //INPUT
     void inputMenu();
+<<<<<<< HEAD
     //PERSON INFO INPUT
+=======
+    void viewInfoMenu();
+    void relationMenu();
+
+    void displaySortedPersons(vector<InfoType> FP);
+    void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
+    void sortMenu();
+    void sortNameMenu();
+    void sortGenderMenu();
+    void sortYearOfBirthMenu();
+    void sortYearOfDeathMenu();
+
+    void searchMenu();
+    int chooseNumber();
+    void displayError();
+>>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777
     void getPersonInfo();
     string getName();
     char getGender();
@@ -53,6 +70,16 @@ public:
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
     void sortComputerWasBuiltMenu();
+<<<<<<< HEAD
+=======
+    void sortComputerMenu();
+    void sortPersonMenu();
+    void displayPerson(InfoType p);
+    void displayComputer(CompType c);
+
+    void falseCheck(string nameSearch);
+
+>>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777
     void sortComputerBuiltMenu();
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();

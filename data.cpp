@@ -27,7 +27,6 @@ vector<InfoType> data::loadPersData()
         people.push_back(p);
     }
 
-    db.close();
 
     return people;
 }
@@ -58,7 +57,7 @@ void data::saveDataRelations(RelationsType p)
     QSqlDatabase db;
     db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-    db.open();
+
 
     query.prepare("Insert Into relations(idPerson, idComputer)Values(:idPerson, :idComputer)");
     query.bindValue(":idPerson", p.personId);
@@ -67,15 +66,12 @@ void data::saveDataRelations(RelationsType p)
     {
         qDebug() << "addPersons error:  " << query.lastError();
     }
-    db.close();
 }
 void data::saveDataPersons(InfoType p)
 {
     QSqlDatabase db;
     db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-
-    db.open();
 
     string sex = convertToString(p.gender);
     QString qName = QString::fromUtf8(p.name.c_str());
@@ -91,16 +87,12 @@ void data::saveDataPersons(InfoType p)
     {
         qDebug() << "addPersons error:  " << query.lastError();
     }
-
-    db.close();
 }
 void data::saveDataComputers(CompType p)
 {
     QSqlDatabase db;
     db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-
-    db.open();
 
     QString qcompName = QString::fromUtf8(p.compName.c_str());
     QString qtype = QString::fromUtf8(p.type.c_str());
@@ -115,7 +107,6 @@ void data::saveDataComputers(CompType p)
     {
         qDebug() << "addComputer error:  " << query.lastError();
     }
-    db.close();
 }
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
