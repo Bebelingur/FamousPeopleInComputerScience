@@ -52,13 +52,17 @@ public:
     void displayPerson(InfoType p);
     void displayComputer(CompType c);
 
-    void falseCheck(bool check, string nameSearch);
+    void falseCheck(string nameSearch);
 
     void sortComputerBuiltMenu();
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();
     void sortComputerUnkownBuiltMenu();
-
+    void backToSearch();
+    void backToView();
+    void searchPersDisplay(vector<InfoType> x, string y);
+    void searchCompDisplay(vector<CompType> x, string y);
+    void searchComputerMenu();
 };
 
 #endif // UI_H

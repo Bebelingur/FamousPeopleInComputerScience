@@ -45,18 +45,16 @@ public:
     void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();
 
-
-
     void searchVector();
     //leitar í vektornum úr skjalinu
-    void searchVectorName();
-    void searchVectorGender();
-    void searchVectorBirthYear();
-    void searchVectorDeathYear();
+    vector<InfoType> searchVectorName(string nameSearch);
+    vector<InfoType> searchVectorGender(string genderSearch);
+    vector<InfoType> searchVectorBirthYear(string birthYearSearch);
+    vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     void backToSearchMenu();
-    void viewComputerInfo();
+    vector<CompType> viewComputerInfo();
 
-    void searchVectorComputersName();
+    vector<CompType> searchVectorComputersName(string);
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 
@@ -77,7 +75,6 @@ public:
 
 
     void returnToView();
-
 
 
 private:

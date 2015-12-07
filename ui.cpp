@@ -282,7 +282,6 @@ void UI::sortYearOfDeathMenu()
 
 void UI::searchMenu()
 {
-    Services p;
 
     int choice;
 
@@ -304,15 +303,57 @@ void UI::searchMenu()
                 searchPersonMenu();
                 break;
             case 2:
-                cout << "* * * SEARCH INFORMATION * * *" << endl;
-                cout << endl;
-                p.searchVectorComputersName();
+            {
+                searchComputerMenu();
                 break;
+            }
             case 3:
                 userMenu();
                 break;
         }
     }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+void UI::backToSearch()
+{
+    char input;
+    cout << "--- Press any key and then enter to return to search menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            searchMenu();
+        }
+}
+
+void UI::searchCompDisplay(vector<CompType> x, string y){
+    if(!x.empty())
+    {
+        for(unsigned int i =  0; i < x.size(); i++)
+        {
+            displayComputer(x[i]);
+        }
+    }
+    else
+    {
+        falseCheck(y);
+    }
+}
+
+
+void UI::searchPersDisplay(vector<InfoType> x, string y){
+    if(!x.empty())
+    {
+        for(unsigned int i =  0; i < x.size(); i++)
+        {
+            displayPerson(x[i]);
+        }
+    }
+    else
+    {
+        falseCheck(y);
+    }
 }
 
 void UI::searchPersonMenu()
@@ -338,28 +379,67 @@ void UI::searchPersonMenu()
         switch(choice)
         {
             case 1:
+            {
+                string nameSearch;
                 cout << "Enter name: " << endl;
-                p.searchVectorName();
+                cin >> nameSearch;
+                vector <InfoType> x = p.searchVectorName(nameSearch);
+                searchPersDisplay(x, nameSearch);
+                x.clear();
+                backToSearch();
                 break;
+            }
             case 2:
-                p.searchVectorGender();
+            {
+                string genderSearch;
+                cout << "Enter gender (M for male, F for female or ? for undecided): ";
+                cin >> genderSearch;
+                vector <InfoType> x = p.searchVectorGender(genderSearch);
+                searchPersDisplay(x, genderSearch);
+                x.clear();
+                backToSearch();
                 break;
+            }
             case 3:
-                p.searchVectorBirthYear();
+            {
+                string birthYearSearch;
+                cout << "Enter year of birth: ";
+                cin >> birthYearSearch;
+                vector <InfoType> x = p.searchVectorBirthYear(birthYearSearch);
+                searchPersDisplay(x, birthYearSearch);
+                x.clear();
+                backToSearch();
                 break;
+            }
             case 4:
-                p.searchVectorBirthYear();
+            {
+                string deathYearSearch;
+                cout << "Enter death year: ";
+                cin >> deathYearSearch;
+                vector <InfoType> x = p.searchVectorDeathYear(deathYearSearch);
+                searchPersDisplay(x, deathYearSearch);
+                x.clear();
+                backToSearch();
                 break;
+            }
             case 5:
-                //FP.clear();//hreinsum vektorinn eftir notkun
                 userMenu();
                 break;
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
 }
 
-
-//á eftir að græja search föllin fyrir computers
+void UI::searchComputerMenu()
+{
+    Services p;
+    cout << "* * * SEARCH COMPUTER INFORMATION * * *" << endl;
+    cout << endl;
+    string nameSearch;
+    cout << "Enter name: ";
+    cin >> nameSearch;
+    vector<CompType> x = p.searchVectorComputersName(nameSearch);
+    searchCompDisplay(x, nameSearch);
+}
 
 int UI::chooseNumber()
 {
@@ -728,6 +808,19 @@ void UI::inputMenu()
     userMenu();
 }
 
+void UI::backToView()
+{
+    cout << "--- Press any key and then enter to return to view menu ---" << endl;
+    char input;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            viewInfoMenu();
+        }
+}
+
 void UI::viewInfoMenu()
 {
     Services p;
@@ -754,27 +847,19 @@ void UI::viewInfoMenu()
                 vector<InfoType> x = p.viewPersonsInfo();
                 for(unsigned int i = 0; i < x.size(); i++)
                 {
-                    InfoType b;
-                    b.name = x.at(i).name;
-                    b.gender = x.at(i).gender;
-                    b.birthYear = x.at(i).birthYear;
-                    b.deathYear = x.at(i).deathYear;
-                    displayPerson(b);
+                    displayPerson(x[i]);
                 }
-                cout << "--- Press any key and then enter to return to view menu ---" << endl;
-                char input;
-                cin >> input;
-                cin.clear();
-                cin.ignore(INT_MAX, '\n');
-                    if(input)
-                    {
-                        viewInfoMenu();
-                    }
+                backToView();
                 break;
             }
             case 2:
             {
-                p.viewComputerInfo();
+                cout << "* * * VIEW COMPUTER INFORMATION * * *" << endl;
+                vector<CompType> x = p.viewComputerInfo();
+                for(unsigned int i = 0; i < x.size(); i++)
+                {
+                    displayComputer(x[i]);
+                }
                 break;
             }
             case 3:
@@ -1103,16 +1188,15 @@ void UI::displayComputer(CompType c)
 }
 
 
-void UI::falseCheck(bool check, string nameSearch)
+void UI::falseCheck(string x)
 {
-    if(check == false)
-    {
-        cout << "-------------------------------------------" << endl;
-        cout << "   "<<nameSearch << " was not in database or input not in the right format" << endl;
-        cout << "-------------------------------------------" << endl;
-        cout << "--- Please try again. ---" << endl;
-        cout << endl;
-    }
+
+    cout << "-------------------------------------------" << endl;
+    cout << "   "<< x << " was not in database or input not in the right format" << endl;
+    cout << "-------------------------------------------" << endl;
+    cout << "--- Please try again. ---" << endl;
+    cout << endl;
+
 }
 
 void UI::sortComputerYearBuiltMenu()

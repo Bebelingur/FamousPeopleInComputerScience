@@ -32,12 +32,6 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-vector<InfoType> Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
-{
-    vector <InfoType> x = makePersonsVector();
-    return x;
-}
-
 string Services::changeName(InfoType p)
 {
     string tempName = p.name;
@@ -433,14 +427,14 @@ void Services::backToSortMenu()
         }
 }
 
-void Services::searchVectorName()
+
+
+vector<InfoType> Services::searchVectorName(string nameSearch)
 {
-    UI c;
     vector <InfoType> FP = makePersonsVector();
-    string nameSearch;
-    cin >> nameSearch;
+    vector <InfoType> result;
+
     int nameSize = nameSearch.size();
-    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
 
     for(int i = 0; i < nameSize; i++)
     {
@@ -458,72 +452,47 @@ void Services::searchVectorName()
             tempName[j] = tolower(tempName[j]);
             //setjum nafnið í skjalinu í lower case og berum svo saman
         }
-
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            c.displayPerson(FP[i]);
-            check = true;
-
+            result.push_back(FP[i]);
         }
     }
-
-    c.falseCheck(check, nameSearch);
-
     FP.clear();
-    backToSearchMenu();
+    return result;
 }
-void Services::searchVectorGender()
+
+vector<InfoType> Services::searchVectorGender(string genderSearch)
 {
     UI c;
     vector <InfoType> FP = makePersonsVector();
-    string genderSearch;
-        bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
+    vector <InfoType> result;
+    string tempGender;
 
-        cout << "Enter gender (M for male, F for female or ? for undecided): ";
-        cin >> genderSearch;
-        string tempGender;
-        if(genderSearch.size() == 1)
-        {   for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
-            {
-                genderSearch[i] = tolower(genderSearch[i]);
-            }
-            for(unsigned int i = 0; i < FP.size(); i++)
-            {
-                tempGender = FP[i].gender;
-                for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
-                tempGender[j] = tolower(tempGender[j]);
+    for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
+    {
+        genderSearch[i] = tolower(genderSearch[i]);
+    }
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        tempGender = FP[i].gender;
+        for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
+        tempGender[j] = tolower(tempGender[j]);
 
-                if(genderSearch == tempGender)
-                {
-                    c.displayPerson(FP[i]);
-                    check = true;
-
-                }
-            }
-        }
-
-        if(check == false || genderSearch.size() != 1)
+        if(genderSearch == tempGender)
         {
-            cout << "-------------------------------------------" << endl;
-            cout << "Gender " << genderSearch << " was not in file or input not in the right format" << endl;
-            cout << "-------------------------------------------" << endl;
-            cout << "--- Please try again. ---" << endl;
-            cout << endl;
+            result.push_back(FP[i]);
         }
-        backToSearchMenu();
-        FP.clear();
+    }
+    //pusha inn gervimanneskjunni ef engin manneskja fannst af þessu kyni;
+    FP.clear();
+    return result;
 }
 
-void Services::searchVectorBirthYear()
+vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
 {
-    UI c;
     vector <InfoType> FP = makePersonsVector();
-    string birthYearSearch;
-    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
-
-    cout << "Enter year of birth: ";
-        cin >> birthYearSearch;
+    vector <InfoType> result;
         //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
         if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
         {
@@ -532,58 +501,29 @@ void Services::searchVectorBirthYear()
             {
                 if(birthYearSearchI == FP[i].birthYear)
                 {
-                    c.displayPerson(FP[i]);
-                    check = true;
+                    result.push_back(FP[i]);
                 }
             }
         }
-
-        if(check == false)
-        {
-            cout << "-------------------------------------------" << endl;
-            cout << "Birth year " << birthYearSearch << " is not in database or input not in the right format" << endl;
-            cout << "-------------------------------------------" << endl;
-            cout << "--- Please try again. ---" << endl;
-            cout << endl;
-        }
-        FP.clear();
-        backToSearchMenu();
+        return result;
 }
-void Services::searchVectorDeathYear()
+vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
 {
-    UI c;
     vector <InfoType> FP = makePersonsVector();
-    string deathYearSearch;
-    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
-
-
-        cout << "Enter death year: ";
-        cin >> deathYearSearch;
-        //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
-        if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
+    vector <InfoType> result;
+    //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+    if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
+    {
+        int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+        for(unsigned int i = 0; i < FP.size(); i++)
         {
-            int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
-            for(unsigned int i = 0; i < FP.size(); i++)
+            if(deathYearSearchI == FP[i].deathYear)
             {
-                if(deathYearSearchI == FP[i].deathYear)
-                {
-                    c.displayPerson(FP[i]);
-                    check = true;
-
-                }
+                result.push_back(FP[i]);
             }
         }
-
-        if(check == false)
-        {
-            cout << "-------------------------------------------"<<endl;
-            cout << "Death year "<<  deathYearSearch << " is not in database or input not in the right format" << endl;
-            cout << "-------------------------------------------"<<endl;
-            cout << "--- Please try again. ---" << endl;
-            cout << endl;
-        }
-        FP.clear();
-        backToSearchMenu();
+    }
+    return result;
 }
 
 void Services::searchVector()
@@ -591,47 +531,17 @@ void Services::searchVector()
     UI user;
     user.searchMenu();
 }
-void Services::backToSearchMenu()
+
+vector<InfoType> Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
-    UI user;
-    char input;
-    cout << "--- Press any key and then enter to return to search menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            user.searchMenu();
-        }
+    vector <InfoType> x = makePersonsVector();
+    return x;
 }
 
-//þetta fall á að taka upplýsingar úr gagnagrunninum og birta þær
-void Services::viewComputerInfo()
+vector<CompType> Services::viewComputerInfo()
 {
-    UI p;
-    vector <CompType> x = connection.loadCompData();
-
-        cout << "* * * VIEW INFORMATION * * *" << endl;
-
-        for(unsigned int i = 0; i < x.size(); i++)
-        {
-            CompType c;
-            c.compName = x.at(i).compName;
-            c.yearMade = x.at(i).yearMade;
-            c.type = x.at(i).type;
-            c.wasBuilt = x.at(i).wasBuilt;
-            p.displayComputer(c);
-        }
-
-    char input;
-    cout << "--- Press any key and then enter to return to main menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            p.viewInfoMenu();
-        }
+    vector <CompType> x = makeComputerVector();
+    return x;
 }
 
 vector<InfoType> Services::makePersonsVector()
@@ -645,16 +555,11 @@ vector<CompType> Services::makeComputerVector()
    return c;
 }
 
-void Services::searchVectorComputersName()
+vector<CompType> Services::searchVectorComputersName(string nameSearch)
 {
-    vector <CompType> x = makeComputerVector();
-    UI p;
-    string nameSearch;
-    cout << "Enter name: ";
-    cin >> nameSearch;
+    vector<CompType> x = makeComputerVector();
+    vector<CompType> result;
     int nameSize = nameSearch.size();
-    bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
-
 
     for(int i = 0; i < nameSize; i++)
     {
@@ -676,20 +581,10 @@ void Services::searchVectorComputersName()
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            p.displayComputer(x[i]);
-            check = true;
-            backToSearchMenu();
+            result.push_back(x[i]);
         }
     }
-    if(check == false)
-    {
-        cout << "-------------------------------------------" << endl;
-        cout << "   " << nameSearch << " was not in file or input not in the right format" << endl;
-        cout << "-------------------------------------------" << endl;
-        cout << "--- Please try again. ---" << endl;
-        cout << endl;
-    }
-
+    return result;
 }
 
 
