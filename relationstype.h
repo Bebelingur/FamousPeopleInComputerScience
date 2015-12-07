@@ -7,10 +7,9 @@ using namespace std;
 
 struct RelationsType
 {
-    int computerId;
     int personId;
+    int computerId;
 };
 
 
 #endif // RELATIONSTYPE
-

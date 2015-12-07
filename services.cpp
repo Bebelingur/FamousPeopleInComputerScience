@@ -1,8 +1,9 @@
+//Hallo Drifa!
 #include "services.h"
 
 using namespace std;
 
-//fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
+//fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll, gera freka daginn í dag
 const int yearNow = 2015;
 const int alive = (yearNow + 1);
 
@@ -19,6 +20,14 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     p.deathYear = dYear;
     data personsToData;
     personsToData.saveDataPersons(p);
+}
+void Services::addRelation(int personId, int computerId)
+{
+    RelationsType p;
+    p.personId = personId;
+    p.computerId = computerId;
+    data relationsToData;
+    relationsToData.saveDataRelations(p);
 }
 
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
@@ -249,9 +258,9 @@ vector <InfoType> Services::sortByNotDeceased()
 
 vector<InfoType> Services::searchVectorName(string nameSearch)
 {
-    vector <InfoType> FP = makePersonsVector();
-    vector <InfoType> result;
 
+    vector<InfoType> x = makePersonsVector();
+    vector<InfoType> result;
     int nameSize = nameSearch.size();
 
     for(int i = 0; i < nameSize; i++)
@@ -260,9 +269,9 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
         //setjum innsláttinn í lower case
     }
 
-    for(unsigned int i = 0; i < FP.size(); i++)
+    for(int i = 0; i < (int) x.size(); i++)
     {
-        string tempName = FP[i].name;
+        string tempName = x[i].name;
         nameSize = tempName.size();
 
         for(int j = 0; j < nameSize; j++)
@@ -270,13 +279,13 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
             tempName[j] = tolower(tempName[j]);
             //setjum nafnið í skjalinu í lower case og berum svo saman
         }
+
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
         if(found != (int) std::string::npos)
         {
-            result.push_back(FP[i]);
+            result.push_back(x[i]);
         }
     }
-    FP.clear();
     return result;
 }
 
@@ -472,7 +481,7 @@ bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b)
 
 vector <CompType> Services::sortByComputerNameAsc()
 {
-    vector <CompType> Comp = makeComputerVector();  
+    vector <CompType> Comp = makeComputerVector();
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     return Comp;
 }
@@ -561,4 +570,170 @@ vector <CompType> Services::sortByYearUnknownBuiltDesc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
 
     return Comp;
+}
+
+void Services::makeRelation()
+{
+      string name;
+      int compID = 0;
+      int persID = 0;
+
+      QSqlDatabase db;
+      db = QSqlDatabase::database("first");
+      QSqlQuery query(db);
+      do
+      {
+          cout<<"Enter name of computer: ";
+          cin>>name;
+          QString qName = QString::fromUtf8(name.c_str());
+          query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
+
+          while(query.next())
+          {
+              CompType c;
+              c.id = query.value("id").toUInt();
+              compID = c.id;
+          }
+      }while(compID == 0);
+
+      do
+      {
+          cout<<"Enter name: ";
+          cin>>name;
+          QString qName = QString::fromUtf8(name.c_str());
+          query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
+
+          while(query.next())
+          {
+              InfoType p;
+              p.id = query.value("id").toUInt();
+              persID = p.id;
+          }
+      }while(persID == 0);
+
+      bool check = false;
+
+      query.exec("SELECT* FROM relations");
+      while(query.next())
+      {
+          RelationsType r;
+          r.computerId = query.value("idComputer").toUInt();
+          r.personId = query.value("idPerson").toUInt();
+
+          if((r.computerId == compID) && (r.personId == persID))
+          {
+                cout<<endl;
+                cout<<"| | |relation is already in database| | |"<<endl;
+                cout<<endl;
+                check = true;
+          }
+      }
+
+      if(check == false)
+      {
+          addRelation(persID, compID);
+      }
+}
+
+void Services::viewRelationComputer()
+{
+    UI a;
+    data b;
+
+    string name = "";
+    //int persID;
+    QSqlDatabase db;
+    int persID = 0;
+    db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    do
+    {
+        cout<<"Enter computer name: ";
+        cin>>name;
+        QString qName = QString::fromUtf8(name.c_str());
+        query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
+        while(query.next())
+        {
+            InfoType p;
+            p.id = query.value("id").toUInt();
+            persID = p.id;
+        }
+    }while(name == "");
+
+    std::string stringID = std::to_string(persID);
+    QString qString = QString::fromUtf8(stringID.c_str());
+    vector<InfoType> people;
+    query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+qString+"'");
+    while(query.next())
+    {
+        InfoType p;
+        p.id = query.value("id").toUInt();
+        p.name = query.value("name").toString().toStdString();
+        p.gender = b.convertToChar(query.value("sex").toString().toStdString());
+        p.birthYear = query.value("yearBorn").toUInt();
+        p.deathYear = query.value("yearDead").toUInt();
+
+        people.push_back(p);
+    }
+    for(unsigned int i = 0; i < people.size(); i++)
+    {
+        a.displayPerson(people[i]);
+    }
+    if(people.size() ==0)
+    {
+        cout<<endl;
+        cout<<"| | |name not in database or no relations to show| | |"<<endl;
+        cout<<endl;
+    }
+}
+void Services::viewRelationPerson()
+{
+    UI a;
+
+    string name = "";
+    //int persID;
+    QSqlDatabase db;
+    int persID = 0;
+    db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    do
+    {
+        cout<<"Enter name: ";
+        cin>>name;
+        QString qName = QString::fromUtf8(name.c_str());
+        query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
+        while(query.next())
+        {
+            InfoType p;
+            p.id = query.value("id").toUInt();
+            persID = p.id;
+        }
+    }while(name == "");
+
+    std::string stringID = std::to_string(persID);
+    QString qString = QString::fromUtf8(stringID.c_str());
+    vector<CompType> computers;
+    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = '"+qString+"'");
+    while(query.next())
+    {
+        CompType c;
+        c.id = query.value("id").toUInt();
+        c.compName = query.value("compName").toString().toStdString();
+        c.yearMade = query.value("yearMade").toUInt();
+        c.type = query.value("type").toString().toStdString();
+        c.wasBuilt = query.value("wasBuilt").toUInt();
+        computers.push_back(c);
+    }
+    for(unsigned int i = 0; i < computers.size(); i++)
+    {
+        a.displayComputer(computers[i]);
+    }
+
+    if(computers.size() == 0)
+    {
+        cout<<endl;
+        cout<<"| | |name not in database or no relations to show| | |"<<endl;
+        cout<<endl;
+    }
+
 }

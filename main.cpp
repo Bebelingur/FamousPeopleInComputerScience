@@ -26,9 +26,10 @@ int main()
    QSqlQuery query2(db);
    QSqlQuery query3(db);
 
+
    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
    string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
-   string queryCreate3 = "CREATE TABLE relations(idPerson INEGER, idComputer INTEGER);";
+   string queryCreate3 = "CREATE TABLE relations(idPerson INEGER, idComputer INTEGER,FOREIGN KEY(idPerson) REFERENCES persons(id), FOREIGN KEY(idComputer) REFERENCES computers(id));";
    query.exec(QString(queryCreate.c_str()));
    query2.exec(QString(queryCreate2.c_str()));
    query3.exec(QString(queryCreate3.c_str()));
