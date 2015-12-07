@@ -1,4 +1,3 @@
-//Hallo Drifa!
 #include "services.h"
 
 using namespace std;
