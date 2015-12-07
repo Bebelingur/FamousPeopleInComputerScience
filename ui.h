@@ -35,6 +35,7 @@ public:
     string getComputerType();
     int getWasBuilt(int computerYearMade);
     //RELATION INFO INPUT
+    void relationMenu();
     //VIEW
     void viewInfoMenu();
     void backToView();

@@ -1,3 +1,4 @@
+
 #ifndef SERVICES_H
 #define SERVICES_H
 #include <cstdlib>
@@ -19,10 +20,11 @@ public:
     //ADD FÖLLIN
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
+    void addRelation(int personId, int computerId);
     //MAKE FÖLLIN
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
-    //void makeRelation();
+    void makeRelation();
     //VIEW FÖLLIN
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();

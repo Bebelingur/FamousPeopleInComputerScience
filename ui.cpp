@@ -50,8 +50,8 @@ void UI::userMenu()
                 searchMenu();
                 break;
             case 5:
-                //relationMenu();
-                   break;
+                relationMenu();
+                break;
             case 6:
                 exit(1);
         }
@@ -638,7 +638,7 @@ void UI::relationMenu()
                 break;
 
             case 3:
-                s.viewRelationPerson();
+                s.viewPersonsInfo();
                 break;
             case 4:
                 userMenu();
@@ -1578,7 +1578,51 @@ void UI::backToSortMenu()
             sortMenu();
         }
 }
+void UI::relationMenu()
+{
+    Services s;
+    int choice;
 
+    do{
+        cout << "* * * RELATIONS * * *" << endl;
+        cout << endl;
+        cout << "1. Add relation between comuter and person" << endl;
+        cout << "2. Find persons related to computer" << endl;
+        cout << "3. Find computers related to person" << endl;
+        cout << "4. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+
+
+        switch(choice)
+        {
+            case 1:
+            {
+            s.makeRelation();
+                break;
+            }
+            case 2:
+            {
+            s.viewRelationComputer();
+                break;
+            }
+            case 3:
+            {
+            s.viewRelationPerson();
+                break;
+            }
+            case 4:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+    sortMenu();
+}
 int UI::chooseNumber()
 {
     int choice;
