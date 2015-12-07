@@ -66,12 +66,10 @@ public:
     //SEARCH COMPUTERS
     void searchComputerMenu();
     //DISPLAY
-    void displayPerson(InfoType p);
-    void displaySortedPersons(vector<InfoType> FP);
-    void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
-    void displayComputer(CompType c);
-    void displaySortedComputers(vector<CompType> Comp);
-    void displaySortedComputersSpecial(int i, vector<CompType> Comp);
+    void displayPersons(vector<InfoType> FP);
+    void displayPersonsSpecial(int i, vector<InfoType> FP);
+    void displayComputers(vector<CompType> Comp);
+    void displayComputersSpecial(int i, vector<CompType> Comp);
     void searchPersDisplay(vector<InfoType> x, string y);
     void searchCompDisplay(vector<CompType> x, string y);
     //ANNAÐ
