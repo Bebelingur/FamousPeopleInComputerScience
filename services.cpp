@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
+//fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll, gera freka daginn í dag
 const int yearNow = 2015;
 const int alive = (yearNow + 1);
 
