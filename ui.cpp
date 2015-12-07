@@ -50,8 +50,8 @@ void UI::userMenu()
                 searchMenu();
                 break;
             case 5:
-                relationMenu();
-                   break;
+                //relationMenu();
+                break;
             case 6:
                 exit(1);
         }
@@ -270,42 +270,11 @@ void UI::displayPerson(InfoType p)
     cout << endl;
 }
 
-//Fall sem birtir persónur eftir að búið er að sorta lista
 void UI::displaySortedPersons(vector<InfoType> FP)
 {
     for (unsigned int i = 0; i < FP.size(); i++)
     {
-    cout << "Name: " << FP.at(i).name<< endl;
-    if(toupper(FP.at(i).gender) == 'F')
-    {
-        cout << "Gender: " << "Female" << endl;
-    }
-    else if(toupper(FP.at(i).gender) == 'M')
-    {
-        cout << "Gender: " << "Male" << endl;
-    }
-    else if(FP.at(i).gender != '?')
-    {
-        cout << "------------------------------------------------------------" << endl;
-        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
-        cout << "------------------------------------------------------------" << endl;
-        cout << endl;
-    }
-    else
-    {
-        cout << "Gender: " << "Undecided" << endl;
-    }
-    cout << "Year of birth: " << FP.at(i).birthYear << endl;
-    if(FP.at(i).deathYear == 0)
-    {
-        cout << "Not deceased!" << endl;
-        cout << endl;
-    }
-    else
-    {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-    }
+        displaySortedPersonsSpecial(i, FP);
     }
 }
 void UI::displaySortedPersonsSpecial(int i, vector<InfoType> FP)
@@ -633,6 +602,7 @@ void UI::searchMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+/*
 void UI::relationMenu()
 {
     Services s;
@@ -670,7 +640,7 @@ void UI::relationMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 
 }
-
+*/
 void UI::backToSearch()
 {
     char input;
@@ -1152,23 +1122,7 @@ void UI::displaySortedComputers(vector<CompType> Comp)
 {
     for (unsigned int i = 0; i < Comp.size(); i++)
     {
-    cout << endl;
-    cout << "Computer name: " << Comp.at(i).compName << endl;
-    cout << "Year designed: " << Comp.at(i).yearMade << endl;
-    cout << "Computer type: " << Comp.at(i).type << endl;
-        if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
-        {
-            cout << "Year built: " << Comp.at(i).wasBuilt << endl;
-        }
-        else if (Comp.at(i).wasBuilt == 0)
-        {
-            cout << "Computer has not been built." << endl;
-        }
-        else if (Comp.at(i).wasBuilt == 1)
-        {
-            cout << "Computer has been built but year built is unknown." << endl;
-        }
-    cout << endl;
+        displaySortedComputersSpecial(i, Comp);
     }
 }
 
@@ -1426,17 +1380,6 @@ void UI::sortMenu()
 }
 
 
-void UI::falseCheck(string x)
-{
-
-    cout << "-------------------------------------------" << endl;
-    cout << "   "<< x << " was not in database or input not in the right format" << endl;
-    cout << "-------------------------------------------" << endl;
-    cout << "--- Please try again. ---" << endl;
-    cout << endl;
-
-}
-
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;
@@ -1651,5 +1594,16 @@ void UI::displayError()
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
 }
+void UI::falseCheck(string x)
+{
+
+    cout << "-------------------------------------------" << endl;
+    cout << "   "<< x << " was not in database or input not in the right format" << endl;
+    cout << "-------------------------------------------" << endl;
+    cout << "--- Please try again. ---" << endl;
+    cout << endl;
+
+}
+
 
 

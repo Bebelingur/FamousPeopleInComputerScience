@@ -77,10 +77,6 @@ public:
     int chooseNumber();
     void displayError();
     void falseCheck(string nameSearch);
-    //RELATION
-    void relationMenu();
-    void addRelation();
-
 };
 
 #endif // UI_H

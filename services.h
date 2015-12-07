@@ -20,6 +20,7 @@ public:
     //ADD FÖLLIN
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
+    void addRelation(int personId, int computerId);
     //MAKE FÖLLIN
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
@@ -61,8 +62,6 @@ public:
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string);
-    //RELATION FÖLLIN
-    void addRelation(int personId, int computerId);
     //ANNAÐ
     string changeName(InfoType p);
 
