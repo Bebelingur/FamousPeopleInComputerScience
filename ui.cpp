@@ -417,7 +417,7 @@ void UI::sortGenderMenu()
                 cout << endl;
                 vector <InfoType> FP = p.sortByGenderUndecided();
 
-                for(unsigned int i = 0; i < FP.size(); i++)
+               /* for(unsigned int i = 0; i < FP.size(); i++)
                 {
                     if(FP.at(i).gender != '?')
                     {
@@ -427,7 +427,7 @@ void UI::sortGenderMenu()
                         cout << endl;
                     }
                     else
-                    {
+                    {*/
                         for (unsigned int i = 0; i < FP.size(); i++)
                         {
                             if(FP.at(i).gender == '?')
@@ -435,8 +435,8 @@ void UI::sortGenderMenu()
                                 displaySortedPersonsSpecial(i, FP);
                             }
                         }
-                    }
-                }
+                    /*}
+                }*/
                 backToSortMenu();
                 break;
              }

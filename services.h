@@ -5,6 +5,7 @@
 #include <cctype>
 #include <algorithm>
 #include <string>
+#include <ctime>
 #include "data.h"
 #include "infotype.h"
 #include "comptype.h"
@@ -64,6 +65,7 @@ public:
     vector<CompType> searchVectorComputersName(string);
     //ANNAÐ
     string changeName(InfoType p);
+    //int yearNow();
 
 private:
     vector <InfoType> FP;

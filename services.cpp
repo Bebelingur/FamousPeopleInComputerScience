@@ -1,13 +1,22 @@
 #include "services.h"
+#include <ctime>
 
 using namespace std;
 
-//fasti sem gefur fólki gildi að það sé ennþá lifandi, nauðsynlegt fyrir sort föll
-const int yearNow = 2015;
+int exactYearNow()
+{
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    int exactYearNow = 1900 + ltm->tm_year;
+    return exactYearNow;
+}
+
+const int yearNow = exactYearNow();
 const int alive = (yearNow + 1);
 
 Services::Services()
 {
+
 }
 //ADD FÖLLIN
 void Services::addRelation(int personId, int computerId)
