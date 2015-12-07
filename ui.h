@@ -65,10 +65,7 @@ public:
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();
     void sortComputerUnkownBuiltMenu();
-<<<<<<< HEAD
     void backToSortMenu();
-=======
->>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 
 };
 

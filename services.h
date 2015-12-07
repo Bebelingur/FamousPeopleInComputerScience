@@ -22,24 +22,6 @@ public:
 
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
-<<<<<<< HEAD
-=======
-    //tekur skjalið og setur inn í vektor
-    vector<InfoType> viewPersonsInfo();
-    string changeName(InfoType p);
-    void sortByNameAsc();
-    void sortByNameDesc();
-    void sortByYearAsc();
-    void sortByYearDesc();
-    void sortByGenderMale();
-    void sortByGenderFemale();
-    void sortByGenderUndecided();
-    void sortByDeathYearAsc();
-    void sortByDeathYearDesc();
-    void displaySortedPerson(vector<InfoType> FP);
-    void sortByDeceased();
-    void sortByNotDeceased();
->>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 
     void viewPersonsInfo();
 
@@ -83,11 +65,6 @@ public:
 
     void returnToView();
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
