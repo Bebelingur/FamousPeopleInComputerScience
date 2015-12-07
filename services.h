@@ -18,14 +18,15 @@ using namespace std;
 class Services
 {
 public:
-
     Services();
 
+<<<<<<< HEAD
     void addRelation(int personId, int computerId);
+=======
+>>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
     void addPerson(string name, char gender, int bYear, int dYear);
-    // setti upp eins fall og addPerson nema bara fyrir tölvurnar
-    // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
+<<<<<<< HEAD
     //tekur skjalið og setur inn í vektor
     vector<InfoType> viewPersonsInfo();
     string changeName(InfoType p);
@@ -62,35 +63,56 @@ public:
     void viewComputerInfo();
 
     void searchVectorComputersName();
+=======
+
+>>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
     vector<CompType> makeComputerVector();
     vector<InfoType> makePersonsVector();
 
-    void displaySortedComputer(vector <CompType> Comp);
-    void displaySortedComp(int i, vector<CompType> Comp);
-    void sortByComputerNameAsc();
-    void sortByComputerNameDesc();
-    void sortByYearMadeAsc();
-    void sortByYearMadeDesc();
-    void sortByComputerTypeAsc();
-    void sortByComputerTypeDesc();
-    void sortByYearBuiltAsc();
-    void sortByYearBuiltDesc();
-    void sortByYearNotBuiltAsc();
-    void sortByYearNotBuiltDesc();
-    void sortByYearUnknownBuiltAsc();
-    void sortByYearUnknownBuiltDesc();
+    vector<InfoType> viewPersonsInfo();
+    vector<CompType> viewComputerInfo();
 
+    string changeName(InfoType p);
+
+    vector <InfoType> sortByNameAsc();
+    vector <InfoType> sortByNameDesc();
+    vector <InfoType> sortByYearAsc();
+    vector <InfoType> sortByYearDesc();
+    vector <InfoType> sortByGenderMale();
+    vector <InfoType> sortByGenderFemale();
+    vector <InfoType> sortByGenderUndecided();
+    vector <InfoType> sortByDeathYearAsc();
+    vector <InfoType> sortByDeathYearDesc();
+    vector <InfoType> sortByDeceased();
+    vector <InfoType> sortByNotDeceased();
+
+    vector <CompType> sortByComputerNameAsc();
+    vector <CompType> sortByComputerNameDesc();
+    vector <CompType> sortByYearMadeAsc();
+    vector <CompType> sortByYearMadeDesc();
+    vector <CompType> sortByComputerTypeAsc();
+    vector <CompType> sortByComputerTypeDesc();
+    vector <CompType> sortByYearBuiltAsc();
+    vector <CompType> sortByYearBuiltDesc();
+    vector <CompType> sortByYearNotBuiltAsc();
+    vector <CompType> sortByYearNotBuiltDesc();
+    vector <CompType> sortByYearUnknownBuiltAsc();
+    vector <CompType> sortByYearUnknownBuiltDesc();
+
+    vector<InfoType> searchVectorName(string nameSearch);
+    vector<InfoType> searchVectorGender(string genderSearch);
+    vector<InfoType> searchVectorBirthYear(string birthYearSearch);
+    vector<InfoType> searchVectorDeathYear(string deathYearSearch);
+
+    vector<CompType> searchVectorComputersName(string);
 
     void returnToView();
-
-
 
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
     vector <RelationsType> Rel;
     data connection;
-    //UI uiconnection;
 };
 
 #endif // SERVICES_H
