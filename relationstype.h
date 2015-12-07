@@ -7,8 +7,8 @@ using namespace std;
 
 struct RelationsType
 {
-    int Cid;
-    int Pid;
+    int computerId;
+    int personId;
 };
 
 

@@ -634,6 +634,197 @@ void UI::searchMenu()
 void UI::searchPersonMenu()
 {
     Services p;
+<<<<<<< HEAD
+=======
+
+    int choice;
+
+    do{
+        cout << "* * * SEARCH PERSON INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Search by name"<< endl;
+        cout << "2. Search by gender"<< endl;
+        cout << "3. Search by year of birth"<< endl;
+        cout << "4. Search by year of death"<< endl;
+        cout << "5. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+
+        switch(choice)
+        {
+            case 1:
+                cout << "Enter name: " << endl;
+                p.searchVectorName();
+                break;
+            case 2:
+                p.searchVectorGender();
+                break;
+            case 3:
+                p.searchVectorBirthYear();
+                break;
+            case 4:
+                p.searchVectorBirthYear();
+                break;
+            case 5:
+                //FP.clear();//hreinsum vektorinn eftir notkun
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
+}
+
+
+//á eftir að græja search föllin fyrir computers
+
+int UI::chooseNumber()
+{
+    int choice;
+    cout << "Please choose one of these numbers: ";
+    cin >> choice;
+    cout << "===========================================" << endl;
+    cout << endl;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+        {
+            displayError();
+        }
+    return choice;
+}
+
+void UI::displayError()
+{
+    cout << "------------------------------------------" << endl;
+    cout << "| | | Wrong input. Please try again. | | |" << endl;
+    cout << "------------------------------------------" << endl;
+}
+
+void UI::getPersonInfo()
+{
+    char keepGoing = ' ';
+    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+
+    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << endl;
+    do{
+        string name = getName();
+        char gender = getGender();
+        int bYear = getBirthYear();
+        int dYear = getDeathYear(name, bYear);
+
+        Services p;
+        p.addPerson(name, gender, bYear, dYear);
+
+        //CONTINUE
+        do{
+            cout << "Input more information (Y for yes/N for no): ";
+            cin >> keepGoing;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+                {
+                    displayError();
+                }
+            cout << endl;
+        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+
+    }while(toupper(keepGoing) == 'Y');
+}
+string UI::getName()
+{
+    bool check = false;
+    string name = " ";
+
+    do{
+        cout << "Input name (in the order first, middle and last name): ";
+        cin.clear();
+        getline(cin, name);
+        check = false;
+        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        for(unsigned int i = 0; i < name.size(); i++)
+        {
+            if(isdigit(name[i]))
+            {
+                check = true;
+            }
+        }
+        if(check == true)
+        {
+           displayError();
+        }
+    }while(check == true);
+
+    return name;
+}
+char UI::getGender()
+{
+    char gender = ' ';
+    do{
+        cout << "Input gender (F for female/M for male /? for undecided): ";
+        cin >> gender;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?')
+            {
+               displayError();
+            }
+    }while(toupper(gender) != 'F' && toupper(gender) != 'M' && gender != '?');
+
+    return gender;
+}
+int UI::getBirthYear()
+{
+    int bYear = 0;
+
+    do{
+        cout << "Input year of birth: ";
+        cin >> bYear;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(!((bYear < yearNow) && (bYear >= CstartYear)))
+            {
+                displayError();
+            }
+    }while(!((bYear < yearNow) && (bYear >= CstartYear)));
+
+    return bYear;
+}
+int UI::getDeathYear(string name, int bYear)
+{
+        int dYear = 0;
+        char personDead = ' ';
+
+        do{
+            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+            cin >> personDead;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+
+                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
+                {
+                    displayError();
+                }
+
+                if(toupper(personDead) == 'Y')
+                //fallegra að nota toupper frekar en langa uppröðun - BóE
+                {
+                    do{
+                        cout << "Input year of death: ";
+                        cin >> dYear;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                            if(!((dYear > bYear) && (dYear <= yearNow)))
+                            {
+                                displayError();
+                            }
+                    }while(!((dYear > bYear) && (dYear <= yearNow)));
+                    //year of birth has to be less than year of death - BÓE
+                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
+                    //use a constant for the year, now it is set to 2015, death year should be less or equal
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 
     int choice;
 
@@ -906,9 +1097,25 @@ void UI::viewInfoMenu()
             case 1:
             {
                 cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
-                p.viewPersonsInfo();
+                vector<InfoType> x = p.viewPersonsInfo();
+                for(unsigned int i = 0; i < x.size(); i++)
+                {
+                    InfoType b;
+                    b.name = x.at(i).name;
+                    b.gender = x.at(i).gender;
+                    b.birthYear = x.at(i).birthYear;
+                    b.deathYear = x.at(i).deathYear;
+                    displayPerson(b);
+                }
                 cout << "--- Press any key and then enter to return to view menu ---" << endl;
-                p.returnToView();
+                char input;
+                cin >> input;
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                    if(input)
+                    {
+                        viewInfoMenu();
+                    }
                 break;
             }
             case 2:
@@ -1282,6 +1489,87 @@ void UI::sortMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
     userMenu();
 }
+<<<<<<< HEAD
+=======
+void UI::addRelation()
+{
+       cout << "Need stuff here" << endl;
+}
+
+void UI::displayPerson(InfoType p)
+{
+    Services c;
+    cout << endl;
+    string tempName = c.changeName(p);
+    cout << "Name: " << tempName << endl;
+    cout << "Gender: ";
+        if(toupper(p.gender) == 'F')
+        {
+            cout << "Female" << endl;
+        }
+        else if (toupper(p.gender) == 'M')
+        {
+            cout << "Male" << endl;
+        }
+        else if (p.gender == '?')
+        {
+            cout << "Undecided" << endl;
+        }
+    cout << "Year of birth: " << p.birthYear << endl;
+
+        if(p.deathYear != 0)
+        {
+            cout << "Year of death: " << p.deathYear << endl;
+        }
+    cout << endl;
+}
+
+void UI::displayComputer(CompType c)
+{
+    cout << endl;
+    cout << "Computer name: " << c.compName << endl;
+
+        if(c.yearMade == 0)
+        {
+            cout << "Computer has been designed, year is unknown." << endl;
+        }
+        else
+        {
+            cout << "Year designed: " << c.yearMade << endl;
+        }
+
+    cout << "Computer type: " << c.type << endl;
+
+        if(c.wasBuilt != 0 && c.wasBuilt != 1)
+        {
+            cout << "Year built: " << c.wasBuilt << endl;
+        }
+        else if (c.wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (c.wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
+
+    cout << endl;
+}
+
+
+void UI::falseCheck(bool check, string nameSearch)
+{
+    if(check == false)
+    {
+        cout << "-------------------------------------------" << endl;
+        cout << "   "<<nameSearch << " was not in database or input not in the right format" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "--- Please try again. ---" << endl;
+        cout << endl;
+    }
+}
+
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;

@@ -58,11 +58,17 @@ public:
     void addRelation();
     void displayPerson(InfoType p);
     void displayComputer(CompType c);
+
+    void falseCheck(bool check, string nameSearch);
+
     void sortComputerBuiltMenu();
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();
     void sortComputerUnkownBuiltMenu();
+<<<<<<< HEAD
     void backToSortMenu();
+=======
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 
 };
 

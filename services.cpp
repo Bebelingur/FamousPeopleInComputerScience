@@ -33,9 +33,10 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-void Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
+vector<InfoType> Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
     vector <InfoType> x = makePersonsVector();
+<<<<<<< HEAD
     //UI c;
 
     for(unsigned int i = 0; i < x.size(); i++)
@@ -60,6 +61,9 @@ void Services::returnToView()
             UI p;
             p.viewInfoMenu();
         }
+=======
+    return x;
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 }
 
 string Services::changeName(InfoType p)
@@ -272,7 +276,6 @@ void Services::searchVectorName()
     UI c;
     vector <InfoType> FP = makePersonsVector();
     string nameSearch;
-    cout << "Enter name: ";
     cin >> nameSearch;
     int nameSize = nameSearch.size();
     bool check = false; //check til að athuga hvort það sé búið að finna í leitinni
@@ -303,14 +306,8 @@ void Services::searchVectorName()
         }
     }
 
-    if(check == false)
-    {
-        cout << "-------------------------------------------" << endl;
-        cout << "   "<<nameSearch << " was not in database or input not in the right format" << endl;
-        cout << "-------------------------------------------" << endl;
-        cout << "--- Please try again. ---" << endl;
-        cout << endl;
-    }
+    c.falseCheck(check, nameSearch);
+
     FP.clear();
     backToSearchMenu();
 }
@@ -656,6 +653,13 @@ vector <CompType> Services::sortByComputerTypeDesc()
 vector <CompType> Services::sortByYearBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
+<<<<<<< HEAD
+=======
+    cout << endl;
+    cout << "--- Displaying computers by year built in ascending order ---" << endl;
+    cout << endl;
+
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
     return Comp;
@@ -664,6 +668,13 @@ vector <CompType> Services::sortByYearBuiltAsc()
 vector <CompType> Services::sortByYearBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
+<<<<<<< HEAD
+=======
+    cout << endl;
+    cout << "--- Displaying computers by year built in descending order ---" << endl;
+    cout << endl;
+
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
     return Comp;
@@ -672,6 +683,13 @@ vector <CompType> Services::sortByYearBuiltDesc()
 vector <CompType> Services::sortByYearNotBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
+<<<<<<< HEAD
+=======
+    cout << endl;
+    cout << "--- Displaying computers not built in ascending order ---" << endl;
+    cout << endl;
+
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
     return Comp;
@@ -680,6 +698,13 @@ vector <CompType> Services::sortByYearNotBuiltAsc()
 vector <CompType> Services::sortByYearNotBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
+<<<<<<< HEAD
+=======
+    cout << endl;
+    cout << "--- Displaying computers not built in descending order ---" << endl;
+    cout << endl;
+
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
     return Comp;
@@ -688,6 +713,13 @@ vector <CompType> Services::sortByYearNotBuiltDesc()
 vector <CompType> Services::sortByYearUnknownBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
+<<<<<<< HEAD
+=======
+    cout << endl;
+    cout << "--- Displaying computers unkown if built in ascending order ---" << endl;
+    cout << endl;
+
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
     return Comp;
@@ -696,7 +728,69 @@ vector <CompType> Services::sortByYearUnknownBuiltAsc()
 vector <CompType> Services::sortByYearUnknownBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
+<<<<<<< HEAD
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
     return Comp;
+=======
+    cout << endl;
+    cout << "--- Displaying computers unknown if built in descending order ---" << endl;
+    cout << endl;
+
+    sort(Comp.begin(), Comp.end(), compareCompNameAsc);
+    sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
+
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp.at(i).wasBuilt == 1)
+        {
+            displaySortedComp(i, Comp);
+        }
+    }
+
+    Comp.clear();
+    backToSortMenu();
+}
+
+void Services::displaySortedComp(int i, vector<CompType> Comp)
+{
+    cout << endl;
+
+    cout << "Computer name: " << Comp.at(i).compName << endl;
+
+    if(Comp.at(i).yearMade <= 1)
+    {
+        cout << "Year designed is unknown" << endl;
+    }
+    else
+    {
+        cout << "Year designed: " << Comp.at(i).yearMade << endl;
+    }
+
+    cout << "Computer type: " << Comp.at(i).type << endl;
+
+        if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
+        {
+            cout << "Year built: " << Comp.at(i).wasBuilt << endl;
+        }
+        else if (Comp.at(i).wasBuilt == 0)
+        {
+            cout << "Computer has not been built." << endl;
+        }
+        else if (Comp.at(i).wasBuilt == 1)
+        {
+            cout << "Computer has been built but year built is unknown." << endl;
+        }
+
+    cout << endl;
+}
+
+
+void Services::displaySortedComputer(vector <CompType> Comp)
+{
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        displaySortedComp(i, Comp);
+    }
+>>>>>>> b71754ea35aee13a3c86ad894cffe754e1435e57
 }

@@ -7,6 +7,7 @@ using namespace std;
 
 struct CompType
 {
+    int id;
     string compName;
     int yearMade;
     string type;
