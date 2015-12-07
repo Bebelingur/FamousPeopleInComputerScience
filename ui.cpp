@@ -288,13 +288,6 @@ void UI::displaySortedPersonsSpecial(int i, vector<InfoType> FP)
     {
         cout << "Gender: " << "Male" << endl;
     }
-    else if(FP.at(i).gender != '?')
-    {
-        cout << "------------------------------------------------------------" << endl;
-        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
-        cout << "------------------------------------------------------------" << endl;
-        cout << endl;
-    }
     else
     {
         cout << "Gender: " << "Undecided" << endl;
@@ -423,11 +416,25 @@ void UI::sortGenderMenu()
                 cout << "--- Displaying persons of undecided gender ---" << endl;
                 cout << endl;
                 vector <InfoType> FP = p.sortByGenderUndecided();
+
                 for(unsigned int i = 0; i < FP.size(); i++)
                 {
-                    if(FP.at(i).gender == '?')
+                    if(FP.at(i).gender != '?')
                     {
-                        displaySortedPersonsSpecial(i, FP);
+                        cout << "------------------------------------------------------------" << endl;
+                        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
+                        cout << "------------------------------------------------------------" << endl;
+                        cout << endl;
+                    }
+                    else
+                    {
+                        for (unsigned int i = 0; i < FP.size(); i++)
+                        {
+                            if(FP.at(i).gender == '?')
+                            {
+                                displaySortedPersonsSpecial(i, FP);
+                            }
+                        }
                     }
                 }
                 backToSortMenu();
