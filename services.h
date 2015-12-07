@@ -9,9 +9,7 @@
 #include "infotype.h"
 #include "comptype.h"
 #include "relationstype.h"
-
 #include <string>
-
 
 using namespace std;
 
@@ -19,61 +17,16 @@ class Services
 {
 public:
     Services();
-
-<<<<<<< HEAD
-    void addRelation(int personId, int computerId);
-=======
->>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
+    //ADD FÖLLIN
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
-<<<<<<< HEAD
-    //tekur skjalið og setur inn í vektor
-    vector<InfoType> viewPersonsInfo();
-    string changeName(InfoType p);
-    void sortByNameAsc();
-    void sortByNameDesc();
-    void sortByYearAsc();
-    void sortByYearDesc();
-    void sortByGenderMale();
-    void sortByGenderFemale();
-    void sortByGenderUndecided();
-    void sortByDeathYearAsc();
-    void sortByDeathYearDesc();
-    void displaySortedPerson(vector<InfoType> FP);
-    void sortByDeceased();
-    void sortByNotDeceased();
-
-
-    void makeRelation();
-    void viewRelationPerson();
-    void viewRelationComputer();
-
-    void displaySorted(int i, vector<InfoType> FP);
-    void backToSortMenu();
-
-
-
-    void searchVector();
-    //leitar í vektornum úr skjalinu
-    void searchVectorName();
-    void searchVectorGender();
-    void searchVectorBirthYear();
-    void searchVectorDeathYear();
-    void backToSearchMenu();
-    void viewComputerInfo();
-
-    void searchVectorComputersName();
-=======
-
->>>>>>> dc0bd3efea060c0ce5dfaa06e2482a94fbc8e74c
-    vector<CompType> makeComputerVector();
+    //MAKE FÖLLIN
     vector<InfoType> makePersonsVector();
-
+    vector<CompType> makeComputerVector();
+    //VIEW FÖLLIN
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
-
-    string changeName(InfoType p);
-
+    //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
     vector <InfoType> sortByYearAsc();
@@ -85,7 +38,7 @@ public:
     vector <InfoType> sortByDeathYearDesc();
     vector <InfoType> sortByDeceased();
     vector <InfoType> sortByNotDeceased();
-
+    //SORT COMPUTER FÖLLIN
     vector <CompType> sortByComputerNameAsc();
     vector <CompType> sortByComputerNameDesc();
     vector <CompType> sortByYearMadeAsc();
@@ -98,15 +51,20 @@ public:
     vector <CompType> sortByYearNotBuiltDesc();
     vector <CompType> sortByYearUnknownBuiltAsc();
     vector <CompType> sortByYearUnknownBuiltDesc();
-
+    //SEARCH PERSONS FÖLLIN
     vector<InfoType> searchVectorName(string nameSearch);
     vector<InfoType> searchVectorGender(string genderSearch);
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
-
+    //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string);
-
-    void returnToView();
+    //RELATION FÖLLIN
+    void viewRelationComputer();
+    void viewRelationPerson();
+    void addRelation(int personId, int computerId);
+    void makeRelation();
+    //ANNAÐ
+    string changeName(InfoType p);
 
 private:
     vector <InfoType> FP;
