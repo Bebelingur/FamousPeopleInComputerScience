@@ -211,7 +211,7 @@ vector <InfoType> Services::sortByYearDesc()
     sort(FP.begin(), FP.end(), compareYearDesc);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
+
 vector <InfoType> Services::sortByDeathYearAsc()
 {
     vector <InfoType> FP = makePersonsVector();
