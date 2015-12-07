@@ -20,57 +20,67 @@ class UI
 public:
     UI();
     void userMenu();
+    //INPUT
     void inputMenu();
-    void viewInfoMenu();
-    void relationMenu();
-
-    void displaySortedPersons(vector<InfoType> FP);
-    void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
-    void sortMenu();
-    void sortNameMenu();
-    void sortGenderMenu();
-    void sortYearOfBirthMenu();
-    void sortYearOfDeathMenu();
-
-    void searchMenu();
-    int chooseNumber();
-    void displayError();
+    //PERSON INFO INPUT
     void getPersonInfo();
     string getName();
     char getGender();
     int getBirthYear();
     int getDeathYear(string name, int bYear);
+    //COMPUTER INFO INPUT
     void getComputerInfo();
-    string getComputerType();
-    int getYearMade();
-    int getWasBuilt(int computerYearMade);
     string getComputerName();
-    void searchPersonMenu();
-
-    void displaySortedComputers(vector<CompType> Comp);
-    void displaySortedComputersSpecial(int i, vector<CompType> Comp);
+    int getYearMade();
+    string getComputerType();
+    int getWasBuilt(int computerYearMade);
+    //RELATION INFO INPUT
+    //VIEW
+    void viewInfoMenu();
+    void backToView();
+    //SORT
+    void sortMenu();
+    void backToSortMenu();
+    //SORT PERSONS
+    void sortPersonMenu();
+    void sortNameMenu();
+    void sortGenderMenu();
+    void sortYearOfBirthMenu();
+    void sortYearOfDeathMenu();
+    //SORT COMPUTERS
+    void sortComputerMenu();
     void sortComputerNameMenu();
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
     void sortComputerWasBuiltMenu();
-    void sortComputerMenu();
-    void sortPersonMenu();
-    void displayPerson(InfoType p);
-    void displayComputer(CompType c);
-
-    void falseCheck(string nameSearch);
-
     void sortComputerBuiltMenu();
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();
     void sortComputerUnkownBuiltMenu();
-    void backToSortMenu();
-
+    //SEARCH
+    void searchMenu();
     void backToSearch();
-    void backToView();
+    //SEARCH PERSONS
+    void searchPersonMenu();
+    //SEARCH COMPUTERS
+    void searchComputerMenu();
+    //DISPLAY
+    void displayPerson(InfoType p);
+    void displaySortedPersons(vector<InfoType> FP);
+    void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
+    void displayComputer(CompType c);
+    void displaySortedComputers(vector<CompType> Comp);
+    void displaySortedComputersSpecial(int i, vector<CompType> Comp);
     void searchPersDisplay(vector<InfoType> x, string y);
     void searchCompDisplay(vector<CompType> x, string y);
-    void searchComputerMenu();
+    //ANNAÐ
+    int chooseNumber();
+    void displayError();
+    void falseCheck(string nameSearch);
+    //RELATION
+    void relationMenu();
+    void addRelation();
+
 };
 
 #endif // UI_H

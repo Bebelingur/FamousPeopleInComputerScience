@@ -4,8 +4,6 @@ using namespace std;
 
 data::data()
 {
-    //personFilename = ''first'';
-    //computerFilename = ''second'';
 }
 
 vector<InfoType> data::loadPersData()
@@ -32,7 +30,6 @@ vector<InfoType> data::loadPersData()
 
     return people;
 }
-
 vector<CompType> data::loadCompData()
 {
     vector<CompType> computers;
@@ -70,7 +67,6 @@ void data::saveDataRelations(RelationsType p)
         qDebug() << "addPersons error:  " << query.lastError();
     }
 }
-
 void data::saveDataPersons(InfoType p)
 {
     QSqlDatabase db;
@@ -112,14 +108,12 @@ void data::saveDataComputers(CompType p)
         qDebug() << "addComputer error:  " << query.lastError();
     }
 }
-
 char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
     result = a.at(0);
     return result;
 }
-
 string data::convertToString(char a)
 {
     string result;
