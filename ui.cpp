@@ -50,7 +50,7 @@ void UI::userMenu()
                 searchMenu();
                 break;
             case 5:
-                //relationMenu();
+                relationMenu();
                 break;
             case 6:
                 exit(1);
@@ -1469,7 +1469,7 @@ void UI::backToSortMenu()
         }
 }
 
-/*void UI::relationMenu()
+void UI::relationMenu()
 {
     Services s;
     int choice;
@@ -1486,7 +1486,6 @@ void UI::backToSortMenu()
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
-
 
         switch(choice)
         {
@@ -1513,7 +1512,7 @@ void UI::backToSortMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
     sortMenu();
-}*/
+}
 int UI::chooseNumber()
 {
     int choice;

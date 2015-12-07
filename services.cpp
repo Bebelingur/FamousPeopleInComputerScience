@@ -61,56 +61,63 @@ vector<CompType> Services::makeComputerVector()
    vector<CompType> c = connection.loadCompData();
    return c;
 }
-/*void Services::makeRelation()
+void Services::makeRelation()
 {
-    //string name;
-    int compID = 0, persID = 0;
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    do{
-        cout << "Enter name of computer: ";
-        cin >> name;
-        QString qName = QString::fromUtf8(name.c_str());
-        query.exec("SELECT compName, id FROM computers WHERE compName LIKE = '" + qName + "'");
-        while(query.next())
-        {
-            CompType c;
-            c.id = query.value("id").toUInt();
-            cout << query.value("id").toUInt();
-            compID = c.id;
-        }
-    }while(compID == 0);
-    do{
-        cout << "Enter name of a person: ";
-        cin >> name;
-        QString qName = QString::fromUtf8(name.c_str());
-        query.exec("SELECT name, id FROM persons WHERE name LIKE = '" + qName + "'");
-        while(query.next())
-        {
-            InfoType p;
-            p.id = query.value("id").toUInt();
-            persID = p.id;
-        }
-    }while(persID == 0);
-    bool check = false;
-    query.exec("SELECT* FROM relations");
-    while(query.next())
-    {
-        RelationsType r;
-        r.computerId = query.value("idComputer").toUInt();
-        r.personId = query.value("idPerson").toUInt();
-        if((r.computerId == compID) && (r.personId == persID))
-        {
-            cout << "| | | Relation is already in database | | |" << endl;
-            cout << endl;
-            check = true;
-        }
-    }
-    if(check == false)
-    {
-        addRelation(persID, compID);
-    }
-}*/
+      string compName = "";
+      string name = "";
+      int compID = 0;
+      int persID = 0;
+
+      QSqlDatabase db;
+      db = QSqlDatabase::database("first");
+      db.open();
+      QSqlQuery query(db);
+        do{
+            cout << "Enter name of computer: ";
+            getline(cin, compName);
+            QString qName = QString::fromUtf8(compName.c_str());
+            query.exec("SELECT compName, id FROM computers WHERE compName LIKE '" + qName + "'");
+                while(query.next())
+                {
+                    CompType c;
+                    c.id = query.value("id").toUInt();
+                    compID = c.id;
+                }
+            }while(compID == 0);
+
+        do{
+            cout << "Enter person: ";
+            getline(cin, name);
+            QString qName = QString::fromUtf8(name.c_str());
+            query.exec("SELECT name, id FROM persons WHERE name LIKE '" + qName + "'");
+                while(query.next())
+                {
+                    InfoType p;
+                    p.id = query.value("id").toUInt();
+                    persID = p.id;
+                }
+            }while(persID == 0);
+
+      bool check = false;
+      query.exec("SELECT* FROM relations");
+      while(query.next())
+      {
+          RelationsType r;
+          r.computerId = query.value("idComputer").toUInt();
+          r.personId = query.value("idPerson").toUInt();
+
+          if((r.computerId == compID) && (r.personId == persID))
+          {
+                cout << "| | | Relation is already in database | | |" << endl;
+                cout << endl;
+                check = true;
+          }
+      }
+      if(check == false)
+      {
+          addRelation(persID, compID);
+      }
+}
 //VIEW FÖLLIN
 vector<InfoType> Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
 {
@@ -130,6 +137,7 @@ void Services::viewRelationPerson()
     string name = "";
     int persID = 0;
 
+<<<<<<< HEAD
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
     do
@@ -138,6 +146,29 @@ void Services::viewRelationPerson()
         cin>>name;
         QString qName = QString::fromUtf8(name.c_str());
         query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
+=======
+        string name = "";
+        QSqlDatabase db;
+        int ID = 0;
+        db = QSqlDatabase::database("first");
+        QSqlQuery query(db);
+        do
+        {
+            cout<<"Enter name: ";
+            getline(cin, name);
+            QString qName = QString::fromUtf8(name.c_str());
+            query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
+            while(query.next())
+            {
+                InfoType p;
+                p.id = query.value("id").toUInt();
+                ID = p.id;
+            }
+        }while(name == "");
+
+        vector<CompType> computers;
+        query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
+>>>>>>> d50e41187ead18d698532996fa10e2d30cbec848
         while(query.next())
         {
             InfoType p;
@@ -178,6 +209,7 @@ void Services::viewRelationComputer()
     data b;
 
     string name = "";
+<<<<<<< HEAD
     int persID = 0;
 
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -187,6 +219,16 @@ void Services::viewRelationComputer()
         cout << "Enter computer name: ";
         cin >> name;
 
+=======
+    QSqlDatabase db;
+    int ID = 0;
+    db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    do
+    {
+        cout<<"Enter computer name: ";
+        getline(cin, name);
+>>>>>>> d50e41187ead18d698532996fa10e2d30cbec848
         QString qName = QString::fromUtf8(name.c_str());
         query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
 
@@ -194,16 +236,21 @@ void Services::viewRelationComputer()
         {
             InfoType p;
             p.id = query.value("id").toUInt();
-            persID = p.id;
+            ID = p.id;
         }
     }while(name == "");
 
+<<<<<<< HEAD
     string stringID = to_string(persID);
     QString qString = QString::fromUtf8(stringID.c_str());
 
     vector<InfoType> people;
 
     query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+qString+"'");
+=======
+    vector<InfoType> people;
+    query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
+>>>>>>> d50e41187ead18d698532996fa10e2d30cbec848
     while(query.next())
     {
         InfoType p;
