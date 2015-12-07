@@ -27,13 +27,14 @@ void UI::userMenu()
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
-        cout << "5. Exit" << endl;
+        cout << "5. Add Relatinon" << endl;
+        cout << "6. Exit" << endl;
         cout << "===========================================" << endl;
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
-
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6);
+Services a;
         switch(choice)
         {
             case 1:
@@ -49,9 +50,12 @@ void UI::userMenu()
                 searchMenu();
                 break;
             case 5:
+                a.makeRelation();
+                break;
+            case 6:
                 exit(1);
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6); //eða while(choice != 5);
     //náði að láta virka aðeins, google to the rescue :)  - BóE
 }
 

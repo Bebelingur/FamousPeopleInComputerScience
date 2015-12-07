@@ -21,7 +21,7 @@ public:
 
     Services();
 
-
+    void addRelation(int personId, int computerId);
     void addPerson(string name, char gender, int bYear, int dYear);
     // setti upp eins fall og addPerson nema bara fyrir tölvurnar
     // spurning um að bæta við vector (gerði vector<CompType> Comp) til að halda utan um tölvurnar
@@ -41,6 +41,11 @@ public:
     void displaySortedPerson(vector<InfoType> FP);
     void sortByDeceased();
     void sortByNotDeceased();
+
+
+    void makeRelation();
+    void viewRelationPerson();
+    void viewRelationComputer();
 
     void displaySorted(int i, vector<InfoType> FP);
     void backToSortMenu();

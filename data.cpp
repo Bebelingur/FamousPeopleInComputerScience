@@ -63,15 +63,14 @@ void data::saveDataRelations(RelationsType p)
     QSqlQuery query(db);
     db.open();
 
-    query.prepare("Insert Into relations(idPerson, idComputer)Values(:peopleId, :computerId)");
+    query.prepare("Insert Into relations(idPerson, idComputer)Values(:idPerson, :idComputer)");
     query.bindValue(":idPerson", p.personId);
     query.bindValue(":idComputer", p.computerId);
     if(!query.exec())
     {
         qDebug() << "addPersons error:  " << query.lastError();
     }
-
-
+    db.close();
 }
 
 void data::saveDataPersons(InfoType p)
