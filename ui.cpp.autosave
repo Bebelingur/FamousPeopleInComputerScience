@@ -1427,17 +1427,6 @@ void UI::sortMenu()
 }
 
 
-void UI::falseCheck(string x)
-{
-
-    cout << "-------------------------------------------" << endl;
-    cout << "   "<< x << " was not in database or input not in the right format" << endl;
-    cout << "-------------------------------------------" << endl;
-    cout << "--- Please try again. ---" << endl;
-    cout << endl;
-
-}
-
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;
@@ -1652,5 +1641,16 @@ void UI::displayError()
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
 }
+void UI::falseCheck(string x)
+{
+
+    cout << "-------------------------------------------" << endl;
+    cout << "   "<< x << " was not in database or input not in the right format" << endl;
+    cout << "-------------------------------------------" << endl;
+    cout << "--- Please try again. ---" << endl;
+    cout << endl;
+
+}
+
 
 

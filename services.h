@@ -22,7 +22,7 @@ public:
     //MAKE FÖLLIN
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
-    void makeRelation();
+    //void makeRelation();
     //VIEW FÖLLIN
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
@@ -60,8 +60,6 @@ public:
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string);
-    //RELATION FÖLLIN
-    void addRelation(int personId, int computerId);
     //ANNAÐ
     string changeName(InfoType p);
 

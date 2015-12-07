@@ -77,7 +77,6 @@ public:
     int chooseNumber();
     void displayError();
     void falseCheck(string nameSearch);
-
 };
 
 #endif // UI_H
