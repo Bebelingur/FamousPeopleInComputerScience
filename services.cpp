@@ -866,7 +866,7 @@ void Services::sortByYearBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
     cout << endl;
-    cout << "--- Displaying computers by year made in ascending order ---" << endl;
+    cout << "--- Displaying computers by year built in ascending order ---" << endl;
     cout << endl;
 
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
@@ -888,7 +888,7 @@ void Services::sortByYearBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
     cout << endl;
-    cout << "--- Displaying computers by year made in descending order ---" << endl;
+    cout << "--- Displaying computers by year built in descending order ---" << endl;
     cout << endl;
 
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
@@ -911,7 +911,7 @@ void Services::sortByYearNotBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
     cout << endl;
-    cout << "--- Displaying computers not made in ascending order ---" << endl;
+    cout << "--- Displaying computers not built in ascending order ---" << endl;
     cout << endl;
 
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
@@ -933,7 +933,7 @@ void Services::sortByYearNotBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
     cout << endl;
-    cout << "--- Displaying computers not made in descending order ---" << endl;
+    cout << "--- Displaying computers not built in descending order ---" << endl;
     cout << endl;
 
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
@@ -956,7 +956,7 @@ void Services::sortByYearUnknownBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
     cout << endl;
-    cout << "--- Displaying computers not made in ascending order ---" << endl;
+    cout << "--- Displaying computers unkown if built in ascending order ---" << endl;
     cout << endl;
 
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
@@ -978,7 +978,7 @@ void Services::sortByYearUnknownBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
     cout << endl;
-    cout << "--- Displaying computers not made in descending order ---" << endl;
+    cout << "--- Displaying computers unknown if built in descending order ---" << endl;
     cout << endl;
 
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
@@ -1002,7 +1002,14 @@ void Services::displaySortedComp(int i, vector<CompType> Comp)
 
     cout << "Computer name: " << Comp.at(i).compName << endl;
 
-    cout << "Year designed: " << Comp.at(i).yearMade << endl;
+    if(Comp.at(i).yearMade <= 1)
+    {
+        cout << "Year designed is unknown" << endl;
+    }
+    else
+    {
+        cout << "Year designed: " << Comp.at(i).yearMade << endl;
+    }
 
     cout << "Computer type: " << Comp.at(i).type << endl;
 
