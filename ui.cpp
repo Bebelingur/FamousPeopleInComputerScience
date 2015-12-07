@@ -27,14 +27,14 @@ void UI::userMenu()
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
-        cout << "5. Add Relatinon" << endl;
+        cout << "5. Add or view relatinon between person and computer" << endl;
         cout << "6. Exit" << endl;
         cout << "===========================================" << endl;
 
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6);
-Services a;
+
         switch(choice)
         {
             case 1:
@@ -50,7 +50,7 @@ Services a;
                 searchMenu();
                 break;
             case 5:
-                a.viewRelationPerson();
+                relationMenu();
                    break;
             case 6:
                 exit(1);
@@ -633,6 +633,43 @@ void UI::searchMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+void UI::relationMenu()
+{
+    Services s;
+    int choice;
+
+    do{
+        cout << "* * * SEARCH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Add relations between computer and persons" << endl;
+        cout << "2. View persons related to computer" << endl;
+        cout << "3. View computers related to person" << endl;
+        cout << "4. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+
+        switch(choice)
+        {
+            case 1:
+                s.makeRelation();
+                break;
+            case 2:
+                s.viewRelationComputer();
+                break;
+
+            case 3:
+                s.viewPersonsInfo();
+                break;
+            case 4:
+                userMenu();
+            break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+
+}
 
 void UI::backToSearch()
 {
@@ -936,14 +973,13 @@ void UI::inputMenu()
         cout << endl;
         cout << "1. Input person" << endl;
         cout << "2. Input computer" << endl;
-        cout << "3. Add relation between person and computer" << endl;
-        cout << "4. Return to main menu" << endl;
+        cout << "3. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+        }while(choice != 1 && choice != 2 && choice != 3);
 
         switch(choice)
         {
@@ -957,12 +993,8 @@ void UI::inputMenu()
                 getComputerInfo();
                 break;
             }
+
             case 3:
-            {
-                addRelation();
-                break;
-            }
-            case 4:
             {
                 userMenu();
                 break;
@@ -1620,7 +1652,4 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
 }
 
-void UI::addRelation()
-{
-       cout << "Need stuff here" << endl;
-}
+

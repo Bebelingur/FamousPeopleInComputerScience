@@ -22,6 +22,7 @@ public:
     void userMenu();
     void inputMenu();
     void viewInfoMenu();
+    void relationMenu();
 
     void displaySortedPersons(vector<InfoType> FP);
     void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
@@ -54,8 +55,6 @@ public:
     void sortComputerWasBuiltMenu();
     void sortComputerMenu();
     void sortPersonMenu();
-
-    void addRelation();
     void displayPerson(InfoType p);
     void displayComputer(CompType c);
 

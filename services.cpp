@@ -580,41 +580,40 @@ void Services::makeRelation()
 
       QSqlDatabase db;
       db = QSqlDatabase::database("first");
-      db.open();
       QSqlQuery query(db);
       do
       {
-      cout<<"enter name of computer: ";
-      cin>>name;
-      QString qName = QString::fromUtf8(name.c_str());
-      query.exec("SELECT compName, id FROM computers WHERE compName = '"+qName+"'");
+          cout<<"enter name of computer: ";
+          cin>>name;
+          QString qName = QString::fromUtf8(name.c_str());
+          query.exec("SELECT compName, id FROM computers WHERE compName = '"+qName+"'");
 
-      while(query.next())
-      {
-          CompType c;
-          c.id = query.value("id").toUInt();
-          compID = c.id;
-      }
+          while(query.next())
+          {
+              CompType c;
+              c.id = query.value("id").toUInt();
+              compID = c.id;
+          }
       }while(compID == 0);
 
       do
       {
-      cout<<"enter name: ";
-      cin>>name;
-      QString qName = QString::fromUtf8(name.c_str());
-      query.exec("SELECT name, id FROM persons WHERE name = '"+qName+"'");
+          cout<<"enter name: ";
+          cin>>name;
+          QString qName = QString::fromUtf8(name.c_str());
+          query.exec("SELECT name, id FROM persons WHERE name = '"+qName+"'");
 
-      while(query.next())
-      {
-          InfoType p;
-          p.id = query.value("id").toUInt();
-          persID = p.id;
-      }
+          while(query.next())
+          {
+              InfoType p;
+              p.id = query.value("id").toUInt();
+              persID = p.id;
+          }
       }while(persID == 0);
-        bool check = false;
+
+      bool check = false;
 
       query.exec("SELECT* FROM relations");
-
       while(query.next())
       {
           RelationsType r;
@@ -623,10 +622,11 @@ void Services::makeRelation()
 
           if((r.computerId == compID) && (r.personId == persID))
           {
-                cout<<"relation is already in database"<<endl;
-                check = false;
+                cout<<endl;
+                cout<<"| | |relation is already in database| | |"<<endl;
+                cout<<endl;
+                check = true;
           }
-
       }
 
       if(check == false)
@@ -635,7 +635,6 @@ void Services::makeRelation()
       }
 
 
-      db.close();
 }
 
 void Services::viewRelationComputer()
@@ -648,21 +647,19 @@ void Services::viewRelationComputer()
     QSqlDatabase db;
     int persID = 0;
     db = QSqlDatabase::database("first");
-    db.open();
     QSqlQuery query(db);
     do
     {
-    cout<<"Enter name: ";
-    cin>>name;
-    QString qName = QString::fromUtf8(name.c_str());
-    query.exec("SELECT compName, id FROM computers WHERE compName = '"+qName+"'");
-    while(query.next())
-    {
-        InfoType p;
-        p.id = query.value("id").toUInt();
-        cout << query.value("compName").toString().toStdString();
-        persID = p.id;
-    }
+        cout<<"Enter computer name: ";
+        cin>>name;
+        QString qName = QString::fromUtf8(name.c_str());
+        query.exec("SELECT compName, id FROM computers WHERE compName = '"+qName+"'");
+        while(query.next())
+        {
+            InfoType p;
+            p.id = query.value("id").toUInt();
+            persID = p.id;
+        }
     }while(name == "");
 
     string stringID = std::to_string(persID);
@@ -684,6 +681,12 @@ void Services::viewRelationComputer()
     {
         a.displayPerson(people[i]);
     }
+    if(people.size() ==0)
+    {
+        cout<<endl;
+        cout<<"| | |relation is already in database| | |"<<endl;
+        cout<<endl;
+    }
 }
 void Services::viewRelationPerson()
 {
@@ -694,21 +697,20 @@ void Services::viewRelationPerson()
     QSqlDatabase db;
     int persID = 0;
     db = QSqlDatabase::database("first");
-    db.open();
     QSqlQuery query(db);
     do
     {
-    cout<<"Enter name: ";
-    cin>>name;
-    QString qName = QString::fromUtf8(name.c_str());
-    query.exec("SELECT name, id FROM persons WHERE name = '"+qName+"'");
-    while(query.next())
-    {
-        InfoType p;
-        p.id = query.value("id").toUInt();
-        cout << query.value("name").toString().toStdString();
-        persID = p.id;
-    }
+        cout<<"Enter name: ";
+        cin>>name;
+        QString qName = QString::fromUtf8(name.c_str());
+        query.exec("SELECT name, id FROM persons WHERE name = '"+qName+"'");
+        while(query.next())
+        {
+            InfoType p;
+            p.id = query.value("id").toUInt();
+            cout << query.value("name").toString().toStdString();
+            persID = p.id;
+        }
     }while(name == "");
 
     string stringID = std::to_string(persID);
@@ -728,6 +730,13 @@ void Services::viewRelationPerson()
     for(unsigned int i = 0; i < computers.size(); i++)
     {
         a.displayComputer(computers[i]);
+    }
+
+    if(computers.size() == 0)
+    {
+        cout<<endl;
+        cout<<"| | |name not in database or no relations to show| | |"<<endl;
+        cout<<endl;
     }
 
 }
