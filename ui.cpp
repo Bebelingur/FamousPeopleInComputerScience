@@ -1589,7 +1589,6 @@ void UI::relationMenu()
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
-
         switch(choice)
         {
             case 1:
