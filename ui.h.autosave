@@ -45,7 +45,7 @@ public:
     string getComputerName();
     void searchPersonMenu();
 
-    void displaySortedComputers(int i, vector<CompType> Comp);
+    void displaySortedComputers(vector<CompType> Comp);
     void sortComputerNameMenu();
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
