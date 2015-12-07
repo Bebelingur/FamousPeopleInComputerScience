@@ -1,15 +1,14 @@
 #ifndef SERVICES_H
 #define SERVICES_H
-
-#include "ui.h"
 #include <cstdlib>
 #include <cctype>
 #include <algorithm>
+#include <string>
 #include "data.h"
 #include "infotype.h"
 #include "comptype.h"
 #include "relationstype.h"
-#include <string>
+#include "ui.h"
 
 using namespace std;
 
@@ -17,36 +16,18 @@ class Services
 {
 public:
     Services();
-<<<<<<< HEAD
     //ADD FÖLLIN
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     //MAKE FÖLLIN
-=======
-
-
-    void addRelation(int personId, int computerId);
-
-    void addPerson(string name, char gender, int bYear, int dYear);
-    void addComputer(string compName, int yearMade, string type, int wasBuilt);
-    void displaySortedPerson(vector<InfoType> FP);
-
-    void makeRelation();
-    void viewRelationPerson();
-    void viewRelationComputer();
-
-    void displaySorted(int i, vector<InfoType> FP);
-    void backToSortMenu();
-    void searchVector();
-
-
-    vector<CompType> makeComputerVector();
->>>>>>> 5d58c9cace096a468f4091eb9d2ea5286109c777
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
+    void makeRelation();
     //VIEW FÖLLIN
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
+    void viewRelationPerson();
+    void viewRelationComputer();
     //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
@@ -80,10 +61,7 @@ public:
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string);
     //RELATION FÖLLIN
-    void viewRelationComputer();
-    void viewRelationPerson();
     void addRelation(int personId, int computerId);
-    void makeRelation();
     //ANNAÐ
     string changeName(InfoType p);
 
