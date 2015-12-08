@@ -73,6 +73,11 @@ public:
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string name);
+    //REMOVE FÖLLIN
+    vector<InfoType> findPerson(int ID);
+    vector<CompType> findComputer(int ID);
+    void removePerson(int ID);
+    void removeComputer(int ID);
     //ANNAÐ
     string changeName(InfoType p);
     char convertToChar(string a);

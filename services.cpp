@@ -85,7 +85,6 @@ void Services::makeRelation()
               else
               cout<< "did you mean: "<< c.compName << endl;
           }
-
       }while(compID == 0);
 
       do{
@@ -188,7 +187,6 @@ int Services::findIDComputer(string name)
 vector<CompType> Services::viewRelationPerson(int ID)
 {
     vector<CompType> computers;
-
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
     query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
@@ -649,6 +647,64 @@ vector<CompType> Services::searchVectorComputersName(string name)
     Comp.clear();
     return result;
 }
+//REMOVE
+vector<InfoType> Services::findPerson(int ID)
+{
+    vector<InfoType> p;
+    InfoType person;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM persons WHERE id = "+QString::number(ID)+"");
+
+    while(query.next())
+    {
+        person.id = query.value("id").toUInt();
+        person.name = query.value("name").toString().toStdString();
+        person.gender = convertToChar(query.value("sex").toString().toStdString());
+        person.birthYear = query.value("yearBorn").toUInt();
+        person.deathYear = query.value("yearDead").toUInt();
+        p.push_back(person);
+    }
+
+    return p;
+}
+
+vector<CompType> Services::findComputer(int ID)
+{
+    vector<CompType> c;
+    CompType computer;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM computers WHERE id = "+QString::number(ID)+"");
+    while(query.next())
+    {
+        computer.id = query.value("id").toUInt();
+        computer.compName = query.value("compName").toString().toStdString();
+        computer.yearMade = query.value("yearMade").toUInt();
+        computer.type = query.value("type").toString().toStdString();
+        computer.wasBuilt = query.value("wasBuilt").toUInt();
+        c.push_back(computer);
+    }
+    return c;
+}
+
+void Services::removePerson(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    query.exec("DELETE FROM persons WHERE id = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idPerson = "+QString::number(ID)+"");
+}
+
+void Services::removeComputer(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("DELETE FROM computers WHERE id = "+QString::number(ID)+"");
+    query.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
+}
+
 //ANNAÐ
 string Services::changeName(InfoType p)
 {

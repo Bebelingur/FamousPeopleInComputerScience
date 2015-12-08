@@ -34,7 +34,8 @@ void UI::userMenu()
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
         cout << "5. Add or view relation between person and computer" << endl;
-        cout << "6. Exit" << endl;
+        cout << "6. Remove Information" << endl;
+        cout << "7. Exit" << endl;
         cout << "===========================================" << endl;
 
         do{
@@ -59,6 +60,8 @@ void UI::userMenu()
                 relationMenu();
                 break;
             case 6:
+                removeMenu();
+            case 7:
                 exit(1);
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
@@ -181,39 +184,39 @@ int UI::getBirthYear()
 }
 int UI::getDeathYear(string name, int bYear)
 {
-        int dYear = 0;
-        char personDead = ' ';
+    int dYear = 0;
+    char personDead = ' ';
 
-        do{
-            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
-            cin >> personDead;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
+    do{
+        cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+        cin >> personDead;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
 
-                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
-                {
-                    displayError();
-                }
+            if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
+            {
+                displayError();
+            }
 
-                if(toupper(personDead) == 'Y')
-                {
-                    do{
-                        cout << "Input year of death: ";
-                        cin >> dYear;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(!((dYear > bYear) && (dYear <= yearNow)))
-                            {
-                                displayError();
-                            }
-                    }while(!((dYear > bYear) && (dYear <= yearNow)));
-                }
-                if(toupper(personDead) == 'N')
-                {
-                    //all deceased get zero as input for year of death
-                    dYear = 0;
-                }
-        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+            if(toupper(personDead) == 'Y')
+            {
+                do{
+                    cout << "Input year of death: ";
+                    cin >> dYear;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(!((dYear > bYear) && (dYear <= yearNow)))
+                        {
+                            displayError();
+                        }
+                }while(!((dYear > bYear) && (dYear <= yearNow)));
+            }
+            if(toupper(personDead) == 'N')
+            {
+                //all deceased get zero as input for year of death
+                dYear = 0;
+            }
+    }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
     return dYear;
 }
 //COMPUTER INFO INPUT
@@ -1363,6 +1366,105 @@ void UI::searchComputerMenu()
     vector<CompType> Comp = p.searchVectorComputersName(nameSearch);
     searchCompDisplay(Comp, nameSearch);
 }
+//REMOVE
+void UI::removeMenu()
+{
+    Services s;
+    int choice;
+    do{
+        cout << "* * * REMOVE INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Remove person" << endl;
+        cout << "2. Remove computer" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                string name = "";
+                cout << "Enter name of a person to remove: ";
+                cin.clear();
+                getline(cin, name);
+                int ID = s.findIDPerson(name);
+                cout << endl;
+                vector<InfoType> person = s.findPerson(ID);
+                if(person.empty())
+                {
+                    cout << name << " was not found in database!" << endl << endl;
+                    returnToRemove();
+                }
+                displayPersons(person);
+                askToRemove(name, ID);
+                break;
+            }
+            case 2:
+            {
+                string name = "";
+                cout << "Enter name of a computer to remove: ";
+                cin.clear();
+                getline(cin, name);
+                int ID = s.findIDComputer(name);
+                cout << endl;
+                vector<CompType> computer = s.findComputer(ID);
+                if(computer.empty())
+                {
+                    cout << name << " was not found in database!" << endl << endl;
+                    returnToRemove();
+                }
+                displayComputers(computer);
+                askToRemove(name, ID);
+                break;
+            }
+            case 3:
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+void UI::askToRemove(string name, int ID)
+{
+    Services s;
+    string input = " ";
+    do{
+        cout << "Do you want to remove this person(y for yes, n for no)? " << endl;
+        cin >> input;
+        if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
+            displayError();
+    }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
+    if(toupper(input[0]) == 'Y')
+    {
+        cout << endl;
+        cout << name << " has been removed!" << endl << endl;
+        s.removePerson(ID);
+        returnToRemove();
+    }
+    else if(toupper(input[0]) == 'N')
+    {
+        cout << endl << name << " was not removed!" << endl << endl;
+        returnToRemove();
+    }
+}
+
+void UI::returnToRemove()
+{
+    cout << "--- Press any key and then enter to return to remove menu ---" << endl;
+    char input;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            removeMenu();
+        }
+}
+
 //DISPLAY
 void UI::displayPersons(vector<InfoType> FP)
 {
