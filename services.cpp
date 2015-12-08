@@ -2,9 +2,8 @@
 
 using namespace std;
 
-//er bæði í ui og services væri til í að hafa það bara á einum stað
-//function that finds the time
 
+//function that finds the time
 int aliveNow()
 {
     time_t now = time(0);
@@ -79,7 +78,6 @@ void Services::makeRelation()
       QSqlQuery query(db);
       do{
           cout << "Enter name of computer: ";
-          //VILLA HÉRNA skrifar út cout endalaust
           getline(cin, compName);
           QString qName = QString::fromUtf8(compName.c_str());
           query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%" + qName + "%'");

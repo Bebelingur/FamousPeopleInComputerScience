@@ -386,7 +386,7 @@ void UI::relationMenu()
     do{
         cout << " * * * RELATIONS * * * " << endl;
         cout << endl;
-        cout << "1. Add relation between comuter and person" << endl;
+        cout << "1. Add relation between computer and person" << endl;
         cout << "2. Find persons related to computer" << endl;
         cout << "3. Find computers related to person" << endl;
         cout << "4. Return to main menu" << endl;
@@ -416,8 +416,8 @@ void UI::relationMenu()
             if(checkDatabase == false)
             {
                 cout << endl;
-                cout << "there are not enough information in database to make relation"<<endl;
-                cout << "add a computer, or a person first"<< endl;
+                cout << "There is not enough information in database to make relation" << endl;
+                cout << "Add a computer, or a person first" << endl;
                 cout << endl;
                 break;
             }
