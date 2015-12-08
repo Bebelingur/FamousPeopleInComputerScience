@@ -75,6 +75,8 @@ public:
     vector<CompType> searchVectorComputersName(string);
     //ANNAÐ
     string changeName(InfoType p);
+    char convertToChar(string a);
+    string convertToString(char a);
 
     int findID(string name);
 
