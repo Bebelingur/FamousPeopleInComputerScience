@@ -18,7 +18,7 @@ UI::UI()
 {
 
 }
-
+//user menu function
 void UI::userMenu()
 {
 
@@ -65,6 +65,7 @@ void UI::userMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
 }
 //INPUT
+//input menu function
 void UI::inputMenu()
 {
     int choice;
@@ -102,6 +103,7 @@ void UI::inputMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 //PERSON INFO INPUT
+//function that gets person info from user
 void UI::getPersonInfo()
 {
     Services p;
@@ -121,6 +123,7 @@ void UI::getPersonInfo()
         check = continueOption();
     }while(check == true);
 }
+//function that gets the name from the user and returns it
 string UI::getName()
 {
     bool check = false;
@@ -147,6 +150,7 @@ string UI::getName()
 
     return name;
 }
+//function that gets the gender from the user and returns it
 char UI::getGender()
 {
     char gender = ' ';
@@ -163,6 +167,7 @@ char UI::getGender()
 
     return gender;
 }
+//function that gets the birthYear from the user and returns it
 int UI::getBirthYear()
 {
     int bYear = 0;
@@ -180,6 +185,7 @@ int UI::getBirthYear()
 
     return bYear;
 }
+//function that gets the deathYear from the user and returns it
 int UI::getDeathYear(string name, int bYear)
 {
         int dYear = 0;
@@ -218,6 +224,7 @@ int UI::getDeathYear(string name, int bYear)
     return dYear;
 }
 //COMPUTER INFO INPUT
+//function that gets the user computer info from user
 void UI::getComputerInfo()
 {
     Services c;
@@ -237,6 +244,7 @@ void UI::getComputerInfo()
         check = continueOption();
     }while(check == true);
 }
+//function that gets the computer name from the user and returns it
 string UI::getComputerName()
 {
     string name = " ";
@@ -245,6 +253,7 @@ string UI::getComputerName()
     getline(cin, name);
     return name;
 }
+//function that gets the yearMade from the user and returns it
 int UI::getYearMade()
 {
     int computerYearMade = 0;
@@ -278,6 +287,7 @@ int UI::getYearMade()
         return computerYearMade;
     }
 }
+//function that gets the computer type from the user and returns it
 string UI::getComputerType()
 {
     char choice = ' ';
@@ -322,6 +332,7 @@ string UI::getComputerType()
     }while(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O');
     return type;
 }
+//function that gets the yearBuilt from the user and returns it
 int UI::getWasBuilt(int computerYearMade)
 {
     char choice = ' ';
@@ -367,6 +378,7 @@ int UI::getWasBuilt(int computerYearMade)
     return built;
 }
 //RELATION INFO INPUT
+//relation menu function
 void UI::relationMenu()
 {
     Services s;
@@ -411,6 +423,7 @@ void UI::relationMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
 //VIEW
+//view info menu function
 void UI::viewInfoMenu()
 {
     Services p;
@@ -454,6 +467,7 @@ void UI::viewInfoMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//function that returns the user to viewMenu by input
 void UI::backToView()
 {
     cout << "--- Press any key and then enter to return to view menu ---" << endl;
@@ -467,6 +481,7 @@ void UI::backToView()
         }
 }
 //SORT
+//sort menu function
 void UI::sortMenu()
 {
     int choice;
@@ -503,6 +518,7 @@ void UI::sortMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//function that returns the user to sortMenu by input
 void UI::backToSortMenu()
 {
     char input;
@@ -516,6 +532,7 @@ void UI::backToSortMenu()
         }
 }
 //SORT PERSONS
+//sort person menu function
 void UI::sortPersonMenu()
 {
     int choice;
@@ -564,6 +581,7 @@ void UI::sortPersonMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
+//sort name menu function, displays persons in sorted order
 void UI::sortNameMenu()
 {
     Services p;
@@ -611,6 +629,7 @@ void UI::sortNameMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort gender menu function, displays persons in sorted order
 void UI::sortGenderMenu()
 {
     Services p;
@@ -686,6 +705,7 @@ void UI::sortGenderMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
+//sort yearOfBirth menu function, displays persons in sorted order
 void UI::sortYearOfBirthMenu()
 {
     Services p;
@@ -733,6 +753,7 @@ void UI::sortYearOfBirthMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
+//sort yearOfDeath menu function, displays persons in sorted order
 void UI::sortYearOfDeathMenu()
 {
     Services p;
@@ -811,6 +832,7 @@ void UI::sortYearOfDeathMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
 //SORT COMPUTERS
+//sort computer menu function
 void UI::sortComputerMenu()
 {
     int choice;
@@ -857,6 +879,7 @@ void UI::sortComputerMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
+//sort computer name menu function, displays computers in sorted order
 void UI::sortComputerNameMenu()
 {
     Services c;
@@ -904,6 +927,7 @@ void UI::sortComputerNameMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort computer yearMade menu function, displays computers in sorted order
 void UI::sortComputerYearMadeMenu()
 {
     Services c;
@@ -951,6 +975,7 @@ void UI::sortComputerYearMadeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
+//sort computer type menu function, displays computers in sorted order
 void UI::sortComputerTypeMenu()
 {
     Services c;
@@ -998,6 +1023,7 @@ void UI::sortComputerTypeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
+//sort computer wasBuilt menu function, displays computers in sorted order
 void UI::sortComputerWasBuiltMenu()
 {
     Services c;
@@ -1039,6 +1065,7 @@ void UI::sortComputerWasBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
+//sort computer yearBuilt menu function, displays computers in sorted order
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;
@@ -1097,6 +1124,7 @@ void UI::sortComputerYearBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort computer notBuilt menu function, displays computers in sorted order
 void UI::sortComputerNotBuiltMenu()
 {
     Services c;
@@ -1155,6 +1183,7 @@ void UI::sortComputerNotBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort computer unknownBuilt menu function, displays computers in sorted order
 void UI::sortComputerUnkownBuiltMenu()
 {
     Services c;
@@ -1214,6 +1243,7 @@ void UI::sortComputerUnkownBuiltMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 //SEARCH
+//search menu function
 void UI::searchMenu()
 {
     int choice;
@@ -1246,6 +1276,7 @@ void UI::searchMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//function that returns the user to searchMenu by input
 void UI::backToSearch()
 {
     char input;
@@ -1259,6 +1290,7 @@ void UI::backToSearch()
         }
 }
 //SEARCH PERSONS
+//search person menu function, displays searched persons if found
 void UI::searchPersonMenu()
 {
     Services p;
@@ -1327,6 +1359,7 @@ void UI::searchPersonMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
 }
 //SEARCH COMPUTERS
+//search computers menu function, displays searched computers if found
 void UI::searchComputerMenu()
 {
     Services p;
@@ -1341,6 +1374,7 @@ void UI::searchComputerMenu()
     searchCompDisplay(Comp, nameSearch);
 }
 //DISPLAY
+//funtion that displays persons/sorted persons
 void UI::displayPersons(vector<InfoType> FP)
 {
     for (unsigned int i = 0; i < FP.size(); i++)
@@ -1348,6 +1382,7 @@ void UI::displayPersons(vector<InfoType> FP)
         displayPersonsSpecial(i, FP);
     }
 }
+//function that displays persons/special case sorted persons
 void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
 {
     cout << "Name: " << FP.at(i).name<< endl;
@@ -1375,6 +1410,7 @@ void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
         cout << endl;
     }
 }
+//funtion that displays computers/sorted computers
 void UI::displayComputers(vector<CompType> Comp)
 {
     for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1382,6 +1418,7 @@ void UI::displayComputers(vector<CompType> Comp)
         displayComputersSpecial(i, Comp);
     }
 }
+//function that displays computers/special case sorted computers
 void UI::displayComputersSpecial(int i, vector<CompType> Comp)
 {
     cout << endl;
@@ -1409,6 +1446,7 @@ void UI::displayComputersSpecial(int i, vector<CompType> Comp)
     }
     cout << endl;
 }
+//function that displays searched persons
 void UI::searchPersDisplay(vector<InfoType> FP, string y){
     if(!FP.empty())
     {
@@ -1419,6 +1457,7 @@ void UI::searchPersDisplay(vector<InfoType> FP, string y){
         falseCheck(y);
     }
 }
+//function that displays searched computers
 void UI::searchCompDisplay(vector<CompType> Comp, string y){
     if(!Comp.empty())
     {
@@ -1429,7 +1468,8 @@ void UI::searchCompDisplay(vector<CompType> Comp, string y){
         falseCheck(y);
     }
 }
-//ANNAÐ
+//OTHER
+//function used in menus to navigate, utilizes user input and returns it
 int UI::chooseNumber()
 {
     int choice;
@@ -1445,12 +1485,14 @@ int UI::chooseNumber()
     }
     return choice;
 }
+//function that displays an error message
 void UI::displayError()
 {
     cout << "------------------------------------------" << endl;
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
 }
+//function that checks if user wants to input more information and returns true/false
 bool UI::continueOption()
 {
     bool check;
@@ -1477,6 +1519,7 @@ bool UI::continueOption()
     }
     return check;
 }
+//function that displays an error message if user input is not in database
 void UI::falseCheck(string x)
 {
 
