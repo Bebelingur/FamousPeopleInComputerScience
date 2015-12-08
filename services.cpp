@@ -74,12 +74,10 @@ void Services::makeRelation()
 {
       string compName = "", name = "", compNameCompare = "", nameCompare = "";
       int compID = 0, persID = 0;
-      //bool compCheck = false;
       QSqlDatabase db = QSqlDatabase::database("first");
       QSqlQuery query(db);
       do{
           cout << "Enter name of computer: ";
-          //VILLA HÉRNA skrifar út cout endalaust
           getline(cin, compName);
           QString qName = QString::fromUtf8(compName.c_str());
           query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%" + qName + "%'");
@@ -163,12 +161,13 @@ vector<CompType> Services::viewComputerInfo()
 int Services::findIDPerson(string name)
 {
     int ID = 0;
+    string nameCompare = "";
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
     do
     {
             QString qName = QString::fromUtf8(name.c_str());
-            query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
+            query.exec("SELECT name, id FROM persons WHERE name LIKE '%"+qName+"%'");
             while(query.next())
             {
                 InfoType p;
