@@ -22,14 +22,14 @@ public:
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     void addRelation(int personId, int computerId);
     //MAKE FÖLLIN
-    vector<InfoType> makePersonsVector();
-    vector<CompType> makeComputerVector();
+    vector <InfoType> makePersonsVector();
+    vector <CompType> makeComputerVector();
     void makeRelation();
     //VIEW FÖLLIN
-    vector<InfoType> viewPersonsInfo();
-    vector<CompType> viewComputerInfo();
-    vector<CompType> viewRelationPerson(int ID);
-    vector<InfoType> viewRelationComputer(int ID);
+    vector <InfoType> viewPersonsInfo();
+    vector <CompType> viewComputerInfo();
+    vector <CompType> viewRelationPerson(int ID);
+    vector <InfoType> viewRelationComputer(int ID);
     //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
@@ -73,16 +73,10 @@ public:
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string nameSearch);
-<<<<<<< HEAD
-    //ANNAÐst
-    string changeName(InfoType p);
-=======
     //ANNAÐ
     string changeName(InfoType p);
     char convertToChar(string a);
     string convertToString(char a);
-
->>>>>>> 0463941aed07e11f8653481c97e4ef475b35c37f
     int findID(string name);
 
 private:

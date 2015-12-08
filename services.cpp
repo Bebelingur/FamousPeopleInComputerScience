@@ -168,16 +168,8 @@ vector<CompType> Services::viewRelationPerson(int ID)
     }
     return computers;
 }
-void Services::viewRelationComputer(int ID)
+vector<InfoType> Services::viewRelationComputer(int ID)
 {
-<<<<<<< HEAD
-=======
-    UI a;
-
-    string name = "";
-    int ID = 0;
-
->>>>>>> 0463941aed07e11f8653481c97e4ef475b35c37f
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
