@@ -34,9 +34,6 @@ public:
     int getYearMade();
     string getComputerType();
     int getWasBuilt(int computerYearMade);
-    //RELATION INFO INPUT
-    void relationMenu();
-    void backToRelation();
     //VIEW
     void viewInfoMenu();
     void backToView();
@@ -65,6 +62,9 @@ public:
     void searchPersonMenu();
     //SEARCH COMPUTERS
     void searchComputerMenu();
+    //RELATION INFO INPUT
+    void relationMenu();
+    void backToRelation();
     //REMOVE
     void removeMenu();
     void returnToRemove();
