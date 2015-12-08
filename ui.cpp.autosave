@@ -1570,8 +1570,6 @@ void UI::databaseCheckComputers(vector<CompType> Comp)
     }
     else
     {
-        Services c;
-        c.sortByComputerNameAsc();
         displayComputers(Comp);
     }
 }
@@ -1584,8 +1582,7 @@ void UI::databaseCheckPersons(vector<InfoType> FP)
         cout << endl;
     }
     else
-    {   Services p;
-        p.sortByNameAsc();
+    {   
         displayPersons(FP);
     }
 }

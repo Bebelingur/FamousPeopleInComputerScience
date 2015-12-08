@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//er bæði í ui og services væri til í að hafa það bara á einum stað
+
 //function that finds the time
 
 int aliveNow()
