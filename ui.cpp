@@ -116,8 +116,18 @@ void UI::getPersonInfo()
         char gender = getGender();
         int bYear = getBirthYear();
         int dYear = getDeathYear(name, bYear);
-
-        p.addPerson(name, gender, bYear, dYear);
+        bool check = duplicateCheckPersons(name, gender, bYear, dYear);
+        if(check == true)
+        {
+            p.addPerson(name, gender, bYear, dYear);
+        }
+        else
+        {
+            cout << endl;
+            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
+            cout << endl;
+        }
 
         check = continueOption();
     }while(check == true);
@@ -229,7 +239,7 @@ void UI::getComputerInfo()
     Services c;
     bool check = false;
 
-    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << "* * * INPUT COMPUTER INFORMATION * * *" << endl;
     cout << endl;
 
     do{
@@ -237,9 +247,18 @@ void UI::getComputerInfo()
         int computerYearMade = getYearMade();
         string computerType = getComputerType();
         int wasBuilt = getWasBuilt(computerYearMade);
-
-        c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
-
+        bool check = duplicateCheckComputers(computerName, computerYearMade, computerType, wasBuilt);
+        if(check == true)
+        {
+            c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
+        }
+        else
+        {
+            cout << endl;
+            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
+            cout << endl;
+        }
         check = continueOption();
     }while(check == true);
 }
@@ -1570,6 +1589,8 @@ void UI::databaseCheckComputers(vector<CompType> Comp)
     }
     else
     {
+        Services c;
+        c.sortByComputerNameAsc();
         displayComputers(Comp);
     }
 }
@@ -1582,7 +1603,8 @@ void UI::databaseCheckPersons(vector<InfoType> FP)
         cout << endl;
     }
     else
-    {
+    {   Services p;
+        p.sortByNameAsc();
         displayPersons(FP);
     }
 }
@@ -1597,5 +1619,51 @@ bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 
      else return true;
 }
+bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
+{
+    data p;
+    Services s;
+    bool check = false;
+    vector<InfoType> FP = p.loadPersData();
+    string temp1, temp2;
+    temp1 = s.changeName(name);
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        temp2 = s.changeName(FP.at(i).name);
+        if((temp1 == temp2) && (gender == FP.at(i).gender) && (bYear == FP.at(i).birthYear) && (dYear == FP.at(i).deathYear))
+        {
+            check = false;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    return check;
+}
+bool UI::duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt)
+{
+    data c;
+    Services s;
+    bool check = false;
+    vector<CompType> Comp = c.loadCompData();
+    string temp1, temp2, temp3, temp4;
 
+    temp1 = s.changeName(computerName);
+    temp2 = s.changeName(computerType);
 
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+        temp3 = s.changeName(Comp.at(i).compName);
+        temp4 = s.changeName(Comp.at(i).type);
+        if((temp1 == temp3) && (computerYearMade == Comp.at(i).yearMade) && (temp2 == temp4) && (wasBuilt == Comp.at(i).wasBuilt))
+        {
+            check = false;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    return check;
+}

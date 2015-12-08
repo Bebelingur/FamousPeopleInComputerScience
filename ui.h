@@ -79,6 +79,8 @@ public:
     void falseCheck(string nameSearch);
     void databaseCheckComputers(vector<CompType> Comp);
     void databaseCheckPersons(vector<InfoType> FP);
+    bool duplicateCheckPersons(string name, char gender, int bYear, int dYear);
+    bool duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt);
 
 };
 

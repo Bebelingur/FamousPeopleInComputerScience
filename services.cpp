@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 //function that finds the time
 int aliveNow()
 {
@@ -697,29 +696,27 @@ vector<CompType> Services::searchVectorComputersName(string name)
 }
 //OTHER
 //changes name uppercase/lowercase
-string Services::changeName(InfoType p)
+string Services::changeName(string tempName)
 {
-    string tempName = p.name;
     int NameLength = tempName.size();
-        for (int i = 0; i < NameLength; i++)
+    for (int i = 0; i < NameLength; i++)
+    {
+        if(tempName[i] == ' ')
         {
-            if(tempName[i] == ' ')
-            {
-                tempName[i+1] = toupper(tempName[i+1]);
-                i++;
-            }
-            else if(i ==0)
-            {
-                tempName[i] = toupper(tempName[i]);
-            }
-            else
-            {
-                tempName[i] = tolower(tempName[i]);
-            }
+            tempName[i+1] = toupper(tempName[i+1]);
+            i++;
         }
+        else if(i ==0)
+        {
+            tempName[i] = toupper(tempName[i]);
+        }
+        else
+        {
+            tempName[i] = tolower(tempName[i]);
+        }
+    }
     return tempName;
 }
-
 char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
