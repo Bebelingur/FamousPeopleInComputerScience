@@ -398,7 +398,7 @@ void UI::relationMenu()
                 cout << "Enter computer name: ";
                 cin.clear();
                 getline(cin, name);
-                int ID = s.findID(name);
+                int ID = s.findIDComputer(name);
                 vector<InfoType> FP = s.viewRelationComputer(ID);
                 databaseCheckPersons(FP);
                 break;
@@ -409,7 +409,7 @@ void UI::relationMenu()
                 cin.clear();
                 string name = "";
                 getline(cin, name);
-                int ID = s.findID(name);
+                int ID = s.findIDPerson(name);
                 vector<CompType> Comp = s.viewRelationPerson(ID);
                 databaseCheckComputers(Comp);
                 break;

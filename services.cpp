@@ -150,7 +150,7 @@ vector<CompType> Services::viewComputerInfo()
     return Comp;
 }
 
-int Services::findID(string name)
+int Services::findIDPerson(string name)
 {
     int ID = 0;
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -164,6 +164,25 @@ int Services::findID(string name)
                 InfoType p;
                 p.id = query.value("id").toUInt();
                 ID = p.id;
+            }
+        }while(name == "");
+    return ID;
+}
+
+int Services::findIDComputer(string name)
+{
+    int ID = 0;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    do
+    {
+            QString qName = QString::fromUtf8(name.c_str());
+            query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
+            while(query.next())
+            {
+                CompType c;
+                c.id = query.value("id").toUInt();
+                ID = c.id;
             }
         }while(name == "");
     return ID;
