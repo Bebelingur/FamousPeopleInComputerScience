@@ -135,7 +135,7 @@ void Services::viewRelationPerson()
     QSqlQuery query(db);
     do
     {
-            cout << "Enter name: ";
+            cout << "Enter person name: ";
             //cin.clear();
             getline(cin, name);
             QString qName = QString::fromUtf8(name.c_str());

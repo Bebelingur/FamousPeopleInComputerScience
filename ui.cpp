@@ -34,7 +34,7 @@ void UI::userMenu()
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
-        cout << "5. Add or view relatinon between person and computer" << endl;
+        cout << "5. Add or view relation between person and computer" << endl;
         cout << "6. Exit" << endl;
         cout << "===========================================" << endl;
 
@@ -250,7 +250,7 @@ int UI::getYearMade()
     int computerYearMade = 0;
     bool check = false;
     do{
-        cout << "Input year designed (input 1 for unknown): ";
+        cout << "Input year made (input 1 for unknown): ";
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
@@ -313,7 +313,7 @@ string UI::getComputerType()
                     }
                     case 'O':
                     {
-                        cout  << " \t Input computer type name: ";
+                        cout  << "Input computer type name: ";
                         getline(cin, type);
                         break;
                     }
@@ -1061,7 +1061,7 @@ void UI::sortComputerYearBuiltMenu()
             case 1:
             {
                 cout << endl;
-                cout << "--- Displaying computers by year made in ascending order ---" << endl;
+                cout << "--- Displaying computers by year built in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearBuiltAsc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1077,7 +1077,7 @@ void UI::sortComputerYearBuiltMenu()
             case 2:
             {
                 cout << endl;
-                cout << "--- Displaying computers by year made in descending order ---" << endl;
+                cout << "--- Displaying computers by year built in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearBuiltDesc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1119,7 +1119,7 @@ void UI::sortComputerNotBuiltMenu()
             case 1:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in ascending order ---" << endl;
+                cout << "--- Displaying computers not built in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearNotBuiltAsc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1135,7 +1135,7 @@ void UI::sortComputerNotBuiltMenu()
             case 2:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in descending order ---" << endl;
+                cout << "--- Displaying computers not built in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearNotBuiltDesc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1161,10 +1161,10 @@ void UI::sortComputerUnkownBuiltMenu()
     int choice;
 
     do{
-        cout << "* * * SORT BY NOT BUILT INFORMATION * * *" << endl;
+        cout << "* * * SORT BY UNKNOWN IF BUILT INFORMATION * * *" << endl;
         cout << endl;
-        cout << "1. Sort by not built (Ascending)" << endl;
-        cout << "2. Sort by not built (Descending)" << endl;
+        cout << "1. Sort by unkown if built (Ascending)" << endl;
+        cout << "2. Sort by unkown if built (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
@@ -1177,7 +1177,7 @@ void UI::sortComputerUnkownBuiltMenu()
             case 1:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in ascending order ---" << endl;
+                cout << "--- Displaying computers unkown if built in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearUnknownBuiltAsc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1193,7 +1193,7 @@ void UI::sortComputerUnkownBuiltMenu()
             case 2:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in descending order ---" << endl;
+                cout << "--- Displaying computers unkown if built in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearUnknownBuiltDesc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
