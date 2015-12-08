@@ -26,6 +26,7 @@ public:
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
     void makeRelation();
+
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
@@ -44,17 +45,7 @@ public:
     vector <InfoType> sortByDeathYearDesc();
     vector <InfoType> sortByDeceased();
     vector <InfoType> sortByNotDeceased();
-    //SORT COMPUTER BOOL FUNCTIONS
-    /*
-     * bool compareCompNameAsc(const CompType& a, const CompType& b);
-     * bool compareCompNameDesc(const CompType& a, const CompType& b);
-     * bool compareComputerYearMadeAsc(const CompType& a, const CompType& b);
-     * bool compareComputerYearMadeDesc(const CompType& a, const CompType& b);
-     * bool compareCompTypeAsc(const CompType& a, const CompType& b);
-     * bool compareCompTypeDesc(const CompType& a, const CompType& b);
-     * bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b);
-     * bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b);
-     */
+
     //SORT COMPUTER FUNCTIONS
     vector <CompType> sortByComputerNameAsc();
     vector <CompType> sortByComputerNameDesc();
