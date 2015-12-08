@@ -31,7 +31,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
-//takes info/(variables) from user input regarding computers and sends down to data
+//takes info(variables) from user input regarding computers and sends down to data
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
     CompType p;
@@ -44,7 +44,7 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-//takes info/(variables) from user input regarding relation and sends down to data
+//takes info(variables) from user input regarding relation and sends down to data
 void Services::addRelation(int personId, int computerId)
 {
     RelationsType p;
