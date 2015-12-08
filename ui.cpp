@@ -1435,6 +1435,7 @@ void UI::displayPersons(vector<InfoType> FP)
 //function that displays persons/special case sorted persons
 void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
 {
+    cout << endl;
     cout << "Name: " << FP.at(i).name<< endl;
     if(toupper(FP.at(i).gender) == 'F')
     {
@@ -1475,11 +1476,11 @@ void UI::displayComputersSpecial(int i, vector<CompType> Comp)
     cout << "Computer name: " << Comp.at(i).compName << endl;
     if(Comp.at(i).yearMade == 0)
     {
-        cout << "Computer has been designed, year is unknown." << endl;
+        cout << "Computer has been made, year is unknown." << endl;
     }
     else
     {
-        cout << "Year designed: " << Comp.at(i).yearMade << endl;
+        cout << "Year made: " << Comp.at(i).yearMade << endl;
     }
     cout << "Computer type: " << Comp.at(i).type << endl;
     if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
