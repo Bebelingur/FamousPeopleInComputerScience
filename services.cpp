@@ -627,7 +627,7 @@ vector<CompType> Services::searchVectorComputersName(string name)
     vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
 
-    for(unsigned int i = 0; i < name.size() ; i++)
+    for(unsigned int i = 0; i < name.size(); i++)
     {
         name[i] = tolower(name[i]);
         //setjum innsláttinn í lower case
