@@ -6,6 +6,7 @@ using namespace std;
 data::data()
 {
 }
+
 //function that connects the program to the database
 void data::connectionToDatabase()
 {

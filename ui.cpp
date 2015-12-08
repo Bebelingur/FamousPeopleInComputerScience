@@ -422,6 +422,7 @@ void UI::relationMenu()
                 getline(cin, name);
                 int ID = s.findIDComputer(name);
                 vector<InfoType> FP = s.viewRelationComputer(ID);
+                cout << endl;
                 databaseCheckPersons(FP);
                 break;
             }
@@ -1596,7 +1597,6 @@ bool UI::checkDatabaseEmpty()
         return false;
     }
      else return true;
-
 }
 
 
