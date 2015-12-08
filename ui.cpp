@@ -1553,7 +1553,6 @@ bool UI::checkDatabaseEmpty()
         return false;
     }
      else return true;
-
 }
 
 
