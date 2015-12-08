@@ -26,6 +26,7 @@ public:
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
     void makeRelation();
+
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
@@ -44,17 +45,7 @@ public:
     vector <InfoType> sortByDeathYearDesc();
     vector <InfoType> sortByDeceased();
     vector <InfoType> sortByNotDeceased();
-    //SORT COMPUTER BOOL FUNCTIONS
-    /*
-     * bool compareCompNameAsc(const CompType& a, const CompType& b);
-     * bool compareCompNameDesc(const CompType& a, const CompType& b);
-     * bool compareComputerYearMadeAsc(const CompType& a, const CompType& b);
-     * bool compareComputerYearMadeDesc(const CompType& a, const CompType& b);
-     * bool compareCompTypeAsc(const CompType& a, const CompType& b);
-     * bool compareCompTypeDesc(const CompType& a, const CompType& b);
-     * bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b);
-     * bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b);
-     */
+
     //SORT COMPUTER FUNCTIONS
     vector <CompType> sortByComputerNameAsc();
     vector <CompType> sortByComputerNameDesc();
@@ -75,12 +66,17 @@ public:
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
 
-    //SEARCH COMPUTERS FÖLL
+    //SEARCH COMPUTERS FUNCTIONS
     vector<CompType> searchVectorComputersName(string name);
 
+    //REMOVE FUNCTIONS
+    vector<InfoType> findPerson(int ID);
+    vector<CompType> findComputer(int ID);
+    void removePerson(int ID);
+    void removeComputer(int ID);
 
     //OTHER
-    string changeName(InfoType p);
+    string changeName(string tempName);
     char convertToChar(string a);
     string convertToString(char a);
     int findIDPerson(string name);

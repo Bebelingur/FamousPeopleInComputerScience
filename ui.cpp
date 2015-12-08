@@ -1,7 +1,7 @@
 #include "ui.h"
 
 using namespace std;
-
+//function that finds the time
 int exactYearNow()
 {
     time_t now = time(0);
@@ -34,7 +34,8 @@ void UI::userMenu()
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
         cout << "5. Add or view relation between person and computer" << endl;
-        cout << "6. Exit" << endl;
+        cout << "6. Remove Information" << endl;
+        cout << "7. Exit" << endl;
         cout << "===========================================" << endl;
 
         do{
@@ -59,6 +60,8 @@ void UI::userMenu()
                 relationMenu();
                 break;
             case 6:
+                removeMenu();
+            case 7:
                 exit(1);
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
@@ -116,8 +119,18 @@ void UI::getPersonInfo()
         char gender = getGender();
         int bYear = getBirthYear();
         int dYear = getDeathYear(name, bYear);
-
-        p.addPerson(name, gender, bYear, dYear);
+        bool check = duplicateCheckPersons(name, gender, bYear, dYear);
+        if(check == true)
+        {
+            p.addPerson(name, gender, bYear, dYear);
+        }
+        else
+        {
+            cout << endl;
+            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
+            cout << endl;
+        }
 
         check = continueOption();
     }while(check == true);
@@ -133,7 +146,7 @@ string UI::getName()
         cin.clear();
         getline(cin, name);
         check = false;
-        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        //check if input contains digits
         for(unsigned int i = 0; i < name.size(); i++)
         {
             if(isdigit(name[i]))
@@ -187,39 +200,39 @@ int UI::getBirthYear()
 //function that gets the deathYear from the user and returns it
 int UI::getDeathYear(string name, int bYear)
 {
-        int dYear = 0;
-        char personDead = ' ';
+    int dYear = 0;
+    char personDead = ' ';
 
-        do{
-            cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
-            cin >> personDead;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
+    do{
+        cout << "Is " << name << " deceased? (Y for yes/ N for no): ";
+        cin >> personDead;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
 
-                if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
-                {
-                    displayError();
-                }
+            if(toupper(personDead) != 'Y' && toupper(personDead) != 'N')
+            {
+                displayError();
+            }
 
-                if(toupper(personDead) == 'Y')
-                {
-                    do{
-                        cout << "Input year of death: ";
-                        cin >> dYear;
-                        cin.clear();
-                        cin.ignore(INT_MAX, '\n');
-                            if(!((dYear > bYear) && (dYear <= yearNow)))
-                            {
-                                displayError();
-                            }
-                    }while(!((dYear > bYear) && (dYear <= yearNow)));
-                }
-                if(toupper(personDead) == 'N')
-                {
-                    //all deceased get zero as input for year of death
-                    dYear = 0;
-                }
-        }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
+            if(toupper(personDead) == 'Y')
+            {
+                do{
+                    cout << "Input year of death: ";
+                    cin >> dYear;
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                        if(!((dYear > bYear) && (dYear <= yearNow)))
+                        {
+                            displayError();
+                        }
+                }while(!((dYear > bYear) && (dYear <= yearNow)));
+            }
+            if(toupper(personDead) == 'N')
+            {
+                //all deceased get zero as input for year of death
+                dYear = 0;
+            }
+    }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
     return dYear;
 }
 //COMPUTER INFO INPUT
@@ -229,7 +242,7 @@ void UI::getComputerInfo()
     Services c;
     bool check = false;
 
-    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << "* * * INPUT COMPUTER INFORMATION * * *" << endl;
     cout << endl;
 
     do{
@@ -237,9 +250,18 @@ void UI::getComputerInfo()
         int computerYearMade = getYearMade();
         string computerType = getComputerType();
         int wasBuilt = getWasBuilt(computerYearMade);
-
-        c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
-
+        bool check = duplicateCheckComputers(computerName, computerYearMade, computerType, wasBuilt);
+        if(check == true)
+        {
+            c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
+        }
+        else
+        {
+            cout << endl;
+            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
+            cout << endl;
+        }
         check = continueOption();
     }while(check == true);
 }
@@ -275,7 +297,6 @@ int UI::getYearMade()
         }
     }while(check == false);
 
-    //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
     if(computerYearMade == 1)
     {
         computerYearMade = 0;
@@ -363,12 +384,12 @@ int UI::getWasBuilt(int computerYearMade)
                 }
                 else if(toupper(choice) == 'N')
                 {
-                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                    //if it was never built it gets the value 0
                     built = 0;
                 }
                 else if(choice == '?')
                 {
-                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
+                    //if it is unkown when it was built it gets the value 1
                     built = 1;
                 }
             }
@@ -386,7 +407,7 @@ void UI::relationMenu()
     do{
         cout << " * * * RELATIONS * * * " << endl;
         cout << endl;
-        cout << "1. Add relation between comuter and person" << endl;
+        cout << "1. Add relation between computer and person" << endl;
         cout << "2. Find persons related to computer" << endl;
         cout << "3. Find computers related to person" << endl;
         cout << "4. Return to main menu" << endl;
@@ -416,8 +437,8 @@ void UI::relationMenu()
             if(checkDatabase == false)
             {
                 cout << endl;
-                cout << "there are not enough information in database to make relation"<<endl;
-                cout << "add a computer, or a person first"<< endl;
+                cout << "There is not enough information in database to make relation" << endl;
+                cout << "Add a computer, or a person first" << endl;
                 cout << endl;
                 break;
             }
@@ -1376,7 +1397,7 @@ void UI::searchPersonMenu()
             case 4:
             {
                 string deathYearSearch;
-                cout << "Enter death year: ";
+                cout << "Enter death year (input 0 if still alive): ";
                 cin >> deathYearSearch;
                 vector <InfoType> FP = p.searchVectorDeathYear(deathYearSearch);
                 searchPersDisplay(FP, deathYearSearch);
@@ -1404,6 +1425,105 @@ void UI::searchComputerMenu()
     vector<CompType> Comp = p.searchVectorComputersName(nameSearch);
     searchCompDisplay(Comp, nameSearch);
 }
+//REMOVE
+void UI::removeMenu()
+{
+    Services s;
+    int choice;
+    do{
+        cout << "* * * REMOVE INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Remove person" << endl;
+        cout << "2. Remove computer" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                string name = "";
+                cout << "Enter name of a person to remove: ";
+                cin.clear();
+                getline(cin, name);
+                int ID = s.findIDPerson(name);
+                cout << endl;
+                vector<InfoType> person = s.findPerson(ID);
+                if(person.empty())
+                {
+                    cout << name << " was not found in database!" << endl << endl;
+                    returnToRemove();
+                }
+                displayPersons(person);
+                askToRemove(name, ID);
+                break;
+            }
+            case 2:
+            {
+                string name = "";
+                cout << "Enter name of a computer to remove: ";
+                cin.clear();
+                getline(cin, name);
+                int ID = s.findIDComputer(name);
+                cout << endl;
+                vector<CompType> computer = s.findComputer(ID);
+                if(computer.empty())
+                {
+                    cout << name << " was not found in database!" << endl << endl;
+                    returnToRemove();
+                }
+                displayComputers(computer);
+                askToRemove(name, ID);
+                break;
+            }
+            case 3:
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+
+void UI::askToRemove(string name, int ID)
+{
+    Services s;
+    string input = " ";
+    do{
+        cout << "Do you want to remove this person(y for yes, n for no)? " << endl;
+        cin >> input;
+        if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
+            displayError();
+    }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
+    if(toupper(input[0]) == 'Y')
+    {
+        cout << endl;
+        cout << name << " has been removed!" << endl << endl;
+        s.removePerson(ID);
+        returnToRemove();
+    }
+    else if(toupper(input[0]) == 'N')
+    {
+        cout << endl << name << " was not removed!" << endl << endl;
+        returnToRemove();
+    }
+}
+
+void UI::returnToRemove()
+{
+    cout << "--- Press any key and then enter to return to remove menu ---" << endl;
+    char input;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            removeMenu();
+        }
+}
+
 //DISPLAY
 //funtion that displays persons/sorted persons
 void UI::displayPersons(vector<InfoType> FP)
@@ -1416,6 +1536,7 @@ void UI::displayPersons(vector<InfoType> FP)
 //function that displays persons/special case sorted persons
 void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
 {
+    cout << endl;
     cout << "Name: " << FP.at(i).name<< endl;
     if(toupper(FP.at(i).gender) == 'F')
     {
@@ -1456,11 +1577,11 @@ void UI::displayComputersSpecial(int i, vector<CompType> Comp)
     cout << "Computer name: " << Comp.at(i).compName << endl;
     if(Comp.at(i).yearMade == 0)
     {
-        cout << "Computer has been designed, year is unknown." << endl;
+        cout << "Computer has been made, year is unknown." << endl;
     }
     else
     {
-        cout << "Year designed: " << Comp.at(i).yearMade << endl;
+        cout << "Year made: " << Comp.at(i).yearMade << endl;
     }
     cout << "Computer type: " << Comp.at(i).type << endl;
     if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
@@ -1570,6 +1691,8 @@ void UI::databaseCheckComputers(vector<CompType> Comp)
     }
     else
     {
+        Services c;
+        c.sortByComputerNameAsc();
         displayComputers(Comp);
     }
 }
@@ -1582,7 +1705,8 @@ void UI::databaseCheckPersons(vector<InfoType> FP)
         cout << endl;
     }
     else
-    {
+    {   Services p;
+        p.sortByNameAsc();
         displayPersons(FP);
     }
 }
@@ -1597,5 +1721,51 @@ bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 
      else return true;
 }
+bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
+{
+    data p;
+    Services s;
+    bool check = false;
+    vector<InfoType> FP = p.loadPersData();
+    string temp1, temp2;
+    temp1 = s.changeName(name);
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        temp2 = s.changeName(FP.at(i).name);
+        if((temp1 == temp2) && (gender == FP.at(i).gender) && (bYear == FP.at(i).birthYear) && (dYear == FP.at(i).deathYear))
+        {
+            check = false;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    return check;
+}
+bool UI::duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt)
+{
+    data c;
+    Services s;
+    bool check = false;
+    vector<CompType> Comp = c.loadCompData();
+    string temp1, temp2, temp3, temp4;
 
+    temp1 = s.changeName(computerName);
+    temp2 = s.changeName(computerType);
 
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+        temp3 = s.changeName(Comp.at(i).compName);
+        temp4 = s.changeName(Comp.at(i).type);
+        if((temp1 == temp3) && (computerYearMade == Comp.at(i).yearMade) && (temp2 == temp4) && (wasBuilt == Comp.at(i).wasBuilt))
+        {
+            check = false;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    return check;
+}

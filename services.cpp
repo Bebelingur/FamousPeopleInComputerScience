@@ -2,9 +2,7 @@
 
 using namespace std;
 
-//er bæði í ui og services væri til í að hafa það bara á einum stað
-//function that finds the time
-
+//function that finds the time and adds 1 year to it
 int aliveNow()
 {
     time_t now = time(0);
@@ -32,7 +30,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
-//takes info/(variables) from user input regarding computers and sends down to data
+//takes info from user input regarding computers and sends down to data
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
     CompType p;
@@ -45,7 +43,7 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-//takes info/(variables) from user input regarding relation and sends down to data
+//takes info from user input regarding relation and sends down to data
 void Services::addRelation(int personId, int computerId)
 {
     RelationsType p;
@@ -93,9 +91,8 @@ void Services::makeRelation()
                   compID = c.id;
               }
               else
-              cout<< "did you mean: "<< c.compName << endl;
+              cout << "Did you mean: " << c.compName << endl;
           }
-
       }while(compID == 0);
 
       do{
@@ -115,7 +112,7 @@ void Services::makeRelation()
                   persID = p.id;
               }
               else
-              cout<< "did you mean: "<< p.name << endl;
+              cout << "Did you mean: " << p.name << endl;
           }
       }while(persID == 0);
 
@@ -157,7 +154,7 @@ vector<CompType> Services::viewComputerInfo()
     vector <CompType> Comp = makeComputerVector();
     return Comp;
 }
-
+//finds the person id and returns it
 int Services::findIDPerson(string name)
 {
     int ID = 0;
@@ -177,7 +174,7 @@ int Services::findIDPerson(string name)
         }while(name == "");
     return ID;
 }
-
+//finds the computer id and returns it
 int Services::findIDComputer(string name)
 {
     int ID = 0;
@@ -201,7 +198,6 @@ int Services::findIDComputer(string name)
 vector<CompType> Services::viewRelationPerson(int ID)
 {
     vector<CompType> computers;
-
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
     query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
@@ -660,6 +656,17 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
             }
         }
     }
+    else if((deathYearSearch.size() == 1) && isdigit(deathYearSearch[0]) && (deathYearSearch == "0"))
+    {
+        int deathYearSearchI = atoi(deathYearSearch.c_str());//set string to int to be able to compare
+        for(unsigned int i = 0; i < FP.size(); i++)
+        {
+            if(deathYearSearchI == FP[i].deathYear)
+            {
+                result.push_back(FP[i]);
+            }
+        }
+    }
     FP.clear();
     return result;
 }
@@ -674,8 +681,8 @@ vector<CompType> Services::searchVectorComputersName(string name)
 
         for(unsigned int i = 0; i < name.size() ; i++)
         {
+            //set input to lowercase
             name[i] = tolower(name[i]);
-            //setjum innsláttinn í lower case
         }
         for(unsigned int i = 0; i < Comp.size(); i++)
         {
@@ -683,11 +690,11 @@ vector<CompType> Services::searchVectorComputersName(string name)
 
            for(unsigned int j = 0; j < tempName.size() ; j++)
            {
+               //set string to int to be able to compare
                tempName[j] = tolower(tempName[j]);
-               //setjum nafnið í skjalinu í lower case og berum svo saman
            }
-
-           int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+           //check if input is apart of name
+           int found = tempName.find(name);
            if(found != (int) std::string::npos)
            {
                result.push_back(Comp[i]);
@@ -696,37 +703,97 @@ vector<CompType> Services::searchVectorComputersName(string name)
         Comp.clear();
         return result;
 }
-//OTHER
-//changes name uppercase/lowercase
-string Services::changeName(InfoType p)
+//REMOVE
+//function that finds the person id and returns it
+vector<InfoType> Services::findPerson(int ID)
 {
-    string tempName = p.name;
-    int NameLength = tempName.size();
-        for (int i = 0; i < NameLength; i++)
-        {
-            if(tempName[i] == ' ')
-            {
-                tempName[i+1] = toupper(tempName[i+1]);
-                i++;
-            }
-            else if(i ==0)
-            {
-                tempName[i] = toupper(tempName[i]);
-            }
-            else
-            {
-                tempName[i] = tolower(tempName[i]);
-            }
-        }
-    return tempName;
+    vector<InfoType> p;
+    InfoType person;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM persons WHERE id = "+QString::number(ID)+"");
+
+    while(query.next())
+    {
+        person.id = query.value("id").toUInt();
+        person.name = query.value("name").toString().toStdString();
+        person.gender = convertToChar(query.value("sex").toString().toStdString());
+        person.birthYear = query.value("yearBorn").toUInt();
+        person.deathYear = query.value("yearDead").toUInt();
+        p.push_back(person);
+    }
+
+    return p;
+}
+//function that finds the computer id and returns it
+vector<CompType> Services::findComputer(int ID)
+{
+    vector<CompType> c;
+    CompType computer;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM computers WHERE id = "+QString::number(ID)+"");
+    while(query.next())
+    {
+        computer.id = query.value("id").toUInt();
+        computer.compName = query.value("compName").toString().toStdString();
+        computer.yearMade = query.value("yearMade").toUInt();
+        computer.type = query.value("type").toString().toStdString();
+        computer.wasBuilt = query.value("wasBuilt").toUInt();
+        c.push_back(computer);
+    }
+    return c;
+}
+//removes person from database
+void Services::removePerson(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    query.exec("DELETE FROM persons WHERE id = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idPerson = "+QString::number(ID)+"");
+}
+//removes computer from database
+void Services::removeComputer(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("DELETE FROM computers WHERE id = "+QString::number(ID)+"");
+    query.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
 }
 
+
+//OTHER
+//changes name uppercase/lowercase
+string Services::changeName(string tempName)
+{
+    int NameLength = tempName.size();
+    for (int i = 0; i < NameLength; i++)
+    {
+        if(tempName[i] == ' ')
+        {
+            tempName[i+1] = toupper(tempName[i+1]);
+            i++;
+        }
+        else if(i ==0)
+        {
+            tempName[i] = toupper(tempName[i]);
+        }
+        else
+        {
+            tempName[i] = tolower(tempName[i]);
+        }
+    }
+    return tempName;
+}
+//function that converts string to char and returns it
 char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
     result = a.at(0);
     return result;
 }
+//function that converts char to string and returns it
 string Services::convertToString(char a)
 {
     string result;

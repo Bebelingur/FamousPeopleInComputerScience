@@ -64,6 +64,10 @@ public:
     void searchPersonMenu();
     //SEARCH COMPUTERS
     void searchComputerMenu();
+    //REMOVE
+    void removeMenu();
+    void returnToRemove();
+    void askToRemove(string name, int ID);
     //DISPLAY
     void displayPersons(vector<InfoType> FP);
     void displayPersonsSpecial(int i, vector<InfoType> FP);
@@ -79,6 +83,8 @@ public:
     void falseCheck(string nameSearch);
     void databaseCheckComputers(vector<CompType> Comp);
     void databaseCheckPersons(vector<InfoType> FP);
+    bool duplicateCheckPersons(string name, char gender, int bYear, int dYear);
+    bool duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt);
 
 };
 
