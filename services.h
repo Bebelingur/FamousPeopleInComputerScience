@@ -77,7 +77,8 @@ public:
     string changeName(InfoType p);
     char convertToChar(string a);
     string convertToString(char a);
-    int findID(string name);
+    int findIDPerson(string name);
+    int findIDComputer(string name);
 
 private:
     vector <InfoType> FP;
