@@ -40,7 +40,7 @@ void UI::userMenu()
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6 && choice !=7);
 
         switch(choice)
         {
@@ -64,7 +64,7 @@ void UI::userMenu()
             case 7:
                 exit(1);
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7);
 }
 //INPUT
 //input menu function
@@ -1631,7 +1631,7 @@ int UI::chooseNumber()
     cout << endl;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
-    if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
+    if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6 && choice != 7)
     {
         displayError();
     }
