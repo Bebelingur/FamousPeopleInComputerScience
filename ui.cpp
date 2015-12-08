@@ -484,14 +484,17 @@ void UI::relationMenu()
                         cout << endl;
                         cout << "| | | Relation is already in database | | |" << endl;
                         cout << endl;
+                        backToRelation();
+                        break;
                     }
                     else
                     {
                         cout << endl;
                         cout << "* * * Relation between " << compName <<" and " << persName << " has been added * * *" << endl;
                         cout << endl;
+                        backToRelation();
+                        break;
                     }
-                    break;
                 }
                 if(checkDatabase == false)
                 {
@@ -499,6 +502,7 @@ void UI::relationMenu()
                     cout << "There is not enough information in database to make relation" << endl;
                     cout << "Add a computer, or a person first" << endl;
                     cout << endl;
+                    backToRelation();
                     break;
                 }
             }
@@ -533,6 +537,7 @@ void UI::relationMenu()
                 cout << endl;
                 cout << "* * * Persons related to " << name << " * * *" << endl;
                 databaseCheckPersons(FP);
+                backToRelation();
                 break;
             }
             case 3:
@@ -567,6 +572,7 @@ void UI::relationMenu()
                 cout << endl;
                 cout << "* * * Computers related to " << name << " * * *" << endl;
                 databaseCheckComputers(Comp);
+                backToRelation();
                 break;
             }
             case 4:
@@ -576,6 +582,18 @@ void UI::relationMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+}
+void UI::backToRelation()
+{
+    cout << "--- Press any key and then enter to return to relation menu ---" << endl;
+    char input;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            relationMenu();
+        }
 }
 //VIEW
 //view info menu function

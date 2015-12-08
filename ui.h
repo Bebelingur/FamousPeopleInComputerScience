@@ -36,6 +36,7 @@ public:
     int getWasBuilt(int computerYearMade);
     //RELATION INFO INPUT
     void relationMenu();
+    void backToRelation();
     //VIEW
     void viewInfoMenu();
     void backToView();
