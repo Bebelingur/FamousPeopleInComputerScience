@@ -488,7 +488,7 @@ void UI::relationMenu()
                     else
                     {
                         cout << endl;
-                        cout << "| | | Relation between " << compName <<" and " << persName << " has been added | | |" << endl;
+                        cout << "* * * Relation between " << compName <<" and " << persName << " has been added * * *" << endl;
                         cout << endl;
                     }
                     break;
@@ -531,6 +531,7 @@ void UI::relationMenu()
                 }while(ID == 0);
                 vector<InfoType> FP = s.viewRelationComputer(ID);
                 cout << endl;
+                cout << "* * * Persons related to " << name << " * * *" << endl;
                 databaseCheckPersons(FP);
                 break;
             }
@@ -563,6 +564,8 @@ void UI::relationMenu()
                     names.clear();
                 }while(ID == 0);
                 vector<CompType> Comp = s.viewRelationPerson(ID);
+                cout << endl;
+                cout << "* * * Computers related to " << name << " * * *" << endl;
                 databaseCheckComputers(Comp);
                 break;
             }
