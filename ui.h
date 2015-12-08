@@ -34,10 +34,9 @@ public:
     int getYearMade();
     string getComputerType();
     int getWasBuilt(int computerYearMade);
-    //RELATION INFO INPUT
-    void relationMenu();
     //VIEW
     void viewInfoMenu();
+    void viewStatistics();
     void backToView();
     //SORT
     void sortMenu();
@@ -64,10 +63,14 @@ public:
     void searchPersonMenu();
     //SEARCH COMPUTERS
     void searchComputerMenu();
+    //RELATION INFO INPUT
+    void relationMenu();
+    void backToRelation();
     //REMOVE
     void removeMenu();
     void returnToRemove();
-    void askToRemove(string name, int ID);
+    void askToRemovePerson(string name, int ID);
+    void askToRemoveComputer(string name, int ID);
     //DISPLAY
     void displayPersons(vector<InfoType> FP);
     void displayPersonsSpecial(int i, vector<InfoType> FP);
@@ -85,7 +88,6 @@ public:
     void databaseCheckPersons(vector<InfoType> FP);
     bool duplicateCheckPersons(string name, char gender, int bYear, int dYear);
     bool duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt);
-
 };
 
 #endif // UI_H

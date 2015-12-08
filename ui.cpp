@@ -1,7 +1,7 @@
 #include "ui.h"
 
 using namespace std;
-
+//function that finds the time
 int exactYearNow()
 {
     time_t now = time(0);
@@ -40,7 +40,7 @@ void UI::userMenu()
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6 && choice !=7);
 
         switch(choice)
         {
@@ -64,7 +64,7 @@ void UI::userMenu()
             case 7:
                 exit(1);
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7);
 }
 //INPUT
 //input menu function
@@ -146,7 +146,7 @@ string UI::getName()
         cin.clear();
         getline(cin, name);
         check = false;
-        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        //check if input contains digits
         for(unsigned int i = 0; i < name.size(); i++)
         {
             if(isdigit(name[i]))
@@ -258,7 +258,7 @@ void UI::getComputerInfo()
         else
         {
             cout << endl;
-            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "| | | Duplicate error. Computer already in database. | | |" << endl;
             cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
             cout << endl;
         }
@@ -297,7 +297,6 @@ int UI::getYearMade()
         }
     }while(check == false);
 
-    //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
     if(computerYearMade == 1)
     {
         computerYearMade = 0;
@@ -373,10 +372,10 @@ int UI::getWasBuilt(int computerYearMade)
                 {
                     do
                     {
-                    cout << "What year was the computer built?: ";
-                    cin >> built;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
+                        cout << "What year was the computer built?: ";
+                        cin >> built;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
                         if(!((built <= yearNow) && (built >= computerYearMade)))
                         {
                             displayError();
@@ -385,95 +384,18 @@ int UI::getWasBuilt(int computerYearMade)
                 }
                 else if(toupper(choice) == 'N')
                 {
-                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                    //if it was never built it gets the value 0
                     built = 0;
                 }
                 else if(choice == '?')
                 {
-                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
+                    //if it is unkown when it was built it gets the value 1
                     built = 1;
                 }
             }
     }while(toupper(choice) != 'Y' && toupper(choice) != 'N' && choice != '?');
 
     return built;
-}
-//RELATION INFO INPUT
-//relation menu function
-void UI::relationMenu()
-{
-    Services s;
-    int choice;
-
-    do{
-        cout << " * * * RELATIONS * * * " << endl;
-        cout << endl;
-        cout << "1. Add relation between computer and person" << endl;
-        cout << "2. Find persons related to computer" << endl;
-        cout << "3. Find computers related to person" << endl;
-        cout << "4. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
-
-        switch(choice)
-        {
-
-            case 1:
-            {
-            Services s;
-            vector<InfoType> FP = s.makePersonsVector();
-            vector<CompType> C = s.makeComputerVector();
-            bool checkDatabase = false;
-            checkDatabase = checkDatabaseEmpty(FP, C);
-            FP.clear();
-            C.clear();
-            if(checkDatabase == true)
-            {
-                s.makeRelation();
-                break;
-            }
-            if(checkDatabase == false)
-            {
-                cout << endl;
-                cout << "There is not enough information in database to make relation" << endl;
-                cout << "Add a computer, or a person first" << endl;
-                cout << endl;
-                break;
-            }
-            }
-            case 2:
-            {
-                string name = "";
-                cout << "Enter computer name: ";
-                cin.clear();
-                getline(cin, name);
-                int ID = s.findIDComputer(name);
-                vector<InfoType> FP = s.viewRelationComputer(ID);
-                cout << endl;
-                databaseCheckPersons(FP);
-                break;
-            }
-            case 3:
-            {
-                cout << "Enter persons name: ";
-                cin.clear();
-                string name = "";
-                getline(cin, name);
-                int ID = s.findIDPerson(name);
-                vector<CompType> Comp = s.viewRelationPerson(ID);
-                databaseCheckComputers(Comp);
-                break;
-            }
-            case 4:
-            {
-            userMenu();
-                break;
-            }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
 //VIEW
 //view info menu function
@@ -487,12 +409,13 @@ void UI::viewInfoMenu()
         cout << endl;
         cout << "1. View person info" << endl;
         cout << "2. View computer info" << endl;
-        cout << "3. Return to main menu" << endl;
+        cout << "3. View statistics" << endl;
+        cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
         switch(choice)
         {
@@ -514,11 +437,68 @@ void UI::viewInfoMenu()
             }
             case 3:
             {
+                cout << "* * * VIEW STATISTICS * * *" << endl;
+                viewStatistics();
+                break;
+            }
+            case 4:
+            {
                 userMenu();
                 break;
             }
         }
-    }while(choice == 1 || choice == 2 || choice == 3);
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+}
+//view statistics function
+void UI::viewStatistics()
+{
+    data d;
+    vector<InfoType> FP = d.loadPersData();
+    vector<CompType> Comp = d.loadCompData();
+
+    int totalPersonCount = 0;
+    int maleCount = 0;
+    int femaleCount = 0;
+    int deadCount = 0;
+    int liveCount = 0;
+    int totalComputerCount = 0;
+    int wasBuilt = 0;
+    int notBuilt = 0;
+
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        if(FP[i].gender == 'F' || FP[i].gender == 'f')
+            femaleCount++;
+        if(FP[i].gender == 'M' || FP[i].gender == 'm')
+            maleCount++;
+        if(FP[i].deathYear > 0)
+            deadCount++;
+        if(FP[i].deathYear == 0)
+            liveCount++;
+        totalPersonCount++;
+    }
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp[i].wasBuilt != 0)
+            wasBuilt++;
+        if(Comp[i].wasBuilt == 0)
+            notBuilt++;
+        totalComputerCount++;
+    }
+    cout << endl;
+    cout << "Persons  in database: " << totalPersonCount << endl;
+    cout << "Male persons in database: " << maleCount << endl;
+    cout << "Female persons in database: " << femaleCount << endl;
+    cout << "Deceased persons in database: " << deadCount << endl;
+    cout << "Alive persons in database: " << liveCount << endl;
+    cout << endl;
+    cout << "Computers in database: " << totalComputerCount << endl;
+    cout << "Computers built in database: " << wasBuilt << endl;
+    cout << "Computers not built in database: " << notBuilt << endl;
+    cout << endl;
+    cout << "Total of persons and computers in database: " << totalComputerCount + totalPersonCount << endl;
+    cout << endl;
+    backToView();
 }
 //function that returns the user to viewMenu by input
 void UI::backToView()
@@ -1426,6 +1406,204 @@ void UI::searchComputerMenu()
     vector<CompType> Comp = p.searchVectorComputersName(nameSearch);
     searchCompDisplay(Comp, nameSearch);
 }
+//RELATION INFO INPUT
+//relation menu function
+void UI::relationMenu()
+{
+    Services s;
+    int choice;
+
+    do{
+        cout << " * * * RELATIONS * * * " << endl;
+        cout << endl;
+        cout << "1. Add relation between computer and person" << endl;
+        cout << "2. Find persons related to computer" << endl;
+        cout << "3. Find computers related to person" << endl;
+        cout << "4. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+
+        switch(choice)
+        {
+
+            case 1:
+            {
+                Services s;
+                vector<InfoType> FP = s.makePersonsVector();
+                vector<CompType> C = s.makeComputerVector();
+                bool checkDatabase = false;
+                checkDatabase = checkDatabaseEmpty(FP, C);
+                FP.clear();
+                C.clear();
+                int compID = 0, persID = 0;
+                string compName = "", persName = "";
+                vector <string> names;
+                if(checkDatabase == true)
+                {
+                    do{
+                        cout << "Enter name of computer: ";
+                        cin.clear();
+                        getline(cin, compName);
+                        compID = s.findIDComputer(compName, names);
+                        if(compID == 0)
+                        {
+                            if(names.size() == 0)
+                            {
+                                cout << "| | | " << compName << " was not found in database! | | |" << endl << endl;
+                                relationMenu();
+                            }
+                            else
+                            {
+                                for(unsigned int i = 0; i < names.size(); i++)
+                                {
+                                    cout << "Did you mean: "<< names[i]<< endl;
+                                }
+                            }
+                        }
+                        names.clear();
+                    }while(compID == 0);
+                    do{
+                    cout << "Enter name of person: ";
+                    cin.clear();
+                    getline(cin, persName);
+                    persID = s.findIDPerson(persName, names);
+                    if(persID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << persName << " was not found in database! | | |" << endl << endl;
+                            relationMenu();
+                        }
+                        else
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                    }while(persID == 0);
+                    bool check = s.makeRelation(compID, persID);
+                    if(check == true)
+                    {
+                        cout << endl;
+                        cout << "| | | Relation is already in database | | |" << endl;
+                        cout << endl;
+                        backToRelation();
+                        break;
+                    }
+                    else
+                    {
+                        cout << endl;
+                        cout << "* * * Relation between " << compName <<" and " << persName << " has been added * * *" << endl;
+                        cout << endl;
+                        backToRelation();
+                        break;
+                    }
+                }
+                if(checkDatabase == false)
+                {
+                    cout << endl;
+                    cout << "There is not enough information in database to make relation" << endl;
+                    cout << "Add a computer, or a person first" << endl;
+                    cout << endl;
+                    backToRelation();
+                    break;
+                }
+            }
+            case 2:
+            {
+                string name = "";
+                vector<string> names;
+                int ID = 0;
+                do{
+                    cout << "Enter name of computer: ";
+                    cin.clear();
+                    getline(cin, name);
+                    ID = s.findIDComputer(name, names);
+                    if(ID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            relationMenu();
+                        }
+                        else
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
+                vector<InfoType> FP = s.viewRelationComputer(ID);
+                cout << endl;
+                cout << "* * * Persons related to " << name << " * * *" << endl;
+                databaseCheckPersons(FP);
+                backToRelation();
+                break;
+            }
+            case 3:
+            {
+                string name = "";
+                int ID = 0;
+                vector<string> names;
+                do{
+                    cout << "Enter persons name: ";
+                    cin.clear();
+                    string name = "";
+                    getline(cin, name);
+                    ID = s.findIDPerson(name, names);
+                    if(ID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            relationMenu();
+                        }
+                        else
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
+                vector<CompType> Comp = s.viewRelationPerson(ID);
+                cout << endl;
+                cout << "* * * Computers related to " << name << " * * *" << endl;
+                databaseCheckComputers(Comp);
+                backToRelation();
+                break;
+            }
+            case 4:
+            {
+                userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+}
+void UI::backToRelation()
+{
+    cout << "--- Press any key and then enter to return to relation menu ---" << endl;
+    char input;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            relationMenu();
+        }
+}
 //REMOVE
 void UI::removeMenu()
 {
@@ -1448,37 +1626,65 @@ void UI::removeMenu()
             case 1:
             {
                 string name = "";
-                cout << "Enter name of a person to remove: ";
-                cin.clear();
-                getline(cin, name);
-                int ID = s.findIDPerson(name);
+                int ID = 0;
+                vector<string> names;
+                do{
+                    cout << "Enter name of a person to remove: ";
+                    cin.clear();
+                    getline(cin, name);
+                    ID = s.findIDPerson(name, names);
+                    if(ID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            returnToRemove();
+                        }
+                        else{
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
                 cout << endl;
                 vector<InfoType> person = s.findPerson(ID);
-                if(person.empty())
-                {
-                    cout << name << " was not found in database!" << endl << endl;
-                    returnToRemove();
-                }
                 displayPersons(person);
-                askToRemove(name, ID);
+                askToRemovePerson(name, ID);
                 break;
             }
             case 2:
             {
                 string name = "";
-                cout << "Enter name of a computer to remove: ";
-                cin.clear();
-                getline(cin, name);
-                int ID = s.findIDComputer(name);
+                int ID = 0;
+                vector <string> names;
+                do{
+                    cout << "Enter name of a computer to remove: ";
+                    cin.clear();
+                    getline(cin, name);
+                    ID = s.findIDComputer(name, names);
+                    if(ID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            returnToRemove();
+                        }
+                        else{
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
                 cout << endl;
                 vector<CompType> computer = s.findComputer(ID);
-                if(computer.empty())
-                {
-                    cout << name << " was not found in database!" << endl << endl;
-                    returnToRemove();
-                }
                 displayComputers(computer);
-                askToRemove(name, ID);
+                askToRemoveComputer(name, ID);
                 break;
             }
             case 3:
@@ -1488,7 +1694,7 @@ void UI::removeMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 
-void UI::askToRemove(string name, int ID)
+void UI::askToRemovePerson(string name, int ID)
 {
     Services s;
     string input = " ";
@@ -1496,7 +1702,9 @@ void UI::askToRemove(string name, int ID)
         cout << "Do you want to remove this person(y for yes, n for no)? " << endl;
         cin >> input;
         if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
+        {
             displayError();
+        }
     }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
     if(toupper(input[0]) == 'Y')
     {
@@ -1511,7 +1719,31 @@ void UI::askToRemove(string name, int ID)
         returnToRemove();
     }
 }
-
+void UI::askToRemoveComputer(string name, int ID)
+{
+    Services s;
+    string input = " ";
+    do{
+        cout << "Do you want to remove this computer (y for yes, n for no)? " << endl;
+        cin >> input;
+        if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
+        {
+            displayError();
+        }
+    }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
+    if(toupper(input[0]) == 'Y')
+    {
+        cout << endl;
+        cout << name << " has been removed!" << endl << endl;
+        s.removeComputer(ID);
+        returnToRemove();
+    }
+    else if(toupper(input[0]) == 'N')
+    {
+        cout << endl << name << " was not removed!" << endl << endl;
+        returnToRemove();
+    }
+}
 void UI::returnToRemove()
 {
     cout << "--- Press any key and then enter to return to remove menu ---" << endl;
@@ -1632,7 +1864,7 @@ int UI::chooseNumber()
     cout << endl;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
-    if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
+    if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6 && choice != 7)
     {
         displayError();
     }
