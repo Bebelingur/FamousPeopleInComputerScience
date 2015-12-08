@@ -572,6 +572,7 @@ vector<InfoType> Services::searchVectorGender(string genderSearch)
         }
     }
     //pusha inn gervimanneskjunni ef engin manneskja fannst af þessu kyni;
+    FP.clear();
     return result;
 }
 vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
@@ -590,6 +591,7 @@ vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
                 }
             }
         }
+        FP.clear();
         return result;
 }
 vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
@@ -608,13 +610,13 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
             }
         }
     }
+    FP.clear();
     return result;
 }
-//SEARCH COMPUTERS FÖLLIN
-//EITTHVAÐ SKRÝTIÐ HÉR!!!! EINS OG ÞAÐ VANTI VECTOR REFERENCE EÐA ÞURFI EKKI AÐ VERA
+
 vector<CompType> Services::searchVectorComputersName(string nameSearch)
 {
-    //vector<CompType> Comp = makeComputerVector();
+    vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
     int nameSize = nameSearch.size();
 
@@ -623,6 +625,24 @@ vector<CompType> Services::searchVectorComputersName(string nameSearch)
         nameSearch[i] = tolower(nameSearch[i]);
         //setjum innsláttinn í lower case
     }
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+       string tempName = Comp[i].compName;
+       nameSize = tempName.size();
+
+       for(int j = 0; j < nameSize; j++)
+       {
+           tempName[j] = tolower(tempName[j]);
+           //setjum nafnið í skjalinu í lower case og berum svo saman
+       }
+
+       int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+       if(found != (int) std::string::npos)
+       {
+           result.push_back(Comp[i]);
+       }
+    }
+    Comp.clear();
     return result;
 }
 //ANNAÐ

@@ -72,7 +72,7 @@ public:
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
-    vector<CompType> searchVectorComputersName(string);
+    vector<CompType> searchVectorComputersName(string nameSearch);
     //ANNAÐ
     string changeName(InfoType p);
     char convertToChar(string a);
