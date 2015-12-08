@@ -6,6 +6,8 @@ using namespace std;
 data::data()
 {
 }
+
+//function that connects the program to the database
 void data::connectionToDatabase()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
@@ -30,7 +32,7 @@ void data::connectionToDatabase()
     query2.exec(QString(queryCreate2.c_str()));
     query3.exec(QString(queryCreate3.c_str()));
 }
-
+//function that loads person information from database to vector and returns it
 vector<InfoType> data::loadPersData()
 {
     Services s;
@@ -52,6 +54,7 @@ vector<InfoType> data::loadPersData()
     }
     return people;
 }
+//function that loads computer information from database to vector and returns it
 vector<CompType> data::loadCompData()
 {
     vector<CompType> computers;
@@ -72,6 +75,7 @@ vector<CompType> data::loadCompData()
     }
     return computers;
 }
+//function that saves relation info between person and computer to database
 void data::saveDataRelations(RelationsType p)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -86,6 +90,7 @@ void data::saveDataRelations(RelationsType p)
     }
 }
 
+//function that saves person info to database
 void data::saveDataPersons(InfoType p)
 {
     Services s;
@@ -107,6 +112,7 @@ void data::saveDataPersons(InfoType p)
         qDebug() << "addPersons error:  " << query.lastError();
     }
 }
+//function that saves computer info to database
 void data::saveDataComputers(CompType p)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
