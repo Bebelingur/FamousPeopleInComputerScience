@@ -608,10 +608,10 @@ void UI::searchCompDisplay(vector<CompType> Comp, string y){
 }
 
 
-void UI::searchPersDisplay(vector<InfoType> x, string y){
-    if(!x.empty())
+void UI::searchPersDisplay(vector<InfoType> FP, string y){
+    if(!FP.empty())
     {
-        displayPersons(x);
+        displayPersons(FP);
     }
     else
     {
@@ -1511,7 +1511,6 @@ void UI::relationMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
-    sortMenu();
 }
 int UI::chooseNumber()
 {

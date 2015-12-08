@@ -70,8 +70,8 @@ public:
     void displayPersonsSpecial(int i, vector<InfoType> FP);
     void displayComputers(vector<CompType> Comp);
     void displayComputersSpecial(int i, vector<CompType> Comp);
-    void searchPersDisplay(vector<InfoType> x, string y);
-    void searchCompDisplay(vector<CompType> x, string y);
+    void searchPersDisplay(vector<InfoType> FP, string y);
+    void searchCompDisplay(vector<CompType> Comp, string y);
     //ANNAÐ
     int chooseNumber();
     void displayError();
