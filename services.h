@@ -25,12 +25,8 @@ public:
     //MAKE FUNCTIONS
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
-<<<<<<< HEAD
     bool makeRelation(int compID, int persID);
-=======
-    void makeRelation();
 
->>>>>>> a448755382062ca236a722d00f6a50bc7232feaf
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
