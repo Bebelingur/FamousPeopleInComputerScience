@@ -170,6 +170,14 @@ vector<CompType> Services::viewRelationPerson(int ID)
 }
 void Services::viewRelationComputer(int ID)
 {
+<<<<<<< HEAD
+=======
+    UI a;
+
+    string name = "";
+    int ID = 0;
+
+>>>>>>> 0463941aed07e11f8653481c97e4ef475b35c37f
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
@@ -542,6 +550,7 @@ vector<InfoType> Services::searchVectorGender(string genderSearch)
         }
     }
     //pusha inn gervimanneskjunni ef engin manneskja fannst af þessu kyni;
+    FP.clear();
     return result;
 }
 vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
@@ -560,6 +569,7 @@ vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
                 }
             }
         }
+        FP.clear();
         return result;
 }
 vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
@@ -578,13 +588,13 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
             }
         }
     }
+    FP.clear();
     return result;
 }
-//SEARCH COMPUTERS FÖLLIN
-//EITTHVAÐ SKRÝTIÐ HÉR!!!! EINS OG ÞAÐ VANTI VECTOR REFERENCE EÐA ÞURFI EKKI AÐ VERA
+
 vector<CompType> Services::searchVectorComputersName(string nameSearch)
 {
-    //vector<CompType> Comp = makeComputerVector();
+    vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
     int nameSize = name.size();
 
@@ -593,6 +603,24 @@ vector<CompType> Services::searchVectorComputersName(string nameSearch)
         name[i] = tolower(name[i]);
         //setjum innsláttinn í lower case
     }
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+       string tempName = Comp[i].compName;
+       nameSize = tempName.size();
+
+       for(int j = 0; j < nameSize; j++)
+       {
+           tempName[j] = tolower(tempName[j]);
+           //setjum nafnið í skjalinu í lower case og berum svo saman
+       }
+
+       int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+       if(found != (int) std::string::npos)
+       {
+           result.push_back(Comp[i]);
+       }
+    }
+    Comp.clear();
     return result;
 }
 //ANNAÐ
@@ -617,4 +645,17 @@ string Services::changeName(InfoType p)
             }
         }
     return tempName;
+}
+
+char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
+{
+    char result;
+    result = a.at(0);
+    return result;
+}
+string Services::convertToString(char a)
+{
+    string result;
+    result = a;
+    return result;
 }

@@ -73,8 +73,16 @@ public:
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string nameSearch);
+<<<<<<< HEAD
     //ANNAÐst
     string changeName(InfoType p);
+=======
+    //ANNAÐ
+    string changeName(InfoType p);
+    char convertToChar(string a);
+    string convertToString(char a);
+
+>>>>>>> 0463941aed07e11f8653481c97e4ef475b35c37f
     int findID(string name);
 
 private:

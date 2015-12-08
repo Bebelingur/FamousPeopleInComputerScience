@@ -1,4 +1,5 @@
 #include "data.h"
+#include "services.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ void data::connectionToDatabase()
 
 vector<InfoType> data::loadPersData()
 {
+    Services s;
     vector<InfoType> people;
 
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -44,7 +46,7 @@ vector<InfoType> data::loadPersData()
         InfoType p;
         p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
-        p.gender = convertToChar(query.value("sex").toString().toStdString());
+        p.gender = s.convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
@@ -87,10 +89,11 @@ void data::saveDataRelations(RelationsType p)
 
 void data::saveDataPersons(InfoType p)
 {
+    Services s;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
-    string sex = convertToString(p.gender);
+    string sex = s.convertToString(p.gender);
     QString qName = QString::fromUtf8(p.name.c_str());
     QString qSex = QString::fromUtf8(sex.c_str());
 
@@ -123,16 +126,4 @@ void data::saveDataComputers(CompType p)
     {
         qDebug() << "addComputer error:  " << query.lastError();
     }
-}
-char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
-{
-    char result;
-    result = a.at(0);
-    return result;
-}
-string data::convertToString(char a)
-{
-    string result;
-    result = a;
-    return result;
 }
