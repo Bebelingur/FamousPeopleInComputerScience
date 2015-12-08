@@ -6,7 +6,6 @@ using namespace std;
 data::data()
 {
 }
-
 void data::connectionToDatabase()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
