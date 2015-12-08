@@ -75,14 +75,16 @@ public:
     void displayComputersSpecial(int i, vector<CompType> Comp);
     void searchPersDisplay(vector<InfoType> FP, string y);
     void searchCompDisplay(vector<CompType> Comp, string y);
-    //ANNAÐ
-    bool checkDatabaseEmpty();
+    //OTHER
+    bool checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C);
     int chooseNumber();
     void displayError();
     bool continueOption();
     void falseCheck(string nameSearch);
     void databaseCheckComputers(vector<CompType> Comp);
     void databaseCheckPersons(vector<InfoType> FP);
+    bool duplicateCheckPersons(string name, char gender, int bYear, int dYear);
+    bool duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt);
 
 };
 

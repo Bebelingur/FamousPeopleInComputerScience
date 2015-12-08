@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//function that finds the time
 int aliveNow()
 {
     time_t now = time(0);
@@ -15,7 +16,8 @@ Services::Services()
 {
 
 }
-//ADD FÖLLIN
+//ADD FUNCTIONS
+//takes info from user input regarding persons and sends down to data
 void Services::addPerson(string name, char gender, int bYear, int dYear)
 {
     InfoType p;
@@ -27,6 +29,8 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     data personsToData;
     personsToData.saveDataPersons(p);
 }
+
+//takes info(variables) from user input regarding computers and sends down to data
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
     CompType p;
@@ -38,6 +42,8 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     data computersToData;
     computersToData.saveDataComputers(p);
 }
+
+//takes info(variables) from user input regarding relation and sends down to data
 void Services::addRelation(int personId, int computerId)
 {
     RelationsType p;
@@ -47,17 +53,21 @@ void Services::addRelation(int personId, int computerId)
     data relationsToData;
     relationsToData.saveDataRelations(p);
 }
-//MAKE FÖLLIN
+//MAKE FUNCTIONS
+//loads a vector of person information from data and returns it
 vector<InfoType> Services::makePersonsVector()
 {
    vector<InfoType> p = connection.loadPersData();
    return p;
 }
+
+//loads a vector of computer information from data and returns it
 vector<CompType> Services::makeComputerVector()
 {
    vector<CompType> c = connection.loadCompData();
    return c;
 }
+//function that makes relation between person and computer
 void Services::makeRelation()
 {
       string compName = "", name = "", compNameCompare = "", nameCompare = "";
@@ -67,7 +77,6 @@ void Services::makeRelation()
       QSqlQuery query(db);
       do{
           cout << "Enter name of computer: ";
-          //VILLA HÉRNA skrifar út cout endalaust
           getline(cin, compName);
           QString qName = QString::fromUtf8(compName.c_str());
           query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%" + qName + "%'");
@@ -132,13 +141,15 @@ void Services::makeRelation()
           addRelation(persID, compID);
       }
 }
-//VIEW FÖLLIN
+//VIEW FUNCTIONS
+//loads a vector of person information from services and returns it(er þetta ekki eiginlega sama fall og makepersonVector?)
 vector<InfoType> Services::viewPersonsInfo()
 {
     vector <InfoType> FP = makePersonsVector();
     return FP;
 
 }
+//loads a vector of computer information from services and returns it(er þetta ekki eiginlega sama fall og makecomputerVector?)
 vector<CompType> Services::viewComputerInfo()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -183,7 +194,7 @@ int Services::findIDComputer(string name)
     return ID;
 }
 
-
+//function that finds relations between person and computers
 vector<CompType> Services::viewRelationPerson(int ID)
 {
     vector<CompType> computers;
@@ -202,6 +213,8 @@ vector<CompType> Services::viewRelationPerson(int ID)
     }
     return computers;
 }
+
+//function that finds relations between computer and persons
 vector<InfoType> Services::viewRelationComputer(int ID)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -221,8 +234,8 @@ vector<InfoType> Services::viewRelationComputer(int ID)
     }
     return people;
 }
-//SORT PERSONS BOOL FÖLLIN
-//fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í stafrófsröð
+//SORT PERSONS BOOL FUNCTIONS
+//function that compares the first character of each string, used to sort in alphabetical order
 bool compareNameAsc(const InfoType& a, const InfoType& b)
 {
     string str1 = a.name;
@@ -233,7 +246,7 @@ bool compareNameAsc(const InfoType& a, const InfoType& b)
 
     return str1 < str2;
 }
-//fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+//function that compares the first character of each string, used to sort in reverse alphabetical order
 bool compareNameDesc(const InfoType& a, const InfoType& b)
 {
     string str1 = a.name;
@@ -244,45 +257,33 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
 
     return str1 > str2;
 }
-//fall sem ber saman M og F og skilar M til að sorta lista eftir kyni þar sem M kemur fyrst fyrir í lista
+
+//function that compares M and F and returns M(true) to sort list by gender, where M is first in list
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender > b.gender;
 }
-//fall sem ber saman M og F og skilar F til að sorta lista eftir kyni þar sem F kemur fyrst fyrir í lista
+
+//function that compares M and F and returns F(true) to sort list by gender, where F is first in list
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
-//fall sem ber saman fæðingarár og skilar elst fyrst
+
+//function that compares birthYear and returns the older
 bool compareYearAsc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear < b.birthYear;
 }
-//fall sem ber saman fæðingarár og skilar yngst fyrst
-bool compareYearDesc(const InfoType& a, const InfoType& b);
+
+//function that compares birthYear and returns the younger
 bool compareYearDesc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear > b.birthYear;
 }
-//fall sem ber saman dánarár og skilar elst fyrst
-bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
-{
-    int year1 = a.deathYear;
-    int year2 = b.deathYear;
 
-    if(year1 == 0)
-    {
-        year1 = alive;
-    }
-    else if(year2 == 0)
-    {
-        year2 = alive;
-    }
-    return year1 > year2;
-}
-//fall sem ber saman dánarár og skilar yngst fyrst
-bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
+//function that compares deathYear and returns the older
+bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
 {
     int year1 = a.deathYear;
     int year2 = b.deathYear;
@@ -297,22 +298,39 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
     }
     return year1 < year2;
 }
-//SORT PERSONS FÖLLIN
-//fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
+//function that compares birthYear and returns the younger
+bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
+{
+    int year1 = a.deathYear;
+    int year2 = b.deathYear;
+
+    if(year1 == 0)
+    {
+        year1 = alive;
+    }
+    else if(year2 == 0)
+    {
+        year2 = alive;
+    }
+    return year1 > year2;
+}
+//SORT PERSONS FUNCTIONS
+//function that returns the sorted vector in alphabetical order
 vector <InfoType> Services::sortByNameAsc()
 {
     vector <InfoType> FP = makePersonsVector();
     sort(FP.begin(), FP.end(), compareNameAsc);
     return FP;
 }
-//fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
+//function that returns the sorted vector in reverse alphabetical order
 vector <InfoType> Services::sortByNameDesc()
 {
     vector <InfoType> FP = makePersonsVector();
     sort(FP.begin(), FP.end(), compareNameDesc);
     return FP;
 }
-//fall sem birtir lista sem er sortaður eftir kyni, Males
+
+//function that returns the sorted vector by gender, males first
 vector <InfoType> Services::sortByGenderMale()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -320,7 +338,7 @@ vector <InfoType> Services::sortByGenderMale()
     sort(FP.begin(), FP.end(), compareGenderMaleFirst);
     return FP;
 }
-//fall sem birtir lista sem er sortaður eftir kyni, Females
+//function that returns the sorted vector by gender, females first
 vector <InfoType> Services::sortByGenderFemale()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -328,7 +346,7 @@ vector <InfoType> Services::sortByGenderFemale()
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
     return FP;
 }
-//fall sem birtir lista sem er sortaður eftir kyni, undecided
+//function that returns the sorted vector by gender, undecided first
 vector <InfoType> Services::sortByGenderUndecided()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -336,7 +354,8 @@ vector <InfoType> Services::sortByGenderUndecided()
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
     return FP;
 }
-//fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
+
+//function that returns the sorted vector by birthYear in ascending order
 vector <InfoType> Services::sortByYearAsc()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -344,7 +363,7 @@ vector <InfoType> Services::sortByYearAsc()
     sort(FP.begin(), FP.end(), compareYearAsc);
     return FP;
 }
-//fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
+//function that returns the sorted vector by birthYear in descending order
 vector <InfoType> Services::sortByYearDesc()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -353,22 +372,23 @@ vector <InfoType> Services::sortByYearDesc()
     return FP;
 }
 
-//fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
+//function that returns the sorted vector by deathYear in ascending order
 vector <InfoType> Services::sortByDeathYearAsc()
-{
-    vector <InfoType> FP = makePersonsVector();
-    sort(FP.begin(), FP.end(), compareNameAsc);
-    sort(FP.begin(), FP.end(), compareDeathYearDesc);
-    return FP;
-}
-//fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
-vector <InfoType> Services::sortByDeathYearDesc()
 {
     vector <InfoType> FP = makePersonsVector();
     sort(FP.begin(), FP.end(), compareNameAsc);
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
     return FP;
 }
+//function that returns the sorted vector by deathYear in descending order
+vector <InfoType> Services::sortByDeathYearDesc()
+{
+    vector <InfoType> FP = makePersonsVector();
+    sort(FP.begin(), FP.end(), compareNameAsc);
+    sort(FP.begin(), FP.end(), compareDeathYearDesc);
+    return FP;
+}
+//function that returns the sorted vector by deathYear in ascending order, used in special case
 vector <InfoType> Services::sortByDeceased()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -376,6 +396,7 @@ vector <InfoType> Services::sortByDeceased()
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
     return FP;
 }
+//function that returns the sorted vector by deathYear in ascending order, used in special case
 vector <InfoType> Services::sortByNotDeceased()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -383,7 +404,8 @@ vector <InfoType> Services::sortByNotDeceased()
     sort(FP.begin(), FP.end(), compareDeathYearAsc);
     return FP;
 }
-//SORT COMPUTER BOOL FÖLLIN
+//SORT COMPUTER BOOL FUNCTIONS
+//function that compares the first character of each string, used to sort computers in alphabetical order
 bool compareCompNameAsc(const CompType& a, const CompType& b)
 {
     string str1 = a.compName;
@@ -394,7 +416,7 @@ bool compareCompNameAsc(const CompType& a, const CompType& b)
 
     return str1 < str2;
 }
-//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+//function that compares the first character of each string, used to sort computers in reverse alphabetical order
 bool compareCompNameDesc(const CompType& a, const CompType& b)
 {
     string str1 = a.compName;
@@ -405,14 +427,17 @@ bool compareCompNameDesc(const CompType& a, const CompType& b)
 
     return str1 > str2;
 }
+//function that compares yearMade and returns the older
 bool compareComputerYearMadeAsc(const CompType& a, const CompType& b)
 {
     return a.yearMade < b.yearMade;
 }
+//function that compares yearMade and returns the younger
 bool compareComputerYearMadeDesc(const CompType& a, const CompType& b)
 {
     return a.yearMade > b.yearMade;
 }
+//function that compares the first character of each string, used to sort computers by type in alphabetical order
 bool compareCompTypeAsc(const CompType& a, const CompType& b)
 {
     string str1 = a.type;
@@ -423,7 +448,7 @@ bool compareCompTypeAsc(const CompType& a, const CompType& b)
 
     return str1 < str2;
 }
-//fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+//function that compares the first character of each string, used to sort computers by type in reverse alphabetical order
 bool compareCompTypeDesc(const CompType& a, const CompType& b)
 {
     string str1 = a.type;
@@ -434,27 +459,32 @@ bool compareCompTypeDesc(const CompType& a, const CompType& b)
 
     return str1 > str2;
 }
+//function that compares wasBuilt and returns the older
 bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b)
 {
     return a.wasBuilt < b.wasBuilt;
 }
+//function that compares wasBuilt and returns the younger
 bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b)
 {
     return a.wasBuilt > b.wasBuilt;
 }
-//SORT COMPUTER FÖLLIN
+//SORT COMPUTER FUNCTIONS
+//function that returns the sorted vector in alphabetical order
 vector <CompType> Services::sortByComputerNameAsc()
 {
     vector <CompType> Comp = makeComputerVector();
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     return Comp;
 }
+//function that returns the sorted vector in reverse alphabetical order
 vector <CompType> Services::sortByComputerNameDesc()
 {
     vector <CompType> Comp = makeComputerVector();
     sort(Comp.begin(), Comp.end(), compareCompNameDesc);
     return Comp;
 }
+//function that returns the sorted vector by yearMade in ascending order
 vector <CompType> Services::sortByYearMadeAsc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -462,6 +492,7 @@ vector <CompType> Services::sortByYearMadeAsc()
     sort(Comp.begin(), Comp.end(), compareComputerYearMadeAsc);
     return Comp;
 }
+//function that returns the sorted vector by yearMade in descending order
 vector <CompType> Services::sortByYearMadeDesc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -469,18 +500,21 @@ vector <CompType> Services::sortByYearMadeDesc()
     sort(Comp.begin(), Comp.end(), compareComputerYearMadeDesc);
     return Comp;
 }
+//function that returns the sorted vector by type in ascending order
 vector <CompType> Services::sortByComputerTypeAsc()
 {
     vector <CompType> Comp = makeComputerVector();
     sort(Comp.begin(), Comp.end(), compareCompTypeAsc);
     return Comp;
 }
+//function that returns the sorted vector by type in descending order
 vector <CompType> Services::sortByComputerTypeDesc()
 {
     vector <CompType> Comp = makeComputerVector();
     sort(Comp.begin(), Comp.end(), compareCompTypeDesc);
     return Comp;
 }
+//function that returns the sorted vector by yearBuilt in ascending order
 vector <CompType> Services::sortByYearBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -488,6 +522,7 @@ vector <CompType> Services::sortByYearBuiltAsc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
     return Comp;
 }
+//function that returns the sorted vector by yearBuilt in descending order
 vector <CompType> Services::sortByYearBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -495,6 +530,7 @@ vector <CompType> Services::sortByYearBuiltDesc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
     return Comp;
 }
+//function that returns the sorted vector by yearBuilt in ascending order, used in special case
 vector <CompType> Services::sortByYearNotBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -502,6 +538,7 @@ vector <CompType> Services::sortByYearNotBuiltAsc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
     return Comp;
 }
+//function that returns the sorted vector by yearBuilt in descending order, used in special case
 vector <CompType> Services::sortByYearNotBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -509,6 +546,7 @@ vector <CompType> Services::sortByYearNotBuiltDesc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
     return Comp;
 }
+//function that returns the sorted vector by yearBuilt in ascending order, used in special case
 vector <CompType> Services::sortByYearUnknownBuiltAsc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -516,6 +554,7 @@ vector <CompType> Services::sortByYearUnknownBuiltAsc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltAsc);
     return Comp;
 }
+//function that returns the sorted vector by yearBuilt in descending order, used in special case
 vector <CompType> Services::sortByYearUnknownBuiltDesc()
 {
     vector <CompType> Comp = makeComputerVector();
@@ -523,7 +562,8 @@ vector <CompType> Services::sortByYearUnknownBuiltDesc()
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
     return Comp;
 }
-//SEARCH PERSONS FÖLLIN
+//SEARCH PERSONS FUNCTIONS
+//function that searches for name/part of name, set results from search to vector and returns the vector
 vector<InfoType> Services::searchVectorName(string nameSearch)
 {
     vector <InfoType> FP = makePersonsVector();
@@ -533,8 +573,8 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
 
     for(int i = 0; i < nameSize; i++)
     {
+        //set the input to lower case
         nameSearch[i] = tolower(nameSearch[i]);
-        //setjum innsláttinn í lower case
     }
     for(unsigned int i = 0; i < FP.size(); i++)
     {
@@ -543,10 +583,10 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
 
         for(int j = 0; j < nameSize; j++)
         {
+            //set name in database to lower case and then compare
             tempName[j] = tolower(tempName[j]);
-            //setjum nafnið í skjalinu í lower case og berum svo saman
         }
-        int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+        int found = tempName.find(nameSearch);//check if input is part of name
         if(found != (int) string::npos)
         {
             result.push_back(FP[i]);
@@ -554,20 +594,21 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
     }
     return result;
 }
+//function that searches for gender, set results from search to vector and returns the vector
 vector<InfoType> Services::searchVectorGender(string genderSearch)
 {
     vector <InfoType> FP = makePersonsVector();
     vector <InfoType> result;
     string tempGender;
 
-    for(int i = 0; i <1; i++)//setjum innsláttinn í lágstafi
+    for(int i = 0; i <1; i++)//set input to lower case
     {
         genderSearch[i] = tolower(genderSearch[i]);
     }
     for(unsigned int i = 0; i < FP.size(); i++)
     {
         tempGender = FP[i].gender;
-        for(int j = 0; j <1; j++)//færum gender í möppunni yfir í temp breytu og færum í lágstafi
+        for(int j = 0; j <1; j++)//set info from database to lower case
         tempGender[j] = tolower(tempGender[j]);
 
         if(genderSearch == tempGender)
@@ -575,18 +616,18 @@ vector<InfoType> Services::searchVectorGender(string genderSearch)
             result.push_back(FP[i]);
         }
     }
-    //pusha inn gervimanneskjunni ef engin manneskja fannst af þessu kyni;
     FP.clear();
     return result;
 }
+//function that searches for birthYear, set results from search to vector and returns the vector
 vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
 {
     vector <InfoType> FP = makePersonsVector();
     vector <InfoType> result;
-        //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+        //check if input is of correct length and check if it only contains numbers
         if(birthYearSearch.size()== 4 && isdigit(birthYearSearch[0])&& isdigit(birthYearSearch[1])&& isdigit(birthYearSearch[2])&& isdigit(birthYearSearch[3]))
         {
-            int birthYearSearchI = atoi(birthYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+            int birthYearSearchI = atoi(birthYearSearch.c_str());//set string to int to be able to compare
             for(unsigned int i = 0; i < FP.size(); i++)
             {
                 if(birthYearSearchI == FP[i].birthYear)
@@ -598,14 +639,26 @@ vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
         FP.clear();
         return result;
 }
+//function that searches for deathYear, set results from search to vector and returns the vector
 vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
 {
     vector <InfoType> FP = makePersonsVector();
     vector <InfoType> result;
-    //athugum hvort innslátturinn sé af réttri stærð og hvort allir liðir innsláttarins séu tölur
+    //check if input is of correct length and check if it only contains numbers
     if(deathYearSearch.size() == 4 && isdigit(deathYearSearch[0]) && isdigit(deathYearSearch[1]) && isdigit(deathYearSearch[2]) && isdigit(deathYearSearch[3]))
     {
-        int deathYearSearchI = atoi(deathYearSearch.c_str());//færum string innsláttinn í int til að geta borið saman við skjalið
+        int deathYearSearchI = atoi(deathYearSearch.c_str());//set string to int to be able to compare
+        for(unsigned int i = 0; i < FP.size(); i++)
+        {
+            if(deathYearSearchI == FP[i].deathYear)
+            {
+                result.push_back(FP[i]);
+            }
+        }
+    }
+    else if((deathYearSearch.size() == 1) && isdigit(deathYearSearch[0]) && (deathYearSearch == "0"))
+    {
+        int deathYearSearchI = atoi(deathYearSearch.c_str());//set string to int to be able to compare
         for(unsigned int i = 0; i < FP.size(); i++)
         {
             if(deathYearSearchI == FP[i].deathYear)
@@ -618,34 +671,37 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
     return result;
 }
 
+//SEARCH COMPUTERS FUNCTIONS
+//function that searches for computer name, set results from search to vector and returns the vector
 vector<CompType> Services::searchVectorComputersName(string name)
 {
     vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
 
-    for(unsigned int i = 0; i < name.size(); i++)
-    {
-        name[i] = tolower(name[i]);
-        //setjum innsláttinn í lower case
-    }
-    for(unsigned int i = 0; i < Comp.size(); i++)
-    {
-       string tempName = Comp[i].compName;
 
-       for(unsigned int j = 0; j < tempName.size() ; j++)
-       {
-           tempName[j] = tolower(tempName[j]);
-           //setjum nafnið í skjalinu í lower case og berum svo saman
-       }
+        for(unsigned int i = 0; i < name.size() ; i++)
+        {
+            name[i] = tolower(name[i]);
+            //setjum innsláttinn í lower case
+        }
+        for(unsigned int i = 0; i < Comp.size(); i++)
+        {
+           string tempName = Comp[i].compName;
 
-       int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
-       if(found != (int) std::string::npos)
-       {
-           result.push_back(Comp[i]);
-       }
-    }
-    Comp.clear();
-    return result;
+           for(unsigned int j = 0; j < tempName.size() ; j++)
+           {
+               tempName[j] = tolower(tempName[j]);
+               //setjum nafnið í skjalinu í lower case og berum svo saman
+           }
+
+           int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+           if(found != (int) std::string::npos)
+           {
+               result.push_back(Comp[i]);
+           }
+        }
+        Comp.clear();
+        return result;
 }
 //REMOVE
 vector<InfoType> Services::findPerson(int ID)
@@ -705,30 +761,30 @@ void Services::removeComputer(int ID)
     query.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
 }
 
-//ANNAÐ
-string Services::changeName(InfoType p)
+
+//OTHER
+//changes name uppercase/lowercase
+string Services::changeName(string tempName)
 {
-    string tempName = p.name;
     int NameLength = tempName.size();
-        for (int i = 0; i < NameLength; i++)
+    for (int i = 0; i < NameLength; i++)
+    {
+        if(tempName[i] == ' ')
         {
-            if(tempName[i] == ' ')
-            {
-                tempName[i+1] = toupper(tempName[i+1]);
-                i++;
-            }
-            else if(i ==0)
-            {
-                tempName[i] = toupper(tempName[i]);
-            }
-            else
-            {
-                tempName[i] = tolower(tempName[i]);
-            }
+            tempName[i+1] = toupper(tempName[i+1]);
+            i++;
         }
+        else if(i ==0)
+        {
+            tempName[i] = toupper(tempName[i]);
+        }
+        else
+        {
+            tempName[i] = tolower(tempName[i]);
+        }
+    }
     return tempName;
 }
-
 char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;

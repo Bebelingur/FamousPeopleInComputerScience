@@ -17,7 +17,7 @@ UI::UI()
 {
 
 }
-
+//user menu function
 void UI::userMenu()
 {
 
@@ -67,6 +67,7 @@ void UI::userMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
 }
 //INPUT
+//input menu function
 void UI::inputMenu()
 {
     int choice;
@@ -104,6 +105,7 @@ void UI::inputMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 //PERSON INFO INPUT
+//function that gets person info from user
 void UI::getPersonInfo()
 {
     Services p;
@@ -117,12 +119,23 @@ void UI::getPersonInfo()
         char gender = getGender();
         int bYear = getBirthYear();
         int dYear = getDeathYear(name, bYear);
-
-        p.addPerson(name, gender, bYear, dYear);
+        bool check = duplicateCheckPersons(name, gender, bYear, dYear);
+        if(check == true)
+        {
+            p.addPerson(name, gender, bYear, dYear);
+        }
+        else
+        {
+            cout << endl;
+            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
+            cout << endl;
+        }
 
         check = continueOption();
     }while(check == true);
 }
+//function that gets the name from the user and returns it
 string UI::getName()
 {
     bool check = false;
@@ -149,6 +162,7 @@ string UI::getName()
 
     return name;
 }
+//function that gets the gender from the user and returns it
 char UI::getGender()
 {
     char gender = ' ';
@@ -165,6 +179,7 @@ char UI::getGender()
 
     return gender;
 }
+//function that gets the birthYear from the user and returns it
 int UI::getBirthYear()
 {
     int bYear = 0;
@@ -182,6 +197,7 @@ int UI::getBirthYear()
 
     return bYear;
 }
+//function that gets the deathYear from the user and returns it
 int UI::getDeathYear(string name, int bYear)
 {
     int dYear = 0;
@@ -220,12 +236,13 @@ int UI::getDeathYear(string name, int bYear)
     return dYear;
 }
 //COMPUTER INFO INPUT
+//function that gets the user computer info from user
 void UI::getComputerInfo()
 {
     Services c;
     bool check = false;
 
-    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << "* * * INPUT COMPUTER INFORMATION * * *" << endl;
     cout << endl;
 
     do{
@@ -233,12 +250,22 @@ void UI::getComputerInfo()
         int computerYearMade = getYearMade();
         string computerType = getComputerType();
         int wasBuilt = getWasBuilt(computerYearMade);
-
-        c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
-
+        bool check = duplicateCheckComputers(computerName, computerYearMade, computerType, wasBuilt);
+        if(check == true)
+        {
+            c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
+        }
+        else
+        {
+            cout << endl;
+            cout << "| | | Duplicate error. Person already in database. | | |" << endl;
+            cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
+            cout << endl;
+        }
         check = continueOption();
     }while(check == true);
 }
+//function that gets the computer name from the user and returns it
 string UI::getComputerName()
 {
     string name = " ";
@@ -247,6 +274,7 @@ string UI::getComputerName()
     getline(cin, name);
     return name;
 }
+//function that gets the yearMade from the user and returns it
 int UI::getYearMade()
 {
     int computerYearMade = 0;
@@ -280,6 +308,7 @@ int UI::getYearMade()
         return computerYearMade;
     }
 }
+//function that gets the computer type from the user and returns it
 string UI::getComputerType()
 {
     char choice = ' ';
@@ -324,6 +353,7 @@ string UI::getComputerType()
     }while(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O');
     return type;
 }
+//function that gets the yearBuilt from the user and returns it
 int UI::getWasBuilt(int computerYearMade)
 {
     char choice = ' ';
@@ -369,6 +399,7 @@ int UI::getWasBuilt(int computerYearMade)
     return built;
 }
 //RELATION INFO INPUT
+//relation menu function
 void UI::relationMenu()
 {
     Services s;
@@ -377,7 +408,7 @@ void UI::relationMenu()
     do{
         cout << " * * * RELATIONS * * * " << endl;
         cout << endl;
-        cout << "1. Add relation between comuter and person" << endl;
+        cout << "1. Add relation between computer and person" << endl;
         cout << "2. Find persons related to computer" << endl;
         cout << "3. Find computers related to person" << endl;
         cout << "4. Return to main menu" << endl;
@@ -389,18 +420,26 @@ void UI::relationMenu()
 
         switch(choice)
         {
+
             case 1:
             {
-            bool checkDatabase = checkDatabaseEmpty();
+            Services s;
+            vector<InfoType> FP = s.makePersonsVector();
+            vector<CompType> C = s.makeComputerVector();
+            bool checkDatabase = false;
+            checkDatabase = checkDatabaseEmpty(FP, C);
+            FP.clear();
+            C.clear();
             if(checkDatabase == true)
             {
                 s.makeRelation();
+                break;
             }
             if(checkDatabase == false)
             {
                 cout << endl;
-                cout << "there are not enough information in database to make relation"<<endl;
-                cout << "add a computer, or a person first"<< endl;
+                cout << "There is not enough information in database to make relation" << endl;
+                cout << "Add a computer, or a person first" << endl;
                 cout << endl;
                 break;
             }
@@ -437,6 +476,7 @@ void UI::relationMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
 //VIEW
+//view info menu function
 void UI::viewInfoMenu()
 {
     Services p;
@@ -480,6 +520,7 @@ void UI::viewInfoMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//function that returns the user to viewMenu by input
 void UI::backToView()
 {
     cout << "--- Press any key and then enter to return to view menu ---" << endl;
@@ -493,6 +534,7 @@ void UI::backToView()
         }
 }
 //SORT
+//sort menu function
 void UI::sortMenu()
 {
     int choice;
@@ -529,6 +571,7 @@ void UI::sortMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//function that returns the user to sortMenu by input
 void UI::backToSortMenu()
 {
     char input;
@@ -542,6 +585,7 @@ void UI::backToSortMenu()
         }
 }
 //SORT PERSONS
+//sort person menu function
 void UI::sortPersonMenu()
 {
     int choice;
@@ -590,6 +634,7 @@ void UI::sortPersonMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
+//sort name menu function, displays persons in sorted order
 void UI::sortNameMenu()
 {
     Services p;
@@ -637,6 +682,7 @@ void UI::sortNameMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort gender menu function, displays persons in sorted order
 void UI::sortGenderMenu()
 {
     Services p;
@@ -712,6 +758,7 @@ void UI::sortGenderMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
+//sort yearOfBirth menu function, displays persons in sorted order
 void UI::sortYearOfBirthMenu()
 {
     Services p;
@@ -759,6 +806,7 @@ void UI::sortYearOfBirthMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
+//sort yearOfDeath menu function, displays persons in sorted order
 void UI::sortYearOfDeathMenu()
 {
     Services p;
@@ -837,6 +885,7 @@ void UI::sortYearOfDeathMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
 //SORT COMPUTERS
+//sort computer menu function
 void UI::sortComputerMenu()
 {
     int choice;
@@ -883,6 +932,7 @@ void UI::sortComputerMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
 }
+//sort computer name menu function, displays computers in sorted order
 void UI::sortComputerNameMenu()
 {
     Services c;
@@ -930,6 +980,7 @@ void UI::sortComputerNameMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort computer yearMade menu function, displays computers in sorted order
 void UI::sortComputerYearMadeMenu()
 {
     Services c;
@@ -977,6 +1028,7 @@ void UI::sortComputerYearMadeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
+//sort computer type menu function, displays computers in sorted order
 void UI::sortComputerTypeMenu()
 {
     Services c;
@@ -1024,6 +1076,7 @@ void UI::sortComputerTypeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
+//sort computer wasBuilt menu function, displays computers in sorted order
 void UI::sortComputerWasBuiltMenu()
 {
     Services c;
@@ -1065,6 +1118,7 @@ void UI::sortComputerWasBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
+//sort computer yearBuilt menu function, displays computers in sorted order
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;
@@ -1123,6 +1177,7 @@ void UI::sortComputerYearBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort computer notBuilt menu function, displays computers in sorted order
 void UI::sortComputerNotBuiltMenu()
 {
     Services c;
@@ -1181,6 +1236,7 @@ void UI::sortComputerNotBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//sort computer unknownBuilt menu function, displays computers in sorted order
 void UI::sortComputerUnkownBuiltMenu()
 {
     Services c;
@@ -1240,6 +1296,7 @@ void UI::sortComputerUnkownBuiltMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 //SEARCH
+//search menu function
 void UI::searchMenu()
 {
     int choice;
@@ -1272,6 +1329,7 @@ void UI::searchMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
+//function that returns the user to searchMenu by input
 void UI::backToSearch()
 {
     char input;
@@ -1285,6 +1343,7 @@ void UI::backToSearch()
         }
 }
 //SEARCH PERSONS
+//search person menu function, displays searched persons if found
 void UI::searchPersonMenu()
 {
     Services p;
@@ -1339,7 +1398,7 @@ void UI::searchPersonMenu()
             case 4:
             {
                 string deathYearSearch;
-                cout << "Enter death year: ";
+                cout << "Enter death year (input 0 if still alive): ";
                 cin >> deathYearSearch;
                 vector <InfoType> FP = p.searchVectorDeathYear(deathYearSearch);
                 searchPersDisplay(FP, deathYearSearch);
@@ -1353,6 +1412,7 @@ void UI::searchPersonMenu()
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
 }
 //SEARCH COMPUTERS
+//search computers menu function, displays searched computers if found
 void UI::searchComputerMenu()
 {
     Services p;
@@ -1466,6 +1526,7 @@ void UI::returnToRemove()
 }
 
 //DISPLAY
+//funtion that displays persons/sorted persons
 void UI::displayPersons(vector<InfoType> FP)
 {
     for (unsigned int i = 0; i < FP.size(); i++)
@@ -1473,6 +1534,7 @@ void UI::displayPersons(vector<InfoType> FP)
         displayPersonsSpecial(i, FP);
     }
 }
+//function that displays persons/special case sorted persons
 void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
 {
     cout << "Name: " << FP.at(i).name<< endl;
@@ -1500,6 +1562,7 @@ void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
         cout << endl;
     }
 }
+//funtion that displays computers/sorted computers
 void UI::displayComputers(vector<CompType> Comp)
 {
     for (unsigned int i = 0; i < Comp.size(); i++)
@@ -1507,6 +1570,7 @@ void UI::displayComputers(vector<CompType> Comp)
         displayComputersSpecial(i, Comp);
     }
 }
+//function that displays computers/special case sorted computers
 void UI::displayComputersSpecial(int i, vector<CompType> Comp)
 {
     cout << endl;
@@ -1534,6 +1598,7 @@ void UI::displayComputersSpecial(int i, vector<CompType> Comp)
     }
     cout << endl;
 }
+//function that displays searched persons
 void UI::searchPersDisplay(vector<InfoType> FP, string y){
     if(!FP.empty())
     {
@@ -1544,6 +1609,7 @@ void UI::searchPersDisplay(vector<InfoType> FP, string y){
         falseCheck(y);
     }
 }
+//function that displays searched computers
 void UI::searchCompDisplay(vector<CompType> Comp, string y){
     if(!Comp.empty())
     {
@@ -1554,7 +1620,8 @@ void UI::searchCompDisplay(vector<CompType> Comp, string y){
         falseCheck(y);
     }
 }
-//ANNAÐ
+//OTHER
+//function used in menus to navigate, utilizes user input and returns it
 int UI::chooseNumber()
 {
     int choice;
@@ -1570,12 +1637,14 @@ int UI::chooseNumber()
     }
     return choice;
 }
+//function that displays an error message
 void UI::displayError()
 {
     cout << "------------------------------------------" << endl;
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
 }
+//function that checks if user wants to input more information and returns true/false
 bool UI::continueOption()
 {
     bool check;
@@ -1602,6 +1671,7 @@ bool UI::continueOption()
     }
     return check;
 }
+//function that displays an error message if user input is not in database
 void UI::falseCheck(string x)
 {
 
@@ -1621,6 +1691,8 @@ void UI::databaseCheckComputers(vector<CompType> Comp)
     }
     else
     {
+        Services c;
+        c.sortByComputerNameAsc();
         displayComputers(Comp);
     }
 }
@@ -1633,29 +1705,67 @@ void UI::databaseCheckPersons(vector<InfoType> FP)
         cout << endl;
     }
     else
-    {
+    {   Services p;
+        p.sortByNameAsc();
         displayPersons(FP);
     }
 }
-bool UI::checkDatabaseEmpty()
+//checks if the computer and persons database is empty, if so relations can't be made
+bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 {
-    bool compCheck = true;
-    bool persCheck = true;
-    QSqlQuery query("SELECT * FROM computers");
-    if(query.exec())
-    {
-        compCheck = false;
-    }
-    QSqlQuery query2("SELECT * FROM persons");
-    if(query2.exec())
-    {
-        persCheck = false;
-    }
-    if(compCheck == true || persCheck == true)
+
+    if((FP.size() == 0) && (C.size() == 0))
     {
         return false;
     }
+
      else return true;
 }
+bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
+{
+    data p;
+    Services s;
+    bool check = false;
+    vector<InfoType> FP = p.loadPersData();
+    string temp1, temp2;
+    temp1 = s.changeName(name);
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        temp2 = s.changeName(FP.at(i).name);
+        if((temp1 == temp2) && (gender == FP.at(i).gender) && (bYear == FP.at(i).birthYear) && (dYear == FP.at(i).deathYear))
+        {
+            check = false;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    return check;
+}
+bool UI::duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt)
+{
+    data c;
+    Services s;
+    bool check = false;
+    vector<CompType> Comp = c.loadCompData();
+    string temp1, temp2, temp3, temp4;
 
+    temp1 = s.changeName(computerName);
+    temp2 = s.changeName(computerType);
 
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+        temp3 = s.changeName(Comp.at(i).compName);
+        temp4 = s.changeName(Comp.at(i).type);
+        if((temp1 == temp3) && (computerYearMade == Comp.at(i).yearMade) && (temp2 == temp4) && (wasBuilt == Comp.at(i).wasBuilt))
+        {
+            check = false;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    return check;
+}
