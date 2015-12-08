@@ -387,12 +387,20 @@ void UI::relationMenu()
 
         switch(choice)
         {
+
             case 1:
             {
-            bool checkDatabase = checkDatabaseEmpty();
+            Services s;
+            vector<InfoType> FP = s.makePersonsVector();
+            vector<CompType> C = s.makeComputerVector();
+            bool checkDatabase = false;
+            checkDatabase = checkDatabaseEmpty(FP, C);
+            FP.clear();
+            C.clear();
             if(checkDatabase == true)
             {
                 s.makeRelation();
+                break;
             }
             if(checkDatabase == false)
             {
@@ -1535,26 +1543,16 @@ void UI::databaseCheckPersons(vector<InfoType> FP)
         displayPersons(FP);
     }
 }
-bool UI::checkDatabaseEmpty()
+//checks if the computer and persons database is empty, if so relations can't be made
+bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 {
-    bool compCheck = true;
-    bool persCheck = true;
-    QSqlQuery query("SELECT * FROM computers");
-    if(query.exec())
-    {
-        compCheck = false;
-    }
-    QSqlQuery query2("SELECT * FROM persons");
-    if(query2.exec())
-    {
-        persCheck = false;
-    }
-    if(compCheck == true || persCheck == true)
+
+    if((FP.size() == 0) && (C.size() == 0))
     {
         return false;
     }
-     else return true;
 
+     else return true;
 }
 
 

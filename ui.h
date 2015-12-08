@@ -72,7 +72,7 @@ public:
     void searchPersDisplay(vector<InfoType> FP, string y);
     void searchCompDisplay(vector<CompType> Comp, string y);
     //ANNAÐ
-    bool checkDatabaseEmpty();
+    bool checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C);
     int chooseNumber();
     void displayError();
     bool continueOption();
