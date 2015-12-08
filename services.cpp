@@ -1,4 +1,6 @@
 #include "services.h"
+#include "ui.h"
+#include "data.h"
 
 using namespace std;
 
@@ -147,18 +149,14 @@ vector<CompType> Services::viewComputerInfo()
     vector <CompType> Comp = makeComputerVector();
     return Comp;
 }
-void Services::viewRelationPerson()
+
+int Services::findID(string name)
 {
-    UI a;
-    string name = "";
     int ID = 0;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
     do
     {
-            cout << "Enter person name: ";
-            //cin.clear();
-            getline(cin, name);
             QString qName = QString::fromUtf8(name.c_str());
             query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
             while(query.next())
@@ -168,9 +166,18 @@ void Services::viewRelationPerson()
                 ID = p.id;
             }
         }while(name == "");
+    return ID;
+}
 
-        vector<CompType> computers;
-        query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
+
+vector<CompType> Services::viewRelationPerson(int ID)
+{
+    UI a;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    vector<CompType> computers;
+    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
+
     while(query.next())
     {
         CompType c;
@@ -180,17 +187,9 @@ void Services::viewRelationPerson()
         c.type = query.value("type").toString().toStdString();
         c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
-    }
-    if(computers.size() == 0)
-    {
-        cout << endl;
-        cout << "| | | Name not in database or no relations to show. | | |" << endl;
-        cout << endl;
-    }
-    else
-    {
-        a.displayComputers(computers);
-    }
+    }  
+
+    return computers;
 }
 void Services::viewRelationComputer()
 {
@@ -371,6 +370,7 @@ vector <InfoType> Services::sortByYearDesc()
     sort(FP.begin(), FP.end(), compareYearDesc);
     return FP;
 }
+
 //fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 vector <InfoType> Services::sortByDeathYearAsc()
 {
@@ -554,7 +554,6 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
         nameSearch[i] = tolower(nameSearch[i]);
         //setjum innsláttinn í lower case
     }
-
     for(unsigned int i = 0; i < FP.size(); i++)
     {
         string tempName = FP[i].name;

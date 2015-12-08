@@ -394,12 +394,17 @@ void UI::relationMenu()
             }
             case 2:
             {
-            s.viewRelationComputer();
+                s.viewRelationComputer();
                 break;
             }
             case 3:
             {
-            s.viewRelationPerson();
+                cout << "Enter person name: ";
+                cin.clear();
+                string name = "";
+                getline(cin, name);
+                int ID = s.findID(name);
+                s.viewRelationPerson(ID);
                 break;
             }
             case 4:
