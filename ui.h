@@ -69,7 +69,8 @@ public:
     //REMOVE
     void removeMenu();
     void returnToRemove();
-    void askToRemove(string name, int ID);
+    void askToRemovePerson(string name, int ID);
+    void askToRemoveComputer(string name, int ID);
     //DISPLAY
     void displayPersons(vector<InfoType> FP);
     void displayPersonsSpecial(int i, vector<InfoType> FP);

@@ -723,11 +723,10 @@ void Services::removeComputer(int ID)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
+    QSqlQuery query2(db);
     query.exec("DELETE FROM computers WHERE id = "+QString::number(ID)+"");
-    query.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
 }
-
-
 //OTHER
 //changes name uppercase/lowercase
 string Services::changeName(string tempName)
