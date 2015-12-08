@@ -409,12 +409,13 @@ void UI::viewInfoMenu()
         cout << endl;
         cout << "1. View person info" << endl;
         cout << "2. View computer info" << endl;
-        cout << "3. Return to main menu" << endl;
+        cout << "3. View statistics" << endl;
+        cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
         switch(choice)
         {
@@ -436,11 +437,17 @@ void UI::viewInfoMenu()
             }
             case 3:
             {
+                cout << "* * * VIEW STATISTICS * * *" << endl;
+                viewStatistics();
+                break;
+            }
+            case 4:
+            {
                 userMenu();
                 break;
             }
         }
-    }while(choice == 1 || choice == 2 || choice == 3);
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
 //function that returns the user to viewMenu by input
 void UI::backToView()
@@ -1918,4 +1925,55 @@ bool UI::duplicateCheckComputers(string computerName, int computerYearMade, stri
         }
     }
     return check;
+}
+void UI::viewStatistics()
+{
+    data d;
+    vector<InfoType> FP = d.loadPersData();
+    vector<CompType> Comp = d.loadCompData();
+
+    int totalPersonCount = 0;
+    int maleCount = 0;
+    int femaleCount = 0;
+    int deadCount = 0;
+    int liveCount = 0;
+    int totalComputerCount = 0;
+    int wasBuilt = 0;
+    int notBuilt = 0;
+
+    for(unsigned int i = 0; i < FP.size(); i++)
+    {
+        if(FP[i].gender == 'F' || FP[i].gender == 'f')
+            femaleCount++;
+        if(FP[i].gender == 'M' || FP[i].gender == 'm')
+            maleCount++;
+
+        if(FP[i].deathYear > 0)
+            deadCount++;
+        if(FP[i].deathYear == 0)
+            liveCount++;
+        totalPersonCount++;
+    }
+    for(unsigned int i = 0; i < Comp.size(); i++)
+    {
+        if(Comp[i].wasBuilt != 0)
+            wasBuilt++;
+        if(Comp[i].wasBuilt == 0)
+            notBuilt++;
+        totalComputerCount++;
+    }
+    cout << endl;
+    cout << "Persons  in database: " << totalPersonCount << endl;
+    cout << "Male persons in database: " << maleCount << endl;
+    cout << "Female persons in database: " << femaleCount << endl;
+    cout << "Diceased persons in database: " << deadCount << endl;
+    cout << "Alive persons in database: " << liveCount << endl;
+    cout << endl;
+    cout << "Computers in database: " << totalComputerCount << endl;
+    cout << "Computers built in database: " << wasBuilt << endl;
+    cout << "Computers not built in database: " << notBuilt << endl;
+    cout << endl;
+    cout << "Total of persons and computers in database: " << totalComputerCount + totalPersonCount << endl;
+    cout << endl;
+    backToView();
 }
