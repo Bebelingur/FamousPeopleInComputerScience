@@ -3,22 +3,23 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <string>
 #include <QtSql>
 #include <QtDebug>
 #include <QtCore>
+#include <QCoreApplication>
 #include "infotype.h"
 #include "comptype.h"
 #include "relationstype.h"
-#include <QCoreApplication>
-#include <QDebug>
-#include <string>
 
 using namespace std;
 
-class data {
+class data{
 
 public:
     data();
+    void connectionToDatabase();
+
     vector<InfoType> loadPersData();
     vector<CompType> loadCompData();
 
