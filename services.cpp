@@ -168,16 +168,8 @@ vector<CompType> Services::viewRelationPerson(int ID)
     }
     return computers;
 }
-void Services::viewRelationComputer(int ID)
+vector<InfoType> Services::viewRelationComputer(int ID)
 {
-<<<<<<< HEAD
-=======
-    UI a;
-
-    string name = "";
-    int ID = 0;
-
->>>>>>> 0463941aed07e11f8653481c97e4ef475b35c37f
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
@@ -592,13 +584,12 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
     return result;
 }
 
-vector<CompType> Services::searchVectorComputersName(string nameSearch)
+vector<CompType> Services::searchVectorComputersName(string name)
 {
     vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
-    int nameSize = name.size();
 
-    for(int i = 0; i < nameSize; i++)
+    for(unsigned int i = 0; i < name.size() ; i++)
     {
         name[i] = tolower(name[i]);
         //setjum innsláttinn í lower case
@@ -606,15 +597,14 @@ vector<CompType> Services::searchVectorComputersName(string nameSearch)
     for(unsigned int i = 0; i < Comp.size(); i++)
     {
        string tempName = Comp[i].compName;
-       nameSize = tempName.size();
 
-       for(int j = 0; j < nameSize; j++)
+       for(unsigned int j = 0; j < tempName.size() ; j++)
        {
            tempName[j] = tolower(tempName[j]);
            //setjum nafnið í skjalinu í lower case og berum svo saman
        }
 
-       int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+       int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
        if(found != (int) std::string::npos)
        {
            result.push_back(Comp[i]);
