@@ -682,7 +682,6 @@ vector<CompType> Services::searchVectorComputersName(string name)
         for(unsigned int i = 0; i < name.size() ; i++)
         {
             name[i] = tolower(name[i]);
-            //setjum innsláttinn í lower case
         }
         for(unsigned int i = 0; i < Comp.size(); i++)
         {
@@ -691,10 +690,9 @@ vector<CompType> Services::searchVectorComputersName(string name)
            for(unsigned int j = 0; j < tempName.size() ; j++)
            {
                tempName[j] = tolower(tempName[j]);
-               //setjum nafnið í skjalinu í lower case og berum svo saman
            }
 
-           int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+           int found = tempName.find(name);
            if(found != (int) std::string::npos)
            {
                result.push_back(Comp[i]);
