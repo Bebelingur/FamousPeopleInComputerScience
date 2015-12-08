@@ -149,7 +149,7 @@ int Services::findID(string name)
 }
 
 
-void Services::viewRelationPerson(int ID)
+vector<CompType> Services::viewRelationPerson(int ID)
 {
     UI a;
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -166,17 +166,9 @@ void Services::viewRelationPerson(int ID)
         c.type = query.value("type").toString().toStdString();
         c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
-    }
-    if(computers.size() == 0)
-    {
-        cout << endl;
-        cout << "| | | Name not in database or no relations to show. | | |" << endl;
-        cout << endl;
-    }
-    else
-    {
-        a.displayComputers(computers);
-    }
+    }  
+
+    return computers;
 }
 void Services::viewRelationComputer()
 {
