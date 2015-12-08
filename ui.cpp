@@ -1,7 +1,7 @@
 #include "ui.h"
 
 using namespace std;
-
+//function that finds the time
 int exactYearNow()
 {
     time_t now = time(0);
@@ -146,7 +146,7 @@ string UI::getName()
         cin.clear();
         getline(cin, name);
         check = false;
-        //athuga hvort innslátturinn innihaldi nokkuð tölur
+        //check if input contains digits
         for(unsigned int i = 0; i < name.size(); i++)
         {
             if(isdigit(name[i]))
@@ -297,7 +297,6 @@ int UI::getYearMade()
         }
     }while(check == false);
 
-    //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
     if(computerYearMade == 1)
     {
         computerYearMade = 0;
@@ -385,12 +384,12 @@ int UI::getWasBuilt(int computerYearMade)
                 }
                 else if(toupper(choice) == 'N')
                 {
-                    //ef hún var aldrei byggð(var bara til á pappírum/theoretical) þá fær hún gildið 0
+                    //if it was never built it gets the value 0
                     built = 0;
                 }
                 else if(choice == '?')
                 {
-                    //ef ekki er vitað hvenær hún var byggð(sett saman og hún virkaði) þá fær hún gildið 1
+                    //if it is unkown when it was built it gets the value 1
                     built = 1;
                 }
             }

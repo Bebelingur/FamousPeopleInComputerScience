@@ -75,7 +75,7 @@ public:
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
 
-    //SEARCH COMPUTERS FÖLL
+    //SEARCH COMPUTERS FUNCTIONS
     vector<CompType> searchVectorComputersName(string name);
 
     //REMOVE FUNCTIONS

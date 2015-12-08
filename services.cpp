@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//function that finds the time
+//function that finds the time and adds 1 year to it
 int aliveNow()
 {
     time_t now = time(0);
@@ -30,7 +30,7 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     personsToData.saveDataPersons(p);
 }
 
-//takes info(variables) from user input regarding computers and sends down to data
+//takes info from user input regarding computers and sends down to data
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
     CompType p;
@@ -43,7 +43,7 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     computersToData.saveDataComputers(p);
 }
 
-//takes info(variables) from user input regarding relation and sends down to data
+//takes info from user input regarding relation and sends down to data
 void Services::addRelation(int personId, int computerId)
 {
     RelationsType p;
@@ -92,7 +92,7 @@ void Services::makeRelation()
                   compID = c.id;
               }
               else
-              cout<< "did you mean: "<< c.compName << endl;
+              cout << "Did you mean: " << c.compName << endl;
           }
       }while(compID == 0);
 
@@ -113,7 +113,7 @@ void Services::makeRelation()
                   persID = p.id;
               }
               else
-              cout<< "did you mean: "<< p.name << endl;
+              cout << "Did you mean: " << p.name << endl;
           }
       }while(persID == 0);
 
@@ -155,7 +155,7 @@ vector<CompType> Services::viewComputerInfo()
     vector <CompType> Comp = makeComputerVector();
     return Comp;
 }
-
+//finds the person id and returns it
 int Services::findIDPerson(string name)
 {
     int ID = 0;
@@ -174,7 +174,7 @@ int Services::findIDPerson(string name)
         }while(name == "");
     return ID;
 }
-
+//finds the computer id and returns it
 int Services::findIDComputer(string name)
 {
     int ID = 0;
@@ -681,8 +681,8 @@ vector<CompType> Services::searchVectorComputersName(string name)
 
         for(unsigned int i = 0; i < name.size() ; i++)
         {
+            //set input to lowercase
             name[i] = tolower(name[i]);
-            //setjum innsláttinn í lower case
         }
         for(unsigned int i = 0; i < Comp.size(); i++)
         {
@@ -690,11 +690,11 @@ vector<CompType> Services::searchVectorComputersName(string name)
 
            for(unsigned int j = 0; j < tempName.size() ; j++)
            {
+               //set string to int to be able to compare
                tempName[j] = tolower(tempName[j]);
-               //setjum nafnið í skjalinu í lower case og berum svo saman
            }
-
-           int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+           //check if input is apart of name
+           int found = tempName.find(name);
            if(found != (int) std::string::npos)
            {
                result.push_back(Comp[i]);
@@ -704,6 +704,7 @@ vector<CompType> Services::searchVectorComputersName(string name)
         return result;
 }
 //REMOVE
+//function that finds the person id and returns it
 vector<InfoType> Services::findPerson(int ID)
 {
     vector<InfoType> p;
@@ -724,7 +725,7 @@ vector<InfoType> Services::findPerson(int ID)
 
     return p;
 }
-
+//function that finds the computer id and returns it
 vector<CompType> Services::findComputer(int ID)
 {
     vector<CompType> c;
@@ -743,7 +744,7 @@ vector<CompType> Services::findComputer(int ID)
     }
     return c;
 }
-
+//removes person from database
 void Services::removePerson(int ID)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -752,7 +753,7 @@ void Services::removePerson(int ID)
     query.exec("DELETE FROM persons WHERE id = "+QString::number(ID)+"");
     query2.exec("DELETE FROM relations WHERE idPerson = "+QString::number(ID)+"");
 }
-
+//removes computer from database
 void Services::removeComputer(int ID)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -785,12 +786,14 @@ string Services::changeName(string tempName)
     }
     return tempName;
 }
+//function that converts string to char and returns it
 char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;
     result = a.at(0);
     return result;
 }
+//function that converts char to string and returns it
 string Services::convertToString(char a)
 {
     string result;
