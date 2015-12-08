@@ -151,12 +151,11 @@ int Services::findID(string name)
 
 vector<CompType> Services::viewRelationPerson(int ID)
 {
-    UI a;
+    vector<CompType> computers;
+
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-    vector<CompType> computers;
     query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
-
     while(query.next())
     {
         CompType c;
@@ -166,34 +165,13 @@ vector<CompType> Services::viewRelationPerson(int ID)
         c.type = query.value("type").toString().toStdString();
         c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
-    }  
-
+    }
     return computers;
 }
-void Services::viewRelationComputer()
+void Services::viewRelationComputer(int ID)
 {
-    UI a;
-    data b;
-
-    string name = "";
-    int ID = 0;
-
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-    do
-    {
-        cout<<"Enter computer name: ";
-        getline(cin, name);
-        QString qName = QString::fromUtf8(name.c_str());
-        query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
-
-        while(query.next())
-        {
-            InfoType p;
-            p.id = query.value("id").toUInt();
-            ID = p.id;
-        }
-    }while(name == "");
 
     vector<InfoType> people;
     query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
@@ -202,21 +180,12 @@ void Services::viewRelationComputer()
         InfoType p;
         p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
-        p.gender = b.convertToChar(query.value("sex").toString().toStdString());
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
     }
-    if(people.size() ==0)
-    {
-        cout << endl;
-        cout << "| | | Name not in database or no relations to show. | | |"<<endl;
-        cout << endl;
-    }
-    else
-    {
-        a.displayPersons(people);
-    }
+    return people;
 }
 //SORT PERSONS BOOL FÖLLIN
 //fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í stafrófsröð
@@ -617,11 +586,11 @@ vector<CompType> Services::searchVectorComputersName(string nameSearch)
 {
     //vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
-    int nameSize = nameSearch.size();
+    int nameSize = name.size();
 
     for(int i = 0; i < nameSize; i++)
     {
-        nameSearch[i] = tolower(nameSearch[i]);
+        name[i] = tolower(name[i]);
         //setjum innsláttinn í lower case
     }
     return result;

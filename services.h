@@ -29,7 +29,7 @@ public:
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
     vector<CompType> viewRelationPerson(int ID);
-    void viewRelationComputer();
+    vector<InfoType> viewRelationComputer(int ID);
     //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
@@ -72,10 +72,9 @@ public:
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
     //SEARCH COMPUTERS FÖLLIN
-    vector<CompType> searchVectorComputersName(string);
-    //ANNAÐ
+    vector<CompType> searchVectorComputersName(string nameSearch);
+    //ANNAÐst
     string changeName(InfoType p);
-
     int findID(string name);
 
 private:
