@@ -650,9 +650,8 @@ vector<CompType> Services::searchVectorComputersName(string name)
     return result;
 }
 //ANNAÐ
-string Services::changeName(InfoType p)
+string Services::changeName(string tempName)
 {
-    string tempName = p.name;
     int NameLength = tempName.size();
         for (int i = 0; i < NameLength; i++)
         {
@@ -672,7 +671,6 @@ string Services::changeName(InfoType p)
         }
     return tempName;
 }
-
 char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
 {
     char result;

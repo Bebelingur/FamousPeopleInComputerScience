@@ -74,7 +74,7 @@ public:
     //SEARCH COMPUTERS FÖLLIN
     vector<CompType> searchVectorComputersName(string name);
     //ANNAÐ
-    string changeName(InfoType p);
+    string changeName(string tempName);
     char convertToChar(string a);
     string convertToString(char a);
     int findIDPerson(string name);
