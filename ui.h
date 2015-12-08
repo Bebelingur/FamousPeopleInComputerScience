@@ -71,7 +71,7 @@ public:
     void displayComputersSpecial(int i, vector<CompType> Comp);
     void searchPersDisplay(vector<InfoType> FP, string y);
     void searchCompDisplay(vector<CompType> Comp, string y);
-    //ANNAÐ
+    //OTHER
     bool checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C);
     int chooseNumber();
     void displayError();
