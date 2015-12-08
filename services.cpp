@@ -149,14 +149,14 @@ int Services::findID(string name)
 }
 
 
-void Services::viewRelationPerson(int id)
+void Services::viewRelationPerson(int ID)
 {
     UI a;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
+    vector<CompType> computers;
+    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
 
-        vector<CompType> computers;
-        query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
     while(query.next())
     {
         CompType c;

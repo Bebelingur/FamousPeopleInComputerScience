@@ -28,7 +28,7 @@ public:
     //VIEW FÖLLIN
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
-    void viewRelationPerson(int id);
+    void viewRelationPerson(int ID);
     void viewRelationComputer();
     //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
