@@ -2,7 +2,6 @@
 
 using namespace std;
 
-//er bæði í ui og services væri til í að hafa það bara á einum stað
 int exactYearNow()
 {
     time_t now = time(0);
