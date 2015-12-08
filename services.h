@@ -78,9 +78,8 @@ public:
     //SEARCH COMPUTERS FÖLL
     vector<CompType> searchVectorComputersName(string name);
 
-
     //OTHER
-    string changeName(InfoType p);
+    string changeName(string tempName);
     char convertToChar(string a);
     string convertToString(char a);
     int findIDPerson(string name);
