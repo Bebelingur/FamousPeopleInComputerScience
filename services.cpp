@@ -1,4 +1,6 @@
 #include "services.h"
+#include "ui.h"
+#include "data.h"
 
 using namespace std;
 
@@ -72,9 +74,9 @@ vector<CompType> Services::makeComputerVector()
 //function that makes relation between person and computer
 void Services::makeRelation()
 {
-      string compName = "", name = "";
+      string compName = "", name = "", compNameCompare = "", nameCompare = "";
       int compID = 0, persID = 0;
-
+      //bool compCheck = false;
       QSqlDatabase db = QSqlDatabase::database("first");
       QSqlQuery query(db);
       do{
@@ -82,25 +84,42 @@ void Services::makeRelation()
           //VILLA HÉRNA skrifar út cout endalaust
           getline(cin, compName);
           QString qName = QString::fromUtf8(compName.c_str());
-          query.exec("SELECT compName, id FROM computers WHERE compName LIKE '" + qName + "'");
+          query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%" + qName + "%'");
           while(query.next())
           {
               CompType c;
               c.id = query.value("id").toUInt();
-              compID = c.id;
+              c.compName = query.value("compName").toString().toStdString();
+              compNameCompare = c.compName;
+
+              if(compNameCompare == compName)
+              {
+                  compID = c.id;
+              }
+              else
+              cout<< "did you mean: "<< c.compName << endl;
           }
+
       }while(compID == 0);
 
       do{
           cout << "Enter person: ";
           getline(cin, name);
           QString qName = QString::fromUtf8(name.c_str());
-          query.exec("SELECT name, id FROM persons WHERE name LIKE '" + qName + "'");
+          query.exec("SELECT name, id FROM persons WHERE name LIKE '%" + qName + "%'");
           while(query.next())
           {
               InfoType p;
+              p.name = query.value("name").toString().toStdString();
               p.id = query.value("id").toUInt();
-              persID = p.id;
+              nameCompare = p.name;
+
+              if(nameCompare == name)
+              {
+                  persID = p.id;
+              }
+              else
+              cout<< "did you mean: "<< p.name << endl;
           }
       }while(persID == 0);
 
@@ -114,13 +133,17 @@ void Services::makeRelation()
 
           if((r.computerId == compID) && (r.personId == persID))
           {
-              cout << "| | | Relation is already in database | | |" << endl;
-              cout << endl;
-              check = true;
+                cout << endl;
+                cout << "| | | Relation is already in database | | |" << endl;
+                cout << endl;
+                check = true;
           }
       }
       if(check == false)
       {
+          cout << endl;
+          cout << "| | | Relation between " << compName <<" and " << name << " has been added | | |" << endl;
+          cout << endl;
           addRelation(persID, compID);
       }
 }
@@ -138,19 +161,14 @@ vector<CompType> Services::viewComputerInfo()
     vector <CompType> Comp = makeComputerVector();
     return Comp;
 }
-//function that finds relations between person and computers
-void Services::viewRelationPerson()
+
+int Services::findIDPerson(string name)
 {
-    UI a;
-    string name = "";
     int ID = 0;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
     do
     {
-            cout << "Enter person name: ";
-            //cin.clear();
-            getline(cin, name);
             QString qName = QString::fromUtf8(name.c_str());
             query.exec("SELECT name, id FROM persons WHERE name LIKE '"+qName+"'");
             while(query.next())
@@ -160,9 +178,36 @@ void Services::viewRelationPerson()
                 ID = p.id;
             }
         }while(name == "");
+    return ID;
+}
 
-        vector<CompType> computers;
-        query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
+int Services::findIDComputer(string name)
+{
+    int ID = 0;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    do
+    {
+            QString qName = QString::fromUtf8(name.c_str());
+            query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
+            while(query.next())
+            {
+                CompType c;
+                c.id = query.value("id").toUInt();
+                ID = c.id;
+            }
+        }while(name == "");
+    return ID;
+}
+
+//function that finds relations between person and computers
+vector<CompType> Services::viewRelationPerson(int ID)
+{
+    vector<CompType> computers;
+
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
     while(query.next())
     {
         CompType c;
@@ -173,42 +218,14 @@ void Services::viewRelationPerson()
         c.wasBuilt = query.value("wasBuilt").toUInt();
         computers.push_back(c);
     }
-    if(computers.size() == 0)
-    {
-        cout << endl;
-        cout << "| | | Name not in database or no relations to show. | | |" << endl;
-        cout << endl;
-    }
-    else
-    {
-        a.displayComputers(computers);
-    }
+    return computers;
 }
+
 //function that finds relations between computer and persons
-void Services::viewRelationComputer()
+vector<InfoType> Services::viewRelationComputer(int ID)
 {
-    UI a;
-    data b;
-
-    string name = "";
-    int ID = 0;
-
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-    do
-    {
-        cout<<"Enter computer name: ";
-        getline(cin, name);
-        QString qName = QString::fromUtf8(name.c_str());
-        query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
-
-        while(query.next())
-        {
-            InfoType p;
-            p.id = query.value("id").toUInt();
-            ID = p.id;
-        }
-    }while(name == "");
 
     vector<InfoType> people;
     query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
@@ -217,21 +234,12 @@ void Services::viewRelationComputer()
         InfoType p;
         p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
-        p.gender = b.convertToChar(query.value("sex").toString().toStdString());
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
     }
-    if(people.size() ==0)
-    {
-        cout << endl;
-        cout << "| | | Name not in database or no relations to show. | | |"<<endl;
-        cout << endl;
-    }
-    else
-    {
-        a.displayPersons(people);
-    }
+    return people;
 }
 //SORT PERSONS BOOL FUNCTIONS
 //function that compares the first character of each string, used to sort in alphabetical order
@@ -370,6 +378,7 @@ vector <InfoType> Services::sortByYearDesc()
     sort(FP.begin(), FP.end(), compareYearDesc);
     return FP;
 }
+
 //function that returns the sorted vector by deathYear in ascending order
 vector <InfoType> Services::sortByDeathYearAsc()
 {
@@ -574,7 +583,6 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
         //set the input to lower case
         nameSearch[i] = tolower(nameSearch[i]);
     }
-
     for(unsigned int i = 0; i < FP.size(); i++)
     {
         string tempName = FP[i].name;
@@ -615,6 +623,7 @@ vector<InfoType> Services::searchVectorGender(string genderSearch)
             result.push_back(FP[i]);
         }
     }
+    FP.clear();
     return result;
 }
 //function that searches for birthYear, set results from search to vector and returns the vector
@@ -634,6 +643,7 @@ vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
                 }
             }
         }
+        FP.clear();
         return result;
 }
 //function that searches for deathYear, set results from search to vector and returns the vector
@@ -653,40 +663,40 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
             }
         }
     }
+    FP.clear();
     return result;
 }
+
 //SEARCH COMPUTERS FUNCTIONS
 //function that searches for computer name, set results from search to vector and returns the vector
-vector<CompType> Services::searchVectorComputersName(string nameSearch)
+vector<CompType> Services::searchVectorComputersName(string name)
 {
-    vector <CompType> Comp = makeComputerVector();
-    vector <CompType> result;
+    vector<CompType> Comp = makeComputerVector();
+        vector<CompType> result;
 
-    int nameSize = nameSearch.size();
-
-    for(int i = 0; i < nameSize; i++)
-    {
-        //set the input to lower case
-        nameSearch[i] = tolower(nameSearch[i]);
-    }
-
-    for(unsigned int i = 0; i < Comp.size(); i++)
-    {
-        string tempName = Comp[i].compName;
-        nameSize = tempName.size();
-
-        for(int j = 0; j < nameSize; j++)
+        for(unsigned int i = 0; i < name.size() ; i++)
         {
-            //set name in database to lower case and then compare
-            tempName[j] = tolower(tempName[j]);
+            name[i] = tolower(name[i]);
+            //setjum innsláttinn í lower case
         }
-        int found = tempName.find(nameSearch);//check if input is part of name
-        if(found != (int) string::npos)
+        for(unsigned int i = 0; i < Comp.size(); i++)
         {
-            result.push_back(Comp[i]);
+           string tempName = Comp[i].compName;
+
+           for(unsigned int j = 0; j < tempName.size() ; j++)
+           {
+               tempName[j] = tolower(tempName[j]);
+               //setjum nafnið í skjalinu í lower case og berum svo saman
+           }
+
+           int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+           if(found != (int) std::string::npos)
+           {
+               result.push_back(Comp[i]);
+           }
         }
-    }
-    return result;
+        Comp.clear();
+        return result;
 }
 //OTHER
 //changes name uppercase/lowercase
@@ -711,4 +721,17 @@ string Services::changeName(InfoType p)
             }
         }
     return tempName;
+}
+
+char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
+{
+    char result;
+    result = a.at(0);
+    return result;
+}
+string Services::convertToString(char a)
+{
+    string result;
+    result = a;
+    return result;
 }

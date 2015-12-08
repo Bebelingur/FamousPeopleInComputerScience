@@ -406,12 +406,24 @@ void UI::relationMenu()
             }
             case 2:
             {
-            s.viewRelationComputer();
+                string name = "";
+                cout << "Enter computer name: ";
+                cin.clear();
+                getline(cin, name);
+                int ID = s.findIDComputer(name);
+                vector<InfoType> FP = s.viewRelationComputer(ID);
+                databaseCheckPersons(FP);
                 break;
             }
             case 3:
             {
-            s.viewRelationPerson();
+                cout << "Enter persons name: ";
+                cin.clear();
+                string name = "";
+                getline(cin, name);
+                int ID = s.findIDPerson(name);
+                vector<CompType> Comp = s.viewRelationPerson(ID);
+                databaseCheckComputers(Comp);
                 break;
             }
             case 4:
@@ -1528,4 +1540,30 @@ void UI::falseCheck(string x)
     cout << "-------------------------------------------" << endl;
     cout << "--- Please try again. ---" << endl;
     cout << endl;
+}
+void UI::databaseCheckComputers(vector<CompType> Comp)
+{
+    if(Comp.size() == 0)
+    {
+        cout << endl;
+        cout << "| | | Name not in database or no relations to show. | | |" << endl;
+        cout << endl;
+    }
+    else
+    {
+        displayComputers(Comp);
+    }
+}
+void UI::databaseCheckPersons(vector<InfoType> FP)
+{
+    if(FP.size() == 0)
+    {
+        cout << endl;
+        cout << "| | | Name not in database or no relations to show. | | |" << endl;
+        cout << endl;
+    }
+    else
+    {
+        displayPersons(FP);
+    }
 }

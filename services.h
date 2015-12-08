@@ -28,9 +28,15 @@ public:
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
+
     void viewRelationPerson();
     void viewRelationComputer();
+
     //SORT PERSONS FUNCTIONS
+    vector<CompType> viewRelationPerson(int ID);
+    vector<InfoType> viewRelationComputer(int ID);
+
+    //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
     vector <InfoType> sortByYearAsc();
@@ -66,15 +72,23 @@ public:
     vector <CompType> sortByYearNotBuiltDesc();
     vector <CompType> sortByYearUnknownBuiltAsc();
     vector <CompType> sortByYearUnknownBuiltDesc();
+
     //SEARCH PERSONS FUNCTIONS
     vector<InfoType> searchVectorName(string nameSearch);
     vector<InfoType> searchVectorGender(string genderSearch);
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
-    //SEARCH COMPUTERS FUNCTIONS
-    vector<CompType> searchVectorComputersName(string);
+
+    //SEARCH COMPUTERS FÖLL
+    vector<CompType> searchVectorComputersName(string name);
+
     //OTHER
     string changeName(InfoType p);
+    char convertToChar(string a);
+    string convertToString(char a);
+    int findIDPerson(string name);
+    int findIDComputer(string name);
+
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;

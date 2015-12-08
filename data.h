@@ -27,9 +27,6 @@ public:
     void saveDataPersons(InfoType p);
     void saveDataComputers(CompType p);
 
-    char convertToChar(string a);
-    string convertToString(char a);
-
 private:
     string personFilename, computerFilename;
 };

@@ -76,6 +76,9 @@ public:
     void displayError();
     bool continueOption();
     void falseCheck(string nameSearch);
+    void databaseCheckComputers(vector<CompType> Comp);
+    void databaseCheckPersons(vector<InfoType> FP);
+
 };
 
 #endif // UI_H
