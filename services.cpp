@@ -2,16 +2,14 @@
 
 using namespace std;
 
-//er bæði í ui og services væri til í að hafa það bara á einum stað
-int exactYearNow2()
+int aliveNow()
 {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int exactYearNow = 1900 + ltm->tm_year;
-    return exactYearNow;
+    return exactYearNow + 1;
 }
-const int yearNow = exactYearNow2();
-const int alive = (yearNow + 1);
+const int alive = aliveNow();
 
 Services::Services()
 {
