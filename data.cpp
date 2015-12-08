@@ -10,10 +10,8 @@ vector<InfoType> data::loadPersData()
 {
     vector<InfoType> people;
 
-    QSqlDatabase db;
-    db = QSqlDatabase::database("first");
+    QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-
     query.exec("SELECT * FROM persons");
 
     while(query.next())
@@ -26,18 +24,14 @@ vector<InfoType> data::loadPersData()
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
     }
-
-
     return people;
 }
 vector<CompType> data::loadCompData()
 {
     vector<CompType> computers;
 
-    QSqlDatabase db;
-    db = QSqlDatabase::database("first");
+    QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-
     query.exec("SELECT * FROM computers");
 
     while(query.next())
@@ -54,10 +48,8 @@ vector<CompType> data::loadCompData()
 }
 void data::saveDataRelations(RelationsType p)
 {
-    QSqlDatabase db;
-    db = QSqlDatabase::database("first");
+    QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-
 
     query.prepare("Insert Into relations(idPerson, idComputer)Values(:idPerson, :idComputer)");
     query.bindValue(":idPerson", p.personId);
@@ -69,8 +61,7 @@ void data::saveDataRelations(RelationsType p)
 }
 void data::saveDataPersons(InfoType p)
 {
-    QSqlDatabase db;
-    db = QSqlDatabase::database("first");
+    QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
     string sex = convertToString(p.gender);
@@ -90,8 +81,7 @@ void data::saveDataPersons(InfoType p)
 }
 void data::saveDataComputers(CompType p)
 {
-    QSqlDatabase db;
-    db = QSqlDatabase::database("first");
+    QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
     QString qcompName = QString::fromUtf8(p.compName.c_str());

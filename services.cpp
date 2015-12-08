@@ -1,17 +1,14 @@
 #include "services.h"
-#include <ctime>
 
 using namespace std;
-
-int exactYearNow()
+int exactYearNow2()
 {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int exactYearNow = 1900 + ltm->tm_year;
     return exactYearNow;
 }
-
-const int yearNow = exactYearNow();
+const int yearNow = exactYearNow2();
 const int alive = (yearNow + 1);
 
 Services::Services()
@@ -127,7 +124,6 @@ vector<CompType> Services::viewComputerInfo()
     vector <CompType> x = makeComputerVector();
     return x;
 }
-
 void Services::viewRelationPerson()
 {
     UI a;
@@ -223,7 +219,6 @@ void Services::viewRelationComputer()
 }
 //SORT PERSONS BOOL FÖLLIN
 //Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í stafrófsröð
-bool compareNameAsc(const InfoType& a, const InfoType& b);
 bool compareNameAsc(const InfoType& a, const InfoType& b)
 {
     string str1 = a.name;
@@ -235,7 +230,6 @@ bool compareNameAsc(const InfoType& a, const InfoType& b)
     return str1 < str2;
 }
 //Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
-bool compareNameDesc(const InfoType& a, const InfoType& b);
 bool compareNameDesc(const InfoType& a, const InfoType& b)
 {
     string str1 = a.name;
@@ -247,19 +241,16 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
     return str1 > str2;
 }
 //Fall sem ber saman M og F og skilar M til að sorta lista eftir kyni þar sem M kemur fyrst fyrir í lista
-bool compareGenderMaleFirst(const InfoType& a, const InfoType& b);
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender > b.gender;
 }
 //Fall sem ber saman M og F og skilar F til að sorta lista eftir kyni þar sem F kemur fyrst fyrir í lista
-bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b);
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
 //Fall sem ber saman fæðingarár og skilar elst fyrst
-bool compareYearAsc(const InfoType& a, const InfoType& b);
 bool compareYearAsc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear < b.birthYear;
@@ -271,7 +262,6 @@ bool compareYearDesc(const InfoType& a, const InfoType& b)
     return a.birthYear > b.birthYear;
 }
 //Fall sem ber saman dánarár og skilar elst fyrst
-bool compareDeathYearAsc(const InfoType& a, const InfoType& b);
 bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
 {
     int year1 = a.deathYear;
@@ -288,7 +278,6 @@ bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
     return year1 > year2;
 }
 //Fall sem ber saman dánarár og skilar yngst fyrst
-bool compareDeathYearDesc(const InfoType& a, const InfoType& b);
 bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 {
     int year1 = a.deathYear;
@@ -390,7 +379,6 @@ vector <InfoType> Services::sortByNotDeceased()
     return FP;
 }
 //SORT COMPUTER BOOL FÖLLIN
-bool compareCompNameAsc(const CompType& a, const CompType& b);
 bool compareCompNameAsc(const CompType& a, const CompType& b)
 {
     string str1 = a.compName;
@@ -402,7 +390,6 @@ bool compareCompNameAsc(const CompType& a, const CompType& b)
     return str1 < str2;
 }
 //Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
-bool compareCompNameDesc(const CompType& a, const CompType& b);
 bool compareCompNameDesc(const CompType& a, const CompType& b)
 {
     string str1 = a.compName;
@@ -413,17 +400,14 @@ bool compareCompNameDesc(const CompType& a, const CompType& b)
 
     return str1 > str2;
 }
-bool compareComputerYearMadeAsc(const CompType& a, const CompType& b);
 bool compareComputerYearMadeAsc(const CompType& a, const CompType& b)
 {
     return a.yearMade < b.yearMade;
 }
-bool compareComputerYearMadeDesc(const CompType& a, const CompType& b);
 bool compareComputerYearMadeDesc(const CompType& a, const CompType& b)
 {
     return a.yearMade > b.yearMade;
 }
-bool compareCompTypeAsc(const CompType& a, const CompType& b);
 bool compareCompTypeAsc(const CompType& a, const CompType& b)
 {
     string str1 = a.type;
@@ -435,7 +419,6 @@ bool compareCompTypeAsc(const CompType& a, const CompType& b)
     return str1 < str2;
 }
 //Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
-bool compareCompTypeDesc(const CompType& a, const CompType& b);
 bool compareCompTypeDesc(const CompType& a, const CompType& b)
 {
     string str1 = a.type;
@@ -446,12 +429,10 @@ bool compareCompTypeDesc(const CompType& a, const CompType& b)
 
     return str1 > str2;
 }
-bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b);
 bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b)
 {
     return a.wasBuilt < b.wasBuilt;
 }
-bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b);
 bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b)
 {
     return a.wasBuilt > b.wasBuilt;

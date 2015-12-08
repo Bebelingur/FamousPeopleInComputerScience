@@ -6,12 +6,12 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <QtSql>
-#include <QtDebug>
+#include <ctime>
 #include "services.h"
 #include "infotype.h"
 #include "relationstype.h"
 #include "comptype.h"
+#include "data.h"
 
 using namespace std;
 
@@ -54,7 +54,6 @@ public:
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
     void sortComputerWasBuiltMenu();
-    void sortComputerBuiltMenu();
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();
     void sortComputerUnkownBuiltMenu();
