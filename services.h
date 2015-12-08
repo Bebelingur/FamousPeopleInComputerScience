@@ -78,6 +78,12 @@ public:
     //SEARCH COMPUTERS FÖLL
     vector<CompType> searchVectorComputersName(string name);
 
+    //REMOVE FUNCTIONS
+    vector<InfoType> findPerson(int ID);
+    vector<CompType> findComputer(int ID);
+    void removePerson(int ID);
+    void removeComputer(int ID);
+
     //OTHER
     string changeName(string tempName);
     char convertToChar(string a);
