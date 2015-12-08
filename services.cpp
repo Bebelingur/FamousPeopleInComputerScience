@@ -97,6 +97,7 @@ void Services::makeRelation()
 
           if((r.computerId == compID) && (r.personId == persID))
           {
+                cout << endl;
                 cout << "| | | Relation is already in database | | |" << endl;
                 cout << endl;
                 check = true;
