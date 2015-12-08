@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 //function that finds the time
 int aliveNow()
 {
