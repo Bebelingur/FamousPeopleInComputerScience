@@ -441,9 +441,17 @@ void UI::relationMenu()
                         compID = s.findIDComputer(compName, names);
                         if(compID == 0)
                         {
-                            for(unsigned int i = 0; i < names.size(); i++)
+                            if(names.size() == 0)
                             {
-                                cout << "Did you mean: "<< names[i]<< endl;
+                                cout << "| | | " << compName << " was not found in database! | | |" << endl << endl;
+                                relationMenu();
+                            }
+                            else
+                            {
+                                for(unsigned int i = 0; i < names.size(); i++)
+                                {
+                                    cout << "Did you mean: "<< names[i]<< endl;
+                                }
                             }
                         }
                         names.clear();
@@ -455,9 +463,17 @@ void UI::relationMenu()
                     persID = s.findIDPerson(persName, names);
                     if(persID == 0)
                     {
-                        for(unsigned int i = 0; i < names.size(); i++)
+                        if(names.size() == 0)
                         {
-                            cout << "Did you mean: "<< names[i]<< endl;
+                            cout << "| | | " << persName << " was not found in database! | | |" << endl << endl;
+                            relationMenu();
+                        }
+                        else
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
                         }
                     }
                     names.clear();
@@ -498,9 +514,17 @@ void UI::relationMenu()
                     ID = s.findIDComputer(name, names);
                     if(ID == 0)
                     {
-                        for(unsigned int i = 0; i < names.size(); i++)
+                        if(names.size() == 0)
                         {
-                            cout << "Did you mean: "<< names[i]<< endl;
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            relationMenu();
+                        }
+                        else
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
                         }
                     }
                     names.clear();
@@ -523,9 +547,17 @@ void UI::relationMenu()
                     ID = s.findIDPerson(name, names);
                     if(ID == 0)
                     {
-                        for(unsigned int i = 0; i < names.size(); i++)
+                        if(names.size() == 0)
                         {
-                            cout << "Did you mean: "<< names[i]<< endl;
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            relationMenu();
+                        }
+                        else
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
                         }
                     }
                     names.clear();
@@ -1547,18 +1579,31 @@ void UI::removeMenu()
             case 2:
             {
                 string name = "";
+                int ID = 0;
                 vector <string> names;
-                cout << "Enter name of a computer to remove: ";
-                cin.clear();
-                getline(cin, name);
-                int ID = s.findIDComputer(name, names);
+                do{
+                    cout << "Enter name of a computer to remove: ";
+                    cin.clear();
+                    getline(cin, name);
+                    ID = s.findIDComputer(name, names);
+                    if(ID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            returnToRemove();
+                        }
+                        else{
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
                 cout << endl;
                 vector<CompType> computer = s.findComputer(ID);
-                if(computer.empty())
-                {
-                    cout << name << " was not found in database!" << endl << endl;
-                    returnToRemove();
-                }
                 displayComputers(computer);
                 askToRemove(name, ID);
                 break;
@@ -1578,7 +1623,9 @@ void UI::askToRemove(string name, int ID)
         cout << "Do you want to remove this person(y for yes, n for no)? " << endl;
         cin >> input;
         if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
+        {
             displayError();
+        }
     }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
     if(toupper(input[0]) == 'Y')
     {
@@ -1593,7 +1640,6 @@ void UI::askToRemove(string name, int ID)
         returnToRemove();
     }
 }
-
 void UI::returnToRemove()
 {
     cout << "--- Press any key and then enter to return to remove menu ---" << endl;
