@@ -6,7 +6,7 @@ using namespace std;
 data::data()
 {
 }
-
+//CONNECTION
 //function that connects the program to the database
 void data::connectionToDatabase()
 {
@@ -32,6 +32,7 @@ void data::connectionToDatabase()
     query2.exec(QString(queryCreate2.c_str()));
     query3.exec(QString(queryCreate3.c_str()));
 }
+//VECTOR INPUT TO DATABASE
 //function that loads person information from database to vector and returns it
 vector<InfoType> data::loadPersData()
 {
@@ -75,6 +76,7 @@ vector<CompType> data::loadCompData()
     }
     return computers;
 }
+//VECTOR OUTPUT TO DATABASE
 //function that saves relation info between person and computer to database
 void data::saveDataRelations(RelationsType p)
 {

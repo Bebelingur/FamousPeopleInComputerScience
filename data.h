@@ -18,11 +18,12 @@ class data{
 
 public:
     data();
+    //CONNECTION
     void connectionToDatabase();
-
+    //VECTOR INPUT TO DATABASE
     vector<InfoType> loadPersData();
     vector<CompType> loadCompData();
-
+    //VECTOR OUTPUT TO DATABASE
     void saveDataRelations(RelationsType p);
     void saveDataPersons(InfoType p);
     void saveDataComputers(CompType p);
