@@ -372,10 +372,10 @@ int UI::getWasBuilt(int computerYearMade)
                 {
                     do
                     {
-                    cout << "What year was the computer built?: ";
-                    cin >> built;
-                    cin.clear();
-                    cin.ignore(INT_MAX, '\n');
+                        cout << "What year was the computer built?: ";
+                        cin >> built;
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
                         if(!((built <= yearNow) && (built >= computerYearMade)))
                         {
                             displayError();
