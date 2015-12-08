@@ -1395,7 +1395,7 @@ void UI::searchPersonMenu()
             case 4:
             {
                 string deathYearSearch;
-                cout << "Enter death year: ";
+                cout << "Enter death year (input 0 if still alive): ";
                 cin >> deathYearSearch;
                 vector <InfoType> FP = p.searchVectorDeathYear(deathYearSearch);
                 searchPersDisplay(FP, deathYearSearch);

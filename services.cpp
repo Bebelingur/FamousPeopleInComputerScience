@@ -658,6 +658,17 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
             }
         }
     }
+    else if((deathYearSearch.size() == 1) && isdigit(deathYearSearch[0]) && (deathYearSearch == "0"))
+    {
+        int deathYearSearchI = atoi(deathYearSearch.c_str());//set string to int to be able to compare
+        for(unsigned int i = 0; i < FP.size(); i++)
+        {
+            if(deathYearSearchI == FP[i].deathYear)
+            {
+                result.push_back(FP[i]);
+            }
+        }
+    }
     FP.clear();
     return result;
 }
