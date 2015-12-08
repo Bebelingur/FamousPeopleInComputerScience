@@ -25,7 +25,7 @@ public:
     //MAKE FUNCTIONS
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
-    void makeRelation();
+    bool makeRelation(int compID, int persID);
 
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
@@ -79,8 +79,8 @@ public:
     string changeName(string tempName);
     char convertToChar(string a);
     string convertToString(char a);
-    int findIDPerson(string name);
-    int findIDComputer(string name);
+    int findIDPerson(string persName, vector<string> &names);
+    int findIDComputer(string compName, vector<string> &names);
 
 private:
     vector <InfoType> FP;

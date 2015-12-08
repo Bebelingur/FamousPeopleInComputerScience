@@ -68,77 +68,32 @@ vector<CompType> Services::makeComputerVector()
    return c;
 }
 //function that makes relation between person and computer
-void Services::makeRelation()
+
+bool Services::makeRelation(int compID, int persID)
 {
-      string compName = "", name = "", compNameCompare = "", nameCompare = "";
-      int compID = 0, persID = 0;
-      QSqlDatabase db = QSqlDatabase::database("first");
-      QSqlQuery query(db);
-      do{
-          cout << "Enter name of computer: ";
-          getline(cin, compName);
-          QString qName = QString::fromUtf8(compName.c_str());
-          query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%" + qName + "%'");
-          while(query.next())
-          {
-              CompType c;
-              c.id = query.value("id").toUInt();
-              c.compName = query.value("compName").toString().toStdString();
-              compNameCompare = c.compName;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
 
-              if(compNameCompare == compName)
-              {
-                  compID = c.id;
-              }
-              else
-              cout << "Did you mean: " << c.compName << endl;
-          }
-      }while(compID == 0);
+    bool check = false;
+    query.exec("SELECT* FROM relations");
+    while(query.next())
+    {
+        RelationsType r;
+        r.computerId = query.value("idComputer").toUInt();
+        r.personId = query.value("idPerson").toUInt();
 
-      do{
-          cout << "Enter person: ";
-          getline(cin, name);
-          QString qName = QString::fromUtf8(name.c_str());
-          query.exec("SELECT name, id FROM persons WHERE name LIKE '%" + qName + "%'");
-          while(query.next())
-          {
-              InfoType p;
-              p.name = query.value("name").toString().toStdString();
-              p.id = query.value("id").toUInt();
-              nameCompare = p.name;
+        if((r.computerId == compID) && (r.personId == persID))
+        {
+            check = true;
+        }
 
-              if(nameCompare == name)
-              {
-                  persID = p.id;
-              }
-              else
-              cout << "Did you mean: " << p.name << endl;
-          }
-      }while(persID == 0);
-
-      bool check = false;
-      query.exec("SELECT* FROM relations");
-      while(query.next())
-      {
-          RelationsType r;
-          r.computerId = query.value("idComputer").toUInt();
-          r.personId = query.value("idPerson").toUInt();
-
-          if((r.computerId == compID) && (r.personId == persID))
-          {
-                cout << endl;
-                cout << "| | | Relation is already in database | | |" << endl;
-                cout << endl;
-                check = true;
-          }
-      }
-      if(check == false)
-      {
-          cout << endl;
-          cout << "| | | Relation between " << compName <<" and " << name << " has been added | | |" << endl;
-          cout << endl;
-          addRelation(persID, compID);
-      }
+    }
+    if(check == false)
+    {
+        addRelation(persID, compID);
+        check = false;
+    }
+    return check;
 }
 //VIEW FUNCTIONS
 //loads a vector of person information from services and returns it(er þetta ekki eiginlega sama fall og makepersonVector?)
@@ -154,44 +109,54 @@ vector<CompType> Services::viewComputerInfo()
     vector <CompType> Comp = makeComputerVector();
     return Comp;
 }
+int Services::findIDPerson(string persName, vector<string> &names)
 //finds the person id and returns it
-int Services::findIDPerson(string name)
 {
-    int ID = 0;
+
+    int persID = 0;
     string nameCompare = "";
+
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-    do
+    QString qName = QString::fromUtf8(persName.c_str());
+    query.exec("SELECT name, id FROM persons WHERE name LIKE '%"+qName+"%'");
+    while(query.next())
     {
-            QString qName = QString::fromUtf8(name.c_str());
-            query.exec("SELECT name, id FROM persons WHERE name LIKE '%"+qName+"%'");
-            while(query.next())
-            {
-                InfoType p;
-                p.id = query.value("id").toUInt();
-                ID = p.id;
-            }
-        }while(name == "");
-    return ID;
+        InfoType p;
+        p.id = query.value("id").toUInt();
+        p.name = query.value("name").toString().toStdString();
+        nameCompare = p.name;
+        names.push_back(nameCompare);
+        if(nameCompare == persName)
+        {
+            persID = p.id;
+        }
+    }
+    return persID;
+
 }
 //finds the computer id and returns it
-int Services::findIDComputer(string name)
+int Services::findIDComputer(string compName, vector<string>&names)
 {
-    int ID = 0;
+    int compID = 0;
+    string compNameCompare = "";
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-    do
+    QString qName = QString::fromUtf8(compName.c_str());
+    query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%"+qName+"%'");
+    while(query.next())
     {
-            QString qName = QString::fromUtf8(name.c_str());
-            query.exec("SELECT compName, id FROM computers WHERE compName LIKE '"+qName+"'");
-            while(query.next())
-            {
-                CompType c;
-                c.id = query.value("id").toUInt();
-                ID = c.id;
-            }
-        }while(name == "");
-    return ID;
+        CompType c;
+        c.id = query.value("id").toUInt();
+        c.compName = query.value("compName").toString().toStdString();
+        compNameCompare = c.compName;
+        names.push_back(compNameCompare);
+        if(compNameCompare == compName)
+        {
+            compID = c.id;
+        }
+    }
+    return compID;
 }
 
 //function that finds relations between person and computers

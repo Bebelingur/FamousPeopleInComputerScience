@@ -422,34 +422,89 @@ void UI::relationMenu()
 
             case 1:
             {
-            Services s;
-            vector<InfoType> FP = s.makePersonsVector();
-            vector<CompType> C = s.makeComputerVector();
-            bool checkDatabase = false;
-            checkDatabase = checkDatabaseEmpty(FP, C);
-            FP.clear();
-            C.clear();
-            if(checkDatabase == true)
-            {
-                s.makeRelation();
-                break;
-            }
-            if(checkDatabase == false)
-            {
-                cout << endl;
-                cout << "There is not enough information in database to make relation" << endl;
-                cout << "Add a computer, or a person first" << endl;
-                cout << endl;
-                break;
-            }
+                Services s;
+                vector<InfoType> FP = s.makePersonsVector();
+                vector<CompType> C = s.makeComputerVector();
+                bool checkDatabase = false;
+                checkDatabase = checkDatabaseEmpty(FP, C);
+                FP.clear();
+                C.clear();
+                int compID = 0, persID = 0;
+                string compName = "", persName = "";
+                vector <string> names;
+                if(checkDatabase == true)
+                {
+                    do{
+                        cout << "Enter name of computer: ";
+                        cin.clear();
+                        getline(cin, compName);
+                        compID = s.findIDComputer(compName, names);
+                        if(compID == 0)
+                        {
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                        names.clear();
+                    }while(compID == 0);
+                    do{
+                    cout << "Enter name of person: ";
+                    cin.clear();
+                    getline(cin, persName);
+                    persID = s.findIDPerson(persName, names);
+                    if(persID == 0)
+                    {
+                        for(unsigned int i = 0; i < names.size(); i++)
+                        {
+                            cout << "Did you mean: "<< names[i]<< endl;
+                        }
+                    }
+                    names.clear();
+                    }while(persID == 0);
+                    bool check = s.makeRelation(compID, persID);
+                    if(check == true)
+                    {
+                        cout << endl;
+                        cout << "| | | Relation is already in database | | |" << endl;
+                        cout << endl;
+                    }
+                    else
+                    {
+                        cout << endl;
+                        cout << "| | | Relation between " << compName <<" and " << persName << " has been added | | |" << endl;
+                        cout << endl;
+                    }
+                    break;
+                }
+                if(checkDatabase == false)
+                {
+                    cout << endl;
+                    cout << "There is not enough information in database to make relation" << endl;
+                    cout << "Add a computer, or a person first" << endl;
+                    cout << endl;
+                    break;
+                }
             }
             case 2:
             {
                 string name = "";
-                cout << "Enter computer name: ";
-                cin.clear();
-                getline(cin, name);
-                int ID = s.findIDComputer(name);
+                vector<string> names;
+                int ID = 0;
+                do{
+                    cout << "Enter name of computer: ";
+                    cin.clear();
+                    getline(cin, name);
+                    ID = s.findIDComputer(name, names);
+                    if(ID == 0)
+                    {
+                        for(unsigned int i = 0; i < names.size(); i++)
+                        {
+                            cout << "Did you mean: "<< names[i]<< endl;
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
                 vector<InfoType> FP = s.viewRelationComputer(ID);
                 cout << endl;
                 databaseCheckPersons(FP);
@@ -457,18 +512,31 @@ void UI::relationMenu()
             }
             case 3:
             {
-                cout << "Enter persons name: ";
-                cin.clear();
                 string name = "";
-                getline(cin, name);
-                int ID = s.findIDPerson(name);
+                int ID = 0;
+                vector<string> names;
+                do{
+                    cout << "Enter persons name: ";
+                    cin.clear();
+                    string name = "";
+                    getline(cin, name);
+                    ID = s.findIDPerson(name, names);
+                    if(ID == 0)
+                    {
+                        for(unsigned int i = 0; i < names.size(); i++)
+                        {
+                            cout << "Did you mean: "<< names[i]<< endl;
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
                 vector<CompType> Comp = s.viewRelationPerson(ID);
                 databaseCheckComputers(Comp);
                 break;
             }
             case 4:
             {
-            userMenu();
+                userMenu();
                 break;
             }
         }
@@ -1447,17 +1515,31 @@ void UI::removeMenu()
             case 1:
             {
                 string name = "";
-                cout << "Enter name of a person to remove: ";
-                cin.clear();
-                getline(cin, name);
-                int ID = s.findIDPerson(name);
+                int ID = 0;
+                vector<string> names;
+                do{
+                    cout << "Enter name of a person to remove: ";
+                    cin.clear();
+                    getline(cin, name);
+                    ID = s.findIDPerson(name, names);
+                    if(ID == 0)
+                    {
+                        if(names.size() == 0)
+                        {
+                            cout << "| | | " << name << " was not found in database! | | |" << endl << endl;
+                            returnToRemove();
+                        }
+                        else{
+                            for(unsigned int i = 0; i < names.size(); i++)
+                            {
+                                cout << "Did you mean: "<< names[i]<< endl;
+                            }
+                        }
+                    }
+                    names.clear();
+                }while(ID == 0);
                 cout << endl;
                 vector<InfoType> person = s.findPerson(ID);
-                if(person.empty())
-                {
-                    cout << name << " was not found in database!" << endl << endl;
-                    returnToRemove();
-                }
                 displayPersons(person);
                 askToRemove(name, ID);
                 break;
@@ -1465,10 +1547,11 @@ void UI::removeMenu()
             case 2:
             {
                 string name = "";
+                vector <string> names;
                 cout << "Enter name of a computer to remove: ";
                 cin.clear();
                 getline(cin, name);
-                int ID = s.findIDComputer(name);
+                int ID = s.findIDComputer(name, names);
                 cout << endl;
                 vector<CompType> computer = s.findComputer(ID);
                 if(computer.empty())
