@@ -74,6 +74,7 @@ public:
     //ANNAÐ
     int chooseNumber();
     void displayError();
+    bool continueOption();
     void falseCheck(string nameSearch);
 };
 

@@ -18,6 +18,8 @@ class data{
 
 public:
     data();
+    void connectionToDatabase();
+
     vector<InfoType> loadPersData();
     vector<CompType> loadCompData();
 

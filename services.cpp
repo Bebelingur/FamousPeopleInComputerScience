@@ -1,6 +1,8 @@
 #include "services.h"
 
 using namespace std;
+
+//er bæði í ui og services væri til í að hafa það bara á einum stað
 int exactYearNow2()
 {
     time_t now = time(0);
@@ -113,16 +115,16 @@ void Services::makeRelation()
       }
 }
 //VIEW FÖLLIN
-vector<InfoType> Services::viewPersonsInfo()//displayar manneskjur, þurfum að annað sem birtir tölvur
+vector<InfoType> Services::viewPersonsInfo()
 {
-    vector <InfoType> x = makePersonsVector();
-    return x;
+    vector <InfoType> FP = makePersonsVector();
+    return FP;
 
 }
 vector<CompType> Services::viewComputerInfo()
 {
-    vector <CompType> x = makeComputerVector();
-    return x;
+    vector <CompType> Comp = makeComputerVector();
+    return Comp;
 }
 void Services::viewRelationPerson()
 {
@@ -218,7 +220,7 @@ void Services::viewRelationComputer()
     }
 }
 //SORT PERSONS BOOL FÖLLIN
-//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í stafrófsröð
+//fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í stafrófsröð
 bool compareNameAsc(const InfoType& a, const InfoType& b)
 {
     string str1 = a.name;
@@ -229,7 +231,7 @@ bool compareNameAsc(const InfoType& a, const InfoType& b)
 
     return str1 < str2;
 }
-//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+//fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
 bool compareNameDesc(const InfoType& a, const InfoType& b)
 {
     string str1 = a.name;
@@ -240,28 +242,28 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
 
     return str1 > str2;
 }
-//Fall sem ber saman M og F og skilar M til að sorta lista eftir kyni þar sem M kemur fyrst fyrir í lista
+//fall sem ber saman M og F og skilar M til að sorta lista eftir kyni þar sem M kemur fyrst fyrir í lista
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender > b.gender;
 }
-//Fall sem ber saman M og F og skilar F til að sorta lista eftir kyni þar sem F kemur fyrst fyrir í lista
+//fall sem ber saman M og F og skilar F til að sorta lista eftir kyni þar sem F kemur fyrst fyrir í lista
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
-//Fall sem ber saman fæðingarár og skilar elst fyrst
+//fall sem ber saman fæðingarár og skilar elst fyrst
 bool compareYearAsc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear < b.birthYear;
 }
-//Fall sem ber saman fæðingarár og skilar yngst fyrst
+//fall sem ber saman fæðingarár og skilar yngst fyrst
 bool compareYearDesc(const InfoType& a, const InfoType& b);
 bool compareYearDesc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear > b.birthYear;
 }
-//Fall sem ber saman dánarár og skilar elst fyrst
+//fall sem ber saman dánarár og skilar elst fyrst
 bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
 {
     int year1 = a.deathYear;
@@ -277,7 +279,7 @@ bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
     }
     return year1 > year2;
 }
-//Fall sem ber saman dánarár og skilar yngst fyrst
+//fall sem ber saman dánarár og skilar yngst fyrst
 bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
 {
     int year1 = a.deathYear;
@@ -294,21 +296,21 @@ bool compareDeathYearDesc(const InfoType& a, const InfoType& b)
     return year1 < year2;
 }
 //SORT PERSONS FÖLLIN
-//Fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
+//fall sem birtir lista sem er sortaður eftir nöfnum í stafrófsröð
 vector <InfoType> Services::sortByNameAsc()
 {
     vector <InfoType> FP = makePersonsVector();
     sort(FP.begin(), FP.end(), compareNameAsc);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
+//fall sem birtir lista sem er sortaður eftir nöfnum í öfugri stafrófsröð
 vector <InfoType> Services::sortByNameDesc()
 {
     vector <InfoType> FP = makePersonsVector();
     sort(FP.begin(), FP.end(), compareNameDesc);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir kyni, Males
+//fall sem birtir lista sem er sortaður eftir kyni, Males
 vector <InfoType> Services::sortByGenderMale()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -316,7 +318,7 @@ vector <InfoType> Services::sortByGenderMale()
     sort(FP.begin(), FP.end(), compareGenderMaleFirst);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir kyni, Females
+//fall sem birtir lista sem er sortaður eftir kyni, Females
 vector <InfoType> Services::sortByGenderFemale()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -324,7 +326,7 @@ vector <InfoType> Services::sortByGenderFemale()
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir kyni, undecided
+//fall sem birtir lista sem er sortaður eftir kyni, undecided
 vector <InfoType> Services::sortByGenderUndecided()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -332,7 +334,7 @@ vector <InfoType> Services::sortByGenderUndecided()
     sort(FP.begin(), FP.end(), compareGenderFemaleFirst);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
+//fall sem birtir lista sem er sortaður eftir fæðingarári elst til yngst
 vector <InfoType> Services::sortByYearAsc()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -340,7 +342,7 @@ vector <InfoType> Services::sortByYearAsc()
     sort(FP.begin(), FP.end(), compareYearAsc);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
+//fall sem birtir lista sem er sortaður eftir fæðingarár yngst til elst
 vector <InfoType> Services::sortByYearDesc()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -348,7 +350,7 @@ vector <InfoType> Services::sortByYearDesc()
     sort(FP.begin(), FP.end(), compareYearDesc);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
+//fall sem birtir lista sem er sortaður eftir dánarári yngst til elst
 vector <InfoType> Services::sortByDeathYearAsc()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -356,7 +358,7 @@ vector <InfoType> Services::sortByDeathYearAsc()
     sort(FP.begin(), FP.end(), compareDeathYearDesc);
     return FP;
 }
-//Fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
+//fall sem birtir lista sem er sortaður eftir dánarári elst til yngst
 vector <InfoType> Services::sortByDeathYearDesc()
 {
     vector <InfoType> FP = makePersonsVector();
@@ -418,7 +420,7 @@ bool compareCompTypeAsc(const CompType& a, const CompType& b)
 
     return str1 < str2;
 }
-//Fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
+//fall sem ber saman fyrsta staf í hverjum streng, notað til að sorta föll í öfugri stafrófsröð
 bool compareCompTypeDesc(const CompType& a, const CompType& b)
 {
     string str1 = a.type;
@@ -516,7 +518,6 @@ vector <CompType> Services::sortByYearUnknownBuiltDesc()
     vector <CompType> Comp = makeComputerVector();
     sort(Comp.begin(), Comp.end(), compareCompNameAsc);
     sort(Comp.begin(), Comp.end(), compareComputerYearBuiltDesc);
-
     return Comp;
 }
 //SEARCH PERSONS FÖLLIN
@@ -544,7 +545,7 @@ vector<InfoType> Services::searchVectorName(string nameSearch)
             //setjum nafnið í skjalinu í lower case og berum svo saman
         }
         int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
-        if(found != (int) std::string::npos)
+        if(found != (int) string::npos)
         {
             result.push_back(FP[i]);
         }
@@ -573,7 +574,6 @@ vector<InfoType> Services::searchVectorGender(string genderSearch)
         }
     }
     //pusha inn gervimanneskjunni ef engin manneskja fannst af þessu kyni;
-    FP.clear();
     return result;
 }
 vector<InfoType> Services::searchVectorBirthYear(string birthYearSearch)
@@ -613,9 +613,10 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
     return result;
 }
 //SEARCH COMPUTERS FÖLLIN
+//EITTHVAÐ SKRÝTIÐ HÉR!!!! EINS OG ÞAÐ VANTI VECTOR REFERENCE EÐA ÞURFI EKKI AÐ VERA
 vector<CompType> Services::searchVectorComputersName(string nameSearch)
 {
-    vector<CompType> x = makeComputerVector();
+    //vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
     int nameSize = nameSearch.size();
 

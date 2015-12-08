@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//er bæði í ui og services væri til í að hafa það bara á einum stað
 int exactYearNow()
 {
     time_t now = time(0);
@@ -61,8 +62,7 @@ void UI::userMenu()
             case 6:
                 exit(1);
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6); //eða while(choice != 5);
-    //náði að láta virka aðeins, google to the rescue :)  - BóE
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
 }
 //INPUT
 void UI::inputMenu()
@@ -76,7 +76,6 @@ void UI::inputMenu()
         cout << "2. Input computer" << endl;
         cout << "3. Return to main menu" << endl;
         cout << "===========================================" << endl;
-
 
         do{
             choice = chooseNumber();
@@ -94,7 +93,6 @@ void UI::inputMenu()
                 getComputerInfo();
                 break;
             }
-
             case 3:
             {
                 userMenu();
@@ -102,39 +100,26 @@ void UI::inputMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3);
-    userMenu();
 }
 //PERSON INFO INPUT
 void UI::getPersonInfo()
 {
-    char keepGoing = ' ';
-    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+    Services p;
+    bool check = false;
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
+
     do{
         string name = getName();
         char gender = getGender();
         int bYear = getBirthYear();
         int dYear = getDeathYear(name, bYear);
 
-        Services p;
         p.addPerson(name, gender, bYear, dYear);
 
-        //CONTINUE
-        do{
-            cout << "Input more information (Y for yes/N for no): ";
-            cin >> keepGoing;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
-                {
-                    displayError();
-                }
-            cout << endl;
-        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
-
-    }while(toupper(keepGoing) == 'Y');
+        check = continueOption();
+    }while(check == true);
 }
 string UI::getName()
 {
@@ -212,7 +197,6 @@ int UI::getDeathYear(string name, int bYear)
                 }
 
                 if(toupper(personDead) == 'Y')
-                //fallegra að nota toupper frekar en langa uppröðun - BóE
                 {
                     do{
                         cout << "Input year of death: ";
@@ -224,14 +208,10 @@ int UI::getDeathYear(string name, int bYear)
                                 displayError();
                             }
                     }while(!((dYear > bYear) && (dYear <= yearNow)));
-                    //year of birth has to be less than year of death - BÓE
-                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
-                    //use a constant for the year, now it is set to 2015, death year should be less or equal
-
                 }
                 if(toupper(personDead) == 'N')
                 {
-                    //all deceased get zero as input for year of death, equals NULL in SQL - BóE
+                    //all deceased get zero as input for year of death
                     dYear = 0;
                 }
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
@@ -241,10 +221,11 @@ int UI::getDeathYear(string name, int bYear)
 void UI::getComputerInfo()
 {
     Services c;
-    char keepGoing = ' ';
+    bool check = false;
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
+
     do{
         string computerName = getComputerName();
         int computerYearMade = getYearMade();
@@ -253,29 +234,15 @@ void UI::getComputerInfo()
 
         c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
 
-        //CONTINUE
-        do{
-            cout << "Input more information (Y for yes/N for no): ";
-            cin >> keepGoing;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-            if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
-            {
-                displayError();
-            }
-            cout << endl;
-        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
-
-    }while(toupper(keepGoing) == 'Y');
+        check = continueOption();
+    }while(check == true);
 }
 string UI::getComputerName()
 {
     string name = " ";
-
-        cout << "Input computer name: ";
-        cin.clear();
-        getline(cin, name);
-
+    cout << "Input computer name: ";
+    cin.clear();
+    getline(cin, name);
     return name;
 }
 int UI::getYearMade()
@@ -288,7 +255,7 @@ int UI::getYearMade()
         cin.clear();
         cin.ignore(INT_MAX, '\n');
 
-        if((computerYearMade <=yearNow && computerYearMade >=CstartYear)||computerYearMade == 1)
+        if((computerYearMade <=yearNow && computerYearMade >=CstartYear) || computerYearMade == 1)
         {
             computerYearMade = computerYearMade;
             check = true;
@@ -298,7 +265,6 @@ int UI::getYearMade()
             displayError();
             check = false;
         }
-
     }while(check == false);
 
     //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
@@ -308,7 +274,9 @@ int UI::getYearMade()
         return computerYearMade;
     }
     else
-    return computerYearMade;
+    {
+        return computerYearMade;
+    }
 }
 string UI::getComputerType()
 {
@@ -456,7 +424,6 @@ void UI::viewInfoMenu()
         cout << "3. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
-
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
@@ -476,6 +443,7 @@ void UI::viewInfoMenu()
                 cout << "* * * VIEW COMPUTER INFORMATION * * *" << endl;
                 vector<CompType> Comp = p.viewComputerInfo();
                 displayComputers(Comp);
+                backToView();
                 break;
             }
             case 3:
@@ -485,7 +453,6 @@ void UI::viewInfoMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3);
-    userMenu();
 }
 void UI::backToView()
 {
@@ -512,7 +479,6 @@ void UI::sortMenu()
         cout << "3. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
-
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
@@ -536,7 +502,6 @@ void UI::sortMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3);
-    userMenu();
 }
 void UI::backToSortMenu()
 {
@@ -569,7 +534,6 @@ void UI::sortPersonMenu()
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
 
-
         switch(choice)
         {
             case 1:
@@ -599,12 +563,10 @@ void UI::sortPersonMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
-    sortMenu();
 }
 void UI::sortNameMenu()
 {
     Services p;
-
     int choice;
 
     do{
@@ -618,7 +580,6 @@ void UI::sortNameMenu()
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
-
 
         switch(choice)
         {
@@ -653,7 +614,6 @@ void UI::sortNameMenu()
 void UI::sortGenderMenu()
 {
     Services p;
-
     int choice;
 
     do{
@@ -665,11 +625,9 @@ void UI::sortGenderMenu()
         cout << "4. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
-
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
-
 
         switch(choice)
         {
@@ -711,27 +669,13 @@ void UI::sortGenderMenu()
                 cout << "--- Displaying persons of undecided gender ---" << endl;
                 cout << endl;
                 vector <InfoType> FP = p.sortByGenderUndecided();
-
-               /* for(unsigned int i = 0; i < FP.size(); i++)
+                for (unsigned int i = 0; i < FP.size(); i++)
                 {
-                    if(FP.at(i).gender != '?')
+                    if(FP.at(i).gender == '?')
                     {
-                        cout << "------------------------------------------------------------" << endl;
-                        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
-                        cout << "------------------------------------------------------------" << endl;
-                        cout << endl;
+                        displayPersonsSpecial(i, FP);
                     }
-                    else
-                    {*/
-                        for (unsigned int i = 0; i < FP.size(); i++)
-                        {
-                            if(FP.at(i).gender == '?')
-                            {
-                                displayPersonsSpecial(i, FP);
-                            }
-                        }
-                    /*}
-                }*/
+                }
                 backToSortMenu();
                 break;
              }
@@ -745,7 +689,6 @@ void UI::sortGenderMenu()
 void UI::sortYearOfBirthMenu()
 {
     Services p;
-
     int choice;
 
     do{
@@ -759,7 +702,6 @@ void UI::sortYearOfBirthMenu()
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
-
 
         switch(choice)
         {
@@ -914,12 +856,10 @@ void UI::sortComputerMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
-    sortComputerMenu();
 }
 void UI::sortComputerNameMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -933,7 +873,6 @@ void UI::sortComputerNameMenu()
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
-
 
         switch(choice)
         {
@@ -968,7 +907,6 @@ void UI::sortComputerNameMenu()
 void UI::sortComputerYearMadeMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -982,7 +920,6 @@ void UI::sortComputerYearMadeMenu()
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
-
 
         switch(choice)
         {
@@ -1017,7 +954,6 @@ void UI::sortComputerYearMadeMenu()
 void UI::sortComputerTypeMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1031,7 +967,6 @@ void UI::sortComputerTypeMenu()
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
-
 
         switch(choice)
         {
@@ -1107,7 +1042,6 @@ void UI::sortComputerWasBuiltMenu()
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1282,7 +1216,6 @@ void UI::sortComputerUnkownBuiltMenu()
 //SEARCH
 void UI::searchMenu()
 {
-
     int choice;
 
     do{
@@ -1506,10 +1439,10 @@ int UI::chooseNumber()
     cout << endl;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
-        {
-            displayError();
-        }
+    if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
+    {
+        displayError();
+    }
     return choice;
 }
 void UI::displayError()
@@ -1517,6 +1450,32 @@ void UI::displayError()
     cout << "------------------------------------------" << endl;
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
+}
+bool UI::continueOption()
+{
+    bool check;
+    char keepGoing = ' ';
+
+    do{
+        cout << "Input more information (Y for yes/N for no): ";
+        cin >> keepGoing;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+            {
+                displayError();
+            }
+        cout << endl;
+    }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+    if(toupper(keepGoing) == 'Y')
+    {
+        check = true;
+    }
+    if(toupper(keepGoing) == 'N')
+    {
+        check = false;
+    }
+    return check;
 }
 void UI::falseCheck(string x)
 {
@@ -1526,5 +1485,4 @@ void UI::falseCheck(string x)
     cout << "-------------------------------------------" << endl;
     cout << "--- Please try again. ---" << endl;
     cout << endl;
-
 }

@@ -6,6 +6,31 @@ data::data()
 {
 }
 
+void data::connectionToDatabase()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "first");
+    db = QSqlDatabase::database("first");
+    QString dbName = "database.sqlite";
+
+    db.setDatabaseName(dbName);
+         if(!db.open())
+         {
+             qDebug() << "Error: " << db.lastError().text();
+         }
+
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    QSqlQuery query3(db);
+
+    string queryCreate = "CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL, sex VARCHAR NOT NULL, yearBorn INTEGER NOT NULL, yearDead INTEGER NOT NULL);";
+    string queryCreate2 = "CREATE TABLE computers(id INTEGER PRIMARY KEY AUTOINCREMENT, compName VARCHAR NOT NULL, yearMade INTEGER NOT NULL, type VARCHAR NOT NULL, wasBuilt INTEGER NOT NULL);";
+    string queryCreate3 = "CREATE TABLE relations(idPerson INEGER, idComputer INTEGER,FOREIGN KEY(idPerson) REFERENCES persons(id), FOREIGN KEY(idComputer) REFERENCES computers(id));";
+
+    query.exec(QString(queryCreate.c_str()));
+    query2.exec(QString(queryCreate2.c_str()));
+    query3.exec(QString(queryCreate3.c_str()));
+}
+
 vector<InfoType> data::loadPersData()
 {
     vector<InfoType> people;
