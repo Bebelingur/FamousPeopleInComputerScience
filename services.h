@@ -28,7 +28,7 @@ public:
     //VIEW FÖLLIN
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
-    void viewRelationPerson();
+    void viewRelationPerson(int id);
     void viewRelationComputer();
     //SORT PERSONS FÖLLIN
     vector <InfoType> sortByNameAsc();
@@ -75,6 +75,9 @@ public:
     vector<CompType> searchVectorComputersName(string);
     //ANNAÐ
     string changeName(InfoType p);
+
+    int findID(string name);
+
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;

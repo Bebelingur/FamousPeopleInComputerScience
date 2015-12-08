@@ -81,9 +81,10 @@ void data::saveDataRelations(RelationsType p)
     query.bindValue(":idComputer", p.computerId);
     if(!query.exec())
     {
-        qDebug() << "addPersons error:  " << query.lastError();
+        qDebug() << "addRelations error:  " << query.lastError();
     }
 }
+
 void data::saveDataPersons(InfoType p)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
