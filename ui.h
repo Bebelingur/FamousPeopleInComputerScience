@@ -6,12 +6,12 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <QtSql>
-#include <QtDebug>
+#include <ctime>
 #include "services.h"
 #include "infotype.h"
 #include "relationstype.h"
 #include "comptype.h"
+#include "data.h"
 
 using namespace std;
 
@@ -54,7 +54,6 @@ public:
     void sortComputerYearMadeMenu();
     void sortComputerTypeMenu();
     void sortComputerWasBuiltMenu();
-    void sortComputerBuiltMenu();
     void sortComputerYearBuiltMenu();
     void sortComputerNotBuiltMenu();
     void sortComputerUnkownBuiltMenu();
@@ -66,17 +65,16 @@ public:
     //SEARCH COMPUTERS
     void searchComputerMenu();
     //DISPLAY
-    void displayPerson(InfoType p);
-    void displaySortedPersons(vector<InfoType> FP);
-    void displaySortedPersonsSpecial(int i, vector<InfoType> FP);
-    void displayComputer(CompType c);
-    void displaySortedComputers(vector<CompType> Comp);
-    void displaySortedComputersSpecial(int i, vector<CompType> Comp);
-    void searchPersDisplay(vector<InfoType> x, string y);
-    void searchCompDisplay(vector<CompType> x, string y);
+    void displayPersons(vector<InfoType> FP);
+    void displayPersonsSpecial(int i, vector<InfoType> FP);
+    void displayComputers(vector<CompType> Comp);
+    void displayComputersSpecial(int i, vector<CompType> Comp);
+    void searchPersDisplay(vector<InfoType> FP, string y);
+    void searchCompDisplay(vector<CompType> Comp, string y);
     //ANNAÐ
     int chooseNumber();
     void displayError();
+    bool continueOption();
     void falseCheck(string nameSearch);
 };
 

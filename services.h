@@ -1,10 +1,10 @@
-
 #ifndef SERVICES_H
 #define SERVICES_H
 #include <cstdlib>
 #include <cctype>
 #include <algorithm>
 #include <string>
+#include <ctime>
 #include "data.h"
 #include "infotype.h"
 #include "comptype.h"
@@ -13,8 +13,8 @@
 
 using namespace std;
 
-class Services
-{
+class Services{
+
 public:
     Services();
     //ADD FÖLLIN
@@ -42,6 +42,17 @@ public:
     vector <InfoType> sortByDeathYearDesc();
     vector <InfoType> sortByDeceased();
     vector <InfoType> sortByNotDeceased();
+    //SORT COMPUTER BOOL FÖLLIN
+    /*
+     * bool compareCompNameAsc(const CompType& a, const CompType& b);
+     * bool compareCompNameDesc(const CompType& a, const CompType& b);
+     * bool compareComputerYearMadeAsc(const CompType& a, const CompType& b);
+     * bool compareComputerYearMadeDesc(const CompType& a, const CompType& b);
+     * bool compareCompTypeAsc(const CompType& a, const CompType& b);
+     * bool compareCompTypeDesc(const CompType& a, const CompType& b);
+     * bool compareComputerYearBuiltAsc(const CompType& a, const CompType& b);
+     * bool compareComputerYearBuiltDesc(const CompType& a, const CompType& b);
+     */
     //SORT COMPUTER FÖLLIN
     vector <CompType> sortByComputerNameAsc();
     vector <CompType> sortByComputerNameDesc();
@@ -64,7 +75,6 @@ public:
     vector<CompType> searchVectorComputersName(string);
     //ANNAÐ
     string changeName(InfoType p);
-
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;

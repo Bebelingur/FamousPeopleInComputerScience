@@ -2,10 +2,17 @@
 
 using namespace std;
 
-const int yearNow = 2015;
+//er bæði í ui og services væri til í að hafa það bara á einum stað
+int exactYearNow()
+{
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    int exactYearNow = 1900 + ltm->tm_year;
+    return exactYearNow;
+}
+const int yearNow = exactYearNow();
+//birth year of Charles Babbage for beginning year of computer science
 const int CstartYear = 1791;
-//birth year of Charles Babbage should do for beginning year of computer science - BóE
-
 
 UI::UI()
 {
@@ -27,7 +34,7 @@ void UI::userMenu()
         cout << "2. View information" << endl;
         cout << "3. Sort information" << endl;
         cout << "4. Search information" << endl;
-        cout << "5. Add or view relatinon between person and computer" << endl;
+        cout << "5. Add or view relation between person and computer" << endl;
         cout << "6. Exit" << endl;
         cout << "===========================================" << endl;
 
@@ -55,40 +62,64 @@ void UI::userMenu()
             case 6:
                 exit(1);
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6); //eða while(choice != 5);
-    //náði að láta virka aðeins, google to the rescue :)  - BóE
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6);
 }
+//INPUT
+void UI::inputMenu()
+{
+    int choice;
 
+    do{
+        cout << "* * * INPUT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Input person" << endl;
+        cout << "2. Input computer" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                getPersonInfo();
+                break;
+            }
+            case 2:
+            {
+                getComputerInfo();
+                break;
+            }
+            case 3:
+            {
+                userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+//PERSON INFO INPUT
 void UI::getPersonInfo()
 {
-    char keepGoing = ' ';
-    //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+    Services p;
+    bool check = false;
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
+
     do{
         string name = getName();
         char gender = getGender();
         int bYear = getBirthYear();
         int dYear = getDeathYear(name, bYear);
 
-        Services p;
         p.addPerson(name, gender, bYear, dYear);
 
-        //CONTINUE
-        do{
-            cout << "Input more information (Y for yes/N for no): ";
-            cin >> keepGoing;
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-                if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
-                {
-                    displayError();
-                }
-            cout << endl;
-        }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
-
-    }while(toupper(keepGoing) == 'Y');
+        check = continueOption();
+    }while(check == true);
 }
 string UI::getName()
 {
@@ -166,7 +197,6 @@ int UI::getDeathYear(string name, int bYear)
                 }
 
                 if(toupper(personDead) == 'Y')
-                //fallegra að nota toupper frekar en langa uppröðun - BóE
                 {
                     do{
                         cout << "Input year of death: ";
@@ -178,651 +208,54 @@ int UI::getDeathYear(string name, int bYear)
                                 displayError();
                             }
                     }while(!((dYear > bYear) && (dYear <= yearNow)));
-                    //year of birth has to be less than year of death - BÓE
-                    //do not do equal since it is highly unlikely that a famous person would be less than 1 years old - BóE
-                    //use a constant for the year, now it is set to 2015, death year should be less or equal
-
                 }
                 if(toupper(personDead) == 'N')
                 {
-                    //all deceased get zero as input for year of death, equals NULL in SQL - BóE
+                    //all deceased get zero as input for year of death
                     dYear = 0;
                 }
         }while(toupper(personDead) != 'Y' && toupper(personDead) != 'N');
     return dYear;
 }
-
-void UI::sortPersonMenu()
-{
-    int choice;
-
-    do{
-        cout << "* * * SORT PERSON INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Sort by name" << endl;
-        cout << "2. Sort by gender" << endl;
-        cout << "3. Sort by year of birth" << endl;
-        cout << "4. Sort by year of death" << endl;
-        cout << "5. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
-
-
-        switch(choice)
-        {
-            case 1:
-            {
-            sortNameMenu();
-                break;
-            }
-            case 2:
-            {
-            sortGenderMenu();
-                break;
-            }
-            case 3:
-            {
-            sortYearOfBirthMenu();
-                break;
-            }
-            case 4:
-            {
-            sortYearOfDeathMenu();
-                break;
-            }
-            case 5:
-            {
-            userMenu();
-                break;
-            }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
-    sortMenu();
-}
-void UI::displayPerson(InfoType p)
-{
-    Services c;
-    cout << endl;
-    string tempName = c.changeName(p);
-    cout << "Name: " << tempName << endl;
-    cout << "Gender: ";
-        if(toupper(p.gender) == 'F')
-        {
-            cout << "Female" << endl;
-        }
-        else if (toupper(p.gender) == 'M')
-        {
-            cout << "Male" << endl;
-        }
-        else if (p.gender == '?')
-        {
-            cout << "Undecided" << endl;
-        }
-    cout << "Year of birth: " << p.birthYear << endl;
-
-        if(p.deathYear != 0)
-        {
-            cout << "Year of death: " << p.deathYear << endl;
-        }
-    cout << endl;
-}
-
-void UI::displaySortedPersons(vector<InfoType> FP)
-{
-    for (unsigned int i = 0; i < FP.size(); i++)
-    {
-        displaySortedPersonsSpecial(i, FP);
-    }
-}
-void UI::displaySortedPersonsSpecial(int i, vector<InfoType> FP)
-{
-    cout << "Name: " << FP.at(i).name<< endl;
-    if(toupper(FP.at(i).gender) == 'F')
-    {
-        cout << "Gender: " << "Female" << endl;
-    }
-    else if(toupper(FP.at(i).gender) == 'M')
-    {
-        cout << "Gender: " << "Male" << endl;
-    }
-    else if(FP.at(i).gender != '?')
-    {
-        cout << "------------------------------------------------------------" << endl;
-        cout << "| | | There aren't any persons of undecided gender | | |" << endl;
-        cout << "------------------------------------------------------------" << endl;
-        cout << endl;
-    }
-    else
-    {
-        cout << "Gender: " << "Undecided" << endl;
-    }
-    cout << "Year of birth: " << FP.at(i).birthYear << endl;
-    if(FP.at(i).deathYear == 0)
-    {
-        cout << "Not deceased!" << endl;
-        cout << endl;
-    }
-    else
-    {
-        cout << "Year of death: " << FP.at(i).deathYear << endl;
-        cout << endl;
-    }
-}
-
-void UI::sortNameMenu()
-{
-    Services p;
-
-    int choice;
-
-    do{
-        cout << "* * * SORT BY NAME INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Sort by name (Ascending)" << endl;
-        cout << "2. Sort by name (Descending)" << endl;
-        cout << "3. Return to sort menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
-
-
-        switch(choice)
-        {
-            case 1:
-            {
-                cout << endl;
-                cout << "--- Displaying persons by name in ascending order ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByNameAsc();
-                displaySortedPersons(FP);
-                backToSortMenu();
-                break;
-            }
-            case 2:
-            {
-                cout << endl;
-                cout << "--- Displaying persons by name in descending order ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByNameDesc();
-                displaySortedPersons(FP);
-                backToSortMenu();
-                break;
-            }
-            case 3:
-            {
-                sortMenu();
-                break;
-            }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3);
-}
-
-void UI::sortGenderMenu()
-{
-    Services p;
-
-    int choice;
-
-    do{
-        cout << "* * * SORT BY GENDER INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Sort by male" << endl;
-        cout << "2. Sort by female" << endl;
-        cout << "3. Sort by undecided" << endl;
-        cout << "4. Return to sort menu" << endl;
-        cout << "===========================================" << endl;
-
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
-
-
-        switch(choice)
-        {
-            case 1:
-            {
-                cout << endl;
-                cout << "--- Displaying male persons ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByGenderMale();
-                for(unsigned int i = 0; i < FP.size(); i++)
-                {
-                    if(toupper(FP.at(i).gender) == 'M')
-                    {
-                        displaySortedPersonsSpecial(i, FP);
-                    }
-                }
-                backToSortMenu();
-                break;
-            }
-            case 2:
-            {
-                cout << endl;
-                cout << "--- Displaying female persons ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByGenderFemale();
-                for(unsigned int i = 0; i < FP.size(); i++)
-                {
-                    if(toupper(FP.at(i).gender) == 'F')
-                    {
-                        displaySortedPersonsSpecial(i, FP);
-                    }
-                }
-                backToSortMenu();
-                break;
-             }
-            case 3:
-            {
-                cout << endl;
-                cout << "--- Displaying persons of undecided gender ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByGenderUndecided();
-                for(unsigned int i = 0; i < FP.size(); i++)
-                {
-                    if(FP.at(i).gender == '?')
-                    {
-                        displaySortedPersonsSpecial(i, FP);
-                    }
-                }
-                backToSortMenu();
-                break;
-             }
-             case 4:
-             {
-                sortMenu();
-             }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
-}
-
-void UI::sortYearOfBirthMenu()
-{
-    Services p;
-
-    int choice;
-
-    do{
-        cout << "* * * SORT BY YEAR OF BIRTH INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Sort by year of birth (Ascending)" << endl;
-        cout << "2. Sort by year of birth (Descending)" << endl;
-        cout << "3. Return to sort menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
-
-
-        switch(choice)
-        {
-            case 1:
-            {
-                cout << endl;
-                cout << "--- Displaying persons by year of birth in ascending order ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByYearAsc();
-                displaySortedPersons(FP);
-                backToSortMenu();
-                break;
-            }
-            case 2:
-            {
-                cout << endl;
-                cout << "--- Displaying persons by year of birth in descending order ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByYearDesc();
-                displaySortedPersons(FP);
-                backToSortMenu();
-                break;
-            }
-            case 3:
-            {
-                sortMenu();
-                break;
-            }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 );
-}
-
-void UI::sortYearOfDeathMenu()
-{
-    Services p;
-    int choice;
-
-    do{
-        cout << "* * * SORT BY YEAR OF DEATH INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Sort by year of death (Ascending)" << endl;
-        cout << "2. Sort by year of death (Descending)" << endl;
-        cout << "3. Sort by year of death (deceased only)" << endl;
-        cout << "4. Sort by year of death (not deceased)" << endl;
-        cout << "5. Return to sort menu" << endl;
-        cout << "===========================================" << endl;
-        choice = chooseNumber();
-
-        switch(choice)
-        {
-             case 1:
-             {
-                cout << endl;
-                cout << "--- Displaying persons by year of death in ascending order ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByDeathYearAsc();
-                displaySortedPersons(FP);
-                backToSortMenu();
-                break;
-             }
-             case 2:
-             {
-                cout << endl;
-                cout << "--- Displaying persons by year of death in descending order ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByDeathYearDesc();
-                displaySortedPersons(FP);
-                backToSortMenu();
-                break;
-             }
-            case 3:
-            {
-                cout << endl;
-                cout << "--- Displaying deceased persons ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByDeceased();
-                for (unsigned int i = 0; i < FP.size(); i++)
-                {
-                    if(FP.at(i).deathYear > 0)
-                    {
-                        displaySortedPersonsSpecial(i, FP);
-                    }
-                }
-                backToSortMenu();
-                break;
-            }
-            case 4:
-            {
-                cout << endl;
-                cout << "--- Displaying non deceased persons ---" << endl;
-                cout << endl;
-                vector <InfoType> FP = p.sortByNotDeceased();
-                for (unsigned int i = 0; i < FP.size(); i++)
-                {
-                    if(FP.at(i).deathYear == 0)
-                    {
-                        displaySortedPersonsSpecial(i, FP);
-                    }
-                }
-                backToSortMenu();
-                break;
-            }
-             case 5:
-             {
-                sortMenu();
-             }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
-}
-
-void UI::searchMenu()
-{
-
-    int choice;
-
-    do{
-        cout << "* * * SEARCH INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Search persons" << endl;
-        cout << "2. Search computers" << endl;
-        cout << "3. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
-
-        switch(choice)
-        {
-            case 1:
-                searchPersonMenu();
-                break;
-            case 2:
-            {
-                searchComputerMenu();
-                break;
-            }
-            case 3:
-                userMenu();
-                break;
-        }
-    }while(choice == 1 || choice == 2 || choice == 3);
-}
-/*
-void UI::relationMenu()
-{
-    Services s;
-    int choice;
-
-    do{
-        cout << "* * * SEARCH INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Add relations between computer and persons" << endl;
-        cout << "2. View persons related to computer" << endl;
-        cout << "3. View computers related to person" << endl;
-        cout << "4. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
-
-        switch(choice)
-        {
-            case 1:
-                s.makeRelation();
-                break;
-            case 2:
-                s.viewRelationComputer();
-                break;
-
-            case 3:
-                s.viewPersonsInfo();
-                break;
-            case 4:
-                userMenu();
-            break;
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
-
-}
-*/
-void UI::backToSearch()
-{
-    char input;
-    cout << "--- Press any key and then enter to return to search menu ---" << endl;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            searchMenu();
-        }
-}
-
-void UI::searchCompDisplay(vector<CompType> x, string y){
-    if(!x.empty())
-    {
-        for(unsigned int i =  0; i < x.size(); i++)
-        {
-            displayComputer(x[i]);
-        }
-    }
-    else
-    {
-        falseCheck(y);
-    }
-}
-
-
-void UI::searchPersDisplay(vector<InfoType> x, string y){
-    if(!x.empty())
-    {
-        for(unsigned int i =  0; i < x.size(); i++)
-        {
-            displayPerson(x[i]);
-        }
-    }
-    else
-    {
-        falseCheck(y);
-    }
-}
-
-void UI::searchPersonMenu()
-{
-    Services p;
-
-    int choice;
-
-    do{
-        cout << "* * * SEARCH PERSON INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Search by name"<< endl;
-        cout << "2. Search by gender"<< endl;
-        cout << "3. Search by year of birth"<< endl;
-        cout << "4. Search by year of death"<< endl;
-        cout << "5. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
-
-        switch(choice)
-        {
-            case 1:
-            {
-                string nameSearch;
-                cout << "Enter name: " << endl;
-                cin >> nameSearch;
-                vector <InfoType> x = p.searchVectorName(nameSearch);
-                searchPersDisplay(x, nameSearch);
-                x.clear();
-                backToSearch();
-                break;
-            }
-            case 2:
-            {
-                string genderSearch;
-                cout << "Enter gender (M for male, F for female or ? for undecided): ";
-                cin >> genderSearch;
-                vector <InfoType> x = p.searchVectorGender(genderSearch);
-                searchPersDisplay(x, genderSearch);
-                x.clear();
-                backToSearch();
-                break;
-            }
-            case 3:
-            {
-                string birthYearSearch;
-                cout << "Enter year of birth: ";
-                cin >> birthYearSearch;
-                vector <InfoType> x = p.searchVectorBirthYear(birthYearSearch);
-                searchPersDisplay(x, birthYearSearch);
-                x.clear();
-                backToSearch();
-                break;
-            }
-            case 4:
-            {
-                string deathYearSearch;
-                cout << "Enter death year: ";
-                cin >> deathYearSearch;
-                vector <InfoType> x = p.searchVectorDeathYear(deathYearSearch);
-                searchPersDisplay(x, deathYearSearch);
-                x.clear();
-                backToSearch();
-                break;
-            }
-            case 5:
-                userMenu();
-                break;
-        }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
-}
-
-void UI::searchComputerMenu()
-{
-    Services p;
-    cout << "* * * SEARCH COMPUTER INFORMATION * * *" << endl;
-    cout << endl;
-    string nameSearch;
-    cout << "Enter name: ";
-    cin >> nameSearch;
-    vector<CompType> x = p.searchVectorComputersName(nameSearch);
-    searchCompDisplay(x, nameSearch);
-}
-
+//COMPUTER INFO INPUT
 void UI::getComputerInfo()
 {
-        char keepGoing = ' ';
-        //færibreytur núllstilltar svo rusl fylgi ekki með - BóE
+    Services c;
+    bool check = false;
 
-        cout << "* * * INPUT INFORMATION * * *" << endl;
-        cout << endl;
-        do{
-            string computerName = getComputerName();
-            int computerYearMade = getYearMade();
-            string computerType = getComputerType();
-            int wasBuilt = getWasBuilt(computerYearMade);
+    cout << "* * * INPUT INFORMATION * * *" << endl;
+    cout << endl;
 
-            Services c;
-            c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
+    do{
+        string computerName = getComputerName();
+        int computerYearMade = getYearMade();
+        string computerType = getComputerType();
+        int wasBuilt = getWasBuilt(computerYearMade);
 
-            //CONTINUE
-            do{
-                cout << "Input more information (Y for yes/N for no): ";
-                cin >> keepGoing;
-                cin.clear();
-                cin.ignore(INT_MAX, '\n');
-                    if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
-                    {
-                        displayError();
-                    }
-                cout << endl;
-            }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+        c.addComputer(computerName, computerYearMade, computerType, wasBuilt);
 
-        }while(toupper(keepGoing) == 'Y');
+        check = continueOption();
+    }while(check == true);
 }
-
 string UI::getComputerName()
 {
     string name = " ";
-
-        cout << "Input computer name: ";
-        cin.clear();
-        getline(cin, name);
-
+    cout << "Input computer name: ";
+    cin.clear();
+    getline(cin, name);
     return name;
 }
-
 int UI::getYearMade()
 {
     int computerYearMade = 0;
-
     bool check = false;
     do{
-        cout << "Input year designed (input 1 for unknown): ";
+        cout << "Input year made (input 1 for unknown): ";
         cin >> computerYearMade;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
 
-        if((computerYearMade <=yearNow && computerYearMade >=CstartYear)||computerYearMade == 1)
+        if((computerYearMade <=yearNow && computerYearMade >=CstartYear) || computerYearMade == 1)
         {
             computerYearMade = computerYearMade;
             check = true;
@@ -832,7 +265,6 @@ int UI::getYearMade()
             displayError();
             check = false;
         }
-
     }while(check == false);
 
     //virkaði ekki að hafa 0 sem parameter og því er þetta fall hér til að grípa input 1 og skila 0 í gagnagrunnin
@@ -842,9 +274,10 @@ int UI::getYearMade()
         return computerYearMade;
     }
     else
-    return computerYearMade;
+    {
+        return computerYearMade;
+    }
 }
-
 string UI::getComputerType()
 {
     char choice = ' ';
@@ -880,7 +313,7 @@ string UI::getComputerType()
                     }
                     case 'O':
                     {
-                        cout  << " \t Input computer type name: ";
+                        cout  << "Input computer type name: ";
                         getline(cin, type);
                         break;
                     }
@@ -889,7 +322,6 @@ string UI::getComputerType()
     }while(toupper(choice) != 'M' && toupper(choice) != 'E' && toupper(choice) != 'T' && toupper(choice) != 'O');
     return type;
 }
-
 int UI::getWasBuilt(int computerYearMade)
 {
     char choice = ' ';
@@ -934,59 +366,51 @@ int UI::getWasBuilt(int computerYearMade)
 
     return built;
 }
-void UI::inputMenu()
+//RELATION INFO INPUT
+void UI::relationMenu()
 {
+    Services s;
     int choice;
 
     do{
-        cout << "* * * INPUT INFORMATION * * *" << endl;
+        cout << " * * * RELATIONS * * * " << endl;
         cout << endl;
-        cout << "1. Input person" << endl;
-        cout << "2. Input computer" << endl;
-        cout << "3. Return to main menu" << endl;
+        cout << "1. Add relation between comuter and person" << endl;
+        cout << "2. Find persons related to computer" << endl;
+        cout << "3. Find computers related to person" << endl;
+        cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
-
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
 
         switch(choice)
         {
             case 1:
             {
-                getPersonInfo();
+            s.makeRelation();
                 break;
             }
             case 2:
             {
-                getComputerInfo();
+            s.viewRelationComputer();
                 break;
             }
-
             case 3:
             {
-                userMenu();
+            s.viewRelationPerson();
+                break;
+            }
+            case 4:
+            {
+            userMenu();
                 break;
             }
         }
-    }while(choice == 1 || choice == 2 || choice == 3);
-    userMenu();
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
-
-void UI::backToView()
-{
-    cout << "--- Press any key and then enter to return to view menu ---" << endl;
-    char input;
-    cin >> input;
-    cin.clear();
-    cin.ignore(INT_MAX, '\n');
-        if(input)
-        {
-            viewInfoMenu();
-        }
-}
-
+//VIEW
 void UI::viewInfoMenu()
 {
     Services p;
@@ -1000,7 +424,6 @@ void UI::viewInfoMenu()
         cout << "3. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
-
         do{
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
@@ -1010,22 +433,17 @@ void UI::viewInfoMenu()
             case 1:
             {
                 cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
-                vector<InfoType> x = p.viewPersonsInfo();
-                for(unsigned int i = 0; i < x.size(); i++)
-                {
-                    displayPerson(x[i]);
-                }
+                vector<InfoType> FP = p.viewPersonsInfo();
+                displayPersons(FP);
                 backToView();
                 break;
             }
             case 2:
             {
                 cout << "* * * VIEW COMPUTER INFORMATION * * *" << endl;
-                vector<CompType> x = p.viewComputerInfo();
-                for(unsigned int i = 0; i < x.size(); i++)
-                {
-                    displayComputer(x[i]);
-                }
+                vector<CompType> Comp = p.viewComputerInfo();
+                displayComputers(Comp);
+                backToView();
                 break;
             }
             case 3:
@@ -1035,9 +453,364 @@ void UI::viewInfoMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3);
-    userMenu();
 }
+void UI::backToView()
+{
+    cout << "--- Press any key and then enter to return to view menu ---" << endl;
+    char input;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            viewInfoMenu();
+        }
+}
+//SORT
+void UI::sortMenu()
+{
+    int choice;
 
+    do{
+        cout << "* * * SORT INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort person information" << endl;
+        cout << "2. Sort computer information" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+            sortPersonMenu();
+                break;
+            }
+            case 2:
+            {
+            sortComputerMenu();
+                break;
+            }
+            case 3:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+void UI::backToSortMenu()
+{
+    char input;
+    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cin >> input;
+    cin.clear();
+    cin.ignore(INT_MAX, '\n');
+        if(input)
+        {
+            sortMenu();
+        }
+}
+//SORT PERSONS
+void UI::sortPersonMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SORT PERSON INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by name" << endl;
+        cout << "2. Sort by gender" << endl;
+        cout << "3. Sort by year of birth" << endl;
+        cout << "4. Sort by year of death" << endl;
+        cout << "5. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
+
+        switch(choice)
+        {
+            case 1:
+            {
+            sortNameMenu();
+                break;
+            }
+            case 2:
+            {
+            sortGenderMenu();
+                break;
+            }
+            case 3:
+            {
+            sortYearOfBirthMenu();
+                break;
+            }
+            case 4:
+            {
+            sortYearOfDeathMenu();
+                break;
+            }
+            case 5:
+            {
+            userMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
+}
+void UI::sortNameMenu()
+{
+    Services p;
+    int choice;
+
+    do{
+        cout << "* * * SORT BY NAME INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by name (Ascending)" << endl;
+        cout << "2. Sort by name (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                cout << endl;
+                cout << "--- Displaying persons by name in ascending order ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByNameAsc();
+                displayPersons(FP);
+                backToSortMenu();
+                break;
+            }
+            case 2:
+            {
+                cout << endl;
+                cout << "--- Displaying persons by name in descending order ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByNameDesc();
+                displayPersons(FP);
+                backToSortMenu();
+                break;
+            }
+            case 3:
+            {
+                sortMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+void UI::sortGenderMenu()
+{
+    Services p;
+    int choice;
+
+    do{
+        cout << "* * * SORT BY GENDER INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by male" << endl;
+        cout << "2. Sort by female" << endl;
+        cout << "3. Sort by undecided" << endl;
+        cout << "4. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                cout << endl;
+                cout << "--- Displaying male persons ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByGenderMale();
+                for(unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(toupper(FP.at(i).gender) == 'M')
+                    {
+                        displayPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
+                break;
+            }
+            case 2:
+            {
+                cout << endl;
+                cout << "--- Displaying female persons ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByGenderFemale();
+                for(unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(toupper(FP.at(i).gender) == 'F')
+                    {
+                        displayPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
+                break;
+             }
+            case 3:
+            {
+                cout << endl;
+                cout << "--- Displaying persons of undecided gender ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByGenderUndecided();
+                for (unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(FP.at(i).gender == '?')
+                    {
+                        displayPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
+                break;
+             }
+             case 4:
+             {
+                sortMenu();
+             }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
+}
+void UI::sortYearOfBirthMenu()
+{
+    Services p;
+    int choice;
+
+    do{
+        cout << "* * * SORT BY YEAR OF BIRTH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by year of birth (Ascending)" << endl;
+        cout << "2. Sort by year of birth (Descending)" << endl;
+        cout << "3. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                cout << endl;
+                cout << "--- Displaying persons by year of birth in ascending order ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByYearAsc();
+                displayPersons(FP);
+                backToSortMenu();
+                break;
+            }
+            case 2:
+            {
+                cout << endl;
+                cout << "--- Displaying persons by year of birth in descending order ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByYearDesc();
+                displayPersons(FP);
+                backToSortMenu();
+                break;
+            }
+            case 3:
+            {
+                sortMenu();
+                break;
+            }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 );
+}
+void UI::sortYearOfDeathMenu()
+{
+    Services p;
+    int choice;
+
+    do{
+        cout << "* * * SORT BY YEAR OF DEATH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Sort by year of death (Ascending)" << endl;
+        cout << "2. Sort by year of death (Descending)" << endl;
+        cout << "3. Sort by year of death (deceased only)" << endl;
+        cout << "4. Sort by year of death (not deceased)" << endl;
+        cout << "5. Return to sort menu" << endl;
+        cout << "===========================================" << endl;
+        choice = chooseNumber();
+
+        switch(choice)
+        {
+             case 1:
+             {
+                cout << endl;
+                cout << "--- Displaying persons by year of death in ascending order ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByDeathYearAsc();
+                displayPersons(FP);
+                backToSortMenu();
+                break;
+             }
+             case 2:
+             {
+                cout << endl;
+                cout << "--- Displaying persons by year of death in descending order ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByDeathYearDesc();
+                displayPersons(FP);
+                backToSortMenu();
+                break;
+             }
+            case 3:
+            {
+                cout << endl;
+                cout << "--- Displaying deceased persons ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByDeceased();
+                for (unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(FP.at(i).deathYear > 0)
+                    {
+                        displayPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
+                break;
+            }
+            case 4:
+            {
+                cout << endl;
+                cout << "--- Displaying non deceased persons ---" << endl;
+                cout << endl;
+                vector <InfoType> FP = p.sortByNotDeceased();
+                for (unsigned int i = 0; i < FP.size(); i++)
+                {
+                    if(FP.at(i).deathYear == 0)
+                    {
+                        displayPersonsSpecial(i, FP);
+                    }
+                }
+                backToSortMenu();
+                break;
+            }
+             case 5:
+             {
+                sortMenu();
+             }
+        }
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
+}
+//SORT COMPUTERS
 void UI::sortComputerMenu()
 {
     int choice;
@@ -1083,74 +856,10 @@ void UI::sortComputerMenu()
             }
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5);
-    sortComputerMenu();
 }
-
-void UI::displayComputer(CompType c)
-{
-    cout << endl;
-    cout << "Computer name: " << c.compName << endl;
-
-        if(c.yearMade == 0)
-        {
-            cout << "Computer has been designed, year is unknown." << endl;
-        }
-        else
-        {
-            cout << "Year designed: " << c.yearMade << endl;
-        }
-
-    cout << "Computer type: " << c.type << endl;
-
-        if(c.wasBuilt != 0 && c.wasBuilt != 1)
-        {
-            cout << "Year built: " << c.wasBuilt << endl;
-        }
-        else if (c.wasBuilt == 0)
-        {
-            cout << "Computer has not been built." << endl;
-        }
-        else if (c.wasBuilt == 1)
-        {
-            cout << "Computer has been built but year built is unknown." << endl;
-        }
-
-    cout << endl;
-}
-
-void UI::displaySortedComputers(vector<CompType> Comp)
-{
-    for (unsigned int i = 0; i < Comp.size(); i++)
-    {
-        displaySortedComputersSpecial(i, Comp);
-    }
-}
-
-void UI::displaySortedComputersSpecial(int i, vector<CompType> Comp)
-{
-    cout << endl;
-    cout << "Computer name: " << Comp.at(i).compName << endl;
-    cout << "Year designed: " << Comp.at(i).yearMade << endl;
-    cout << "Computer type: " << Comp.at(i).type << endl;
-        if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
-        {
-            cout << "Year built: " << Comp.at(i).wasBuilt << endl;
-        }
-        else if (Comp.at(i).wasBuilt == 0)
-        {
-            cout << "Computer has not been built." << endl;
-        }
-        else if (Comp.at(i).wasBuilt == 1)
-        {
-            cout << "Computer has been built but year built is unknown." << endl;
-        }
-    cout << endl;
-}
-
 void UI::sortComputerNameMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1165,7 +874,6 @@ void UI::sortComputerNameMenu()
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
 
-
         switch(choice)
         {
             case 1:
@@ -1174,7 +882,7 @@ void UI::sortComputerNameMenu()
                 cout << "--- Displaying computers by name in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerNameAsc();
-                displaySortedComputers(Comp);
+                displayComputers(Comp);
                 backToSortMenu();
                 break;
             }
@@ -1184,7 +892,7 @@ void UI::sortComputerNameMenu()
                 cout << "--- Displaying computers by name in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerNameDesc();
-                displaySortedComputers(Comp);
+                displayComputers(Comp);
                 backToSortMenu();
                 break;
             }
@@ -1196,11 +904,9 @@ void UI::sortComputerNameMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
-
 void UI::sortComputerYearMadeMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1215,7 +921,6 @@ void UI::sortComputerYearMadeMenu()
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
 
-
         switch(choice)
         {
             case 1:
@@ -1224,7 +929,7 @@ void UI::sortComputerYearMadeMenu()
                 cout << "--- Displaying computers by year made in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearMadeAsc();
-                displaySortedComputers(Comp);
+                displayComputers(Comp);
                 backToSortMenu();
                 break;
             }
@@ -1234,7 +939,8 @@ void UI::sortComputerYearMadeMenu()
                 cout << "--- Displaying computers by year made in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearMadeDesc();
-                displaySortedComputers(Comp);
+                displayComputers(Comp);
+                backToSortMenu();
                 break;
             }
             case 3:
@@ -1245,11 +951,9 @@ void UI::sortComputerYearMadeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
-
 void UI::sortComputerTypeMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1264,7 +968,6 @@ void UI::sortComputerTypeMenu()
             choice = chooseNumber();
         }while(choice != 1 && choice != 2 && choice != 3);
 
-
         switch(choice)
         {
             case 1:
@@ -1273,7 +976,7 @@ void UI::sortComputerTypeMenu()
                 cout << "--- Displaying computers by type in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerTypeAsc();
-                displaySortedComputers(Comp);
+                displayComputers(Comp);
                 backToSortMenu();
                 break;
             }
@@ -1283,7 +986,7 @@ void UI::sortComputerTypeMenu()
                 cout << "--- Displaying computers by type in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByComputerTypeDesc();
-                displaySortedComputers(Comp);
+                displayComputers(Comp);
                 backToSortMenu();
                 break;
             }
@@ -1295,13 +998,10 @@ void UI::sortComputerTypeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 );
 }
-
 void UI::sortComputerWasBuiltMenu()
 {
     Services c;
-
     int choice;
-
     do{
         cout << "* * * SORT BY BUILT/NOT BUILT INFORMATION * * *" << endl;
         cout << endl;
@@ -1339,51 +1039,9 @@ void UI::sortComputerWasBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
 }
-
-void UI::sortMenu()
-{
-    int choice;
-
-    do{
-        cout << "* * * SORT INFORMATION * * *" << endl;
-        cout << endl;
-        cout << "1. Sort person information" << endl;
-        cout << "2. Sort computer information" << endl;
-        cout << "3. Return to main menu" << endl;
-        cout << "===========================================" << endl;
-
-
-        do{
-            choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3);
-
-        switch(choice)
-        {
-            case 1:
-            {
-            sortPersonMenu();
-                break;
-            }
-            case 2:
-            {
-            sortComputerMenu();
-                break;
-            }
-            case 3:
-            {
-            userMenu();
-                break;
-            }
-        }
-    }while(choice == 1 || choice == 2 || choice == 3);
-    userMenu();
-}
-
-
 void UI::sortComputerYearBuiltMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1403,14 +1061,14 @@ void UI::sortComputerYearBuiltMenu()
             case 1:
             {
                 cout << endl;
-                cout << "--- Displaying computers by year made in ascending order ---" << endl;
+                cout << "--- Displaying computers by year built in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearBuiltAsc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
                 {
                     if(Comp.at(i).wasBuilt > 1)
                     {
-                        displaySortedComputersSpecial(i, Comp);
+                        displayComputersSpecial(i, Comp);
                     }
                 }
                 backToSortMenu();
@@ -1419,14 +1077,14 @@ void UI::sortComputerYearBuiltMenu()
             case 2:
             {
                 cout << endl;
-                cout << "--- Displaying computers by year made in descending order ---" << endl;
+                cout << "--- Displaying computers by year built in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearBuiltDesc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
                 {
                     if(Comp.at(i).wasBuilt > 1)
                     {
-                        displaySortedComputersSpecial(i, Comp);
+                        displayComputersSpecial(i, Comp);
                     }
                 }
                 backToSortMenu();
@@ -1439,11 +1097,9 @@ void UI::sortComputerYearBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
-
 void UI::sortComputerNotBuiltMenu()
 {
     Services c;
-
     int choice;
 
     do{
@@ -1463,14 +1119,14 @@ void UI::sortComputerNotBuiltMenu()
             case 1:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in ascending order ---" << endl;
+                cout << "--- Displaying computers not built in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearNotBuiltAsc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
                 {
                     if(Comp.at(i).wasBuilt == 0)
                     {
-                        displaySortedComputersSpecial(i, Comp);
+                        displayComputersSpecial(i, Comp);
                     }
                 }
                 backToSortMenu();
@@ -1479,14 +1135,14 @@ void UI::sortComputerNotBuiltMenu()
             case 2:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in descending order ---" << endl;
+                cout << "--- Displaying computers not built in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearNotBuiltDesc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
                 {
                     if(Comp.at(i).wasBuilt == 0)
                     {
-                        displaySortedComputersSpecial(i, Comp);
+                        displayComputersSpecial(i, Comp);
                     }
                 }
                 backToSortMenu();
@@ -1499,18 +1155,16 @@ void UI::sortComputerNotBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
-
 void UI::sortComputerUnkownBuiltMenu()
 {
     Services c;
-
     int choice;
 
     do{
-        cout << "* * * SORT BY NOT BUILT INFORMATION * * *" << endl;
+        cout << "* * * SORT BY UNKNOWN IF BUILT INFORMATION * * *" << endl;
         cout << endl;
-        cout << "1. Sort by not built (Ascending)" << endl;
-        cout << "2. Sort by not built (Descending)" << endl;
+        cout << "1. Sort by unkown if built (Ascending)" << endl;
+        cout << "2. Sort by unkown if built (Descending)" << endl;
         cout << "3. Return to sort menu" << endl;
         cout << "===========================================" << endl;
 
@@ -1523,14 +1177,14 @@ void UI::sortComputerUnkownBuiltMenu()
             case 1:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in ascending order ---" << endl;
+                cout << "--- Displaying computers unkown if built in ascending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearUnknownBuiltAsc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
                 {
                     if(Comp.at(i).wasBuilt == 1)
                     {
-                        displaySortedComputersSpecial(i, Comp);
+                        displayComputersSpecial(i, Comp);
                     }
                 }
                 backToSortMenu();
@@ -1539,14 +1193,14 @@ void UI::sortComputerUnkownBuiltMenu()
             case 2:
             {
                 cout << endl;
-                cout << "--- Displaying computers not made in descending order ---" << endl;
+                cout << "--- Displaying computers unkown if built in descending order ---" << endl;
                 cout << endl;
                 vector <CompType> Comp = c.sortByYearUnknownBuiltDesc();
                 for (unsigned int i = 0; i < Comp.size(); i++)
                 {
                     if(Comp.at(i).wasBuilt == 1)
                     {
-                        displaySortedComputersSpecial(i, Comp);
+                        displayComputersSpecial(i, Comp);
                     }
                 }
                 backToSortMenu();
@@ -1559,62 +1213,223 @@ void UI::sortComputerUnkownBuiltMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
-void UI::backToSortMenu()
+//SEARCH
+void UI::searchMenu()
+{
+    int choice;
+
+    do{
+        cout << "* * * SEARCH INFORMATION * * *" << endl;
+        cout << endl;
+        cout << "1. Search persons" << endl;
+        cout << "2. Search computers" << endl;
+        cout << "3. Return to main menu" << endl;
+        cout << "===========================================" << endl;
+
+        do{
+            choice = chooseNumber();
+        }while(choice != 1 && choice != 2 && choice != 3);
+
+        switch(choice)
+        {
+            case 1:
+                searchPersonMenu();
+                break;
+            case 2:
+            {
+                searchComputerMenu();
+                break;
+            }
+            case 3:
+                userMenu();
+                break;
+        }
+    }while(choice == 1 || choice == 2 || choice == 3);
+}
+void UI::backToSearch()
 {
     char input;
-    cout << "--- Press any key and then enter to return to sort menu ---" << endl;
+    cout << "--- Press any key and then enter to return to search menu ---" << endl;
     cin >> input;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
         if(input)
         {
-            sortMenu();
+            searchMenu();
         }
 }
-void UI::relationMenu()
+//SEARCH PERSONS
+void UI::searchPersonMenu()
 {
-    Services s;
+    Services p;
     int choice;
 
     do{
-        cout << "* * * RELATIONS * * *" << endl;
+        cout << "* * * SEARCH PERSON INFORMATION * * *" << endl;
         cout << endl;
-        cout << "1. Add relation between comuter and person" << endl;
-        cout << "2. Find persons related to computer" << endl;
-        cout << "3. Find computers related to person" << endl;
-        cout << "4. Return to main menu" << endl;
+        cout << "1. Search by name"<< endl;
+        cout << "2. Search by gender"<< endl;
+        cout << "3. Search by year of birth"<< endl;
+        cout << "4. Search by year of death"<< endl;
+        cout << "5. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
         do{
             choice = chooseNumber();
-        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+        }while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
 
         switch(choice)
         {
             case 1:
             {
-            s.makeRelation();
+                string nameSearch;
+                cout << "Enter name: ";
+                cin >> nameSearch;
+                vector <InfoType> FP = p.searchVectorName(nameSearch);
+                searchPersDisplay(FP, nameSearch);
+                backToSearch();
                 break;
             }
             case 2:
             {
-            s.viewRelationComputer();
+                string genderSearch;
+                cout << "Enter gender (M for male, F for female or ? for undecided): ";
+                cin >> genderSearch;
+                vector <InfoType> FP = p.searchVectorGender(genderSearch);
+                searchPersDisplay(FP, genderSearch);
+                backToSearch();
                 break;
             }
             case 3:
             {
-            s.viewRelationPerson();
+                string birthYearSearch;
+                cout << "Enter year of birth: ";
+                cin >> birthYearSearch;
+                vector <InfoType> FP = p.searchVectorBirthYear(birthYearSearch);
+                searchPersDisplay(FP, birthYearSearch);
+                backToSearch();
                 break;
             }
             case 4:
             {
-            userMenu();
+                string deathYearSearch;
+                cout << "Enter death year: ";
+                cin >> deathYearSearch;
+                vector <InfoType> FP = p.searchVectorDeathYear(deathYearSearch);
+                searchPersDisplay(FP, deathYearSearch);
+                backToSearch();
                 break;
             }
+            case 5:
+                userMenu();
+                break;
         }
-    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4);
-    sortMenu();
+    }while(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5); //eða while(choice != 5);
 }
+//SEARCH COMPUTERS
+void UI::searchComputerMenu()
+{
+    Services p;
+    string nameSearch;
+
+    cout << "* * * SEARCH COMPUTER INFORMATION * * *" << endl;
+    cout << endl;
+    cout << "Enter name: ";
+    cin >> nameSearch;
+
+    vector<CompType> Comp = p.searchVectorComputersName(nameSearch);
+    searchCompDisplay(Comp, nameSearch);
+}
+//DISPLAY
+void UI::displayPersons(vector<InfoType> FP)
+{
+    for (unsigned int i = 0; i < FP.size(); i++)
+    {
+        displayPersonsSpecial(i, FP);
+    }
+}
+void UI::displayPersonsSpecial(int i, vector<InfoType> FP)
+{
+    cout << "Name: " << FP.at(i).name<< endl;
+    if(toupper(FP.at(i).gender) == 'F')
+    {
+        cout << "Gender: " << "Female" << endl;
+    }
+    else if(toupper(FP.at(i).gender) == 'M')
+    {
+        cout << "Gender: " << "Male" << endl;
+    }
+    else
+    {
+        cout << "Gender: " << "Undecided" << endl;
+    }
+    cout << "Year of birth: " << FP.at(i).birthYear << endl;
+    if(FP.at(i).deathYear == 0)
+    {
+        cout << "Not deceased!" << endl;
+        cout << endl;
+    }
+    else
+    {
+        cout << "Year of death: " << FP.at(i).deathYear << endl;
+        cout << endl;
+    }
+}
+void UI::displayComputers(vector<CompType> Comp)
+{
+    for (unsigned int i = 0; i < Comp.size(); i++)
+    {
+        displayComputersSpecial(i, Comp);
+    }
+}
+void UI::displayComputersSpecial(int i, vector<CompType> Comp)
+{
+    cout << endl;
+    cout << "Computer name: " << Comp.at(i).compName << endl;
+    if(Comp.at(i).yearMade == 0)
+    {
+        cout << "Computer has been designed, year is unknown." << endl;
+    }
+    else
+    {
+        cout << "Year designed: " << Comp.at(i).yearMade << endl;
+    }
+    cout << "Computer type: " << Comp.at(i).type << endl;
+    if(Comp.at(i).wasBuilt != 0 && Comp.at(i).wasBuilt != 1)
+    {
+        cout << "Year built: " << Comp.at(i).wasBuilt << endl;
+    }
+    else if (Comp.at(i).wasBuilt == 0)
+    {
+        cout << "Computer has not been built." << endl;
+    }
+    else if (Comp.at(i).wasBuilt == 1)
+    {
+        cout << "Computer has been built but year built is unknown." << endl;
+    }
+    cout << endl;
+}
+void UI::searchPersDisplay(vector<InfoType> FP, string y){
+    if(!FP.empty())
+    {
+        displayPersons(FP);
+    }
+    else
+    {
+        falseCheck(y);
+    }
+}
+void UI::searchCompDisplay(vector<CompType> Comp, string y){
+    if(!Comp.empty())
+    {
+        displayComputers(Comp);
+    }
+    else
+    {
+        falseCheck(y);
+    }
+}
+//ANNAÐ
 int UI::chooseNumber()
 {
     int choice;
@@ -1624,18 +1439,43 @@ int UI::chooseNumber()
     cout << endl;
     cin.clear();
     cin.ignore(INT_MAX, '\n');
-        if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
-        {
-            displayError();
-        }
+    if(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice !=6)
+    {
+        displayError();
+    }
     return choice;
 }
-
 void UI::displayError()
 {
     cout << "------------------------------------------" << endl;
     cout << "| | | Wrong input. Please try again. | | |" << endl;
     cout << "------------------------------------------" << endl;
+}
+bool UI::continueOption()
+{
+    bool check;
+    char keepGoing = ' ';
+
+    do{
+        cout << "Input more information (Y for yes/N for no): ";
+        cin >> keepGoing;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+            if(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N')
+            {
+                displayError();
+            }
+        cout << endl;
+    }while(toupper(keepGoing) != 'Y' && toupper(keepGoing) != 'N');
+    if(toupper(keepGoing) == 'Y')
+    {
+        check = true;
+    }
+    if(toupper(keepGoing) == 'N')
+    {
+        check = false;
+    }
+    return check;
 }
 void UI::falseCheck(string x)
 {
@@ -1645,8 +1485,4 @@ void UI::falseCheck(string x)
     cout << "-------------------------------------------" << endl;
     cout << "--- Please try again. ---" << endl;
     cout << endl;
-
 }
-
-
-
