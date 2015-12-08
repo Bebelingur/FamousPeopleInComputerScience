@@ -23,7 +23,7 @@ public:
     void addRelation(int personId, int computerId);
     //MAKE FÖLLIN
     vector <InfoType> makePersonsVector();
-    vector <CompType> makeComputerVector();
+    vector<CompType> makeComputerVector();
     void makeRelation();
     //VIEW FÖLLIN
     vector <InfoType> viewPersonsInfo();

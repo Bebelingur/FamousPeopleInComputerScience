@@ -1,6 +1,4 @@
 #include "services.h"
-#include "ui.h"
-#include "data.h"
 
 using namespace std;
 
@@ -584,7 +582,7 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
     return result;
 }
 
-vector<CompType> Services::searchVectorComputersName(string nameSearch)
+vector<CompType> Services::searchVectorComputersName(string name)
 {
     vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
@@ -606,7 +604,7 @@ vector<CompType> Services::searchVectorComputersName(string nameSearch)
            //setjum nafnið í skjalinu í lower case og berum svo saman
        }
 
-       int found = tempName.find(nameSearch);//athugum hvort innslátturuinn sé hluti af einhverju nafni
+       int found = tempName.find(name);//athugum hvort innslátturuinn sé hluti af einhverju nafni
        if(found != (int) std::string::npos)
        {
            result.push_back(Comp[i]);
