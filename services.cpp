@@ -173,7 +173,6 @@ vector<CompType> Services::viewRelationPerson(int ID)
 void Services::viewRelationComputer()
 {
     UI a;
-    data b;
 
     string name = "";
     int ID = 0;
@@ -202,7 +201,7 @@ void Services::viewRelationComputer()
         InfoType p;
         p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
-        p.gender = b.convertToChar(query.value("sex").toString().toStdString());
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
@@ -648,4 +647,17 @@ string Services::changeName(InfoType p)
             }
         }
     return tempName;
+}
+
+char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
+{
+    char result;
+    result = a.at(0);
+    return result;
+}
+string Services::convertToString(char a)
+{
+    string result;
+    result = a;
+    return result;
 }
