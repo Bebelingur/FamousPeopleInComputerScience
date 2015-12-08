@@ -1,6 +1,4 @@
 #include "services.h"
-#include "ui.h"
-#include "data.h"
 
 using namespace std;
 
@@ -672,7 +670,8 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
 vector<CompType> Services::searchVectorComputersName(string name)
 {
     vector<CompType> Comp = makeComputerVector();
-        vector<CompType> result;
+    vector<CompType> result;
+
 
         for(unsigned int i = 0; i < name.size() ; i++)
         {

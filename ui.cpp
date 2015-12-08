@@ -401,8 +401,19 @@ void UI::relationMenu()
         {
             case 1:
             {
-            s.makeRelation();
+            bool checkDatabase = checkDatabaseEmpty();
+            if(checkDatabase == true)
+            {
+                s.makeRelation();
+            }
+            if(checkDatabase == false)
+            {
+                cout << endl;
+                cout << "there are not enough information in database to make relation"<<endl;
+                cout << "add a computer, or a person first"<< endl;
+                cout << endl;
                 break;
+            }
             }
             case 2:
             {
@@ -1567,3 +1578,26 @@ void UI::databaseCheckPersons(vector<InfoType> FP)
         displayPersons(FP);
     }
 }
+bool UI::checkDatabaseEmpty()
+{
+    bool compCheck = true;
+    bool persCheck = true;
+    QSqlQuery query("SELECT * FROM computers");
+    if(query.exec())
+    {
+        compCheck = false;
+    }
+    QSqlQuery query2("SELECT * FROM persons");
+    if(query2.exec())
+    {
+        persCheck = false;
+    }
+    if(compCheck == true || persCheck == true)
+    {
+        return false;
+    }
+     else return true;
+
+}
+
+

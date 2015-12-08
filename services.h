@@ -21,6 +21,7 @@ public:
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     void addRelation(int personId, int computerId);
+
     //MAKE FUNCTIONS
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
@@ -28,15 +29,10 @@ public:
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
-
-    void viewRelationPerson();
-    void viewRelationComputer();
-
-    //SORT PERSONS FUNCTIONS
     vector<CompType> viewRelationPerson(int ID);
     vector<InfoType> viewRelationComputer(int ID);
 
-    //SORT PERSONS FÖLLIN
+    //SORT PERSONS FUNCTIONS
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
     vector <InfoType> sortByYearAsc();
@@ -81,6 +77,7 @@ public:
 
     //SEARCH COMPUTERS FÖLL
     vector<CompType> searchVectorComputersName(string name);
+
 
     //OTHER
     string changeName(InfoType p);
