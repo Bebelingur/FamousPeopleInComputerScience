@@ -132,8 +132,10 @@ void data::saveDataComputers(CompType p)
         qDebug() << "addComputer error:  " << query.lastError();
     }
 }
+
+
 //function that converts string to char and returns it
-char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
+char data::convertToChar(string a)
 {
     char result;
     result = a.at(0);
@@ -148,8 +150,8 @@ string data::convertToString(char a)
 }
 bool data::getMakeRelation(int compID, int persID)
 {
-    bool check = false;
     Services s;
+    bool check = false;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
@@ -217,4 +219,100 @@ int data::getFindIDComputer(string compName, vector<string>&names)
         }
     }
     return compID;
+}
+
+vector<InfoType> data::findPerson(int ID)
+{
+    vector<InfoType> p;
+    InfoType person;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM persons WHERE id = "+QString::number(ID)+"");
+
+    while(query.next())
+    {
+        person.id = query.value("id").toUInt();
+        person.name = query.value("name").toString().toStdString();
+        person.gender = convertToChar(query.value("sex").toString().toStdString());
+        person.birthYear = query.value("yearBorn").toUInt();
+        person.deathYear = query.value("yearDead").toUInt();
+        p.push_back(person);
+    }
+    return p;
+}
+//function that finds the computer id and returns it
+vector<CompType> data::findComputer(int ID)
+{
+    vector<CompType> c;
+    CompType computer;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM computers WHERE id = "+QString::number(ID)+"");
+    while(query.next())
+    {
+        computer.id = query.value("id").toUInt();
+        computer.compName = query.value("compName").toString().toStdString();
+        computer.yearMade = query.value("yearMade").toUInt();
+        computer.type = query.value("type").toString().toStdString();
+        computer.wasBuilt = query.value("wasBuilt").toUInt();
+        c.push_back(computer);
+    }
+    return c;
+}
+//removes person from database
+void data::removePerson(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    query.exec("DELETE FROM persons WHERE id = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idPerson = "+QString::number(ID)+"");
+}
+//removes computer from database
+void data::removeComputer(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    query.exec("DELETE FROM computers WHERE id = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
+}
+//function that finds relations between person and computers
+vector<CompType> data::viewRelationPerson(int ID)
+{
+    vector<CompType> computers;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
+    while(query.next())
+    {
+        CompType c;
+        c.id = query.value("id").toUInt();
+        c.compName = query.value("compName").toString().toStdString();
+        c.yearMade = query.value("yearMade").toUInt();
+        c.type = query.value("type").toString().toStdString();
+        c.wasBuilt = query.value("wasBuilt").toUInt();
+        computers.push_back(c);
+    }
+    return computers;
+}
+//function that finds relations between computer and persons
+vector<InfoType> data::viewRelationComputer(int ID)
+{
+    vector<InfoType> people;
+
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
+    while(query.next())
+    {
+        InfoType p;
+        p.id = query.value("id").toUInt();
+        p.name = query.value("name").toString().toStdString();
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
+        p.birthYear = query.value("yearBorn").toUInt();
+        p.deathYear = query.value("yearDead").toUInt();
+        people.push_back(p);
+    }
+    return people;
 }

@@ -25,8 +25,8 @@ public:
     vector<CompType> makeComputerVector();
     bool makeRelation(int compID, int persID);
     //VIEW FUNCTIONS
-    vector<CompType> viewRelationPerson(int ID);
-    vector<InfoType> viewRelationComputer(int ID);
+    vector<CompType> getViewRelationPerson(int ID);
+    vector<InfoType> getViewRelationComputer(int ID);
     //SORT PERSONS FUNCTIONS
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
@@ -60,10 +60,10 @@ public:
     //SEARCH COMPUTERS FUNCTIONS
     vector<CompType> searchVectorComputersName(string name);
     //REMOVE FUNCTIONS
-    vector<InfoType> findPerson(int ID);
-    vector<CompType> findComputer(int ID);
-    void removePerson(int ID);
-    void removeComputer(int ID);
+    vector<InfoType> getPerson(int ID);
+    vector<CompType> getComputer(int ID);
+    void getPersID(int ID);
+    void getCompID(int ID);
     //OTHER
     string changeName(string tempName);
     int findIDPerson(string persName, vector<string> &names);

@@ -86,48 +86,20 @@ int Services::findIDComputer(string compName, vector<string>&names)
 {
     data d;
     int compID = 0;
-    compID = d.getFindIDComputer();
+    compID = d.getFindIDComputer(compName, names);
     return compID;
 }
 
 //function that finds relations between person and computers
-vector<CompType> Services::viewRelationPerson(int ID)
+vector<CompType> Services::getViewRelationPerson(int ID)
 {
-    vector<CompType> computers;
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
-    while(query.next())
-    {
-        CompType c;
-        c.id = query.value("id").toUInt();
-        c.compName = query.value("compName").toString().toStdString();
-        c.yearMade = query.value("yearMade").toUInt();
-        c.type = query.value("type").toString().toStdString();
-        c.wasBuilt = query.value("wasBuilt").toUInt();
-        computers.push_back(c);
-    }
+    vector<CompType> computers = connection.viewRelationPerson(ID);
     return computers;
 }
 //function that finds relations between computer and persons
-vector<InfoType> Services::viewRelationComputer(int ID)
+vector<InfoType> Services::getViewRelationComputer(int ID)
 {
-    data d;
-    vector<InfoType> people;
-
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
-    while(query.next())
-    {
-        InfoType p;
-        p.id = query.value("id").toUInt();
-        p.name = query.value("name").toString().toStdString();
-        p.gender = d.convertToChar(query.value("sex").toString().toStdString());
-        p.birthYear = query.value("yearBorn").toUInt();
-        p.deathYear = query.value("yearDead").toUInt();
-        people.push_back(p);
-    }
+    vector<InfoType> people = connection.viewRelationComputer(ID);
     return people;
 }
 //SORT PERSONS BOOL FUNCTIONS
@@ -593,64 +565,30 @@ vector<CompType> Services::searchVectorComputersName(string name)
         return result;
 }
 //REMOVE
-//function that finds the person id and returns it
-vector<InfoType> Services::findPerson(int ID)
+//function that gets the person id and returns it
+vector<InfoType> Services::getPerson(int ID)
 {
-    data d;
-    vector<InfoType> p;
-    InfoType person;
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    query.exec("SELECT * FROM persons WHERE id = "+QString::number(ID)+"");
-
-    while(query.next())
-    {
-        person.id = query.value("id").toUInt();
-        person.name = query.value("name").toString().toStdString();
-        person.gender = d.convertToChar(query.value("sex").toString().toStdString());
-        person.birthYear = query.value("yearBorn").toUInt();
-        person.deathYear = query.value("yearDead").toUInt();
-        p.push_back(person);
-    }
+    vector<InfoType> p = connection.findPerson(ID);
     return p;
 }
-//function that finds the computer id and returns it
-vector<CompType> Services::findComputer(int ID)
+
+//function that gets the computer id and returns it
+vector<CompType> Services::getComputer(int ID)
 {
-    vector<CompType> c;
-    CompType computer;
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    query.exec("SELECT * FROM computers WHERE id = "+QString::number(ID)+"");
-    while(query.next())
-    {
-        computer.id = query.value("id").toUInt();
-        computer.compName = query.value("compName").toString().toStdString();
-        computer.yearMade = query.value("yearMade").toUInt();
-        computer.type = query.value("type").toString().toStdString();
-        computer.wasBuilt = query.value("wasBuilt").toUInt();
-        c.push_back(computer);
-    }
-    return c;
+    vector<CompType> p = connection.findComputer(ID);
+    return p;
 }
-//removes person from database
-void Services::removePerson(int ID)
+void Services::getPersID(int ID)
 {
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    QSqlQuery query2(db);
-    query.exec("DELETE FROM persons WHERE id = "+QString::number(ID)+"");
-    query2.exec("DELETE FROM relations WHERE idPerson = "+QString::number(ID)+"");
+    connection.removePerson(ID);
 }
-//removes computer from database
-void Services::removeComputer(int ID)
+
+void Services::getCompID(int ID)
 {
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    QSqlQuery query2(db);
-    query.exec("DELETE FROM computers WHERE id = "+QString::number(ID)+"");
-    query2.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
+    connection.removeComputer(ID);
 }
+
+
 //OTHER
 //changes name uppercase/lowercase
 string Services::changeName(string tempName)

@@ -1543,7 +1543,7 @@ void UI::relationMenu()
                     }
                     names.clear();
                 }while(ID == 0);
-                vector<InfoType> FP = s.viewRelationComputer(ID);
+                vector<InfoType> FP = s.getViewRelationComputer(ID);
                 cout << endl;
                 cout << "* * * Persons related to " << name << " * * *" << endl;
                 databaseCheckPersons(FP);
@@ -1578,7 +1578,7 @@ void UI::relationMenu()
                     }
                     names.clear();
                 }while(ID == 0);
-                vector<CompType> Comp = s.viewRelationPerson(ID);
+                vector<CompType> Comp = s.getViewRelationPerson(ID);
                 cout << endl;
                 cout << "* * * Computers related to " << name << " * * *" << endl;
                 databaseCheckComputers(Comp);
@@ -1653,7 +1653,7 @@ void UI::removeMenu()
                     names.clear();
                 }while(ID == 0);
                 cout << endl;
-                vector<InfoType> person = s.findPerson(ID);
+                vector<InfoType> person = s.getPerson(ID);
                 displayPersons(person);
                 askToRemove(name, ID, check);
                 break;
@@ -1686,7 +1686,7 @@ void UI::removeMenu()
                     names.clear();
                 }while(ID == 0);
                 cout << endl;
-                vector<CompType> computer = s.findComputer(ID);
+                vector<CompType> computer = s.getComputer(ID);
                 displayComputers(computer);
                 askToRemove(name, ID, check);
                 break;
@@ -1718,11 +1718,11 @@ void UI::askToRemove(string name, int ID, char check)
     {
         if(check == 'P')
         {
-            s.removePerson(ID);
+            s.getPersID(ID);
         }
         if(check == 'C')
         {
-            s.removeComputer(ID);
+            s.getCompID(ID);
         }
         cout << endl;
         cout << name << " has been removed!" << endl << endl;

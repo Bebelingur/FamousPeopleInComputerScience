@@ -11,7 +11,6 @@
 #include "infotype.h"
 #include "comptype.h"
 #include "relationstype.h"
-#include "services.h"
 
 using namespace std;
 
@@ -28,11 +27,22 @@ public:
     void saveDataRelations(RelationsType p);
     void saveDataPersons(InfoType p);
     void saveDataComputers(CompType p);
+
+    //Remove functions
+    vector<InfoType> findPerson(int ID);
+    vector<CompType> findComputer(int ID);
+    void removePerson(int ID);
+    void removeComputer(int ID);
+
     char convertToChar(string a);
     string convertToString(char a);
     bool getMakeRelation(int compID, int persID);
     int getFindIDPerson(string persName, vector<string> &names);
     int getFindIDComputer(string compName, vector<string>&names);
+
+    vector<CompType> viewRelationPerson(int ID);
+    vector<InfoType> viewRelationComputer(int ID);
+
 private:
     string personFilename, computerFilename;
 };
