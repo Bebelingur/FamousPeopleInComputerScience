@@ -69,7 +69,13 @@ bool Services::makeRelation(int compID, int persID)
 {
     data d;
     bool check = false;
+
     check = d.getMakeRelation(compID, persID);
+    if(check == false)
+    {
+        addRelation(persID, compID);
+    }
+
     return check;
 }
 //VIEW FUNCTIONS
