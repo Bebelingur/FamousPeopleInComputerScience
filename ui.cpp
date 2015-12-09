@@ -1606,6 +1606,7 @@ void UI::backToRelation()
         }
 }
 //REMOVE
+//remove menu function
 void UI::removeMenu()
 {
     Services s;
@@ -1696,7 +1697,7 @@ void UI::removeMenu()
         }
     }while(choice == 1 || choice == 2 || choice == 3);
 }
-
+//remove menu function, removes information through services if user is sure
 void UI::askToRemove(string name, int ID, char check)
 {
     Services s;
@@ -1734,7 +1735,7 @@ void UI::askToRemove(string name, int ID, char check)
         returnToRemove();
     }
 }
-
+//function that returns the user to remove menu by input
 void UI::returnToRemove()
 {
     cout << "--- Press any key and then enter to return to remove menu ---" << endl;
@@ -1747,7 +1748,6 @@ void UI::returnToRemove()
             removeMenu();
         }
 }
-
 //DISPLAY
 //funtion that displays persons/sorted persons
 void UI::displayPersons(vector<InfoType> FP)
@@ -1945,6 +1945,7 @@ bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 
      else return true;
 }
+//function that checks for duplicate person input from user
 bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
 {
     data p;
@@ -1964,6 +1965,7 @@ bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
     }
     return check;
 }
+//function that checks for duplicate computer input from user
 bool UI::duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt)
 {
     data c;
