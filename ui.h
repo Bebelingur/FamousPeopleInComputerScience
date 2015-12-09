@@ -11,7 +11,6 @@
 #include "infotype.h"
 #include "relationstype.h"
 #include "comptype.h"
-#include "data.h"
 
 using namespace std;
 
@@ -70,7 +69,6 @@ public:
     void removeMenu();
     void returnToRemove();
     void askToRemove(string name, int ID, char check);
-    //void askToRemoveComputer(string name, int ID);
     //DISPLAY
     void displayPersons(vector<InfoType> FP);
     void displayPersonsSpecial(int i, vector<InfoType> FP);

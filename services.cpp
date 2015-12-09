@@ -163,17 +163,18 @@ vector<CompType> Services::viewRelationPerson(int ID)
 //function that finds relations between computer and persons
 vector<InfoType> Services::viewRelationComputer(int ID)
 {
+    data d;
+    vector<InfoType> people;
+
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
-
-    vector<InfoType> people;
     query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
     while(query.next())
     {
         InfoType p;
         p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
-        p.gender = convertToChar(query.value("sex").toString().toStdString());
+        p.gender = d.convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
@@ -646,6 +647,7 @@ vector<CompType> Services::searchVectorComputersName(string name)
 //function that finds the person id and returns it
 vector<InfoType> Services::findPerson(int ID)
 {
+    data d;
     vector<InfoType> p;
     InfoType person;
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -656,7 +658,7 @@ vector<InfoType> Services::findPerson(int ID)
     {
         person.id = query.value("id").toUInt();
         person.name = query.value("name").toString().toStdString();
-        person.gender = convertToChar(query.value("sex").toString().toStdString());
+        person.gender = d.convertToChar(query.value("sex").toString().toStdString());
         person.birthYear = query.value("yearBorn").toUInt();
         person.deathYear = query.value("yearDead").toUInt();
         p.push_back(person);
@@ -722,18 +724,4 @@ string Services::changeName(string tempName)
         }
     }
     return tempName;
-}
-//function that converts string to char and returns it
-char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
-{
-    char result;
-    result = a.at(0);
-    return result;
-}
-//function that converts char to string and returns it
-string Services::convertToString(char a)
-{
-    string result;
-    result = a;
-    return result;
 }

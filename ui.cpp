@@ -453,9 +453,9 @@ void UI::viewInfoMenu()
 //view statistics function
 void UI::viewStatistics()
 {
-    data d;
-    vector<InfoType> FP = d.loadPersData();
-    vector<CompType> Comp = d.loadCompData();
+    Services s;
+    vector<InfoType> FP = s.makePersonsVector();
+    vector<CompType> Comp = s.makeComputerVector();
 
     int totalPersonCount = 0;
     int maleCount = 0;
@@ -1948,10 +1948,9 @@ bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 //function that checks for duplicate person input from user
 bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
 {
-    data p;
     Services s;
     bool check = true;
-    vector<InfoType> FP = p.loadPersData();
+    vector<InfoType> FP = s.makePersonsVector();
     string temp1, temp2;
     temp1 = s.changeName(name);
     for(unsigned int i = 0; i < FP.size(); i++)
@@ -1961,17 +1960,15 @@ bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
         {
             check = false;
         }
-
     }
     return check;
 }
 //function that checks for duplicate computer input from user
 bool UI::duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt)
 {
-    data c;
     Services s;
     bool check = true;
-    vector<CompType> Comp = c.loadCompData();
+    vector<CompType> Comp = s.makeComputerVector();
     string temp1, temp2, temp3, temp4;
 
     temp1 = s.changeName(computerName);

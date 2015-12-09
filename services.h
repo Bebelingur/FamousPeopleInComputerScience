@@ -66,8 +66,6 @@ public:
     void removeComputer(int ID);
     //OTHER
     string changeName(string tempName);
-    char convertToChar(string a);
-    string convertToString(char a);
     int findIDPerson(string persName, vector<string> &names);
     int findIDComputer(string compName, vector<string> &names);
 private:

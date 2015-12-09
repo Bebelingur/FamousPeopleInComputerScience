@@ -1,5 +1,4 @@
 #include "data.h"
-#include "services.h"
 
 using namespace std;
 
@@ -36,7 +35,6 @@ void data::connectionToDatabase()
 //function that loads person information from database to vector and returns it
 vector<InfoType> data::loadPersData()
 {
-    Services s;
     vector<InfoType> people;
 
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -48,7 +46,7 @@ vector<InfoType> data::loadPersData()
         InfoType p;
         p.id = query.value("id").toUInt();
         p.name = query.value("name").toString().toStdString();
-        p.gender = s.convertToChar(query.value("sex").toString().toStdString());
+        p.gender = convertToChar(query.value("sex").toString().toStdString());
         p.birthYear = query.value("yearBorn").toUInt();
         p.deathYear = query.value("yearDead").toUInt();
         people.push_back(p);
@@ -95,11 +93,10 @@ void data::saveDataRelations(RelationsType p)
 //function that saves person info to database
 void data::saveDataPersons(InfoType p)
 {
-    Services s;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
-    string sex = s.convertToString(p.gender);
+    string sex = convertToString(p.gender);
     QString qName = QString::fromUtf8(p.name.c_str());
     QString qSex = QString::fromUtf8(sex.c_str());
 
@@ -133,4 +130,18 @@ void data::saveDataComputers(CompType p)
     {
         qDebug() << "addComputer error:  " << query.lastError();
     }
+}
+//function that converts string to char and returns it
+char data::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
+{
+    char result;
+    result = a.at(0);
+    return result;
+}
+//function that converts char to string and returns it
+string data::convertToString(char a)
+{
+    string result;
+    result = a;
+    return result;
 }
