@@ -27,7 +27,6 @@ public:
     void saveDataRelations(RelationsType p);
     void saveDataPersons(InfoType p);
     void saveDataComputers(CompType p);
-
 private:
     string personFilename, computerFilename;
 };
