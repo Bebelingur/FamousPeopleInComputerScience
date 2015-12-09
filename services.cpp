@@ -67,77 +67,26 @@ vector<CompType> Services::makeComputerVector()
 //function that makes relation between person and computer
 bool Services::makeRelation(int compID, int persID)
 {
+    data d;
     bool check = false;
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-
-    query.exec("SELECT* FROM relations");
-    while(query.next())
-    {
-        RelationsType r;
-        r.computerId = query.value("idComputer").toUInt();
-        r.personId = query.value("idPerson").toUInt();
-
-        if((r.computerId == compID) && (r.personId == persID))
-        {
-            check = true;
-        }
-
-    }
-    if(check == false)
-    {
-        addRelation(persID, compID);
-        check = false;
-    }
+    check = d.getMakeRelation(compID, persID);
     return check;
 }
 //VIEW FUNCTIONS
 //finds the person id and returns it
 int Services::findIDPerson(string persName, vector<string> &names)
 {
+    data d;
     int persID = 0;
-    string nameCompare = "";
-
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    QString qName = QString::fromUtf8(persName.c_str());
-    query.exec("SELECT name, id FROM persons WHERE name LIKE '%"+qName+"%'");
-    while(query.next())
-    {
-        InfoType p;
-        p.id = query.value("id").toUInt();
-        p.name = query.value("name").toString().toStdString();
-        nameCompare = p.name;
-        names.push_back(nameCompare);
-        if(nameCompare == persName)
-        {
-            persID = p.id;
-        }
-    }
+    persID = d.getFindIDPerson();
     return persID;
-
 }
 //finds the computer id and returns it
 int Services::findIDComputer(string compName, vector<string>&names)
 {
+    data d;
     int compID = 0;
-    string compNameCompare = "";
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    QString qName = QString::fromUtf8(compName.c_str());
-    query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%"+qName+"%'");
-    while(query.next())
-    {
-        CompType c;
-        c.id = query.value("id").toUInt();
-        c.compName = query.value("compName").toString().toStdString();
-        compNameCompare = c.compName;
-        names.push_back(compNameCompare);
-        if(compNameCompare == compName)
-        {
-            compID = c.id;
-        }
-    }
+    compID = d.getFindIDComputer();
     return compID;
 }
 

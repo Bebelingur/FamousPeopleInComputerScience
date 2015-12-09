@@ -145,3 +145,74 @@ string data::convertToString(char a)
     result = a;
     return result;
 }
+bool data::getMakeRelation(int compID, int persID)
+{
+    bool check = false;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+
+    query.exec("SELECT* FROM relations");
+    while(query.next())
+    {
+        RelationsType r;
+        r.computerId = query.value("idComputer").toUInt();
+        r.personId = query.value("idPerson").toUInt();
+
+        if((r.computerId == compID) && (r.personId == persID))
+        {
+            check = true;
+        }
+
+    }
+    if(check == false)
+    {
+        addRelation(persID, compID);
+        check = false;
+    }
+    return check;
+}
+int data::getFindIDPerson(string persName, vector<string> &names)
+{
+    int persID = 0;
+    string nameCompare = "";
+
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QString qName = QString::fromUtf8(persName.c_str());
+    query.exec("SELECT name, id FROM persons WHERE name LIKE '%"+qName+"%'");
+    while(query.next())
+    {
+        InfoType p;
+        p.id = query.value("id").toUInt();
+        p.name = query.value("name").toString().toStdString();
+        nameCompare = p.name;
+        names.push_back(nameCompare);
+        if(nameCompare == persName)
+        {
+            persID = p.id;
+        }
+    }
+    return persID;
+}
+int data::getFindIDComputer(string compName, vector<string>&names)
+{
+    int compID = 0;
+    string compNameCompare = "";
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QString qName = QString::fromUtf8(compName.c_str());
+    query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%"+qName+"%'");
+    while(query.next())
+    {
+        CompType c;
+        c.id = query.value("id").toUInt();
+        c.compName = query.value("compName").toString().toStdString();
+        compNameCompare = c.compName;
+        names.push_back(compNameCompare);
+        if(compNameCompare == compName)
+        {
+            compID = c.id;
+        }
+    }
+    return compID;
+}

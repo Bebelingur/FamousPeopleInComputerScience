@@ -29,6 +29,9 @@ public:
     void saveDataComputers(CompType p);
     char convertToChar(string a);
     string convertToString(char a);
+    bool getMakeRelation(int compID, int persID);
+    int getFindIDPerson(string persName, vector<string> &names);
+    int getFindIDComputer(string compName, vector<string>&names);
 private:
     string personFilename, computerFilename;
 };
