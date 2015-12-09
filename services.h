@@ -20,18 +20,15 @@ public:
     void addPerson(string name, char gender, int bYear, int dYear);
     void addComputer(string compName, int yearMade, string type, int wasBuilt);
     void addRelation(int personId, int computerId);
-
     //MAKE FUNCTIONS
     vector<InfoType> makePersonsVector();
     vector<CompType> makeComputerVector();
     bool makeRelation(int compID, int persID);
-
     //VIEW FUNCTIONS
     vector<InfoType> viewPersonsInfo();
     vector<CompType> viewComputerInfo();
     vector<CompType> viewRelationPerson(int ID);
     vector<InfoType> viewRelationComputer(int ID);
-
     //SORT PERSONS FUNCTIONS
     vector <InfoType> sortByNameAsc();
     vector <InfoType> sortByNameDesc();
@@ -44,7 +41,6 @@ public:
     vector <InfoType> sortByDeathYearDesc();
     vector <InfoType> sortByDeceased();
     vector <InfoType> sortByNotDeceased();
-
     //SORT COMPUTER FUNCTIONS
     vector <CompType> sortByComputerNameAsc();
     vector <CompType> sortByComputerNameDesc();
@@ -58,29 +54,24 @@ public:
     vector <CompType> sortByYearNotBuiltDesc();
     vector <CompType> sortByYearUnknownBuiltAsc();
     vector <CompType> sortByYearUnknownBuiltDesc();
-
     //SEARCH PERSONS FUNCTIONS
     vector<InfoType> searchVectorName(string nameSearch);
     vector<InfoType> searchVectorGender(string genderSearch);
     vector<InfoType> searchVectorBirthYear(string birthYearSearch);
     vector<InfoType> searchVectorDeathYear(string deathYearSearch);
-
     //SEARCH COMPUTERS FUNCTIONS
     vector<CompType> searchVectorComputersName(string name);
-
     //REMOVE FUNCTIONS
     vector<InfoType> findPerson(int ID);
     vector<CompType> findComputer(int ID);
     void removePerson(int ID);
     void removeComputer(int ID);
-
     //OTHER
     string changeName(string tempName);
     char convertToChar(string a);
     string convertToString(char a);
     int findIDPerson(string persName, vector<string> &names);
     int findIDComputer(string compName, vector<string> &names);
-
 private:
     vector <InfoType> FP;
     vector <CompType> Comp;
