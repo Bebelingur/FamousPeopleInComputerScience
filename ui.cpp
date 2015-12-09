@@ -408,9 +408,9 @@ void UI::viewInfoMenu()
     do{
         cout << "* * * VIEW INFORMATION * * *" << endl;
         cout << endl;
-        cout << "1. View person info" << endl;
-        cout << "2. View computer info" << endl;
-        cout << "3. View statistics" << endl;
+        cout << "1. View information of persons" << endl;
+        cout << "2. View information of computers" << endl;
+        cout << "3. View statistics information" << endl;
         cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
@@ -423,7 +423,7 @@ void UI::viewInfoMenu()
             case 1:
             {
                 cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
-                vector<InfoType> FP = p.viewPersonsInfo();
+                vector<InfoType> FP = p.makePersonsVector();
                 displayPersons(FP);
                 backToView();
                 break;
@@ -431,14 +431,14 @@ void UI::viewInfoMenu()
             case 2:
             {
                 cout << "* * * VIEW COMPUTER INFORMATION * * *" << endl;
-                vector<CompType> Comp = p.viewComputerInfo();
+                vector<CompType> Comp = p.makeComputerVector();
                 displayComputers(Comp);
                 backToView();
                 break;
             }
             case 3:
             {
-                cout << "* * * VIEW STATISTICS * * *" << endl;
+                cout << "* * * VIEW STATISTICS INFORMATION * * *" << endl;
                 viewStatistics();
                 break;
             }

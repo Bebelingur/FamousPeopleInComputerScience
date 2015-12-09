@@ -29,7 +29,6 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     data personsToData;
     personsToData.saveDataPersons(p);
 }
-
 //takes info from user input regarding computers and sends down to data
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
@@ -42,7 +41,6 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     data computersToData;
     computersToData.saveDataComputers(p);
 }
-
 //takes info from user input regarding relation and sends down to data
 void Services::addRelation(int personId, int computerId)
 {
@@ -60,7 +58,6 @@ vector<InfoType> Services::makePersonsVector()
    vector<InfoType> p = connection.loadPersData();
    return p;
 }
-
 //loads a vector of computer information from data and returns it
 vector<CompType> Services::makeComputerVector()
 {
@@ -68,7 +65,6 @@ vector<CompType> Services::makeComputerVector()
    return c;
 }
 //function that makes relation between person and computer
-
 bool Services::makeRelation(int compID, int persID)
 {
     QSqlDatabase db = QSqlDatabase::database("first");
@@ -96,23 +92,9 @@ bool Services::makeRelation(int compID, int persID)
     return check;
 }
 //VIEW FUNCTIONS
-//loads a vector of person information from services and returns it(er þetta ekki eiginlega sama fall og makepersonVector?)
-vector<InfoType> Services::viewPersonsInfo()
-{
-    vector <InfoType> FP = makePersonsVector();
-    return FP;
-
-}
-//loads a vector of computer information from services and returns it(er þetta ekki eiginlega sama fall og makecomputerVector?)
-vector<CompType> Services::viewComputerInfo()
-{
-    vector <CompType> Comp = makeComputerVector();
-    return Comp;
-}
-int Services::findIDPerson(string persName, vector<string> &names)
 //finds the person id and returns it
+int Services::findIDPerson(string persName, vector<string> &names)
 {
-
     int persID = 0;
     string nameCompare = "";
 
@@ -178,7 +160,6 @@ vector<CompType> Services::viewRelationPerson(int ID)
     }
     return computers;
 }
-
 //function that finds relations between computer and persons
 vector<InfoType> Services::viewRelationComputer(int ID)
 {
@@ -222,31 +203,26 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
 
     return str1 > str2;
 }
-
 //function that compares M and F and returns M(true) to sort list by gender, where M is first in list
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender > b.gender;
 }
-
 //function that compares M and F and returns F(true) to sort list by gender, where F is first in list
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
-
 //function that compares birthYear and returns the older
 bool compareYearAsc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear < b.birthYear;
 }
-
 //function that compares birthYear and returns the younger
 bool compareYearDesc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear > b.birthYear;
 }
-
 //function that compares deathYear and returns the older
 bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
 {
@@ -635,14 +611,12 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
     FP.clear();
     return result;
 }
-
 //SEARCH COMPUTERS FUNCTIONS
 //function that searches for computer name, set results from search to vector and returns the vector
 vector<CompType> Services::searchVectorComputersName(string name)
 {
     vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
-
 
         for(unsigned int i = 0; i < name.size() ; i++)
         {
@@ -687,7 +661,6 @@ vector<InfoType> Services::findPerson(int ID)
         person.deathYear = query.value("yearDead").toUInt();
         p.push_back(person);
     }
-
     return p;
 }
 //function that finds the computer id and returns it
