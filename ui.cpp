@@ -1627,6 +1627,7 @@ void UI::removeMenu()
             case 1:
             {
                 string name = "";
+                char check = 'P';
                 int ID = 0;
                 vector<string> names;
                 do{
@@ -1653,12 +1654,13 @@ void UI::removeMenu()
                 cout << endl;
                 vector<InfoType> person = s.findPerson(ID);
                 displayPersons(person);
-                askToRemovePerson(name, ID);
+                askToRemove(name, ID, check);
                 break;
             }
             case 2:
             {
                 string name = "";
+                char check = 'C';
                 int ID = 0;
                 vector <string> names;
                 do{
@@ -1685,7 +1687,7 @@ void UI::removeMenu()
                 cout << endl;
                 vector<CompType> computer = s.findComputer(ID);
                 displayComputers(computer);
-                askToRemoveComputer(name, ID);
+                askToRemove(name, ID, check);
                 break;
             }
             case 3:
@@ -1695,12 +1697,16 @@ void UI::removeMenu()
     }while(choice == 1 || choice == 2 || choice == 3);
 }
 
-void UI::askToRemovePerson(string name, int ID)
+void UI::askToRemove(string name, int ID, char check)
 {
     Services s;
     string input = " ";
     do{
-        cout << "Do you want to remove this person(y for yes, n for no)? " << endl;
+        if(check == 'P')
+            cout << "Do you want to remove this person(y for yes, n for no)? " << endl;
+        if(check =='C')
+            cout << "Do you want to remove this computer (y for yes, n for no)? " << endl;
+
         cin >> input;
         if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
         {
@@ -1709,34 +1715,17 @@ void UI::askToRemovePerson(string name, int ID)
     }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
     if(toupper(input[0]) == 'Y')
     {
-        cout << endl;
-        cout << name << " has been removed!" << endl << endl;
-        s.removePerson(ID);
-        returnToRemove();
-    }
-    else if(toupper(input[0]) == 'N')
-    {
-        cout << endl << name << " was not removed!" << endl << endl;
-        returnToRemove();
-    }
-}
-void UI::askToRemoveComputer(string name, int ID)
-{
-    Services s;
-    string input = " ";
-    do{
-        cout << "Do you want to remove this computer (y for yes, n for no)? " << endl;
-        cin >> input;
-        if(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1)
+        if(check == 'P')
         {
-            displayError();
+            s.removePerson(ID);
         }
-    }while(toupper(input[0]) != 'Y' && toupper(input[0]) != 'N' && input.size() != 1);
-    if(toupper(input[0]) == 'Y')
-    {
+        if(check == 'C')
+        {
+            s.removeComputer(ID);
+        }
         cout << endl;
         cout << name << " has been removed!" << endl << endl;
-        s.removeComputer(ID);
+
         returnToRemove();
     }
     else if(toupper(input[0]) == 'N')
@@ -1745,6 +1734,7 @@ void UI::askToRemoveComputer(string name, int ID)
         returnToRemove();
     }
 }
+
 void UI::returnToRemove()
 {
     cout << "--- Press any key and then enter to return to remove menu ---" << endl;
