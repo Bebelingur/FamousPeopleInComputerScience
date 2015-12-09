@@ -9,7 +9,6 @@
 #include "infotype.h"
 #include "comptype.h"
 #include "relationstype.h"
-#include "ui.h"
 
 using namespace std;
 
