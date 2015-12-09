@@ -67,10 +67,10 @@ vector<CompType> Services::makeComputerVector()
 //function that makes relation between person and computer
 bool Services::makeRelation(int compID, int persID)
 {
+    bool check = false;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
-    bool check = false;
     query.exec("SELECT* FROM relations");
     while(query.next())
     {
