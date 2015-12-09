@@ -152,7 +152,6 @@ bool data::getMakeRelation(int compID, int persID)
 {
     Services s;
     bool check = false;
-    Services s;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
