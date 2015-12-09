@@ -109,7 +109,7 @@ void UI::inputMenu()
 void UI::getPersonInfo()
 {
     Services p;
-    bool check = false;
+    bool check2 = false;
 
     cout << "* * * INPUT INFORMATION * * *" << endl;
     cout << endl;
@@ -132,8 +132,8 @@ void UI::getPersonInfo()
             cout << endl;
         }
 
-        check = continueOption();
-    }while(check == true);
+        check2 = continueOption();
+    }while(check2 == true);
 }
 //function that gets the name from the user and returns it
 string UI::getName()
@@ -240,7 +240,7 @@ int UI::getDeathYear(string name, int bYear)
 void UI::getComputerInfo()
 {
     Services c;
-    bool check = false;
+    bool check2 = false;
 
     cout << "* * * INPUT COMPUTER INFORMATION * * *" << endl;
     cout << endl;
@@ -262,8 +262,8 @@ void UI::getComputerInfo()
             cout << "--- ERROR! will NEVER appear when Chuck Norris is using the PC ---" << endl;
             cout << endl;
         }
-        check = continueOption();
-    }while(check == true);
+        check2 = continueOption();
+    }while(check2 == true);
 }
 //function that gets the computer name from the user and returns it
 string UI::getComputerName()
