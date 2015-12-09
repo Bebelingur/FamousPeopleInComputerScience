@@ -148,6 +148,7 @@ string data::convertToString(char a)
 bool data::getMakeRelation(int compID, int persID)
 {
     bool check = false;
+    Services s;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
 
@@ -166,7 +167,7 @@ bool data::getMakeRelation(int compID, int persID)
     }
     if(check == false)
     {
-        addRelation(persID, compID);
+        s.addRelation(persID, compID);
         check = false;
     }
     return check;

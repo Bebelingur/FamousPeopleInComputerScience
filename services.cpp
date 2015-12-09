@@ -78,7 +78,7 @@ int Services::findIDPerson(string persName, vector<string> &names)
 {
     data d;
     int persID = 0;
-    persID = d.getFindIDPerson();
+    persID = d.getFindIDPerson(persName, names);
     return persID;
 }
 //finds the computer id and returns it
