@@ -1,5 +1,4 @@
 #include "data.h"
-#include "services.h"
 
 using namespace std;
 
@@ -150,7 +149,7 @@ string data::convertToString(char a)
 }
 bool data::getMakeRelation(int compID, int persID)
 {
-    Services s;
+
     bool check = false;
     QSqlDatabase db = QSqlDatabase::database("first");
     QSqlQuery query(db);
@@ -168,11 +167,7 @@ bool data::getMakeRelation(int compID, int persID)
         }
 
     }
-    if(check == false)
-    {
-        s.addRelation(persID, compID);
-        check = false;
-    }
+
     return check;
 }
 int data::getFindIDPerson(string persName, vector<string> &names)
