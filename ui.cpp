@@ -408,9 +408,9 @@ void UI::viewInfoMenu()
     do{
         cout << "* * * VIEW INFORMATION * * *" << endl;
         cout << endl;
-        cout << "1. View person info" << endl;
-        cout << "2. View computer info" << endl;
-        cout << "3. View statistics" << endl;
+        cout << "1. View information of persons" << endl;
+        cout << "2. View information of computers" << endl;
+        cout << "3. View statistics information" << endl;
         cout << "4. Return to main menu" << endl;
         cout << "===========================================" << endl;
 
@@ -423,7 +423,7 @@ void UI::viewInfoMenu()
             case 1:
             {
                 cout << "* * * VIEW PERSON INFORMATION * * *" << endl;
-                vector<InfoType> FP = p.viewPersonsInfo();
+                vector<InfoType> FP = p.makePersonsVector();
                 displayPersons(FP);
                 backToView();
                 break;
@@ -431,14 +431,14 @@ void UI::viewInfoMenu()
             case 2:
             {
                 cout << "* * * VIEW COMPUTER INFORMATION * * *" << endl;
-                vector<CompType> Comp = p.viewComputerInfo();
+                vector<CompType> Comp = p.makeComputerVector();
                 displayComputers(Comp);
                 backToView();
                 break;
             }
             case 3:
             {
-                cout << "* * * VIEW STATISTICS * * *" << endl;
+                cout << "* * * VIEW STATISTICS INFORMATION * * *" << endl;
                 viewStatistics();
                 break;
             }
@@ -453,9 +453,9 @@ void UI::viewInfoMenu()
 //view statistics function
 void UI::viewStatistics()
 {
-    data d;
-    vector<InfoType> FP = d.loadPersData();
-    vector<CompType> Comp = d.loadCompData();
+    Services s;
+    vector<InfoType> FP = s.makePersonsVector();
+    vector<CompType> Comp = s.makeComputerVector();
 
     int totalPersonCount = 0;
     int maleCount = 0;
@@ -1543,7 +1543,7 @@ void UI::relationMenu()
                     }
                     names.clear();
                 }while(ID == 0);
-                vector<InfoType> FP = s.viewRelationComputer(ID);
+                vector<InfoType> FP = s.getViewRelationComputer(ID);
                 cout << endl;
                 cout << "* * * Persons related to " << name << " * * *" << endl;
                 databaseCheckPersons(FP);
@@ -1578,7 +1578,7 @@ void UI::relationMenu()
                     }
                     names.clear();
                 }while(ID == 0);
-                vector<CompType> Comp = s.viewRelationPerson(ID);
+                vector<CompType> Comp = s.getViewRelationPerson(ID);
                 cout << endl;
                 cout << "* * * Computers related to " << name << " * * *" << endl;
                 databaseCheckComputers(Comp);
@@ -1948,10 +1948,9 @@ bool UI::checkDatabaseEmpty(vector<InfoType> FP, vector<CompType> C)
 //function that checks for duplicate person input from user
 bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
 {
-    data p;
     Services s;
     bool check = true;
-    vector<InfoType> FP = p.loadPersData();
+    vector<InfoType> FP = s.makePersonsVector();
     string temp1, temp2;
     temp1 = s.changeName(name);
     for(unsigned int i = 0; i < FP.size(); i++)
@@ -1961,17 +1960,15 @@ bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
         {
             check = false;
         }
-
     }
     return check;
 }
 //function that checks for duplicate computer input from user
 bool UI::duplicateCheckComputers(string computerName, int computerYearMade, string computerType, int wasBuilt)
 {
-    data c;
     Services s;
     bool check = true;
-    vector<CompType> Comp = c.loadCompData();
+    vector<CompType> Comp = s.makeComputerVector();
     string temp1, temp2, temp3, temp4;
 
     temp1 = s.changeName(computerName);

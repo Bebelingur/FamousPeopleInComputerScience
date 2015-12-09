@@ -29,7 +29,6 @@ void Services::addPerson(string name, char gender, int bYear, int dYear)
     data personsToData;
     personsToData.saveDataPersons(p);
 }
-
 //takes info from user input regarding computers and sends down to data
 void Services::addComputer(string compName, int yearMade, string type, int wasBuilt)
 {
@@ -42,7 +41,6 @@ void Services::addComputer(string compName, int yearMade, string type, int wasBu
     data computersToData;
     computersToData.saveDataComputers(p);
 }
-
 //takes info from user input regarding relation and sends down to data
 void Services::addRelation(int personId, int computerId)
 {
@@ -60,7 +58,6 @@ vector<InfoType> Services::makePersonsVector()
    vector<InfoType> p = connection.loadPersData();
    return p;
 }
-
 //loads a vector of computer information from data and returns it
 vector<CompType> Services::makeComputerVector()
 {
@@ -68,135 +65,41 @@ vector<CompType> Services::makeComputerVector()
    return c;
 }
 //function that makes relation between person and computer
-
 bool Services::makeRelation(int compID, int persID)
 {
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-
+    data d;
     bool check = false;
-    query.exec("SELECT* FROM relations");
-    while(query.next())
-    {
-        RelationsType r;
-        r.computerId = query.value("idComputer").toUInt();
-        r.personId = query.value("idPerson").toUInt();
-
-        if((r.computerId == compID) && (r.personId == persID))
-        {
-            check = true;
-        }
-
-    }
-    if(check == false)
-    {
-        addRelation(persID, compID);
-        check = false;
-    }
+    check = d.getMakeRelation(compID, persID);
     return check;
 }
 //VIEW FUNCTIONS
-//loads a vector of person information from services and returns it(er þetta ekki eiginlega sama fall og makepersonVector?)
-vector<InfoType> Services::viewPersonsInfo()
-{
-    vector <InfoType> FP = makePersonsVector();
-    return FP;
-
-}
-//loads a vector of computer information from services and returns it(er þetta ekki eiginlega sama fall og makecomputerVector?)
-vector<CompType> Services::viewComputerInfo()
-{
-    vector <CompType> Comp = makeComputerVector();
-    return Comp;
-}
-int Services::findIDPerson(string persName, vector<string> &names)
 //finds the person id and returns it
+int Services::findIDPerson(string persName, vector<string> &names)
 {
-
+    data d;
     int persID = 0;
-    string nameCompare = "";
-
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    QString qName = QString::fromUtf8(persName.c_str());
-    query.exec("SELECT name, id FROM persons WHERE name LIKE '%"+qName+"%'");
-    while(query.next())
-    {
-        InfoType p;
-        p.id = query.value("id").toUInt();
-        p.name = query.value("name").toString().toStdString();
-        nameCompare = p.name;
-        names.push_back(nameCompare);
-        if(nameCompare == persName)
-        {
-            persID = p.id;
-        }
-    }
+    persID = d.getFindIDPerson(persName, names);
     return persID;
-
 }
 //finds the computer id and returns it
 int Services::findIDComputer(string compName, vector<string>&names)
 {
+    data d;
     int compID = 0;
-    string compNameCompare = "";
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    QString qName = QString::fromUtf8(compName.c_str());
-    query.exec("SELECT compName, id FROM computers WHERE compName LIKE '%"+qName+"%'");
-    while(query.next())
-    {
-        CompType c;
-        c.id = query.value("id").toUInt();
-        c.compName = query.value("compName").toString().toStdString();
-        compNameCompare = c.compName;
-        names.push_back(compNameCompare);
-        if(compNameCompare == compName)
-        {
-            compID = c.id;
-        }
-    }
+    compID = d.getFindIDComputer(compName, names);
     return compID;
 }
 
 //function that finds relations between person and computers
-vector<CompType> Services::viewRelationPerson(int ID)
+vector<CompType> Services::getViewRelationPerson(int ID)
 {
-    vector<CompType> computers;
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-    query.exec("SELECT computers.* FROM computers INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN persons ON computers.id = relations.idComputer WHERE idPerson = "+QString::number(ID)+"");
-    while(query.next())
-    {
-        CompType c;
-        c.id = query.value("id").toUInt();
-        c.compName = query.value("compName").toString().toStdString();
-        c.yearMade = query.value("yearMade").toUInt();
-        c.type = query.value("type").toString().toStdString();
-        c.wasBuilt = query.value("wasBuilt").toUInt();
-        computers.push_back(c);
-    }
+    vector<CompType> computers = connection.viewRelationPerson(ID);
     return computers;
 }
-
 //function that finds relations between computer and persons
-vector<InfoType> Services::viewRelationComputer(int ID)
+vector<InfoType> Services::getViewRelationComputer(int ID)
 {
-    QSqlDatabase db = QSqlDatabase::database("first");
-    QSqlQuery query(db);
-
-    vector<InfoType> people;
-    query.exec("SELECT persons.* FROM persons INNER JOIN relations ON persons.id = relations.idPerson INNER JOIN computers ON computers.id = relations.idComputer WHERE idComputer ='"+QString::number(ID)+"'");
-    while(query.next())
-    {
-        InfoType p;
-        p.id = query.value("id").toUInt();
-        p.name = query.value("name").toString().toStdString();
-        p.gender = convertToChar(query.value("sex").toString().toStdString());
-        p.birthYear = query.value("yearBorn").toUInt();
-        p.deathYear = query.value("yearDead").toUInt();
-        people.push_back(p);
-    }
+    vector<InfoType> people = connection.viewRelationComputer(ID);
     return people;
 }
 //SORT PERSONS BOOL FUNCTIONS
@@ -222,31 +125,26 @@ bool compareNameDesc(const InfoType& a, const InfoType& b)
 
     return str1 > str2;
 }
-
 //function that compares M and F and returns M(true) to sort list by gender, where M is first in list
 bool compareGenderMaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender > b.gender;
 }
-
 //function that compares M and F and returns F(true) to sort list by gender, where F is first in list
 bool compareGenderFemaleFirst(const InfoType& a, const InfoType& b)
 {
     return a.gender < b.gender;
 }
-
 //function that compares birthYear and returns the older
 bool compareYearAsc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear < b.birthYear;
 }
-
 //function that compares birthYear and returns the younger
 bool compareYearDesc(const InfoType& a, const InfoType& b)
 {
     return a.birthYear > b.birthYear;
 }
-
 //function that compares deathYear and returns the older
 bool compareDeathYearAsc(const InfoType& a, const InfoType& b)
 {
@@ -635,14 +533,12 @@ vector<InfoType> Services::searchVectorDeathYear(string deathYearSearch)
     FP.clear();
     return result;
 }
-
 //SEARCH COMPUTERS FUNCTIONS
 //function that searches for computer name, set results from search to vector and returns the vector
 vector<CompType> Services::searchVectorComputersName(string name)
 {
     vector<CompType> Comp = makeComputerVector();
     vector<CompType> result;
-
 
         for(unsigned int i = 0; i < name.size() ; i++)
         {
@@ -715,18 +611,4 @@ string Services::changeName(string tempName)
         }
     }
     return tempName;
-}
-//function that converts string to char and returns it
-char Services::convertToChar(string a)//fall sem tekur string úr databaseinu og skilar char inní vectorinn
-{
-    char result;
-    result = a.at(0);
-    return result;
-}
-//function that converts char to string and returns it
-string Services::convertToString(char a)
-{
-    string result;
-    result = a;
-    return result;
 }
