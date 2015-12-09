@@ -1958,7 +1958,7 @@ bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
 {
     data p;
     Services s;
-    bool check = false;
+    bool check = true;
     vector<InfoType> FP = p.loadPersData();
     string temp1, temp2;
     temp1 = s.changeName(name);
@@ -1969,10 +1969,7 @@ bool UI::duplicateCheckPersons(string name, char gender, int bYear, int dYear)
         {
             check = false;
         }
-        else
-        {
-            check = true;
-        }
+
     }
     return check;
 }
@@ -1980,7 +1977,7 @@ bool UI::duplicateCheckComputers(string computerName, int computerYearMade, stri
 {
     data c;
     Services s;
-    bool check = false;
+    bool check = true;
     vector<CompType> Comp = c.loadCompData();
     string temp1, temp2, temp3, temp4;
 
@@ -1994,10 +1991,6 @@ bool UI::duplicateCheckComputers(string computerName, int computerYearMade, stri
         if((temp1 == temp3) && (computerYearMade == Comp.at(i).yearMade) && (temp2 == temp4) && (wasBuilt == Comp.at(i).wasBuilt))
         {
             check = false;
-        }
-        else
-        {
-            check = true;
         }
     }
     return check;
