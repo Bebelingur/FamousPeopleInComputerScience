@@ -27,6 +27,11 @@ public:
     void saveDataRelations(RelationsType p);
     void saveDataPersons(InfoType p);
     void saveDataComputers(CompType p);
+    //Remove functions
+    vector<InfoType> findPerson(int ID);
+    vector<CompType> findComputer(int ID);
+    void removePerson(int ID);
+    void removeComputer(int ID);
 private:
     string personFilename, computerFilename;
 };

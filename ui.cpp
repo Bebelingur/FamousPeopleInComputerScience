@@ -1653,7 +1653,7 @@ void UI::removeMenu()
                     names.clear();
                 }while(ID == 0);
                 cout << endl;
-                vector<InfoType> person = s.findPerson(ID);
+                vector<InfoType> person = s.getPerson(ID);
                 displayPersons(person);
                 askToRemove(name, ID, check);
                 break;
@@ -1686,7 +1686,7 @@ void UI::removeMenu()
                     names.clear();
                 }while(ID == 0);
                 cout << endl;
-                vector<CompType> computer = s.findComputer(ID);
+                vector<CompType> computer = s.getComputer(ID);
                 displayComputers(computer);
                 askToRemove(name, ID, check);
                 break;
@@ -1718,11 +1718,11 @@ void UI::askToRemove(string name, int ID, char check)
     {
         if(check == 'P')
         {
-            s.removePerson(ID);
+            s.getPersID(ID);
         }
         if(check == 'C')
         {
-            s.removeComputer(ID);
+            s.getCompID(ID);
         }
         cout << endl;
         cout << name << " has been removed!" << endl << endl;

@@ -134,3 +134,63 @@ void data::saveDataComputers(CompType p)
         qDebug() << "addComputer error:  " << query.lastError();
     }
 }
+
+vector<InfoType> data::findPerson(int ID)
+{
+    Services s;
+    vector<InfoType> p;
+    InfoType person;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM persons WHERE id = "+QString::number(ID)+"");
+
+    while(query.next())
+    {
+        person.id = query.value("id").toUInt();
+        person.name = query.value("name").toString().toStdString();
+        person.gender = s.convertToChar(query.value("sex").toString().toStdString());
+        person.birthYear = query.value("yearBorn").toUInt();
+        person.deathYear = query.value("yearDead").toUInt();
+        p.push_back(person);
+    }
+    return p;
+}
+
+vector<CompType> data::findComputer(int ID)
+{
+    vector<CompType> c;
+    CompType computer;
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    query.exec("SELECT * FROM computers WHERE id = "+QString::number(ID)+"");
+    while(query.next())
+    {
+        computer.id = query.value("id").toUInt();
+        computer.compName = query.value("compName").toString().toStdString();
+        computer.yearMade = query.value("yearMade").toUInt();
+        computer.type = query.value("type").toString().toStdString();
+        computer.wasBuilt = query.value("wasBuilt").toUInt();
+        c.push_back(computer);
+    }
+    return c;
+}
+
+//removes computer from database
+void data::removePerson(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    query.exec("DELETE FROM persons WHERE id = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idPerson = "+QString::number(ID)+"");
+}
+
+//removes computer from database
+void data::removeComputer(int ID)
+{
+    QSqlDatabase db = QSqlDatabase::database("first");
+    QSqlQuery query(db);
+    QSqlQuery query2(db);
+    query.exec("DELETE FROM computers WHERE id = "+QString::number(ID)+"");
+    query2.exec("DELETE FROM relations WHERE idComputer = "+QString::number(ID)+"");
+}

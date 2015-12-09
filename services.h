@@ -62,10 +62,10 @@ public:
     //SEARCH COMPUTERS FUNCTIONS
     vector<CompType> searchVectorComputersName(string name);
     //REMOVE FUNCTIONS
-    vector<InfoType> findPerson(int ID);
-    vector<CompType> findComputer(int ID);
-    void removePerson(int ID);
-    void removeComputer(int ID);
+    vector<InfoType> getPerson(int ID);
+    vector<CompType> getComputer(int ID);
+    void getPersID(int ID);
+    void getCompID(int ID);
     //OTHER
     string changeName(string tempName);
     char convertToChar(string a);
